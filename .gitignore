@@ -1,0 +1,59 @@
+# ─── OS ───────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ─── Editors / IDEs ───────────────────────────────────────────────────
+.idea/
+*.iml
+.vscode/
+# JetBrains local files (kept from original .gitignore)
+/shelf/
+/workspace.xml
+/httpRequests/
+/dataSources/
+/dataSources.local.xml
+
+# ─── Python ───────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+
+# ─── Secrets / environment ────────────────────────────────────────────
+.env
+.env.*
+
+# ─── Data ─────────────────────────────────────────────────────────────
+# The thesis keeps raw/processed data out of version control (dated
+# snapshots + NAS/cloud backup instead). Track code, docs and configs
+# only. Force-add a specific small file with `git add -f` if ever needed.
+/data/
+
+# Data file formats, wherever they live in the tree
+*.csv
+*.tsv
+*.parquet
+*.feather
+*.pkl
+*.pickle
+*.h5
+*.hdf5
+*.nc
+*.xlsx
+*.xls
+*.zip
+*.gz
+*.7z
+
+# Known data output directories
+ENTSOE/entsoe_complete_data/
+ENTSOE-Claude/swissgrid_ancillary_data/
+SwissGrid/swissgrid_thesis_data/
+SwissGrid/Manual Download/
+Tenders/
+JAO/jao_data/
+MeteoSwiss/__pycache__/
