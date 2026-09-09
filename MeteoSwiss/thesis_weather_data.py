@@ -9,7 +9,7 @@ from meteoswiss_api import MeteoSwissDataFactory
 # CONFIGURATION — edit these values
 # ============================================================
 
-YEAR_START = 2019
+YEAR_START = 2009
 YEAR_END   = 2024   # Adjust to match your Swissgrid price data range
 
 # Swiss load centres — one station will be auto-selected per city
