@@ -1,0 +1,265 @@
+{
+  "timestamp": "2026-05-17T12:11:32.738467",
+  "categories": {
+    "market": {
+      "day_ahead_prices": {
+        "success": true,
+        "message": "Success - 25 records"
+      },
+      "intraday_prices": {
+        "success": false,
+        "message": "Not available via standard API"
+      },
+      "flow_based_congestion_income": {
+        "success": false,
+        "message": "Requires specific flow-based market API"
+      },
+      "implicit_allocations_congestion": {
+        "success": false,
+        "message": "Requires auction data API"
+      },
+      "total_nominated_capacity": {
+        "success": false,
+        "message": "Requires nomination API"
+      }
+    },
+    "load": {
+      "actual_total_load": {
+        "success": true,
+        "message": "Success - 24 records"
+      },
+      "forecast_day_ahead_load": {
+        "success": true,
+        "message": "Success - 24 records"
+      },
+      "forecast_week_ahead_load": {
+        "success": true,
+        "message": "Success - 24 records"
+      },
+      "forecast_month_ahead_load": {
+        "success": false,
+        "message": "Not available in entsoe-py library"
+      },
+      "forecast_year_ahead_load": {
+        "success": false,
+        "message": "Not available in entsoe-py library"
+      },
+      "forecasted_margin": {
+        "success": false,
+        "message": "Not available in entsoe-py library"
+      }
+    },
+    "generation": {
+      "actual_per_production_type": {
+        "success": true,
+        "message": "Success - 24 records"
+      },
+      "aggregated_generation": {
+        "success": true,
+        "message": "Success - 24 records"
+      },
+      "forecast_day_ahead_generation": {
+        "success": true,
+        "message": "Success - 24 records"
+      },
+      "wind_solar_forecast": {
+        "success": true,
+        "message": "Success - 24 records"
+      },
+      "installed_capacity_per_type": {
+        "success": true,
+        "message": "Success - 1 records"
+      },
+      "actual_per_unit": {
+        "success": false,
+        "message": "Not available in entsoe-py library"
+      },
+      "water_reservoirs_hydro": {
+        "success": false,
+        "message": "Not available in entsoe-py library"
+      }
+    },
+    "transmission": {
+      "physical_flow_CH_DE": {
+        "success": true,
+        "message": "Success - 96 records"
+      },
+      "scheduled_exchanges_CH_DE": {
+        "success": true,
+        "message": "Success - 24 records"
+      },
+      "ntc_day_ahead_CH_DE": {
+        "success": false,
+        "message": "Error: "
+      },
+      "ntc_week_ahead_CH_DE": {
+        "success": false,
+        "message": "Error: "
+      },
+      "ntc_month_ahead_CH_DE": {
+        "success": false,
+        "message": "Error: "
+      },
+      "ntc_year_ahead_CH_DE": {
+        "success": false,
+        "message": "Error: "
+      },
+      "physical_flow_CH_FR": {
+        "success": true,
+        "message": "Success - 24 records"
+      },
+      "scheduled_exchanges_CH_FR": {
+        "success": true,
+        "message": "Success - 24 records"
+      },
+      "ntc_day_ahead_CH_FR": {
+        "success": true,
+        "message": "Success - 24 records"
+      },
+      "ntc_week_ahead_CH_FR": {
+        "success": true,
+        "message": "Success - 1 records"
+      },
+      "ntc_month_ahead_CH_FR": {
+        "success": true,
+        "message": "Success - 1 records"
+      },
+      "ntc_year_ahead_CH_FR": {
+        "success": false,
+        "message": "Error: "
+      },
+      "physical_flow_CH_IT": {
+        "success": true,
+        "message": "Success - 24 records"
+      },
+      "scheduled_exchanges_CH_IT": {
+        "success": true,
+        "message": "Success - 24 records"
+      },
+      "ntc_day_ahead_CH_IT": {
+        "success": true,
+        "message": "Success - 24 records"
+      },
+      "ntc_week_ahead_CH_IT": {
+        "success": true,
+        "message": "Success - 1 records"
+      },
+      "ntc_month_ahead_CH_IT": {
+        "success": true,
+        "message": "Success - 1 records"
+      },
+      "ntc_year_ahead_CH_IT": {
+        "success": false,
+        "message": "No data returned from API"
+      },
+      "physical_flow_CH_AT": {
+        "success": true,
+        "message": "Success - 24 records"
+      },
+      "scheduled_exchanges_CH_AT": {
+        "success": true,
+        "message": "Success - 24 records"
+      },
+      "ntc_day_ahead_CH_AT": {
+        "success": true,
+        "message": "Success - 24 records"
+      },
+      "ntc_week_ahead_CH_AT": {
+        "success": true,
+        "message": "Success - 1 records"
+      },
+      "ntc_month_ahead_CH_AT": {
+        "success": true,
+        "message": "Success - 1 records"
+      },
+      "ntc_year_ahead_CH_AT": {
+        "success": false,
+        "message": "No data returned from API"
+      },
+      "expansion_dismantling_projects": {
+        "success": false,
+        "message": "Not available in entsoe-py library"
+      },
+      "redispatching": {
+        "success": false,
+        "message": "Not available in entsoe-py library"
+      },
+      "congestion_income": {
+        "success": false,
+        "message": "Requires specific congestion API"
+      }
+    },
+    "balancing": {
+      "imbalance_prices": {
+        "success": true,
+        "message": "Success - 96 records"
+      },
+      "balancing_energy_prices": {
+        "success": true,
+        "message": "Success - 96 records"
+      },
+      "activated_balancing_energy_FCR": {
+        "success": false,
+        "message": "400 Bad Request - Data not available"
+      },
+      "activated_balancing_energy_aFRR": {
+        "success": false,
+        "message": "400 Bad Request - Data not available"
+      },
+      "activated_balancing_energy_mFRR": {
+        "success": false,
+        "message": "400 Bad Request - Data not available"
+      },
+      "activated_balancing_energy_RR": {
+        "success": false,
+        "message": "400 Bad Request - Data not available"
+      },
+      "procured_balancing_capacity_mFRR_capacity": {
+        "success": false,
+        "message": "Error: "
+      },
+      "procured_balancing_capacity_aFRR_capacity": {
+        "success": true,
+        "message": "Success - 97 records"
+      },
+      "procured_balancing_capacity_FCR_capacity": {
+        "success": false,
+        "message": "Error: "
+      },
+      "imbalance_volumes": {
+        "success": true,
+        "message": "Success - 95 records"
+      },
+      "accepted_offers": {
+        "success": false,
+        "message": "Not available in entsoe-py library"
+      },
+      "financial_expenses_income": {
+        "success": false,
+        "message": "Not available in entsoe-py library"
+      },
+      "cross_border_balancing": {
+        "success": false,
+        "message": "Not available in entsoe-py library"
+      },
+      "FCR_total_capacity": {
+        "success": false,
+        "message": "Not available in entsoe-py library"
+      }
+    },
+    "outages": {
+      "generation_unavailability": {
+        "success": true,
+        "message": "Success - 101 records"
+      },
+      "transmission_unavailability": {
+        "success": false,
+        "message": "Not available in entsoe-py library"
+      },
+      "offshore_wind_unavailability": {
+        "success": false,
+        "message": "Not applicable for Switzerland (no offshore wind)"
+      }
+    }
+  }
+}
