@@ -28,6 +28,18 @@ thin raw-request wrapper (documentType A70), the same monkeypatch approach the
 balancing probe uses for its parsers. Verify its output once against a live pull
 — the A70 document shape is less battle-tested than the A65 load documents.
 
+Forecast-parser fix (6.1.C/D/E): entsoe-py's parse_loads keeps ONLY the min /
+max forecast TimeSeries (businessType A60 / A61) for the week/month/year-ahead
+horizons and silently drops everything else. Some zones/years publish the
+horizon as a single forecast series under a different (or absent) businessType —
+e.g. AT month-ahead 2021-2024 — so the stock parser returns an all-empty frame
+and the pull records the year as 'empty' even though the document has data.
+_patch_load_forecast_keep_all() below replaces the non-A01/A16 branch to keep
+A60/A61 as Min/Max AND any other series as a plain 'Forecasted Load' column,
+leaving the min/max case unchanged. A year may therefore carry Min/Max columns,
+a Forecasted Load column, or both, across its per-year files — downstream joins
+align on the timestamp index.
+
 Load endpoints are @month_limited in entsoe-py (a >1-month range is split into
 monthly sub-requests internally) and return few TimeSeries per period, so the
 100-TimeSeries response cap that forces adaptive chunking on the balancing side
@@ -134,7 +146,50 @@ def _add_forecast_margin_method() -> None:
     EntsoePandasClient.query_load_forecast_margin = query_load_forecast_margin
 
 
+
+
 _add_forecast_margin_method()
+
+
+def _patch_load_forecast_keep_all() -> None:
+    """Keep every week/month/year-ahead forecast TimeSeries, not just min/max.
+
+    entsoe-py's parse_loads, for any process_type other than A01/A16, keeps only
+    businessType A60 (min) and A61 (max) and discards the rest. A horizon that a
+    zone publishes as a single forecast series under another/absent businessType
+    then parses to an empty frame, and the pull marks the year 'empty'. This
+    replacement delegates A01/A16 to the original parser (unchanged) and, for the
+    forecast horizons, keeps A60/A61 as Min/Max plus any other series as
+    'Forecasted Load'. Unparseable TimeSeries are skipped rather than aborting
+    the document; a document with nothing usable degrades to NoMatchingDataError
+    ('empty'), which month_limited handles per block."""
+    import entsoe.parsers as parsers
+    import entsoe.entsoe as client_mod
+
+    _orig_parse_loads = parsers.parse_loads
+    label = {"A60": "Min Forecasted Load", "A61": "Max Forecasted Load"}
+
+    def parse_loads(xml_text, process_type="A01"):
+        if process_type in ("A01", "A16"):
+            return _orig_parse_loads(xml_text, process_type=process_type)
+        cols: dict[str, list[pd.Series]] = {}
+        for soup in parsers._extract_timeseries(xml_text):
+            try:
+                s = parsers._parse_load_timeseries(soup)
+            except (AttributeError, KeyError):
+                continue  # TimeSeries missing curveType / an expected tag
+            bt = soup.find("businesstype")
+            name = label.get(bt.text, "Forecasted Load") if bt else "Forecasted Load"
+            cols.setdefault(name, []).append(s)
+        if not cols:
+            raise NoMatchingDataError
+        return pd.DataFrame({k: pd.concat(v).sort_index() for k, v in cols.items()})
+
+    parsers.parse_loads = parse_loads      # zip / by-name path
+    client_mod.parse_loads = parse_loads   # module global bound at import
+
+
+_patch_load_forecast_keep_all()
 
 logging.basicConfig(
     level=logging.INFO,
@@ -204,8 +259,10 @@ def build_tasks() -> list[Task]:
     ))
 
     # --- 6.1.B/C/D/E : Total Load Forecast at four horizons ----------------
-    # A01 returns a single 'Forecasted Load' column; A31/A32/A33 return
-    # 'Min Forecasted Load' / 'Max Forecasted Load' (businessType A60/A61).
+    # A01 returns a single 'Forecasted Load' column; A31/A32/A33 normally return
+    # 'Min Forecasted Load' / 'Max Forecasted Load' (businessType A60/A61), but
+    # a zone/year that publishes a single forecast series is now kept as
+    # 'Forecasted Load' too (see _patch_load_forecast_keep_all).
     for pt, label, art in [
         ("A01", "day_ahead",   "6.1.B"),
         ("A31", "week_ahead",  "6.1.C"),
