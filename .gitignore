@@ -20,6 +20,7 @@ __pycache__/
 .pytest_cache/
 .ipynb_checkpoints/
 .venv/
+.venv314/
 venv/
 env/
 
