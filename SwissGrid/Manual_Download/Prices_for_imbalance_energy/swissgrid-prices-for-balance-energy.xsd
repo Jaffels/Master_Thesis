@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="DATAVALUE">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="TIME" />
+        <xs:element ref="VALUE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="printedAt">
+    <xs:complexType mixed="true" />
+  </xs:element>
+
+  <xs:element name="Report-Disclaimer_de">
+    <xs:complexType mixed="true" />
+  </xs:element>
+
+  <xs:element name="Report-Disclaimer_en">
+    <xs:complexType mixed="true" />
+  </xs:element>
+
+  <xs:element name="Report-Disclaimer_fr">
+    <xs:complexType mixed="true" />
+  </xs:element>
+
+  <xs:element name="Report-Disclaimer_it">
+    <xs:complexType mixed="true" />
+  </xs:element>
+
+  <xs:element name="Report-TS-Titel_de">
+    <xs:complexType mixed="true" />
+  </xs:element>
+
+  <xs:element name="Report-TS-Titel_en">
+    <xs:complexType mixed="true" />
+  </xs:element>
+
+  <xs:element name="Report-TS-Titel_fr">
+    <xs:complexType mixed="true" />
+  </xs:element>
+
+  <xs:element name="Report-TS-Titel_it">
+    <xs:complexType mixed="true" />
+  </xs:element>
+
+  <xs:element name="Report-Titel_de">
+    <xs:complexType mixed="true" />
+  </xs:element>
+
+  <xs:element name="Report-Titel_en">
+    <xs:complexType mixed="true" />
+  </xs:element>
+
+  <xs:element name="Report-Titel_fr">
+    <xs:complexType mixed="true" />
+  </xs:element>
+
+  <xs:element name="Report-Titel_it">
+    <xs:complexType mixed="true" />
+  </xs:element>
+
+  <xs:element name="template">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="printedAt" />
+        <xs:element ref="timeSeriesGroup" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="TIME">
+    <xs:complexType mixed="true" />
+  </xs:element>
+
+  <xs:element name="timeSeries">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Report-TS-Titel_de" />
+        <xs:element ref="Report-TS-Titel_en" />
+        <xs:element ref="Report-TS-Titel_fr" />
+        <xs:element ref="Report-TS-Titel_it" />
+        <xs:element ref="unit" />
+        <xs:element ref="timeSeriesData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="timeSeriesData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="DATAVALUE" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="timeSeriesGroup">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Report-Titel_de" />
+        <xs:element ref="Report-Titel_en" />
+        <xs:element ref="Report-Titel_fr" />
+        <xs:element ref="Report-Titel_it" />
+        <xs:element ref="Report-Disclaimer_de" />
+        <xs:element ref="Report-Disclaimer_en" />
+        <xs:element ref="Report-Disclaimer_fr" />
+        <xs:element ref="Report-Disclaimer_it" />
+        <xs:element ref="timeSeriesGroupLink" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="timeSeriesGroupLink">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="timeSeries" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="unit">
+    <xs:complexType mixed="true" />
+  </xs:element>
+
+  <xs:element name="VALUE">
+    <xs:complexType mixed="true" />
+  </xs:element>
+
+</xs:schema>
