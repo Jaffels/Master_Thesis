@@ -1,0 +1,1651 @@
+209 files under Swissgrid/Manual_Download
+
+.DS_Store  (0.01 MB)
+Balancing/EnergieUebersichtCH-2009.xls  (14.82 MB)
+Balancing/EnergieUebersichtCH-2010.xls  (14.82 MB)
+Balancing/EnergieUebersichtCH-2011.xls  (14.83 MB)
+Balancing/EnergieUebersichtCH-2012.xls  (14.86 MB)
+Balancing/EnergieUebersichtCH-2013.xls  (14.82 MB)
+Balancing/EnergieUebersichtCH-2014.xls  (17.37 MB)
+Balancing/EnergieUebersichtCH-2015.xls  (42.81 MB)
+Balancing/EnergieUebersichtCH-2016.xls  (42.92 MB)
+Balancing/EnergieUebersichtCH-2017.xls  (42.81 MB)
+Balancing/EnergieUebersichtCH-2018.xls  (42.81 MB)
+Balancing/EnergieUebersichtCH-2019.xls  (42.81 MB)
+Balancing/EnergieUebersichtCH-2020.xlsx  (18.49 MB)
+Balancing/EnergieUebersichtCH-2021.xlsx  (24.55 MB)
+Balancing/EnergieUebersichtCH-2022.xlsx  (24.75 MB)
+Balancing/EnergieUebersichtCH-2023.xlsx  (24.24 MB)
+Balancing/EnergieUebersichtCH-2024.xlsx  (24.37 MB)
+Balancing/EnergieUebersichtCH-2025.xlsx  (26.50 MB)
+Balancing/EnergieUebersichtCH-2026.xlsx  (7.19 MB)
+Control_energy_system_balance/Ausgleichsenergie-und-Regelenergie-2026.csv  (1.91 MB)
+Cross-border_load_flows/Grenzfluesse-2026.csv  (1.39 MB)
+Energy_in_the_grid/EnergieUebersichtCH-2009.xls  (14.82 MB)
+Energy_in_the_grid/EnergieUebersichtCH-2010.xls  (14.82 MB)
+Energy_in_the_grid/EnergieUebersichtCH-2011.xls  (14.83 MB)
+Energy_in_the_grid/EnergieUebersichtCH-2012.xls  (14.86 MB)
+Energy_in_the_grid/EnergieUebersichtCH-2013.xls  (14.82 MB)
+Energy_in_the_grid/EnergieUebersichtCH-2014.xls  (17.37 MB)
+Energy_in_the_grid/EnergieUebersichtCH-2015.xls  (42.81 MB)
+Energy_in_the_grid/EnergieUebersichtCH-2016.xls  (42.92 MB)
+Energy_in_the_grid/EnergieUebersichtCH-2017.xls  (42.81 MB)
+Energy_in_the_grid/EnergieUebersichtCH-2018.xls  (42.81 MB)
+Energy_in_the_grid/EnergieUebersichtCH-2019.xls  (42.81 MB)
+Energy_in_the_grid/EnergieUebersichtCH-2020.xlsx  (18.49 MB)
+Energy_in_the_grid/EnergieUebersichtCH-2021.xlsx  (24.55 MB)
+Energy_in_the_grid/EnergieUebersichtCH-2022.xlsx  (24.75 MB)
+Energy_in_the_grid/EnergieUebersichtCH-2023.xlsx  (24.24 MB)
+Energy_in_the_grid/EnergieUebersichtCH-2024.xlsx  (24.37 MB)
+Energy_in_the_grid/EnergieUebersichtCH-2025.xlsx  (26.50 MB)
+Energy_in_the_grid/EnergieUebersichtCH-2026.xlsx  (7.19 MB)
+Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230101-230201.xlsx  (0.11 MB)
+Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230101-230201.xml  (0.48 MB)
+Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230201-230301.xlsx  (0.10 MB)
+Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230201-230301.xml  (0.44 MB)
+Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230301-230401.xlsx  (0.11 MB)
+Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230301-230401.xml  (0.48 MB)
+Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230401-230501.xlsx  (0.11 MB)
+Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230401-230501.xml  (0.47 MB)
+Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230501-230601.xlsx  (0.11 MB)
+Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230501-230601.xml  (0.48 MB)
+Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230601-230701.xlsx  (0.11 MB)
+Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230601-230701.xml  (0.47 MB)
+Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230701-230801.xlsx  (0.11 MB)
+Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230701-230801.xml  (0.48 MB)
+Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230801-230901.xlsx  (0.11 MB)
+Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230801-230901.xml  (0.48 MB)
+Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230901-231001.xlsx  (0.11 MB)
+Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230901-231001.xml  (0.47 MB)
+Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_231001-231101.xlsx  (0.11 MB)
+Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_231001-231101.xml  (0.48 MB)
+Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_231101-231201.xlsx  (0.11 MB)
+Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_231101-231201.xml  (0.47 MB)
+Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_231201-240101.xlsx  (0.11 MB)
+Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_231201-240101.xml  (0.48 MB)
+Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240301-240401.xlsx  (0.12 MB)
+Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240301-240401.xml  (0.48 MB)
+Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240401-240501.xlsx  (0.12 MB)
+Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240401-240501.xml  (0.47 MB)
+Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240501-240601.xlsx  (0.12 MB)
+Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240501-240601.xml  (0.48 MB)
+Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240601-240701.xlsx  (0.11 MB)
+Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240601-240701.xml  (0.47 MB)
+Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240701-240801.xlsx  (0.12 MB)
+Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240701-240801.xml  (0.48 MB)
+Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240801-240901.xlsx  (0.12 MB)
+Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240801-240901.xml  (0.48 MB)
+Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240901-241001.xlsx  (0.12 MB)
+Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240901-241001.xml  (0.47 MB)
+Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-241001-241101.xlsx  (0.12 MB)
+Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-241001-241101.xml  (0.48 MB)
+Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-241101-241201.xlsx  (0.12 MB)
+Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-241101-241201.xml  (0.47 MB)
+Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-241201-250101.xlsx  (0.12 MB)
+Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-241201-250101.xml  (0.48 MB)
+Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy_240101-240201.xlsx  (0.11 MB)
+Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy_240101-240201.xml  (0.48 MB)
+Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy_240201-240301.xlsx  (0.11 MB)
+Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy_240201-240301.xml  (0.45 MB)
+Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250101-250201.xlsx  (0.12 MB)
+Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250101-250201.xml  (0.48 MB)
+Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250201-250301.xlsx  (0.11 MB)
+Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250201-250301.xml  (0.44 MB)
+Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250301-250401.xlsx  (0.12 MB)
+Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250301-250401.xml  (0.48 MB)
+Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250401-250501.xlsx  (0.11 MB)
+Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250401-250501.xml  (0.47 MB)
+Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250501-250601.xlsx  (0.12 MB)
+Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250501-250601.xml  (0.48 MB)
+Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250601-250701.xlsx  (0.11 MB)
+Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250601-250701.xml  (0.47 MB)
+Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250701-250801.xlsx  (0.14 MB)
+Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250701-250801.xml  (0.72 MB)
+Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250801-250901.xlsx  (0.14 MB)
+Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250801-250901.xml  (0.72 MB)
+Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250901-251001.xlsx  (0.13 MB)
+Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250901-251001.xml  (0.70 MB)
+Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-251001-251101.xlsx  (0.14 MB)
+Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-251001-251101.xml  (0.72 MB)
+Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-251101-251201.xlsx  (0.13 MB)
+Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-251101-251201.xml  (0.70 MB)
+Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-251201-260101.xlsx  (0.14 MB)
+Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-251201-260101.xml  (0.72 MB)
+Prices_for_imbalance_energy/swissgrid-prices-for-imbalance-energy-260101-260201.xlsx  (0.09 MB)
+Prices_for_imbalance_energy/swissgrid-prices-for-imbalance-energy-260201-260301.xlsx  (0.08 MB)
+Prices_for_imbalance_energy/swissgrid-prices-for-imbalance-energy-260301-260401.xlsx  (0.09 MB)
+Production_and_consumption/EnergieUebersichtCH-2009.xls  (14.82 MB)
+Production_and_consumption/EnergieUebersichtCH-2010.xls  (14.82 MB)
+Production_and_consumption/EnergieUebersichtCH-2011.xls  (14.83 MB)
+Production_and_consumption/EnergieUebersichtCH-2012.xls  (14.86 MB)
+Production_and_consumption/EnergieUebersichtCH-2013.xls  (14.82 MB)
+Production_and_consumption/EnergieUebersichtCH-2014.xls  (17.37 MB)
+Production_and_consumption/EnergieUebersichtCH-2015.xls  (42.81 MB)
+Production_and_consumption/EnergieUebersichtCH-2016.xls  (42.92 MB)
+Production_and_consumption/EnergieUebersichtCH-2017.xls  (42.81 MB)
+Production_and_consumption/EnergieUebersichtCH-2018.xls  (42.81 MB)
+Production_and_consumption/EnergieUebersichtCH-2019.xls  (42.81 MB)
+Production_and_consumption/EnergieUebersichtCH-2020.xlsx  (18.49 MB)
+Production_and_consumption/EnergieUebersichtCH-2021.xlsx  (24.55 MB)
+Production_and_consumption/EnergieUebersichtCH-2022.xlsx  (24.75 MB)
+Production_and_consumption/EnergieUebersichtCH-2023.xlsx  (24.24 MB)
+Production_and_consumption/EnergieUebersichtCH-2024.xlsx  (24.37 MB)
+Production_and_consumption/EnergieUebersichtCH-2025.xlsx  (26.50 MB)
+Production_and_consumption/EnergieUebersichtCH-2026.xlsx  (7.19 MB)
+Tenders/.DS_Store  (0.01 MB)
+Tenders/Auction_Results_2015-2025/2015_PRL_SRL_TRL_Ergebnis.csv  (2.38 MB)
+Tenders/Auction_Results_2015-2025/2016_PRL_SRL_TRL_Ergebnis.csv  (10.22 MB)
+Tenders/Auction_Results_2015-2025/2017_PRL_SRL_TRL_Ergebnis.csv  (12.37 MB)
+Tenders/Auction_Results_2015-2025/2018-PRL-SRL-TRL-Ergebnis.csv  (10.86 MB)
+Tenders/Auction_Results_2015-2025/2019_PRL_SRL_TRL_Ergebnis.csv  (23.74 MB)
+Tenders/Auction_Results_2015-2025/2020_PRL_SRL_TRL_Ergebnis.csv  (103.50 MB)
+Tenders/Auction_Results_2015-2025/2021_PRL_SRL_TRL_Ergebnis.csv  (99.49 MB)
+Tenders/Auction_Results_2015-2025/2022-PRL-SRL-TRL-Ergebnis.csv  (67.75 MB)
+Tenders/Auction_Results_2015-2025/2023-PRL-SRL-TRL-Ergebnis.csv  (69.62 MB)
+Tenders/Auction_Results_2015-2025/20230906_regelleistung_2024_vorgezogene_beschaffung_ergebnis.csv  (0.11 MB)
+Tenders/Auction_Results_2015-2025/2024-PRL-SRL-TRL-Ergebnis.csv  (77.74 MB)
+Tenders/Auction_Results_2015-2025/2025-PRL-SRL-TRL-Ergebnis.csv  (77.50 MB)
+Tenders/Tertiary_control_energy/.DS_Store  (0.01 MB)
+Tenders/Tertiary_control_energy/2026-01-TRE-Ergebnis.csv  (121.69 MB)
+Tenders/Tertiary_control_energy/2026-02-TRE-Ergebnis(1).csv  (104.04 MB)
+Tenders/Tertiary_control_energy/2026-03-TRE-Ergebnis.csv  (101.78 MB)
+Tenders/Tertiary_control_energy/2026_04_TRE_Ergebnis_2026_05_01_00_00.csv  (91.14 MB)
+Tenders/Tertiary_control_energy/2026_05_TRE_Ergebnis_2026_06_01_00_01.csv  (129.67 MB)
+Tenders/Tertiary_control_energy/2026_06_TRE_Ergebnis_2026_07_01_00_01.csv  (144.84 MB)
+Tenders/Tertiary_control_energy/2026_07_TRE_Ergebnis_2026_08_01_00_01.csv  (161.05 MB)
+Tenders/Tertiary_control_energy/2026_08_TRE_Ergebnis_2026_08_20_00_00.csv  (96.42 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2023/2023-01-TRE-Ergebnis.csv  (71.47 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2023/2023-02-TRE-Ergebnis.csv  (66.17 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2023/2023-03-TRE-Ergebnis.csv  (77.11 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2023/2023-04-TRE-Ergebnis.csv  (73.30 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2023/2023-05-TRE-Ergebnis.csv  (76.25 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2023/2023-06-TRE-Ergebnis.csv  (75.18 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2023/2023-07-TRE-Ergebnis.csv  (79.73 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2023/2023-08-TRE-Ergebnis.csv  (77.82 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2023/2023-09-TRE-Ergebnis.csv  (78.04 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2023/2023-10-TRE-Ergebnis.csv  (80.00 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2023/2023-11-TRE-Ergebnis.csv  (80.79 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2023/2023-12-TRE-Ergebnis.csv  (71.41 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2024/2024-01-TRE-Ergebnis.csv  (84.01 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2024/2024-02-TRE-Ergebnis.csv  (77.85 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2024/2024-03-TRE-Ergebnis.csv  (82.35 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2024/2024-04-TRE-Ergebnis.csv  (79.12 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2024/2024-05-TRE-Ergebnis.csv  (90.92 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2024/2024-06-TRE-Ergebnis.csv  (89.29 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2024/2024-07-TRE-Ergebnis.csv  (92.18 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2024/2024-08-TRE-Ergebnis.csv  (98.44 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2024/2024-09-TRE-Ergebnis.csv  (81.73 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2024/2024-10-TRE-Ergebnis.csv  (97.11 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2024/2024-11-TRE-Ergebnis.csv  (93.27 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2024/2024-12-TRE-Ergebnis.csv  (85.18 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2025/2025-01-TRE-Ergebnis.csv  (87.77 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2025/2025-02-TRE-Ergebnis.csv  (78.89 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2025/2025-03-TRE-Ergebnis.csv  (87.77 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2025/2025-04-TRE-Ergebnis.csv  (95.13 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2025/2025-05-TRE-Ergebnis.csv  (104.97 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2025/2025-06-TRE-Ergebnis.csv  (99.78 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2025/2025-07-TRE-Ergebnis.csv  (111.52 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2025/2025-08-TRE-Ergebnis.csv  (107.22 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2025/2025-09-TRE-Ergebnis.csv  (107.67 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2025/2025-10-TRE-Ergebnis.csv  (107.71 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2025/2025-11-TRE-Ergebnis.csv  (99.22 MB)
+Tenders/Tertiary_control_energy/TRE-Ergebnisse-2025/2025-12-TRE-Ergebnis.csv  (116.72 MB)
+Transmission/EnergieUebersichtCH-2009.xls  (14.82 MB)
+Transmission/EnergieUebersichtCH-2010.xls  (14.82 MB)
+Transmission/EnergieUebersichtCH-2011.xls  (14.83 MB)
+Transmission/EnergieUebersichtCH-2012.xls  (14.86 MB)
+Transmission/EnergieUebersichtCH-2013.xls  (14.82 MB)
+Transmission/EnergieUebersichtCH-2014.xls  (17.37 MB)
+Transmission/EnergieUebersichtCH-2015.xls  (42.81 MB)
+Transmission/EnergieUebersichtCH-2016.xls  (42.92 MB)
+Transmission/EnergieUebersichtCH-2017.xls  (42.81 MB)
+Transmission/EnergieUebersichtCH-2018.xls  (42.81 MB)
+Transmission/EnergieUebersichtCH-2019.xls  (42.81 MB)
+Transmission/EnergieUebersichtCH-2020.xlsx  (18.49 MB)
+Transmission/EnergieUebersichtCH-2021.xlsx  (24.55 MB)
+Transmission/EnergieUebersichtCH-2022.xlsx  (24.75 MB)
+Transmission/EnergieUebersichtCH-2023.xlsx  (24.24 MB)
+Transmission/EnergieUebersichtCH-2024.xlsx  (24.37 MB)
+Transmission/EnergieUebersichtCH-2025.xlsx  (26.50 MB)
+Transmission/EnergieUebersichtCH-2026.xlsx  (7.19 MB)
+inventory_manual_download.py  (0.00 MB)
+
+
+===== .DS_Store =====
+[skipped: unsupported type]
+
+===== Balancing/EnergieUebersichtCH-2009.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Balancing/EnergieUebersichtCH-2010.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Balancing/EnergieUebersichtCH-2011.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Balancing/EnergieUebersichtCH-2012.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Balancing/EnergieUebersichtCH-2013.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Balancing/EnergieUebersichtCH-2014.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Balancing/EnergieUebersichtCH-2015.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Balancing/EnergieUebersichtCH-2016.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Balancing/EnergieUebersichtCH-2017.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Balancing/EnergieUebersichtCH-2018.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Balancing/EnergieUebersichtCH-2019.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Balancing/EnergieUebersichtCH-2020.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Balancing/EnergieUebersichtCH-2021.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Balancing/EnergieUebersichtCH-2022.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Balancing/EnergieUebersichtCH-2023.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Balancing/EnergieUebersichtCH-2024.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Balancing/EnergieUebersichtCH-2025.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Balancing/EnergieUebersichtCH-2026.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Control_energy_system_balance/Ausgleichsenergie-und-Regelenergie-2026.csv =====
+[encoding=utf-8-sig]
+Date Time;B:Total System Imbalance (Positiv = long / Negativ = short) [MW];C:aFRR+ Angebotene Menge [MW];D:aFRR- Angebotene Menge [MW];E:aFRR+ Aktivierte Menge [MW];F:aFRR- Aktivierte Menge [MW];G:aFRR+ Durchschnittspreis Aktivierte Menge [EUR/MWh];H:aFRR- Durchschnittspreis Aktivierte Menge [EUR/MWh];I:aFRR+ Kosten Aktivierte Menge [EUR];J:aFRR- Kosten Aktivierte Menge [EUR];K:aFRR+/- Kosten Aktivierte Menge Total [EUR];L:mFRR+ Angebotene Menge [MW];M:mFRR- Angebotene Menge [MW];N:mFRR+ Aktivierte Menge [MW];O:mFRR- Aktivierte Menge [MW];P:mFRR+ Durchschnittspreis Aktivierte Menge [EUR/MWh];Q:mFRR- Durchschnittspreis Aktivierte Menge [EUR/MWh];R:mFRR+ Kosten Aktivierte Menge [EUR];S:mFRR- Kosten Aktivierte Menge [EUR];T:mFRR+/- Kosten Aktivierte Menge Total [EUR];U:AE-Preis [EUR/MWh]
+01.01.2026 00:00;-228.577343;422;-353;1.109219;-24.976392;169;-70.11;146.663748;14.849016;161.512764;3057;-1639;249;;124.273414;;679.468323;-218.744128;460.724195;169
+01.01.2026 00:15;-151.451157;454;-378;.317922;-58.028701;169;-91.21;146.67718;16.172216;162.849396;3061;-1638;222;;124.061937;;686.35376;-218.744128;467.609633;169
+01.01.2026 00:30;-127.584151;471;-361;5.002169;-11.526424;169.18;-56.5;146.888747;16.335027;163.223773;3104;-1603;144;;123.572083;;690.802355;-218.744128;472.058228;169.2
+01.01.2026 00:45;-97.833913;471;-361;37.017964;-.007051;149.21;20;148.269609;16.334991;164.604601;3108;-1597;60;;122.89;;692.645705;-218.744128;473.901578;149.2
+01.01.2026 01:00;-270.583359;443;-343;74.622397;;158.72;;151.230626;16.334991;167.565617;3222;-1674;190;;124.422105;;698.555755;-218.744128;479.811628;158.7
+01.01.2026 01:15;-192.113547;443;-343;53.907343;;153.18;;153.295008;16.334991;169.629999;3230;-1674;140;;124.037143;;702.897055;-218.744128;484.152928;153.2
+01.01.2026 01:30;-203.807484;443;-343;39.821524;;172.83;;155.015596;16.334991;171.350588;3233;-1668;160;;124.1575;;707.863355;-218.744128;489.119228;172.8
+01.01.2026 01:45;-153.034287;448;-343;43.043066;-.00244;177.06;16.42;156.920898;16.334981;173.255879;3281;-1622;110;;123.374545;;711.256155;-218.744128;492.512028;177.1
+01.01.2026 02:00;-282.357404;443;-333;60.360777;;182.93;;159.681347;16.334981;176.016328;2842;-1295;217;;122.170968;;717.88393;-218.744128;499.139803;182.9
+01.01.2026 02:15;-222.718558;491;-445;21.735034;-2.38119;172.56;30.87;160.618996;16.316604;176.935601;2846;-1284;197;;121.883756;;723.886705;-218.744128;505.142578;172.6
+01.01.2026 02:30;-201.110091;491;-445;19.319709;-.158963;164.54;32.2;161.413713;16.315325;177.729037;2851;-1279;177;;121.542938;;729.26498;-218.744128;510.520853;164.5
+01.01.2026 02:45;-114.906827;510;-426;6.849479;-1.939837;163.02;17.89;161.692863;16.306649;177.999512;2859;-1268;125;;120.204;;733.021355;-218.744128;514.277228;163
+
+
+===== Cross-border_load_flows/Grenzfluesse-2026.csv =====
+[encoding=utf-8-sig]
+Date Time;B:Intraday NTC Schweiz > Österreich [MW];C:Intraday NTC Österreich > Schweiz [MW];D:Intraday NTC Schweiz > Deutschland [MW];E:Intraday NTC Deutschland > Schweiz [MW];F:Intraday NTC Schweiz > Frankreich [MW];G:Intraday NTC Frankreich > Schweiz [MW];H:Intraday NTC Schweiz > Italien [MW];I:Intraday NTC Italien > Schweiz [MW];J:Kommerzielle Lastflüsse Österreich Netto (Total) [MW];K:Kommerzielle Lastflüsse Deutschland Netto (Total) [MW];L:Kommerzielle Lastflüsse Frankreich Netto (Total) [MW];M:Kommerzielle Lastflüsse Italien Netto (Total) [MW];N:Kommerzielle Lastflüsse Summe alle Grenzen Netto (Total) [MW];O:Preisdifferenz Spot Österreich-Schweiz [EUR/MWh];P:Preisdifferenz Spot Deutschland-Schweiz [EUR/MWh];Q:Preisdifferenz Spot Frankreich-Schweiz [EUR/MWh];R:Preisdifferenz Spot Italien Nord-Schweiz [EUR/MWh]
+01.01.2026 00:00;1200;-900;4000;-800;1300;-3200;1516;-1910;-900;-800;-3200;888;-4012;-11.46;-43.77;-11.46;4.01
+01.01.2026 00:15;1200;-900;4000;-800;1300;-3200;1516;-1910;-900;-800;-3200;888;-4012;-18.4;-45.93;-24.94;3.17
+01.01.2026 00:30;1200;-900;4000;-800;1300;-3200;1516;-1910;-900;-794;-3200;888;-4006;-21.8;-49.41;-42.45;3.17
+01.01.2026 00:45;1200;-900;4000;-800;1300;-3200;1516;-1910;-900;-784;-3200;802;-4082;-25.81;-57.42;-50.03;.01
+01.01.2026 01:00;1200;-900;4000;-800;1300;-3200;1516;-1910;-900;-800;-3200;580;-4320;-16.86;-45.99;-27.89;.01
+01.01.2026 01:15;1200;-900;4000;-800;1300;-3200;1516;-1910;-900;-800;-3200;580;-4320;-19.6;-57.1;-37.01;.59
+01.01.2026 01:30;1200;-900;4000;-800;1300;-3200;1516;-1910;-900;-800;-3195;622;-4273;-19.86;-69.26;-36.25;6.82
+01.01.2026 01:45;1200;-900;4000;-800;1300;-3200;1516;-1910;-900;-796;-3195;622;-4269;-27.31;-82.07;-47.28;4.58
+01.01.2026 02:00;1200;-900;4000;-800;1300;-3200;1516;-1910;-900;-800;-3200;582.1;-4317.9;-11.41;-65.99;-29.06;8.27
+01.01.2026 02:15;1200;-900;4000;-800;1300;-3200;1516;-1910;-900;-800;-3200;582.1;-4317.9;-20.81;-82.08;-42.26;7.75
+01.01.2026 02:30;1200;-900;4000;-800;1300;-3200;1516;-1910;-900;-800;-3200;582.1;-4317.9;-23.12;-87.01;-41.47;4.59
+01.01.2026 02:45;1200;-900;4000;-800;1300;-3200;1516;-1910;-900;-798;-3200;582.1;-4315.9;-31.5;-94.64;-53.61;4.14
+
+
+===== Energy_in_the_grid/EnergieUebersichtCH-2009.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Energy_in_the_grid/EnergieUebersichtCH-2010.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Energy_in_the_grid/EnergieUebersichtCH-2011.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Energy_in_the_grid/EnergieUebersichtCH-2012.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Energy_in_the_grid/EnergieUebersichtCH-2013.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Energy_in_the_grid/EnergieUebersichtCH-2014.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Energy_in_the_grid/EnergieUebersichtCH-2015.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Energy_in_the_grid/EnergieUebersichtCH-2016.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Energy_in_the_grid/EnergieUebersichtCH-2017.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Energy_in_the_grid/EnergieUebersichtCH-2018.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Energy_in_the_grid/EnergieUebersichtCH-2019.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Energy_in_the_grid/EnergieUebersichtCH-2020.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Energy_in_the_grid/EnergieUebersichtCH-2021.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Energy_in_the_grid/EnergieUebersichtCH-2022.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Energy_in_the_grid/EnergieUebersichtCH-2023.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Energy_in_the_grid/EnergieUebersichtCH-2024.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Energy_in_the_grid/EnergieUebersichtCH-2025.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Energy_in_the_grid/EnergieUebersichtCH-2026.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230101-230201.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230101-230201.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230201-230301.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230201-230301.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230301-230401.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230301-230401.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230401-230501.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230401-230501.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230501-230601.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230501-230601.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230601-230701.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230601-230701.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230701-230801.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230701-230801.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230801-230901.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230801-230901.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230901-231001.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_230901-231001.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_231001-231101.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_231001-231101.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_231101-231201.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_231101-231201.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_231201-240101.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2023/swissgrid-prices-for-balance-energy_231201-240101.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240301-240401.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240301-240401.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240401-240501.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240401-240501.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240501-240601.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240501-240601.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240601-240701.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240601-240701.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240701-240801.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240701-240801.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240801-240901.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240801-240901.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240901-241001.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-240901-241001.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-241001-241101.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-241001-241101.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-241101-241201.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-241101-241201.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-241201-250101.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy-241201-250101.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy_240101-240201.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy_240101-240201.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy_240201-240301.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2024/swissgrid-prices-for-balance-energy_240201-240301.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250101-250201.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250101-250201.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250201-250301.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250201-250301.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250301-250401.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250301-250401.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250401-250501.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250401-250501.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250501-250601.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250501-250601.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250601-250701.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250601-250701.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250701-250801.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250701-250801.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250801-250901.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250801-250901.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250901-251001.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-250901-251001.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-251001-251101.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-251001-251101.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-251101-251201.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-251101-251201.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-251201-260101.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/balance-energy-2025/swissgrid-prices-for-balance-energy-251201-260101.xml =====
+[skipped: unsupported type]
+
+===== Prices_for_imbalance_energy/swissgrid-prices-for-imbalance-energy-260101-260201.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/swissgrid-prices-for-imbalance-energy-260201-260301.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Prices_for_imbalance_energy/swissgrid-prices-for-imbalance-energy-260301-260401.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Production_and_consumption/EnergieUebersichtCH-2009.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Production_and_consumption/EnergieUebersichtCH-2010.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Production_and_consumption/EnergieUebersichtCH-2011.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Production_and_consumption/EnergieUebersichtCH-2012.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Production_and_consumption/EnergieUebersichtCH-2013.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Production_and_consumption/EnergieUebersichtCH-2014.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Production_and_consumption/EnergieUebersichtCH-2015.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Production_and_consumption/EnergieUebersichtCH-2016.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Production_and_consumption/EnergieUebersichtCH-2017.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Production_and_consumption/EnergieUebersichtCH-2018.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Production_and_consumption/EnergieUebersichtCH-2019.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Production_and_consumption/EnergieUebersichtCH-2020.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Production_and_consumption/EnergieUebersichtCH-2021.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Production_and_consumption/EnergieUebersichtCH-2022.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Production_and_consumption/EnergieUebersichtCH-2023.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Production_and_consumption/EnergieUebersichtCH-2024.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Production_and_consumption/EnergieUebersichtCH-2025.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Production_and_consumption/EnergieUebersichtCH-2026.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Tenders/.DS_Store =====
+[skipped: unsupported type]
+
+===== Tenders/Auction_Results_2015-2025/2015_PRL_SRL_TRL_Ergebnis.csv =====
+[encoding=utf-8-sig]
+Ausschreibung;Beschreibung;Angebotenes Volumen;Einheit;Zugesprochenes Volumen;Einheit;Leistungspreis;Einheit;Kosten;Einheit;Preis;Einheit
+PRL_15_KW01;Primary control Auction;20;MW;20;MW;6395;EUR/MW;127900;EUR;38.07;EUR/MWh*
+PRL_15_KW01;Primary control Auction;20;MW;20;MW;4896;EUR/MW;97920;EUR;29.14;EUR/MWh*
+PRL_15_KW01;Primary control Auction;6;MW;6;MW;7682.64;EUR/MW;46095.84;EUR;45.73;EUR/MWh*
+PRL_15_KW02;Primary control Auction;24;MW;24;MW;3535;EUR/MW;84840;EUR;21.04;EUR/MWh*
+PRL_15_KW02;Primary control Auction;23;MW;1;MW;4348;EUR/MW;4348;EUR;25.88;EUR/MWh*
+PRL_15_KW02;Primary control Auction;23;MW;22;MW;4348;EUR/MW;95656;EUR;25.88;EUR/MWh*
+PRL_15_KW03;Primary control Auction;2;MW;2;MW;4613;EUR/MW;9226;EUR;27.46;EUR/MWh*
+PRL_15_KW03;Primary control Auction;12;MW;12;MW;4876;EUR/MW;58512;EUR;29.02;EUR/MWh*
+PRL_15_KW03;Primary control Auction;1;MW;1;MW;3408;EUR/MW;3408;EUR;20.29;EUR/MWh*
+PRL_15_KW03;Primary control Auction;3;MW;3;MW;3864;EUR/MW;11592;EUR;23;EUR/MWh*
+PRL_15_KW03;Primary control Auction;28;MW;28;MW;4703.33;EUR/MW;131693.24;EUR;28;EUR/MWh*
+PRL_15_KW04;Primary control Auction;13;MW;13;MW;3846;EUR/MW;49998;EUR;22.89;EUR/MWh*
+
+
+===== Tenders/Auction_Results_2015-2025/2016_PRL_SRL_TRL_Ergebnis.csv =====
+[encoding=utf-8-sig]
+Ausschreibung;Beschreibung;Angebotenes Volumen;Einheit;Zugesprochenes Volumen;Einheit;Leistungspreis;Einheit;Kosten;Einheit;Preis;Einheit
+PRL_15_KW53;Primary control Auction;1;MW;1;MW;5001.00;EUR/MW;5001.00;EUR;29.77;EUR/MWh*
+PRL_15_KW53;Primary control Auction;5;MW;5;MW;4280.00;EUR/MW;21400.00;EUR;25.48;EUR/MWh*
+PRL_15_KW53;Primary control Auction;5;MW;5;MW;4305.00;EUR/MW;21525.00;EUR;25.62;EUR/MWh*
+PRL_15_KW53;Primary control Auction;5;MW;5;MW;4330.00;EUR/MW;21650.00;EUR;25.77;EUR/MWh*
+PRL_15_KW53;Primary control Auction;5;MW;5;MW;4355.00;EUR/MW;21775.00;EUR;25.92;EUR/MWh*
+PRL_15_KW53;Primary control Auction;5;MW;5;MW;4381.00;EUR/MW;21905.00;EUR;26.08;EUR/MWh*
+PRL_15_KW53;Primary control Auction;5;MW;5;MW;4437.00;EUR/MW;22185.00;EUR;26.41;EUR/MWh*
+PRL_15_KW53;Primary control Auction;4;MW;4;MW;4489.00;EUR/MW;17956.00;EUR;26.72;EUR/MWh*
+PRL_15_KW53;Primary control Auction;3;MW;3;MW;4513.00;EUR/MW;13539.00;EUR;26.86;EUR/MWh*
+PRL_15_KW53;Primary control Auction;2;MW;2;MW;4535.00;EUR/MW;9070.00;EUR;26.99;EUR/MWh*
+PRL_15_KW53;Primary control Auction;1;MW;1;MW;4556.00;EUR/MW;4556.00;EUR;27.12;EUR/MWh*
+PRL_15_KW53;Primary control Auction;1;MW;1;MW;4687.00;EUR/MW;4687.00;EUR;27.90;EUR/MWh*
+
+
+===== Tenders/Auction_Results_2015-2025/2017_PRL_SRL_TRL_Ergebnis.csv =====
+[encoding=utf-8-sig]
+Ausschreibung;Beschreibung;Angebotenes Volumen;Einheit;Zugesprochenes Volumen;Einheit;Leistungspreis;Einheit;Kosten;Einheit;Preis;Einheit;Land
+PRL_16_KW52;Primary control Auction;1;MW;1;MW;2750.00;EUR/MW;2750.00;EUR;16.37;EUR/MWh*;CH
+PRL_16_KW52;Primary control Auction;1;MW;1;MW;3250.00;EUR/MW;3250.00;EUR;19.35;EUR/MWh*;CH
+PRL_16_KW52;Primary control Auction;6;MW;6;MW;3199.00;EUR/MW;19194.00;EUR;19.04;EUR/MWh*;CH
+PRL_16_KW52;Primary control Auction;6;MW;6;MW;2999.00;EUR/MW;17994.00;EUR;17.85;EUR/MWh*;CH
+PRL_16_KW52;Primary control Auction;3;MW;3;MW;3828.00;EUR/MW;11484.00;EUR;22.79;EUR/MWh*;CH
+PRL_16_KW52;Primary control Auction;3;MW;3;MW;3514.00;EUR/MW;10542.00;EUR;20.92;EUR/MWh*;CH
+PRL_16_KW52;Primary control Auction;1;MW;1;MW;3431.00;EUR/MW;3431.00;EUR;20.42;EUR/MWh*;CH
+PRL_16_KW52;Primary control Auction;4;MW;4;MW;3009.00;EUR/MW;12036.00;EUR;17.91;EUR/MWh*;CH
+PRL_16_KW52;Primary control Auction;4;MW;4;MW;3014.00;EUR/MW;12056.00;EUR;17.94;EUR/MWh*;CH
+PRL_16_KW52;Primary control Auction;2;MW;2;MW;3064.00;EUR/MW;6128.00;EUR;18.24;EUR/MWh*;CH
+PRL_16_KW52;Primary control Auction;4;MW;4;MW;3066.00;EUR/MW;12264.00;EUR;18.25;EUR/MWh*;CH
+PRL_16_KW52;Primary control Auction;4;MW;4;MW;3068.00;EUR/MW;12272.00;EUR;18.26;EUR/MWh*;CH
+
+
+===== Tenders/Auction_Results_2015-2025/2018-PRL-SRL-TRL-Ergebnis.csv =====
+[encoding=utf-8-sig]
+Ausschreibung;Beschreibung;Angebotenes Volumen;Einheit;Zugesprochenes Volumen;Einheit;Leistungspreis;Einheit;Kosten;Einheit;Preis;Einheit;Land
+PRL_18_KW01;Primary control Auction;1;MW;1;MW;3587.00;EUR/MW;3587.00;EUR;21.35;EUR/MWh*;CH
+PRL_18_KW01;Primary control Auction;1;MW;1;MW;3100.00;EUR/MW;3100.00;EUR;18.45;EUR/MWh*;CH
+PRL_18_KW01;Primary control Auction;1;MW;1;MW;3100.00;EUR/MW;3100.00;EUR;18.45;EUR/MWh*;CH
+PRL_18_KW01;Primary control Auction;1;MW;1;MW;3142.00;EUR/MW;3142.00;EUR;18.70;EUR/MWh*;CH
+PRL_18_KW01;Primary control Auction;1;MW;1;MW;3175.00;EUR/MW;3175.00;EUR;18.90;EUR/MWh*;CH
+PRL_18_KW01;Primary control Auction;1;MW;1;MW;3209.00;EUR/MW;3209.00;EUR;19.10;EUR/MWh*;CH
+PRL_18_KW01;Primary control Auction;1;MW;1;MW;3242.00;EUR/MW;3242.00;EUR;19.30;EUR/MWh*;CH
+PRL_18_KW01;Primary control Auction;1;MW;1;MW;3276.00;EUR/MW;3276.00;EUR;19.50;EUR/MWh*;CH
+PRL_18_KW01;Primary control Auction;1;MW;1;MW;3310.00;EUR/MW;3310.00;EUR;19.70;EUR/MWh*;CH
+PRL_18_KW01;Primary control Auction;1;MW;1;MW;3343.00;EUR/MW;3343.00;EUR;19.90;EUR/MWh*;CH
+PRL_18_KW01;Primary control Auction;1;MW;1;MW;3377.00;EUR/MW;3377.00;EUR;20.10;EUR/MWh*;CH
+PRL_18_KW01;Primary control Auction;1;MW;1;MW;3410.00;EUR/MW;3410.00;EUR;20.30;EUR/MWh*;CH
+
+
+===== Tenders/Auction_Results_2015-2025/2019_PRL_SRL_TRL_Ergebnis.csv =====
+[encoding=utf-8-sig]
+Ausschreibung;Beschreibung;Angebotenes Volumen;Einheit;Zugesprochenes Volumen;Einheit;Leistungspreis;Einheit;Kosten;Einheit;Preis;Einheit;Land;Angebotspreis;Einheit;Teilbarkeit
+PRL_19_07_01;Primary control Auction;17;MW;17;MW;50.00;EUR/MW;850.00;EUR;7.50;EUR/MWh*;CH;2.08;EUR/MWh*;Ja
+PRL_19_07_01;Primary control Auction;3;MW;3;MW;84.00;EUR/MW;252.00;EUR;7.50;EUR/MWh*;CH;3.50;EUR/MWh*;Nein
+PRL_19_07_01;Primary control Auction;25;MW;25;MW;123.95;EUR/MW;3098.75;EUR;7.50;EUR/MWh*;CH;5.16;EUR/MWh*;Nein
+PRL_19_07_01;Primary control Auction;9;MW;9;MW;49.00;EUR/MW;441.00;EUR;7.50;EUR/MWh*;CH;2.04;EUR/MWh*;Nein
+PRL_19_07_01;Primary control Auction;2;MW;2;MW;51.75;EUR/MW;103.50;EUR;7.50;EUR/MWh*;CH;2.16;EUR/MWh*;Nein
+PRL_19_07_01;Primary control Auction;1;MW;1;MW;39.00;EUR/MW;39.00;EUR;7.50;EUR/MWh*;CH;1.62;EUR/MWh*;Nein
+PRL_19_07_01;Primary control Auction;2;MW;2;MW;99.00;EUR/MW;198.00;EUR;7.50;EUR/MWh*;CH;4.12;EUR/MWh*;Nein
+PRL_19_07_01;Primary control Auction;1;MW;1;MW;152.00;EUR/MW;152.00;EUR;7.50;EUR/MWh*;CH;6.33;EUR/MWh*;Nein
+PRL_19_07_01;Primary control Auction;1;MW;1;MW;48.00;EUR/MW;48.00;EUR;7.50;EUR/MWh*;CH;2.00;EUR/MWh*;Nein
+PRL_19_07_01;Primary control Auction;1;MW;1;MW;49.00;EUR/MW;49.00;EUR;7.50;EUR/MWh*;CH;2.04;EUR/MWh*;Nein
+PRL_19_07_01;Primary control Auction;1;MW;1;MW;50.00;EUR/MW;50.00;EUR;7.50;EUR/MWh*;CH;2.08;EUR/MWh*;Nein
+PRL_19_07_01;Primary control Auction;1;MW;1;MW;50.90;EUR/MW;50.90;EUR;7.50;EUR/MWh*;CH;2.12;EUR/MWh*;Nein
+
+
+===== Tenders/Auction_Results_2015-2025/2020_PRL_SRL_TRL_Ergebnis.csv =====
+[encoding=utf-8-sig]
+Ausschreibung;Beschreibung;Angebotenes Volumen;Einheit;Zugesprochenes Volumen;Einheit;Leistungspreis;Einheit;Kosten;Einheit;Preis;Einheit;Land;Angebotspreis;Einheit;Teilbarkeit
+PRL_20_01_01;Primary control Auction;16;MW;16;MW;50.00;EUR/MW;800.00;EUR;6.21;EUR/MWh*;CH;2.08;EUR/MWh*;Ja
+PRL_20_01_01;Primary control Auction;1;MW;1;MW;80.00;EUR/MW;80.00;EUR;6.21;EUR/MWh*;CH;3.33;EUR/MWh*;Ja
+PRL_20_01_01;Primary control Auction;1;MW;1;MW;80.00;EUR/MW;80.00;EUR;6.21;EUR/MWh*;CH;3.33;EUR/MWh*;Ja
+PRL_20_01_01;Primary control Auction;1;MW;1;MW;80.00;EUR/MW;80.00;EUR;6.21;EUR/MWh*;CH;3.33;EUR/MWh*;Ja
+PRL_20_01_01;Primary control Auction;1;MW;1;MW;120.00;EUR/MW;120.00;EUR;6.21;EUR/MWh*;CH;5.00;EUR/MWh*;Ja
+PRL_20_01_01;Primary control Auction;2;MW;2;MW;79.20;EUR/MW;158.40;EUR;6.21;EUR/MWh*;CH;3.30;EUR/MWh*;Ja
+PRL_20_01_01;Primary control Auction;2;MW;2;MW;80.40;EUR/MW;160.80;EUR;6.21;EUR/MWh*;CH;3.35;EUR/MWh*;Ja
+PRL_20_01_01;Primary control Auction;2;MW;2;MW;81.70;EUR/MW;163.40;EUR;6.21;EUR/MWh*;CH;3.40;EUR/MWh*;Ja
+PRL_20_01_01;Primary control Auction;2;MW;2;MW;82.90;EUR/MW;165.80;EUR;6.21;EUR/MWh*;CH;3.45;EUR/MWh*;Ja
+PRL_20_01_01;Primary control Auction;2;MW;2;MW;84.10;EUR/MW;168.20;EUR;6.21;EUR/MWh*;CH;3.50;EUR/MWh*;Ja
+PRL_20_01_01;Primary control Auction;2;MW;2;MW;85.30;EUR/MW;170.60;EUR;6.21;EUR/MWh*;CH;3.55;EUR/MWh*;Ja
+PRL_20_01_01;Primary control Auction;2;MW;2;MW;86.60;EUR/MW;173.20;EUR;6.21;EUR/MWh*;CH;3.61;EUR/MWh*;Ja
+
+
+===== Tenders/Auction_Results_2015-2025/2021_PRL_SRL_TRL_Ergebnis.csv =====
+[encoding=utf-8-sig]
+Ausschreibung;Beschreibung;Angebotenes Volumen;Einheit;Zugesprochenes Volumen;Einheit;Leistungspreis;Einheit;Kosten;Einheit;Preis;Einheit;Land;Angebotspreis;Einheit;Teilbarkeit
+PRL_21_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;5.00;EUR/MW;5.00;EUR;5.75;EUR/MWh*;CH;1.25;EUR/MWh*;Ja
+PRL_21_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;5.00;EUR/MW;5.00;EUR;5.75;EUR/MWh*;CH;1.25;EUR/MWh*;Ja
+PRL_21_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;5.00;EUR/MW;5.00;EUR;5.75;EUR/MWh*;CH;1.25;EUR/MWh*;Ja
+PRL_21_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;5.00;EUR/MW;5.00;EUR;5.75;EUR/MWh*;CH;1.25;EUR/MWh*;Ja
+PRL_21_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;5.00;EUR/MW;5.00;EUR;5.75;EUR/MWh*;CH;1.25;EUR/MWh*;Ja
+PRL_21_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;5.00;EUR/MW;5.00;EUR;5.75;EUR/MWh*;CH;1.25;EUR/MWh*;Ja
+PRL_21_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;5.00;EUR/MW;5.00;EUR;5.75;EUR/MWh*;CH;1.25;EUR/MWh*;Ja
+PRL_21_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;5.00;EUR/MW;5.00;EUR;5.75;EUR/MWh*;CH;1.25;EUR/MWh*;Ja
+PRL_21_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;5.00;EUR/MW;5.00;EUR;5.75;EUR/MWh*;CH;1.25;EUR/MWh*;Ja
+PRL_21_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;5.00;EUR/MW;5.00;EUR;5.75;EUR/MWh*;CH;1.25;EUR/MWh*;Ja
+PRL_21_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;5.00;EUR/MW;5.00;EUR;5.75;EUR/MWh*;CH;1.25;EUR/MWh*;Ja
+PRL_21_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;5.00;EUR/MW;5.00;EUR;5.75;EUR/MWh*;CH;1.25;EUR/MWh*;Ja
+
+
+===== Tenders/Auction_Results_2015-2025/2022-PRL-SRL-TRL-Ergebnis.csv =====
+[encoding=utf-8-sig]
+Ausschreibung;Beschreibung;Angebotenes Volumen;Einheit;Zugesprochenes Volumen;Einheit;Leistungspreis;Einheit;Kosten;Einheit;Preis;Einheit;Land;Angebotspreis;Einheit;Teilbarkeit
+PRL_22_01_01;Primary control Auction 00:00 bis 04:00;3;MW;3;MW;0.9;EUR/MW;2.7;EUR;47;EUR/MWh*;CH;0.22;EUR/MWh*;Ja
+PRL_22_01_01;Primary control Auction 00:00 bis 04:00;2;MW;2;MW;0.5;EUR/MW;1;EUR;47;EUR/MWh*;CH;0.12;EUR/MWh*;Ja
+PRL_22_01_01;Primary control Auction 00:00 bis 04:00;4;MW;4;MW;20;EUR/MW;80;EUR;47;EUR/MWh*;CH;5;EUR/MWh*;Ja
+PRL_22_01_01;Primary control Auction 00:00 bis 04:00;5;MW;5;MW;12;EUR/MW;60;EUR;47;EUR/MWh*;CH;3;EUR/MWh*;Ja
+PRL_22_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;22.3;EUR/MW;22.3;EUR;47;EUR/MWh*;CH;5.58;EUR/MWh*;Ja
+PRL_22_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;32.6;EUR/MW;32.6;EUR;47;EUR/MWh*;CH;8.15;EUR/MWh*;Ja
+PRL_22_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;42.9;EUR/MW;42.9;EUR;47;EUR/MWh*;CH;10.72;EUR/MWh*;Ja
+PRL_22_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;53.1;EUR/MW;53.1;EUR;47;EUR/MWh*;CH;13.28;EUR/MWh*;Ja
+PRL_22_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;63.4;EUR/MW;63.4;EUR;47;EUR/MWh*;CH;15.85;EUR/MWh*;Ja
+PRL_22_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;73.7;EUR/MW;73.7;EUR;47;EUR/MWh*;CH;18.42;EUR/MWh*;Ja
+PRL_22_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;84;EUR/MW;84;EUR;47;EUR/MWh*;CH;21;EUR/MWh*;Ja
+PRL_22_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;94.3;EUR/MW;94.3;EUR;47;EUR/MWh*;CH;23.58;EUR/MWh*;Ja
+
+
+===== Tenders/Auction_Results_2015-2025/2023-PRL-SRL-TRL-Ergebnis.csv =====
+[encoding=utf-8-sig]
+Ausschreibung;Beschreibung;Angebotenes Volumen;Einheit;Zugesprochenes Volumen;Einheit;Leistungspreis;Einheit;Kosten;Einheit;Preis;Einheit;Land;Angebotspreis;Einheit;Teilbarkeit
+PRL_23_01_01;Primary control Auction 00:00 bis 04:00;5;MW;5;MW;80.00;EUR/MW;400.00;EUR;34.82;EUR/MWh*;CH;20.00;EUR/MWh*;Ja
+PRL_23_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;54.40;EUR/MW;54.40;EUR;34.82;EUR/MWh*;CH;13.60;EUR/MWh*;Ja
+PRL_23_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;51.20;EUR/MW;51.20;EUR;34.82;EUR/MWh*;CH;12.80;EUR/MWh*;Ja
+PRL_23_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;66.10;EUR/MW;66.10;EUR;34.82;EUR/MWh*;CH;16.52;EUR/MWh*;Ja
+PRL_23_01_01;Primary control Auction 00:00 bis 04:00;5;MW;5;MW;85.00;EUR/MW;425.00;EUR;34.82;EUR/MWh*;CH;21.25;EUR/MWh*;Ja
+PRL_23_01_01;Primary control Auction 00:00 bis 04:00;6;MW;6;MW;90.00;EUR/MW;540.00;EUR;34.82;EUR/MWh*;CH;22.50;EUR/MWh*;Ja
+PRL_23_01_01;Primary control Auction 00:00 bis 04:00;5;MW;5;MW;40.00;EUR/MW;200.00;EUR;34.82;EUR/MWh*;CH;10.00;EUR/MWh*;Ja
+PRL_23_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;44.80;EUR/MW;44.80;EUR;34.82;EUR/MWh*;CH;11.20;EUR/MWh*;Ja
+PRL_23_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;56.00;EUR/MW;56.00;EUR;34.82;EUR/MWh*;CH;14.00;EUR/MWh*;Ja
+PRL_23_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;61.10;EUR/MW;61.10;EUR;34.82;EUR/MWh*;CH;15.28;EUR/MWh*;Ja
+PRL_23_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;116.80;EUR/MW;116.80;EUR;34.82;EUR/MWh*;CH;29.20;EUR/MWh*;Ja
+PRL_23_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;71.20;EUR/MW;71.20;EUR;34.82;EUR/MWh*;CH;17.80;EUR/MWh*;Ja
+
+
+===== Tenders/Auction_Results_2015-2025/20230906_regelleistung_2024_vorgezogene_beschaffung_ergebnis.csv =====
+[encoding=utf-8-sig]
+Ausschreibung;Beschreibung;Angebotenes Volumen;Einheit;Zugesprochenes Volumen;Einheit;Leistungspreis;Einheit;Kosten;Einheit;Preis;Einheit;Land;Angebotspreis;Einheit;Teilbarkeit
+SRL_24_KW06_S1;Secondary control Auction SRL+;20;MW;20;MW;3816.00;CHF/MW;76320.00;CHF;22.71;CHF/MWh*;CH;22.71;CHF/MWh*;
+SRL_24_KW06_S1;Secondary control Auction SRL+;10;MW;10;MW;3903.00;CHF/MW;39030.00;CHF;23.23;CHF/MWh*;CH;23.23;CHF/MWh*;
+SRL_24_KW06_S1;Secondary control Auction SRL+;30;MW;30;MW;3388.00;CHF/MW;101640.00;CHF;20.17;CHF/MWh*;CH;20.17;CHF/MWh*;
+SRL_24_KW06_S1;Secondary control Auction SRL+;5;MW;5;MW;3276.00;CHF/MW;16380.00;CHF;19.50;CHF/MWh*;CH;19.50;CHF/MWh*;
+SRL_24_KW06_S1;Secondary control Auction SRL+;5;MW;5;MW;3108.00;CHF/MW;15540.00;CHF;18.50;CHF/MWh*;CH;18.50;CHF/MWh*;
+SRL_24_KW06_S1;Secondary control Auction SRL+;5;MW;5;MW;3245.76;CHF/MW;16228.80;CHF;19.32;CHF/MWh*;CH;19.32;CHF/MWh*;
+SRL_24_KW06_S1;Secondary control Auction SRL+;5;MW;5;MW;3447.36;CHF/MW;17236.80;CHF;20.52;CHF/MWh*;CH;20.52;CHF/MWh*;
+SRL_24_KW06_S1;Secondary control Auction SRL+;5;MW;5;MW;3024.00;CHF/MW;15120.00;CHF;18.00;CHF/MWh*;CH;18.00;CHF/MWh*;
+SRL_24_KW06_S1;Secondary control Auction SRL+;8;MW;8;MW;3813.60;CHF/MW;30508.80;CHF;22.70;CHF/MWh*;CH;22.70;CHF/MWh*;
+SRL_24_KW06_S1;Secondary control Auction SRL+;8;MW;8;MW;2546.00;CHF/MW;20368.00;CHF;15.15;CHF/MWh*;CH;15.15;CHF/MWh*;
+SRL_24_KW06_S1;Secondary control Auction SRL+;10;MW;10;MW;3027.36;CHF/MW;30273.60;CHF;18.02;CHF/MWh*;CH;18.02;CHF/MWh*;
+SRL_24_KW06_S1;Secondary control Auction SRL+;5;MW;5;MW;3460.80;CHF/MW;17304.00;CHF;20.60;CHF/MWh*;CH;20.60;CHF/MWh*;
+
+
+===== Tenders/Auction_Results_2015-2025/2024-PRL-SRL-TRL-Ergebnis.csv =====
+[encoding=utf-8-sig]
+Ausschreibung;Beschreibung;Angebotenes Volumen;Einheit;Zugesprochenes Volumen;Einheit;Leistungspreis;Einheit;Kosten;Einheit;Preis;Einheit;Land;Angebotspreis;Einheit;Teilbarkeit
+PRL_24_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;10.00;EUR/MW;10.00;EUR;28.70;EUR/MWh*;CH;2.50;EUR/MWh*;Ja
+PRL_24_01_01;Primary control Auction 00:00 bis 04:00;3;MW;3;MW;96.00;EUR/MW;288.00;EUR;28.70;EUR/MWh*;CH;24.00;EUR/MWh*;Ja
+PRL_24_01_01;Primary control Auction 00:00 bis 04:00;2;MW;2;MW;3.96;EUR/MW;7.92;EUR;28.70;EUR/MWh*;CH;0.99;EUR/MWh*;Ja
+PRL_24_01_01;Primary control Auction 00:00 bis 04:00;3;MW;3;MW;105.00;EUR/MW;315.00;EUR;28.70;EUR/MWh*;CH;26.25;EUR/MWh*;Ja
+PRL_24_01_01;Primary control Auction 00:00 bis 04:00;3;MW;3;MW;102.00;EUR/MW;306.00;EUR;28.70;EUR/MWh*;CH;25.50;EUR/MWh*;Ja
+PRL_24_01_01;Primary control Auction 00:00 bis 04:00;3;MW;3;MW;108.00;EUR/MW;324.00;EUR;28.70;EUR/MWh*;CH;27.00;EUR/MWh*;Ja
+PRL_24_01_01;Primary control Auction 00:00 bis 04:00;3;MW;3;MW;99.00;EUR/MW;297.00;EUR;28.70;EUR/MWh*;CH;24.75;EUR/MWh*;Ja
+PRL_24_01_01;Primary control Auction 00:00 bis 04:00;3;MW;3;MW;90.00;EUR/MW;270.00;EUR;28.70;EUR/MWh*;CH;22.50;EUR/MWh*;Ja
+PRL_24_01_01;Primary control Auction 00:00 bis 04:00;3;MW;3;MW;93.00;EUR/MW;279.00;EUR;28.70;EUR/MWh*;CH;23.25;EUR/MWh*;Ja
+PRL_24_01_01;Primary control Auction 00:00 bis 04:00;3;MW;3;MW;1.00;EUR/MW;3.00;EUR;28.70;EUR/MWh*;CH;0.25;EUR/MWh*;Ja
+PRL_24_01_01;Primary control Auction 00:00 bis 04:00;1;MW;1;MW;59.60;EUR/MW;59.60;EUR;28.70;EUR/MWh*;CH;14.90;EUR/MWh*;Ja
+PRL_24_01_01;Primary control Auction 00:00 bis 04:00;4;MW;4;MW;10.00;EUR/MW;40.00;EUR;28.70;EUR/MWh*;CH;2.50;EUR/MWh*;Ja
+
+
+===== Tenders/Auction_Results_2015-2025/2025-PRL-SRL-TRL-Ergebnis.csv =====
+[encoding=utf-8-sig]
+Ausschreibung;Beschreibung;Angebotenes Volumen;Einheit;Zugesprochenes Volumen;Einheit;Leistungspreis;Einheit;Kosten;Einheit;Preis;Einheit;Land;Angebotspreis;Einheit;Teilbarkeit
+PRL_25_01_01;Primary Power 00:00 bis 04:00;1;MW;1;MW;10.00;EUR/MW;10.00;EUR;15.78;EUR/MWh*;CH;2.50;EUR/MWh*;Ja
+PRL_25_01_01;Primary Power 00:00 bis 04:00;10;MW;10;MW;48.00;EUR/MW;480.00;EUR;15.78;EUR/MWh*;CH;12.00;EUR/MWh*;Ja
+PRL_25_01_01;Primary Power 00:00 bis 04:00;1;MW;1;MW;55.60;EUR/MW;55.60;EUR;15.78;EUR/MWh*;CH;13.90;EUR/MWh*;Ja
+PRL_25_01_01;Primary Power 00:00 bis 04:00;11;MW;11;MW;0.10;EUR/MW;1.10;EUR;15.78;EUR/MWh*;CH;0.02;EUR/MWh*;Ja
+PRL_25_01_01;Primary Power 00:00 bis 04:00;1;MW;1;MW;59.30;EUR/MW;59.30;EUR;15.78;EUR/MWh*;CH;14.82;EUR/MWh*;Ja
+PRL_25_01_01;Primary Power 00:00 bis 04:00;1;MW;1;MW;51.80;EUR/MW;51.80;EUR;15.78;EUR/MWh*;CH;12.95;EUR/MWh*;Ja
+PRL_25_01_01;Primary Power 00:00 bis 04:00;1;MW;1;MW;63.10;EUR/MW;63.10;EUR;15.78;EUR/MWh*;CH;15.78;EUR/MWh*;Ja
+PRL_25_01_01;Primary Power 00:00 bis 04:00;5;MW;5;MW;15.00;EUR/MW;75.00;EUR;15.78;EUR/MWh*;CH;3.75;EUR/MWh*;Ja
+PRL_25_01_01;Primary Power 00:00 bis 04:00;5;MW;5;MW;10.00;EUR/MW;50.00;EUR;15.78;EUR/MWh*;CH;2.50;EUR/MWh*;Ja
+PRL_25_01_01;Primary Power 00:00 bis 04:00;14;MW;14;MW;2.00;EUR/MW;28.00;EUR;15.78;EUR/MWh*;CH;0.50;EUR/MWh*;Ja
+PRL_25_01_01;Primary Power 00:00 bis 04:00;1;MW;1;MW;40.48;EUR/MW;40.48;EUR;15.78;EUR/MWh*;AT;10.12;EUR/MWh*;Ja
+PRL_25_01_01;Primary Power 00:00 bis 04:00;5;MW;5;MW;6.80;EUR/MW;34.00;EUR;15.78;EUR/MWh*;AT;1.70;EUR/MWh*;Ja
+
+
+===== Tenders/Tertiary_control_energy/.DS_Store =====
+[skipped: unsupported type]
+
+===== Tenders/Tertiary_control_energy/2026-01-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_26_01_01;00:00;00:15;TRE_mFRR_sa-;20;MW;0;MW;103.70;EUR/MWh;verfügbar
+TRE_26_01_01;00:00;00:15;TRE_mFRR_sa-;15;MW;0;MW;102.00;EUR/MWh;verfügbar
+TRE_26_01_01;00:00;00:15;TRE_mFRR_sa-;10;MW;0;MW;100.00;EUR/MWh;verfügbar
+TRE_26_01_01;00:00;00:15;TRE_mFRR_sa-;20;MW;0;MW;98.96;EUR/MWh;verfügbar
+TRE_26_01_01;00:00;00:15;TRE_mFRR_sa-;22;MW;0;MW;95.00;EUR/MWh;verfügbar
+TRE_26_01_01;00:00;00:15;TRE_mFRR_sa-;20;MW;0;MW;94.21;EUR/MWh;verfügbar
+TRE_26_01_01;00:00;00:15;TRE_mFRR_sa-;10;MW;0;MW;92.00;EUR/MWh;verfügbar
+TRE_26_01_01;00:00;00:15;TRE_mFRR_sa-;53;MW;0;MW;90.10;EUR/MWh;verfügbar
+TRE_26_01_01;00:00;00:15;TRE_mFRR_sa-;20;MW;0;MW;89.47;EUR/MWh;verfügbar
+TRE_26_01_01;00:00;00:15;TRE_mFRR_sa-;9;MW;0;MW;88.00;EUR/MWh;verfügbar
+TRE_26_01_01;00:00;00:15;TRE_mFRR_sa-;59;MW;0;MW;87.00;EUR/MWh;verfügbar
+TRE_26_01_01;00:00;00:15;TRE_mFRR_sa-;20;MW;0;MW;84.72;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/2026-02-TRE-Ergebnis(1).csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_26_02_01;00:00;00:15;TRE_mFRR_sa+;50;MW;50;MW;154.50;EUR/MWh;aktiviert
+TRE_26_02_01;00:00;00:15;TRE_mFRR_sa+;30;MW;30;MW;163.00;EUR/MWh;aktiviert
+TRE_26_02_01;00:00;00:15;TRE_mFRR_sa+;50;MW;1;MW;163.09;EUR/MWh;aktiviert
+TRE_26_02_01;00:00;00:15;TRE_mFRR_sa+;30;MW;0;MW;164.00;EUR/MWh;verfügbar
+TRE_26_02_01;00:00;00:15;TRE_mFRR_sa+;30;MW;0;MW;165.00;EUR/MWh;verfügbar
+TRE_26_02_01;00:00;00:15;TRE_mFRR_sa+;30;MW;0;MW;166.00;EUR/MWh;verfügbar
+TRE_26_02_01;00:00;00:15;TRE_mFRR_sa+;30;MW;0;MW;167.00;EUR/MWh;verfügbar
+TRE_26_02_01;00:00;00:15;TRE_mFRR_sa+;51;MW;0;MW;168.00;EUR/MWh;verfügbar
+TRE_26_02_01;00:00;00:15;TRE_mFRR_sa+;28;MW;0;MW;168.00;EUR/MWh;verfügbar
+TRE_26_02_01;00:00;00:15;TRE_mFRR_sa+;51;MW;0;MW;170.00;EUR/MWh;verfügbar
+TRE_26_02_01;00:00;00:15;TRE_mFRR_sa+;20;MW;0;MW;170.00;EUR/MWh;verfügbar
+TRE_26_02_01;00:00;00:15;TRE_mFRR_sa+;20;MW;0;MW;170.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/2026-03-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_26_03_01;00:00;00:15;TRE_mFRR_da+;27;MW;0;MW;114.00;EUR/MWh;verfügbar
+TRE_26_03_01;00:00;00:15;TRE_mFRR_da+;5;MW;0;MW;120.00;EUR/MWh;verfügbar
+TRE_26_03_01;00:00;00:15;TRE_mFRR_da+;5;MW;0;MW;120.30;EUR/MWh;verfügbar
+TRE_26_03_01;00:00;00:15;TRE_mFRR_da+;5;MW;0;MW;121.00;EUR/MWh;verfügbar
+TRE_26_03_01;00:00;00:15;TRE_mFRR_da+;5;MW;0;MW;122.30;EUR/MWh;verfügbar
+TRE_26_03_01;00:00;00:15;TRE_mFRR_da+;35;MW;0;MW;123.00;EUR/MWh;verfügbar
+TRE_26_03_01;00:00;00:15;TRE_mFRR_da+;5;MW;0;MW;123.00;EUR/MWh;verfügbar
+TRE_26_03_01;00:00;00:15;TRE_mFRR_da+;11;MW;0;MW;123.40;EUR/MWh;verfügbar
+TRE_26_03_01;00:00;00:15;TRE_mFRR_da+;5;MW;0;MW;124.30;EUR/MWh;verfügbar
+TRE_26_03_01;00:00;00:15;TRE_mFRR_da+;5;MW;0;MW;126.20;EUR/MWh;verfügbar
+TRE_26_03_01;00:00;00:15;TRE_mFRR_da+;5;MW;0;MW;128.20;EUR/MWh;verfügbar
+TRE_26_03_01;00:00;00:15;TRE_mFRR_da+;5;MW;0;MW;130.20;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/2026_04_TRE_Ergebnis_2026_05_01_00_00.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_26_04_01;00:00;00:15;TRE_mFRR_sa+;60;MW;60;MW;169.00;EUR/MWh;aktiviert
+TRE_26_04_01;00:00;00:15;TRE_mFRR_sa+;25;MW;25;MW;170.00;EUR/MWh;aktiviert
+TRE_26_04_01;00:00;00:15;TRE_mFRR_sa+;27;MW;0;MW;172.07;EUR/MWh;verfügbar
+TRE_26_04_01;00:00;00:15;TRE_mFRR_sa+;33;MW;0;MW;175.07;EUR/MWh;verfügbar
+TRE_26_04_01;00:00;00:15;TRE_mFRR_sa+;20;MW;0;MW;176.00;EUR/MWh;verfügbar
+TRE_26_04_01;00:00;00:15;TRE_mFRR_sa+;39;MW;0;MW;176.07;EUR/MWh;verfügbar
+TRE_26_04_01;00:00;00:15;TRE_mFRR_sa+;7;MW;0;MW;177.07;EUR/MWh;verfügbar
+TRE_26_04_01;00:00;00:15;TRE_mFRR_sa+;17;MW;0;MW;178.01;EUR/MWh;verfügbar
+TRE_26_04_01;00:00;00:15;TRE_mFRR_sa+;19;MW;0;MW;179.07;EUR/MWh;verfügbar
+TRE_26_04_01;00:00;00:15;TRE_mFRR_sa+;40;MW;0;MW;180.00;EUR/MWh;verfügbar
+TRE_26_04_01;00:00;00:15;TRE_mFRR_sa+;6;MW;0;MW;181.07;EUR/MWh;verfügbar
+TRE_26_04_01;00:00;00:15;TRE_mFRR_sa+;20;MW;0;MW;182.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/2026_05_TRE_Ergebnis_2026_06_01_00_01.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_26_05_01;00:00;00:15;TRE_mFRR_sa-;8;MW;0;MW;101.87;EUR/MWh;verfügbar
+TRE_26_05_01;00:00;00:15;TRE_mFRR_sa-;5;MW;0;MW;96.17;EUR/MWh;verfügbar
+TRE_26_05_01;00:00;00:15;TRE_mFRR_sa-;53;MW;0;MW;94.87;EUR/MWh;verfügbar
+TRE_26_05_01;00:00;00:15;TRE_mFRR_sa-;7;MW;0;MW;92.17;EUR/MWh;verfügbar
+TRE_26_05_01;00:00;00:15;TRE_mFRR_sa-;32;MW;0;MW;86.17;EUR/MWh;verfügbar
+TRE_26_05_01;00:00;00:15;TRE_mFRR_sa-;12;MW;0;MW;82.17;EUR/MWh;verfügbar
+TRE_26_05_01;00:00;00:15;TRE_mFRR_sa-;19;MW;0;MW;80.87;EUR/MWh;verfügbar
+TRE_26_05_01;00:00;00:15;TRE_mFRR_sa-;40;MW;0;MW;78.00;EUR/MWh;verfügbar
+TRE_26_05_01;00:00;00:15;TRE_mFRR_sa-;11;MW;0;MW;77.17;EUR/MWh;verfügbar
+TRE_26_05_01;00:00;00:15;TRE_mFRR_sa-;40;MW;0;MW;75.00;EUR/MWh;verfügbar
+TRE_26_05_01;00:00;00:15;TRE_mFRR_sa-;19;MW;0;MW;72.17;EUR/MWh;verfügbar
+TRE_26_05_01;00:00;00:15;TRE_mFRR_sa-;20;MW;0;MW;72.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/2026_06_TRE_Ergebnis_2026_07_01_00_01.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_26_06_01;00:00;00:15;TRE_mFRR_sa-;66;MW;0;MW;128.00;EUR/MWh;verfügbar
+TRE_26_06_01;00:00;00:15;TRE_mFRR_sa-;40;MW;0;MW;128.00;EUR/MWh;verfügbar
+TRE_26_06_01;00:00;00:15;TRE_mFRR_sa-;46;MW;0;MW;116.00;EUR/MWh;verfügbar
+TRE_26_06_01;00:00;00:15;TRE_mFRR_sa-;46;MW;0;MW;116.00;EUR/MWh;verfügbar
+TRE_26_06_01;00:00;00:15;TRE_mFRR_sa-;29;MW;0;MW;114.00;EUR/MWh;verfügbar
+TRE_26_06_01;00:00;00:15;TRE_mFRR_sa-;21;MW;0;MW;109.00;EUR/MWh;verfügbar
+TRE_26_06_01;00:00;00:15;TRE_mFRR_sa-;30;MW;0;MW;104.00;EUR/MWh;verfügbar
+TRE_26_06_01;00:00;00:15;TRE_mFRR_sa-;25;MW;0;MW;101.00;EUR/MWh;verfügbar
+TRE_26_06_01;00:00;00:15;TRE_mFRR_sa-;12;MW;0;MW;100.00;EUR/MWh;verfügbar
+TRE_26_06_01;00:00;00:15;TRE_mFRR_sa-;31;MW;0;MW;97.00;EUR/MWh;verfügbar
+TRE_26_06_01;00:00;00:15;TRE_mFRR_sa-;5;MW;0;MW;94.00;EUR/MWh;verfügbar
+TRE_26_06_01;00:00;00:15;TRE_mFRR_sa-;5;MW;0;MW;92.10;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/2026_07_TRE_Ergebnis_2026_08_01_00_01.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_26_07_01;00:00;00:15;TRE_mFRR_sa+;5;MW;5;MW;176.00;EUR/MWh;aktiviert
+TRE_26_07_01;00:00;00:15;TRE_mFRR_sa+;10;MW;0;MW;205.00;EUR/MWh;verfügbar
+TRE_26_07_01;00:00;00:15;TRE_mFRR_sa+;5;MW;0;MW;210.00;EUR/MWh;verfügbar
+TRE_26_07_01;00:00;00:15;TRE_mFRR_sa+;5;MW;0;MW;215.00;EUR/MWh;verfügbar
+TRE_26_07_01;00:00;00:15;TRE_mFRR_sa+;5;MW;0;MW;220.00;EUR/MWh;verfügbar
+TRE_26_07_01;00:00;00:15;TRE_mFRR_sa+;3;MW;0;MW;240.00;EUR/MWh;verfügbar
+TRE_26_07_01;00:00;00:15;TRE_mFRR_sa+;3;MW;0;MW;285.00;EUR/MWh;verfügbar
+TRE_26_07_01;00:00;00:15;TRE_mFRR_sa+;3;MW;0;MW;345.00;EUR/MWh;verfügbar
+TRE_26_07_01;00:00;00:15;TRE_mFRR_sa+;2;MW;0;MW;455.00;EUR/MWh;verfügbar
+TRE_26_07_01;00:00;00:15;TRE_mFRR_sa+;2;MW;0;MW;565.00;EUR/MWh;verfügbar
+TRE_26_07_01;00:00;00:15;TRE_mFRR_sa+;5;MW;0;MW;848.80;EUR/MWh;verfügbar
+TRE_26_07_01;00:00;00:15;TRE_mFRR_sa+;2;MW;0;MW;875.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/2026_08_TRE_Ergebnis_2026_08_20_00_00.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_26_08_01;00:00;00:15;TRE_mFRR_da+;25;MW;0;MW;202.00;EUR/MWh;verfügbar
+TRE_26_08_01;00:00;00:15;TRE_mFRR_da+;5;MW;0;MW;211.08;EUR/MWh;verfügbar
+TRE_26_08_01;00:00;00:15;TRE_mFRR_da+;3;MW;0;MW;215.00;EUR/MWh;verfügbar
+TRE_26_08_01;00:00;00:15;TRE_mFRR_da+;3;MW;0;MW;219.30;EUR/MWh;verfügbar
+TRE_26_08_01;00:00;00:15;TRE_mFRR_da+;3;MW;0;MW;223.60;EUR/MWh;verfügbar
+TRE_26_08_01;00:00;00:15;TRE_mFRR_da+;25;MW;0;MW;225.00;EUR/MWh;verfügbar
+TRE_26_08_01;00:00;00:15;TRE_mFRR_da+;25;MW;0;MW;225.00;EUR/MWh;verfügbar
+TRE_26_08_01;00:00;00:15;TRE_mFRR_da+;3;MW;0;MW;227.80;EUR/MWh;verfügbar
+TRE_26_08_01;00:00;00:15;TRE_mFRR_da+;3;MW;0;MW;232.10;EUR/MWh;verfügbar
+TRE_26_08_01;00:00;00:15;TRE_mFRR_da+;3;MW;0;MW;236.30;EUR/MWh;verfügbar
+TRE_26_08_01;00:00;00:15;TRE_mFRR_da+;3;MW;0;MW;240.60;EUR/MWh;verfügbar
+TRE_26_08_01;00:00;00:15;TRE_mFRR_da+;3;MW;0;MW;244.80;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2023/2023-01-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_23_01_01;00:00;00:15;RR_TRE_mFRR_sa+;29;MW;0;MW;62.00;EUR/MWh;verfügbar
+TRE_23_01_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;65.00;EUR/MWh;verfügbar
+TRE_23_01_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;70.00;EUR/MWh;verfügbar
+TRE_23_01_01;00:00;00:15;RR_TRE_mFRR_sa+;30;MW;0;MW;70.50;EUR/MWh;verfügbar
+TRE_23_01_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;75.00;EUR/MWh;verfügbar
+TRE_23_01_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;80.00;EUR/MWh;verfügbar
+TRE_23_01_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;85.00;EUR/MWh;verfügbar
+TRE_23_01_01;00:00;00:15;RR_TRE_mFRR_sa+;29;MW;0;MW;88.00;EUR/MWh;verfügbar
+TRE_23_01_01;00:00;00:15;RR_TRE_mFRR_sa+;20;MW;0;MW;89.00;EUR/MWh;verfügbar
+TRE_23_01_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;90.00;EUR/MWh;verfügbar
+TRE_23_01_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;100.00;EUR/MWh;verfügbar
+TRE_23_01_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;120.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2023/2023-02-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_23_02_01;00:00;00:15;RR_TRE_mFRR_sa+;25;MW;0;MW;169.00;EUR/MWh;verfügbar
+TRE_23_02_01;00:00;00:15;RR_TRE_mFRR_sa+;25;MW;0;MW;179.00;EUR/MWh;verfügbar
+TRE_23_02_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;180.00;EUR/MWh;verfügbar
+TRE_23_02_01;00:00;00:15;RR_TRE_mFRR_sa+;20;MW;0;MW;187.91;EUR/MWh;verfügbar
+TRE_23_02_01;00:00;00:15;RR_TRE_mFRR_sa+;70;MW;0;MW;188.81;EUR/MWh;verfügbar
+TRE_23_02_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;189.00;EUR/MWh;verfügbar
+TRE_23_02_01;00:00;00:15;RR_TRE_mFRR_sa+;50;MW;0;MW;198.81;EUR/MWh;verfügbar
+TRE_23_02_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;199.00;EUR/MWh;verfügbar
+TRE_23_02_01;00:00;00:15;RR_TRE_mFRR_sa+;15;MW;0;MW;200.00;EUR/MWh;verfügbar
+TRE_23_02_01;00:00;00:15;RR_TRE_mFRR_sa+;27;MW;0;MW;210.00;EUR/MWh;verfügbar
+TRE_23_02_01;00:00;00:15;RR_TRE_mFRR_sa+;15;MW;0;MW;210.00;EUR/MWh;verfügbar
+TRE_23_02_01;00:00;00:15;RR_TRE_mFRR_sa+;40;MW;0;MW;212.22;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2023/2023-03-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_23_03_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;132.59;EUR/MWh;verfügbar
+TRE_23_03_01;00:00;00:15;RR_TRE_mFRR_sa-;6;MW;0;MW;132.59;EUR/MWh;verfügbar
+TRE_23_03_01;00:00;00:15;RR_TRE_mFRR_sa-;59;MW;0;MW;124.55;EUR/MWh;verfügbar
+TRE_23_03_01;00:00;00:15;RR_TRE_mFRR_sa-;13;MW;0;MW;122.28;EUR/MWh;verfügbar
+TRE_23_03_01;00:00;00:15;RR_TRE_mFRR_sa-;17;MW;0;MW;122.28;EUR/MWh;verfügbar
+TRE_23_03_01;00:00;00:15;RR_TRE_mFRR_sa-;59;MW;0;MW;114.00;EUR/MWh;verfügbar
+TRE_23_03_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;110.00;EUR/MWh;verfügbar
+TRE_23_03_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;105.00;EUR/MWh;verfügbar
+TRE_23_03_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;102.00;EUR/MWh;verfügbar
+TRE_23_03_01;00:00;00:15;RR_TRE_mFRR_sa-;34;MW;0;MW;99.00;EUR/MWh;verfügbar
+TRE_23_03_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;97.00;EUR/MWh;verfügbar
+TRE_23_03_01;00:00;00:15;RR_TRE_mFRR_sa-;34;MW;0;MW;94.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2023/2023-04-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_23_04_01;00:00;00:15;RR_TRE_mFRR_sa-;16;MW;0;MW;87.37;EUR/MWh;verfügbar
+TRE_23_04_01;00:00;00:15;RR_TRE_mFRR_sa-;59;MW;0;MW;78.00;EUR/MWh;verfügbar
+TRE_23_04_01;00:00;00:15;RR_TRE_mFRR_sa-;13;MW;0;MW;75.90;EUR/MWh;verfügbar
+TRE_23_04_01;00:00;00:15;RR_TRE_mFRR_sa-;13;MW;0;MW;70.90;EUR/MWh;verfügbar
+TRE_23_04_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;70.00;EUR/MWh;verfügbar
+TRE_23_04_01;00:00;00:15;RR_TRE_mFRR_sa-;20;MW;0;MW;69.00;EUR/MWh;verfügbar
+TRE_23_04_01;00:00;00:15;RR_TRE_mFRR_sa-;13;MW;0;MW;65.90;EUR/MWh;verfügbar
+TRE_23_04_01;00:00;00:15;RR_TRE_mFRR_sa-;9;MW;0;MW;60.90;EUR/MWh;verfügbar
+TRE_23_04_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;60.00;EUR/MWh;verfügbar
+TRE_23_04_01;00:00;00:15;RR_TRE_mFRR_sa-;20;MW;0;MW;59.00;EUR/MWh;verfügbar
+TRE_23_04_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;50.00;EUR/MWh;verfügbar
+TRE_23_04_01;00:00;00:15;RR_TRE_mFRR_sa-;20;MW;0;MW;49.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2023/2023-05-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_23_05_01;00:00;00:15;RR_TRE_mFRR_sa-;43;MW;0;MW;88.00;EUR/MWh;verfügbar
+TRE_23_05_01;00:00;00:15;RR_TRE_mFRR_sa-;17;MW;0;MW;81.00;EUR/MWh;verfügbar
+TRE_23_05_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;75.00;EUR/MWh;verfügbar
+TRE_23_05_01;00:00;00:15;RR_TRE_mFRR_sa-;20;MW;0;MW;65.00;EUR/MWh;verfügbar
+TRE_23_05_01;00:00;00:15;RR_TRE_mFRR_sa-;20;MW;0;MW;55.00;EUR/MWh;verfügbar
+TRE_23_05_01;00:00;00:15;RR_TRE_mFRR_sa-;15;MW;0;MW;43.55;EUR/MWh;verfügbar
+TRE_23_05_01;00:00;00:15;RR_TRE_mFRR_sa-;13;MW;0;MW;38.55;EUR/MWh;verfügbar
+TRE_23_05_01;00:00;00:15;RR_TRE_mFRR_sa-;42;MW;0;MW;5.00;EUR/MWh;verfügbar
+TRE_23_05_01;00:00;00:15;RR_TRE_mFRR_sa+;20;MW;0;MW;126.00;EUR/MWh;verfügbar
+TRE_23_05_01;00:00;00:15;RR_TRE_mFRR_sa+;56;MW;0;MW;133.00;EUR/MWh;verfügbar
+TRE_23_05_01;00:00;00:15;RR_TRE_mFRR_sa+;20;MW;0;MW;136.00;EUR/MWh;verfügbar
+TRE_23_05_01;00:00;00:15;RR_TRE_mFRR_sa+;14;MW;0;MW;137.20;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2023/2023-06-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_23_06_01;00:45;01:00;RR_TRE_mFRR_sa+;20;MW;0;MW;97.00;EUR/MWh;verfügbar
+TRE_23_06_01;00:45;01:00;RR_TRE_mFRR_sa+;20;MW;0;MW;98.00;EUR/MWh;verfügbar
+TRE_23_06_01;00:45;01:00;RR_TRE_mFRR_sa+;14;MW;0;MW;108.00;EUR/MWh;verfügbar
+TRE_23_06_01;00:45;01:00;RR_TRE_mFRR_sa+;16;MW;0;MW;113.00;EUR/MWh;verfügbar
+TRE_23_06_01;00:45;01:00;RR_TRE_mFRR_sa+;20;MW;0;MW;115.00;EUR/MWh;verfügbar
+TRE_23_06_01;00:45;01:00;RR_TRE_mFRR_sa+;20;MW;0;MW;118.00;EUR/MWh;verfügbar
+TRE_23_06_01;00:45;01:00;RR_TRE_mFRR_sa+;20;MW;0;MW;125.00;EUR/MWh;verfügbar
+TRE_23_06_01;00:45;01:00;RR_TRE_mFRR_sa+;20;MW;0;MW;128.00;EUR/MWh;verfügbar
+TRE_23_06_01;00:45;01:00;RR_TRE_mFRR_sa+;27;MW;0;MW;130.00;EUR/MWh;verfügbar
+TRE_23_06_01;00:45;01:00;RR_TRE_mFRR_sa+;10;MW;0;MW;138.00;EUR/MWh;verfügbar
+TRE_23_06_01;00:45;01:00;RR_TRE_mFRR_sa+;20;MW;0;MW;138.00;EUR/MWh;verfügbar
+TRE_23_06_01;00:45;01:00;RR_TRE_mFRR_sa+;70;MW;0;MW;142.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2023/2023-07-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_23_07_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;10;MW;88.00;EUR/MWh;aktiviert
+TRE_23_07_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;84.00;EUR/MWh;verfügbar
+TRE_23_07_01;00:00;00:15;RR_TRE_mFRR_sa-;40;MW;0;MW;83.70;EUR/MWh;verfügbar
+TRE_23_07_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;82.50;EUR/MWh;verfügbar
+TRE_23_07_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;82.50;EUR/MWh;verfügbar
+TRE_23_07_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;82.50;EUR/MWh;verfügbar
+TRE_23_07_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;82.00;EUR/MWh;verfügbar
+TRE_23_07_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;80.00;EUR/MWh;verfügbar
+TRE_23_07_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;79.25;EUR/MWh;verfügbar
+TRE_23_07_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;78.47;EUR/MWh;verfügbar
+TRE_23_07_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;76.00;EUR/MWh;verfügbar
+TRE_23_07_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;73.98;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2023/2023-08-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_23_08_01;00:15;00:30;TRE_mFRR_da-;5;MW;0;MW;53.60;EUR/MWh;verfügbar
+TRE_23_08_01;00:15;00:30;TRE_mFRR_da-;10;MW;0;MW;50.00;EUR/MWh;verfügbar
+TRE_23_08_01;00:15;00:30;TRE_mFRR_da-;64;MW;0;MW;42.10;EUR/MWh;verfügbar
+TRE_23_08_01;00:15;00:30;TRE_mFRR_da-;10;MW;0;MW;40.50;EUR/MWh;verfügbar
+TRE_23_08_01;00:15;00:30;TRE_mFRR_da-;10;MW;0;MW;40.00;EUR/MWh;verfügbar
+TRE_23_08_01;00:15;00:30;TRE_mFRR_da-;5;MW;0;MW;33.70;EUR/MWh;verfügbar
+TRE_23_08_01;00:15;00:30;TRE_mFRR_da-;5;MW;0;MW;30.50;EUR/MWh;verfügbar
+TRE_23_08_01;00:15;00:30;TRE_mFRR_da-;10;MW;0;MW;30.00;EUR/MWh;verfügbar
+TRE_23_08_01;00:15;00:30;TRE_mFRR_da-;10;MW;0;MW;20.00;EUR/MWh;verfügbar
+TRE_23_08_01;00:15;00:30;TRE_mFRR_da-;5;MW;0;MW;13.90;EUR/MWh;verfügbar
+TRE_23_08_01;00:15;00:30;TRE_mFRR_da-;10;MW;0;MW;10.00;EUR/MWh;verfügbar
+TRE_23_08_01;00:15;00:30;TRE_mFRR_da-;10;MW;0;MW;0.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2023/2023-09-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_23_09_01;00:00;00:15;RR_TRE_mFRR_sa-;20;MW;0;MW;80.70;EUR/MWh;verfügbar
+TRE_23_09_01;00:00;00:15;RR_TRE_mFRR_sa-;12;MW;0;MW;78.80;EUR/MWh;verfügbar
+TRE_23_09_01;00:00;00:15;RR_TRE_mFRR_sa-;20;MW;0;MW;75.70;EUR/MWh;verfügbar
+TRE_23_09_01;00:00;00:15;RR_TRE_mFRR_sa-;12;MW;0;MW;68.80;EUR/MWh;verfügbar
+TRE_23_09_01;00:00;00:15;RR_TRE_mFRR_sa-;60;MW;0;MW;67.00;EUR/MWh;verfügbar
+TRE_23_09_01;00:00;00:15;RR_TRE_mFRR_sa-;20;MW;0;MW;65.70;EUR/MWh;verfügbar
+TRE_23_09_01;00:00;00:15;RR_TRE_mFRR_sa-;30;MW;0;MW;65.00;EUR/MWh;verfügbar
+TRE_23_09_01;00:00;00:15;RR_TRE_mFRR_sa-;61;MW;0;MW;62.00;EUR/MWh;verfügbar
+TRE_23_09_01;00:00;00:15;RR_TRE_mFRR_sa-;6;MW;0;MW;58.80;EUR/MWh;verfügbar
+TRE_23_09_01;00:00;00:15;RR_TRE_mFRR_sa-;30;MW;0;MW;55.00;EUR/MWh;verfügbar
+TRE_23_09_01;00:00;00:15;RR_TRE_mFRR_sa-;30;MW;0;MW;45.00;EUR/MWh;verfügbar
+TRE_23_09_01;00:00;00:15;RR_TRE_mFRR_sa-;44;MW;0;MW;29.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2023/2023-10-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_23_10_01;00:00;00:15;RR_TRE_mFRR_sa-;8;MW;0;MW;82.46;EUR/MWh;verfügbar
+TRE_23_10_01;00:00;00:15;RR_TRE_mFRR_sa-;30;MW;0;MW;80.00;EUR/MWh;verfügbar
+TRE_23_10_01;00:00;00:15;RR_TRE_mFRR_sa-;46;MW;0;MW;77.00;EUR/MWh;verfügbar
+TRE_23_10_01;00:00;00:15;RR_TRE_mFRR_sa-;15;MW;0;MW;72.25;EUR/MWh;verfügbar
+TRE_23_10_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;56.00;EUR/MWh;verfügbar
+TRE_23_10_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;25.00;EUR/MWh;verfügbar
+TRE_23_10_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;5.00;EUR/MWh;verfügbar
+TRE_23_10_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;-145.00;EUR/MWh;verfügbar
+TRE_23_10_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;-295.00;EUR/MWh;verfügbar
+TRE_23_10_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;-445.00;EUR/MWh;verfügbar
+TRE_23_10_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;-595.00;EUR/MWh;verfügbar
+TRE_23_10_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;-745.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2023/2023-11-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_23_11_01;00:00;00:15;RR_TRE_mFRR_sa+;5;MW;0;MW;99.00;EUR/MWh;verfügbar
+TRE_23_11_01;00:00;00:15;RR_TRE_mFRR_sa+;20;MW;0;MW;105.00;EUR/MWh;verfügbar
+TRE_23_11_01;00:00;00:15;RR_TRE_mFRR_sa+;20;MW;0;MW;111.00;EUR/MWh;verfügbar
+TRE_23_11_01;00:00;00:15;RR_TRE_mFRR_sa+;20;MW;0;MW;115.00;EUR/MWh;verfügbar
+TRE_23_11_01;00:00;00:15;RR_TRE_mFRR_sa+;20;MW;0;MW;125.00;EUR/MWh;verfügbar
+TRE_23_11_01;00:00;00:15;RR_TRE_mFRR_sa+;20;MW;0;MW;130.00;EUR/MWh;verfügbar
+TRE_23_11_01;00:00;00:15;RR_TRE_mFRR_sa+;25;MW;0;MW;140.00;EUR/MWh;verfügbar
+TRE_23_11_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;145.00;EUR/MWh;verfügbar
+TRE_23_11_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;155.00;EUR/MWh;verfügbar
+TRE_23_11_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;165.00;EUR/MWh;verfügbar
+TRE_23_11_01;00:00;00:15;RR_TRE_mFRR_sa+;25;MW;0;MW;190.00;EUR/MWh;verfügbar
+TRE_23_11_01;00:00;00:15;RR_TRE_mFRR_sa+;5;MW;0;MW;199.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2023/2023-12-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_23_12_01;00:30;00:45;RR_TRE_mFRR_sa+;20;MW;0;MW;134.00;EUR/MWh;verfügbar
+TRE_23_12_01;00:30;00:45;RR_TRE_mFRR_sa+;20;MW;0;MW;143.00;EUR/MWh;verfügbar
+TRE_23_12_01;00:30;00:45;RR_TRE_mFRR_sa+;20;MW;0;MW;149.00;EUR/MWh;verfügbar
+TRE_23_12_01;00:30;00:45;RR_TRE_mFRR_sa+;8;MW;0;MW;170.00;EUR/MWh;verfügbar
+TRE_23_12_01;00:30;00:45;RR_TRE_mFRR_sa+;20;MW;0;MW;179.00;EUR/MWh;verfügbar
+TRE_23_12_01;00:30;00:45;RR_TRE_mFRR_sa+;5;MW;0;MW;187.00;EUR/MWh;verfügbar
+TRE_23_12_01;00:30;00:45;RR_TRE_mFRR_sa+;25;MW;0;MW;191.00;EUR/MWh;verfügbar
+TRE_23_12_01;00:30;00:45;RR_TRE_mFRR_sa+;10;MW;0;MW;195.00;EUR/MWh;verfügbar
+TRE_23_12_01;00:30;00:45;RR_TRE_mFRR_sa+;10;MW;0;MW;198.00;EUR/MWh;verfügbar
+TRE_23_12_01;00:30;00:45;RR_TRE_mFRR_sa+;40;MW;0;MW;200.00;EUR/MWh;verfügbar
+TRE_23_12_01;00:30;00:45;RR_TRE_mFRR_sa+;32;MW;0;MW;200.00;EUR/MWh;verfügbar
+TRE_23_12_01;00:30;00:45;RR_TRE_mFRR_sa+;10;MW;0;MW;203.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2024/2024-01-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_24_01_01;00:00;00:15;TRE_mFRR_da+;5;MW;0;MW;109.00;EUR/MWh;verfügbar
+TRE_24_01_01;00:00;00:15;TRE_mFRR_da+;25;MW;0;MW;110.60;EUR/MWh;verfügbar
+TRE_24_01_01;00:00;00:15;TRE_mFRR_da+;8;MW;0;MW;115.00;EUR/MWh;verfügbar
+TRE_24_01_01;00:00;00:15;TRE_mFRR_da+;8;MW;0;MW;127.80;EUR/MWh;verfügbar
+TRE_24_01_01;00:00;00:15;TRE_mFRR_da+;8;MW;0;MW;140.60;EUR/MWh;verfügbar
+TRE_24_01_01;00:00;00:15;TRE_mFRR_da+;5;MW;0;MW;144.00;EUR/MWh;verfügbar
+TRE_24_01_01;00:00;00:15;TRE_mFRR_da+;8;MW;0;MW;153.40;EUR/MWh;verfügbar
+TRE_24_01_01;00:00;00:15;TRE_mFRR_da+;5;MW;0;MW;157.60;EUR/MWh;verfügbar
+TRE_24_01_01;00:00;00:15;TRE_mFRR_da+;5;MW;0;MW;162.00;EUR/MWh;verfügbar
+TRE_24_01_01;00:00;00:15;TRE_mFRR_da+;8;MW;0;MW;166.20;EUR/MWh;verfügbar
+TRE_24_01_01;00:00;00:15;TRE_mFRR_da+;8;MW;0;MW;179.00;EUR/MWh;verfügbar
+TRE_24_01_01;00:00;00:15;TRE_mFRR_da+;5;MW;0;MW;180.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2024/2024-02-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_24_02_01;00:30;00:45;RR_TRE_mFRR_sa-;5;MW;0;MW;55.00;EUR/MWh;verfügbar
+TRE_24_02_01;00:30;00:45;RR_TRE_mFRR_sa-;12;MW;0;MW;54.55;EUR/MWh;verfügbar
+TRE_24_02_01;00:30;00:45;RR_TRE_mFRR_sa-;48;MW;0;MW;54.00;EUR/MWh;verfügbar
+TRE_24_02_01;00:30;00:45;RR_TRE_mFRR_sa-;12;MW;0;MW;50.70;EUR/MWh;verfügbar
+TRE_24_02_01;00:30;00:45;RR_TRE_mFRR_sa-;6;MW;0;MW;47.00;EUR/MWh;verfügbar
+TRE_24_02_01;00:30;00:45;RR_TRE_mFRR_sa-;12;MW;0;MW;40.70;EUR/MWh;verfügbar
+TRE_24_02_01;00:30;00:45;RR_TRE_mFRR_sa-;9;MW;0;MW;30.70;EUR/MWh;verfügbar
+TRE_24_02_01;00:30;00:45;RR_TRE_mFRR_sa-;5;MW;0;MW;19.00;EUR/MWh;verfügbar
+TRE_24_02_01;00:30;00:45;RR_TRE_mFRR_sa-;5;MW;0;MW;-928.60;EUR/MWh;verfügbar
+TRE_24_02_01;00:30;00:45;RR_TRE_mFRR_sa-;9;MW;0;MW;-2134.00;EUR/MWh;verfügbar
+TRE_24_02_01;00:45;01:00;RR_TRE_mFRR_sa+;17;MW;17;MW;94.00;EUR/MWh;aktiviert
+TRE_24_02_01;00:45;01:00;RR_TRE_mFRR_sa+;40;MW;0;MW;96.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2024/2024-03-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_24_03_01;00:00;00:15;RR_TRE_mFRR_sa-;50;MW;0;MW;60.00;EUR/MWh;verfügbar
+TRE_24_03_01;00:00;00:15;RR_TRE_mFRR_sa-;40;MW;0;MW;59.00;EUR/MWh;verfügbar
+TRE_24_03_01;00:00;00:15;RR_TRE_mFRR_sa-;20;MW;0;MW;55.00;EUR/MWh;verfügbar
+TRE_24_03_01;00:00;00:15;RR_TRE_mFRR_sa-;45;MW;0;MW;42.50;EUR/MWh;verfügbar
+TRE_24_03_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;-880.00;EUR/MWh;verfügbar
+TRE_24_03_01;00:00;00:15;RR_TRE_mFRR_sa+;18;MW;18;MW;88.50;EUR/MWh;aktiviert
+TRE_24_03_01;00:00;00:15;RR_TRE_mFRR_sa+;25;MW;25;MW;90.00;EUR/MWh;aktiviert
+TRE_24_03_01;00:00;00:15;RR_TRE_mFRR_sa+;43;MW;0;MW;98.50;EUR/MWh;verfügbar
+TRE_24_03_01;00:00;00:15;RR_TRE_mFRR_sa+;25;MW;0;MW;99.90;EUR/MWh;verfügbar
+TRE_24_03_01;00:00;00:15;RR_TRE_mFRR_sa+;25;MW;0;MW;100.00;EUR/MWh;verfügbar
+TRE_24_03_01;00:00;00:15;RR_TRE_mFRR_sa+;20;MW;0;MW;100.90;EUR/MWh;verfügbar
+TRE_24_03_01;00:00;00:15;RR_TRE_mFRR_sa+;15;MW;0;MW;104.90;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2024/2024-04-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_24_04_01;00:15;00:30;RR_TRE_mFRR_sa+;23;MW;0;MW;77.00;EUR/MWh;verfügbar
+TRE_24_04_01;00:15;00:30;RR_TRE_mFRR_sa+;38;MW;0;MW;82.50;EUR/MWh;verfügbar
+TRE_24_04_01;00:15;00:30;RR_TRE_mFRR_sa+;40;MW;0;MW;87.00;EUR/MWh;verfügbar
+TRE_24_04_01;00:15;00:30;RR_TRE_mFRR_sa+;12;MW;0;MW;89.00;EUR/MWh;verfügbar
+TRE_24_04_01;00:15;00:30;RR_TRE_mFRR_sa+;18;MW;0;MW;93.00;EUR/MWh;verfügbar
+TRE_24_04_01;00:15;00:30;RR_TRE_mFRR_sa+;44;MW;0;MW;94.00;EUR/MWh;verfügbar
+TRE_24_04_01;00:15;00:30;RR_TRE_mFRR_sa+;20;MW;0;MW;101.00;EUR/MWh;verfügbar
+TRE_24_04_01;00:15;00:30;RR_TRE_mFRR_sa+;5;MW;0;MW;115.00;EUR/MWh;verfügbar
+TRE_24_04_01;00:15;00:30;RR_TRE_mFRR_sa+;24;MW;0;MW;119.80;EUR/MWh;verfügbar
+TRE_24_04_01;00:15;00:30;RR_TRE_mFRR_sa+;20;MW;0;MW;120.00;EUR/MWh;verfügbar
+TRE_24_04_01;00:15;00:30;RR_TRE_mFRR_sa+;25;MW;0;MW;122.00;EUR/MWh;verfügbar
+TRE_24_04_01;00:15;00:30;RR_TRE_mFRR_sa+;5;MW;0;MW;122.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2024/2024-05-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_24_05_01;00:00;00:15;RR_TRE_mFRR_sa+;5;MW;0;MW;66.32;EUR/MWh;verfügbar
+TRE_24_05_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;90.00;EUR/MWh;verfügbar
+TRE_24_05_01;00:00;00:15;RR_TRE_mFRR_sa+;5;MW;0;MW;90.02;EUR/MWh;verfügbar
+TRE_24_05_01;00:00;00:15;RR_TRE_mFRR_sa+;5;MW;0;MW;99.32;EUR/MWh;verfügbar
+TRE_24_05_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;100.00;EUR/MWh;verfügbar
+TRE_24_05_01;00:00;00:15;RR_TRE_mFRR_sa+;14;MW;0;MW;100.14;EUR/MWh;verfügbar
+TRE_24_05_01;00:00;00:15;RR_TRE_mFRR_sa+;40;MW;0;MW;103.90;EUR/MWh;verfügbar
+TRE_24_05_01;00:00;00:15;RR_TRE_mFRR_sa+;5;MW;0;MW;108.00;EUR/MWh;verfügbar
+TRE_24_05_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;110.00;EUR/MWh;verfügbar
+TRE_24_05_01;00:00;00:15;RR_TRE_mFRR_sa+;39;MW;0;MW;111.50;EUR/MWh;verfügbar
+TRE_24_05_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;120.00;EUR/MWh;verfügbar
+TRE_24_05_01;00:00;00:15;RR_TRE_mFRR_sa+;5;MW;0;MW;123.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2024/2024-06-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_24_06_01;00:00;01:00;RR_TREnergie-_l;10;MW;0;MW;-3699.00;EUR/MWh;verfügbar
+TRE_24_06_01;00:00;01:00;RR_TREnergie-_l;5;MW;0;MW;-4986.50;EUR/MWh;verfügbar
+TRE_24_06_01;00:00;01:00;RR_TREnergie-_l;5;MW;0;MW;-6274.00;EUR/MWh;verfügbar
+TRE_24_06_01;00:00;01:00;RR_TREnergie-_l;5;MW;0;MW;-7561.50;EUR/MWh;verfügbar
+TRE_24_06_01;00:00;01:00;RR_TREnergie-_l;5;MW;0;MW;-8849.00;EUR/MWh;verfügbar
+TRE_24_06_01;00:00;01:00;RR_TREnergie-_l;5;MW;0;MW;-10136.50;EUR/MWh;verfügbar
+TRE_24_06_01;00:00;01:00;RR_TREnergie-_l;5;MW;0;MW;-11424.00;EUR/MWh;verfügbar
+TRE_24_06_01;00:00;01:00;RR_TREnergie-_l;5;MW;0;MW;-12711.50;EUR/MWh;verfügbar
+TRE_24_06_01;00:00;01:00;RR_TREnergie-_l;5;MW;0;MW;-13999.00;EUR/MWh;verfügbar
+TRE_24_06_01;00:00;00:15;RR_TRE_mFRR_sa+;40;MW;40;MW;85.00;EUR/MWh;aktiviert
+TRE_24_06_01;00:00;00:15;RR_TRE_mFRR_sa+;40;MW;40;MW;88.00;EUR/MWh;aktiviert
+TRE_24_06_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;10;MW;90.00;EUR/MWh;aktiviert
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2024/2024-07-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_24_07_01;00:15;00:30;RR_TRE_mFRR_sa+;44;MW;35;MW;70.00;EUR/MWh;aktiviert
+TRE_24_07_01;00:15;00:30;RR_TRE_mFRR_sa+;20;MW;0;MW;80.00;EUR/MWh;verfügbar
+TRE_24_07_01;00:15;00:30;RR_TRE_mFRR_sa+;17;MW;0;MW;83.25;EUR/MWh;verfügbar
+TRE_24_07_01;00:15;00:30;RR_TRE_mFRR_sa+;10;MW;0;MW;88.00;EUR/MWh;verfügbar
+TRE_24_07_01;00:15;00:30;RR_TRE_mFRR_sa+;10;MW;0;MW;88.00;EUR/MWh;verfügbar
+TRE_24_07_01;00:15;00:30;RR_TRE_mFRR_sa+;20;MW;0;MW;90.00;EUR/MWh;verfügbar
+TRE_24_07_01;00:15;00:30;RR_TRE_mFRR_sa+;20;MW;0;MW;98.00;EUR/MWh;verfügbar
+TRE_24_07_01;00:15;00:30;RR_TRE_mFRR_sa+;10;MW;0;MW;98.00;EUR/MWh;verfügbar
+TRE_24_07_01;00:15;00:30;RR_TRE_mFRR_sa+;5;MW;0;MW;99.89;EUR/MWh;verfügbar
+TRE_24_07_01;00:15;00:30;RR_TRE_mFRR_sa+;10;MW;0;MW;108.00;EUR/MWh;verfügbar
+TRE_24_07_01;00:15;00:30;RR_TRE_mFRR_sa+;10;MW;0;MW;128.00;EUR/MWh;verfügbar
+TRE_24_07_01;00:15;00:30;RR_TRE_mFRR_sa+;10;MW;0;MW;499.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2024/2024-08-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_24_08_01;00:00;00:15;RR_TRE_mFRR_sa-;12;MW;0;MW;20.50;EUR/MWh;verfügbar
+TRE_24_08_01;00:00;00:15;RR_TRE_mFRR_sa-;40;MW;0;MW;16.00;EUR/MWh;verfügbar
+TRE_24_08_01;00:00;00:15;RR_TRE_mFRR_sa-;43;MW;0;MW;10.50;EUR/MWh;verfügbar
+TRE_24_08_01;00:00;00:15;RR_TRE_mFRR_sa-;30;MW;0;MW;5.00;EUR/MWh;verfügbar
+TRE_24_08_01;00:00;00:15;RR_TRE_mFRR_sa-;20;MW;0;MW;2.00;EUR/MWh;verfügbar
+TRE_24_08_01;00:00;00:15;RR_TRE_mFRR_sa-;44;MW;0;MW;0.50;EUR/MWh;verfügbar
+TRE_24_08_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;-6.00;EUR/MWh;verfügbar
+TRE_24_08_01;00:00;00:15;RR_TRE_mFRR_sa-;27;MW;0;MW;-10.00;EUR/MWh;verfügbar
+TRE_24_08_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;-300.00;EUR/MWh;verfügbar
+TRE_24_08_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;-669.00;EUR/MWh;verfügbar
+TRE_24_08_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;-969.00;EUR/MWh;verfügbar
+TRE_24_08_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;-1239.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2024/2024-09-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_24_09_01;00:00;00:15;RR_TRE_mFRR_sa-;7;MW;0;MW;66.00;EUR/MWh;verfügbar
+TRE_24_09_01;00:00;00:15;RR_TRE_mFRR_sa-;51;MW;0;MW;54.00;EUR/MWh;verfügbar
+TRE_24_09_01;00:00;00:15;RR_TRE_mFRR_sa-;40;MW;0;MW;38.00;EUR/MWh;verfügbar
+TRE_24_09_01;00:00;00:15;RR_TRE_mFRR_sa-;20;MW;0;MW;36.60;EUR/MWh;verfügbar
+TRE_24_09_01;00:00;00:15;RR_TRE_mFRR_sa-;25;MW;0;MW;26.60;EUR/MWh;verfügbar
+TRE_24_09_01;00:00;00:15;RR_TRE_mFRR_sa-;40;MW;0;MW;16.00;EUR/MWh;verfügbar
+TRE_24_09_01;00:00;00:15;RR_TRE_mFRR_sa-;40;MW;0;MW;0.00;EUR/MWh;verfügbar
+TRE_24_09_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;-1.00;EUR/MWh;verfügbar
+TRE_24_09_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;-19.67;EUR/MWh;verfügbar
+TRE_24_09_01;00:00;00:15;RR_TRE_mFRR_sa-;43;MW;0;MW;-32.00;EUR/MWh;verfügbar
+TRE_24_09_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;-130.78;EUR/MWh;verfügbar
+TRE_24_09_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;-169.90;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2024/2024-10-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_24_10_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;46.64;EUR/MWh;verfügbar
+TRE_24_10_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;-0.59;EUR/MWh;verfügbar
+TRE_24_10_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;-546.18;EUR/MWh;verfügbar
+TRE_24_10_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;-8787.00;EUR/MWh;verfügbar
+TRE_24_10_01;00:15;00:30;RR_TRE_mFRR_sa-;5;MW;0;MW;-0.59;EUR/MWh;verfügbar
+TRE_24_10_01;00:15;00:30;RR_TRE_mFRR_sa-;5;MW;0;MW;-546.18;EUR/MWh;verfügbar
+TRE_24_10_01;00:15;00:30;RR_TRE_mFRR_sa-;5;MW;0;MW;-1091.77;EUR/MWh;verfügbar
+TRE_24_10_01;00:15;00:30;RR_TRE_mFRR_sa-;5;MW;0;MW;-1637.36;EUR/MWh;verfügbar
+TRE_24_10_01;00:30;00:45;RR_TRE_mFRR_sa-;5;MW;0;MW;-0.59;EUR/MWh;verfügbar
+TRE_24_10_01;00:30;00:45;RR_TRE_mFRR_sa-;5;MW;0;MW;-546.18;EUR/MWh;verfügbar
+TRE_24_10_01;00:30;00:45;RR_TRE_mFRR_sa-;5;MW;0;MW;-1091.77;EUR/MWh;verfügbar
+TRE_24_10_01;00:30;00:45;RR_TRE_mFRR_sa-;5;MW;0;MW;-1637.36;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2024/2024-11-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_24_11_01;00:00;00:15;RR_TRE_mFRR_sa-;40;MW;0;MW;72.00;EUR/MWh;verfügbar
+TRE_24_11_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;68.00;EUR/MWh;verfügbar
+TRE_24_11_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;58.00;EUR/MWh;verfügbar
+TRE_24_11_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;53.70;EUR/MWh;verfügbar
+TRE_24_11_01;00:00;00:15;RR_TRE_mFRR_sa-;15;MW;0;MW;52.00;EUR/MWh;verfügbar
+TRE_24_11_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;48.00;EUR/MWh;verfügbar
+TRE_24_11_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;38.00;EUR/MWh;verfügbar
+TRE_24_11_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;-158.00;EUR/MWh;verfügbar
+TRE_24_11_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;-258.00;EUR/MWh;verfügbar
+TRE_24_11_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;-458.00;EUR/MWh;verfügbar
+TRE_24_11_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;-888.00;EUR/MWh;verfügbar
+TRE_24_11_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;-1558.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2024/2024-12-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_24_12_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;50.32;EUR/MWh;verfügbar
+TRE_24_12_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;-14.00;EUR/MWh;verfügbar
+TRE_24_12_01;00:00;00:15;RR_TRE_mFRR_sa-;20;MW;0;MW;-98.00;EUR/MWh;verfügbar
+TRE_24_12_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;-162.50;EUR/MWh;verfügbar
+TRE_24_12_01;00:00;00:15;RR_TRE_mFRR_sa-;20;MW;0;MW;-286.00;EUR/MWh;verfügbar
+TRE_24_12_01;00:00;00:15;RR_TRE_mFRR_sa-;25;MW;0;MW;-550.00;EUR/MWh;verfügbar
+TRE_24_12_01;00:00;00:15;RR_TRE_mFRR_sa-;20;MW;0;MW;-987.00;EUR/MWh;verfügbar
+TRE_24_12_01;00:00;00:15;RR_TRE_mFRR_sa-;7;MW;0;MW;-1285.00;EUR/MWh;verfügbar
+TRE_24_12_01;00:15;00:30;RR_TRE_mFRR_sa-;5;MW;0;MW;50.32;EUR/MWh;verfügbar
+TRE_24_12_01;00:15;00:30;RR_TRE_mFRR_sa-;5;MW;0;MW;-14.00;EUR/MWh;verfügbar
+TRE_24_12_01;00:15;00:30;RR_TRE_mFRR_sa-;20;MW;0;MW;-98.00;EUR/MWh;verfügbar
+TRE_24_12_01;00:15;00:30;RR_TRE_mFRR_sa-;20;MW;0;MW;-286.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2025/2025-01-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_25_01_01;00:00;00:15;TRE_mFRR_da+;12;MW;12;MW;156.80;EUR/MWh;aktiviert
+TRE_25_01_01;00:00;00:15;TRE_mFRR_da+;5;MW;0;MW;165.00;EUR/MWh;verfügbar
+TRE_25_01_01;00:00;00:15;TRE_mFRR_da+;5;MW;0;MW;166.50;EUR/MWh;verfügbar
+TRE_25_01_01;00:00;00:15;TRE_mFRR_da+;5;MW;0;MW;230.00;EUR/MWh;verfügbar
+TRE_25_01_01;00:00;00:15;TRE_mFRR_da+;7;MW;0;MW;300.00;EUR/MWh;verfügbar
+TRE_25_01_01;00:00;00:15;TRE_mFRR_da+;20;MW;0;MW;300.00;EUR/MWh;verfügbar
+TRE_25_01_01;00:00;00:15;TRE_mFRR_da+;5;MW;0;MW;349.00;EUR/MWh;verfügbar
+TRE_25_01_01;00:00;00:15;TRE_mFRR_da+;10;MW;0;MW;350.00;EUR/MWh;verfügbar
+TRE_25_01_01;00:00;00:15;TRE_mFRR_da+;20;MW;0;MW;350.00;EUR/MWh;verfügbar
+TRE_25_01_01;00:00;00:15;TRE_mFRR_da+;12;MW;0;MW;482.16;EUR/MWh;verfügbar
+TRE_25_01_01;00:00;00:15;TRE_mFRR_da+;5;MW;0;MW;627.60;EUR/MWh;verfügbar
+TRE_25_01_01;00:00;00:15;TRE_mFRR_da+;20;MW;0;MW;699.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2025/2025-02-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_25_02_01;00:00;00:15;TRE_mFRR_sa-;10;MW;0;MW;28.00;EUR/MWh;verfügbar
+TRE_25_02_01;00:00;00:15;TRE_mFRR_sa-;10;MW;0;MW;-333.00;EUR/MWh;verfügbar
+TRE_25_02_01;00:00;00:15;TRE_mFRR_sa-;11;MW;0;MW;-888.00;EUR/MWh;verfügbar
+TRE_25_02_01;00:00;00:15;TRE_mFRR_sa-;5;MW;0;MW;-13477.60;EUR/MWh;verfügbar
+TRE_25_02_01;00:00;00:15;TRE_mFRR_sa-;5;MW;0;MW;-13585.30;EUR/MWh;verfügbar
+TRE_25_02_01;00:00;00:15;TRE_mFRR_sa-;5;MW;0;MW;-13693.10;EUR/MWh;verfügbar
+TRE_25_02_01;00:00;00:15;TRE_mFRR_sa-;5;MW;0;MW;-13800.80;EUR/MWh;verfügbar
+TRE_25_02_01;00:00;00:15;TRE_mFRR_sa-;9;MW;0;MW;-13999.00;EUR/MWh;verfügbar
+TRE_25_02_01;00:15;00:30;TRE_mFRR_sa-;5;MW;0;MW;99.00;EUR/MWh;verfügbar
+TRE_25_02_01;00:15;00:30;TRE_mFRR_sa-;10;MW;0;MW;28.00;EUR/MWh;verfügbar
+TRE_25_02_01;00:15;00:30;TRE_mFRR_sa-;10;MW;0;MW;-333.00;EUR/MWh;verfügbar
+TRE_25_02_01;00:15;00:30;TRE_mFRR_sa-;11;MW;0;MW;-888.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2025/2025-03-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_25_03_01;00:00;00:15;TRE_mFRR_sa-;7;MW;0;MW;35.00;EUR/MWh;verfügbar
+TRE_25_03_01;00:00;00:15;TRE_mFRR_sa-;5;MW;0;MW;0.00;EUR/MWh;verfügbar
+TRE_25_03_01;00:00;00:15;TRE_mFRR_sa-;20;MW;0;MW;-2.60;EUR/MWh;verfügbar
+TRE_25_03_01;00:00;00:15;TRE_mFRR_sa-;5;MW;0;MW;-50.00;EUR/MWh;verfügbar
+TRE_25_03_01;00:00;00:15;TRE_mFRR_sa-;11;MW;0;MW;-304.60;EUR/MWh;verfügbar
+TRE_25_03_01;00:00;00:15;TRE_mFRR_sa-;5;MW;0;MW;-1112.00;EUR/MWh;verfügbar
+TRE_25_03_01;00:00;00:15;TRE_mFRR_sa-;5;MW;0;MW;-1500.00;EUR/MWh;verfügbar
+TRE_25_03_01;00:15;00:30;TRE_mFRR_sa-;7;MW;0;MW;35.00;EUR/MWh;verfügbar
+TRE_25_03_01;00:15;00:30;TRE_mFRR_sa-;5;MW;0;MW;0.00;EUR/MWh;verfügbar
+TRE_25_03_01;00:15;00:30;TRE_mFRR_sa-;20;MW;0;MW;-2.60;EUR/MWh;verfügbar
+TRE_25_03_01;00:15;00:30;TRE_mFRR_sa-;5;MW;0;MW;-50.00;EUR/MWh;verfügbar
+TRE_25_03_01;00:15;00:30;TRE_mFRR_sa-;11;MW;0;MW;-304.60;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2025/2025-04-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_25_04_01;00:00;00:15;TRE_mFRR_da-;5;MW;0;MW;38.20;EUR/MWh;verfügbar
+TRE_25_04_01;00:00;00:15;TRE_mFRR_da-;8;MW;0;MW;10.00;EUR/MWh;verfügbar
+TRE_25_04_01;00:00;00:15;TRE_mFRR_da-;13;MW;0;MW;-18.20;EUR/MWh;verfügbar
+TRE_25_04_01;00:00;00:15;TRE_mFRR_da-;14;MW;0;MW;-49.70;EUR/MWh;verfügbar
+TRE_25_04_01;00:00;00:15;TRE_mFRR_da-;5;MW;0;MW;-83.35;EUR/MWh;verfügbar
+TRE_25_04_01;00:00;00:15;TRE_mFRR_da-;5;MW;0;MW;-178.80;EUR/MWh;verfügbar
+TRE_25_04_01;00:00;00:15;TRE_mFRR_da-;5;MW;0;MW;-210.28;EUR/MWh;verfügbar
+TRE_25_04_01;00:00;00:15;TRE_mFRR_da-;5;MW;0;MW;-337.69;EUR/MWh;verfügbar
+TRE_25_04_01;00:00;00:15;TRE_mFRR_da-;5;MW;0;MW;-395.80;EUR/MWh;verfügbar
+TRE_25_04_01;00:00;00:15;TRE_mFRR_da-;5;MW;0;MW;-465.96;EUR/MWh;verfügbar
+TRE_25_04_01;00:00;00:15;TRE_mFRR_da-;10;MW;0;MW;-499.00;EUR/MWh;verfügbar
+TRE_25_04_01;00:00;00:15;TRE_mFRR_da-;64;MW;0;MW;-499.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2025/2025-05-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_25_05_01;00:00;00:15;RR_TRE_mFRR_sa+;20;MW;20;MW;122.00;EUR/MWh;aktiviert
+TRE_25_05_01;00:00;00:15;RR_TRE_mFRR_sa+;17;MW;17;MW;123.00;EUR/MWh;aktiviert
+TRE_25_05_01;00:00;00:15;RR_TRE_mFRR_sa+;20;MW;0;MW;144.00;EUR/MWh;verfügbar
+TRE_25_05_01;00:00;00:15;RR_TRE_mFRR_sa+;20;MW;0;MW;162.00;EUR/MWh;verfügbar
+TRE_25_05_01;00:00;00:15;RR_TRE_mFRR_sa+;15;MW;0;MW;170.00;EUR/MWh;verfügbar
+TRE_25_05_01;00:00;00:15;RR_TRE_mFRR_sa+;23;MW;0;MW;180.00;EUR/MWh;verfügbar
+TRE_25_05_01;00:00;00:15;RR_TRE_mFRR_sa+;15;MW;0;MW;186.00;EUR/MWh;verfügbar
+TRE_25_05_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;214.00;EUR/MWh;verfügbar
+TRE_25_05_01;00:00;00:15;RR_TRE_mFRR_sa+;5;MW;0;MW;558.00;EUR/MWh;verfügbar
+TRE_25_05_01;00:00;00:15;RR_TRE_mFRR_sa+;5;MW;0;MW;889.00;EUR/MWh;verfügbar
+TRE_25_05_01;00:00;00:15;RR_TRE_mFRR_sa+;5;MW;0;MW;1558.00;EUR/MWh;verfügbar
+TRE_25_05_01;00:00;00:15;RR_TRE_mFRR_sa+;5;MW;0;MW;2558.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2025/2025-06-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_25_06_01;00:00;00:15;RR_TRE_mFRR_sa+;15;MW;15;MW;105.00;EUR/MWh;aktiviert
+TRE_25_06_01;00:00;00:15;RR_TRE_mFRR_sa+;15;MW;15;MW;110.00;EUR/MWh;aktiviert
+TRE_25_06_01;00:00;00:15;RR_TRE_mFRR_sa+;15;MW;15;MW;115.00;EUR/MWh;aktiviert
+TRE_25_06_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;140.00;EUR/MWh;verfügbar
+TRE_25_06_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;150.00;EUR/MWh;verfügbar
+TRE_25_06_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;160.00;EUR/MWh;verfügbar
+TRE_25_06_01;00:00;00:15;RR_TRE_mFRR_sa+;25;MW;0;MW;180.00;EUR/MWh;verfügbar
+TRE_25_06_01;00:00;00:15;RR_TRE_mFRR_sa+;25;MW;0;MW;190.00;EUR/MWh;verfügbar
+TRE_25_06_01;00:00;00:15;RR_TRE_mFRR_sa+;25;MW;0;MW;195.00;EUR/MWh;verfügbar
+TRE_25_06_01;00:00;00:15;RR_TRE_mFRR_sa+;20;MW;0;MW;200.00;EUR/MWh;verfügbar
+TRE_25_06_01;00:00;00:15;RR_TRE_mFRR_sa+;25;MW;0;MW;210.00;EUR/MWh;verfügbar
+TRE_25_06_01;00:00;00:15;RR_TRE_mFRR_sa+;25;MW;0;MW;225.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2025/2025-07-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_25_07_01;00:00;00:15;TRE_mFRR_sa-;5;MW;0;MW;87.58;EUR/MWh;verfügbar
+TRE_25_07_01;00:00;00:15;TRE_mFRR_sa-;8;MW;0;MW;80.00;EUR/MWh;verfügbar
+TRE_25_07_01;00:00;00:15;TRE_mFRR_sa-;8;MW;0;MW;77.47;EUR/MWh;verfügbar
+TRE_25_07_01;00:00;00:15;TRE_mFRR_sa-;13;MW;0;MW;66.07;EUR/MWh;verfügbar
+TRE_25_07_01;00:00;00:15;TRE_mFRR_sa-;5;MW;0;MW;60.00;EUR/MWh;verfügbar
+TRE_25_07_01;00:00;00:15;TRE_mFRR_sa-;20;MW;0;MW;55.37;EUR/MWh;verfügbar
+TRE_25_07_01;00:00;00:15;TRE_mFRR_sa-;10;MW;0;MW;55.00;EUR/MWh;verfügbar
+TRE_25_07_01;00:00;00:15;TRE_mFRR_sa-;7;MW;0;MW;50.00;EUR/MWh;verfügbar
+TRE_25_07_01;00:00;00:15;TRE_mFRR_sa-;32;MW;0;MW;45.84;EUR/MWh;verfügbar
+TRE_25_07_01;00:00;00:15;TRE_mFRR_sa-;10;MW;0;MW;45.00;EUR/MWh;verfügbar
+TRE_25_07_01;00:00;00:15;TRE_mFRR_sa-;19;MW;0;MW;42.00;EUR/MWh;verfügbar
+TRE_25_07_01;00:00;00:15;TRE_mFRR_sa-;50;MW;0;MW;37.58;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2025/2025-08-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_25_08_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;82.00;EUR/MWh;verfügbar
+TRE_25_08_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;76.00;EUR/MWh;verfügbar
+TRE_25_08_01;00:00;00:15;RR_TRE_mFRR_sa-;40;MW;0;MW;75.00;EUR/MWh;verfügbar
+TRE_25_08_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;74.10;EUR/MWh;verfügbar
+TRE_25_08_01;00:00;00:15;RR_TRE_mFRR_sa-;43;MW;0;MW;70.00;EUR/MWh;verfügbar
+TRE_25_08_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;67.00;EUR/MWh;verfügbar
+TRE_25_08_01;00:00;00:15;RR_TRE_mFRR_sa-;40;MW;0;MW;65.00;EUR/MWh;verfügbar
+TRE_25_08_01;00:00;00:15;RR_TRE_mFRR_sa-;40;MW;0;MW;62.00;EUR/MWh;verfügbar
+TRE_25_08_01;00:00;00:15;RR_TRE_mFRR_sa-;40;MW;0;MW;60.00;EUR/MWh;verfügbar
+TRE_25_08_01;00:00;00:15;RR_TRE_mFRR_sa-;10;MW;0;MW;58.30;EUR/MWh;verfügbar
+TRE_25_08_01;00:00;00:15;RR_TRE_mFRR_sa-;40;MW;0;MW;55.00;EUR/MWh;verfügbar
+TRE_25_08_01;00:00;00:15;RR_TRE_mFRR_sa-;40;MW;0;MW;52.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2025/2025-09-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_25_09_01;00:00;00:15;RR_TRE_mFRR_sa+;44;MW;0;MW;103.00;EUR/MWh;verfügbar
+TRE_25_09_01;00:00;00:15;RR_TRE_mFRR_sa+;20;MW;0;MW;103.00;EUR/MWh;verfügbar
+TRE_25_09_01;00:00;00:15;RR_TRE_mFRR_sa+;43;MW;0;MW;114.00;EUR/MWh;verfügbar
+TRE_25_09_01;00:00;00:15;RR_TRE_mFRR_sa+;20;MW;0;MW;114.00;EUR/MWh;verfügbar
+TRE_25_09_01;00:00;00:15;RR_TRE_mFRR_sa+;30;MW;0;MW;126.00;EUR/MWh;verfügbar
+TRE_25_09_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;130.00;EUR/MWh;verfügbar
+TRE_25_09_01;00:00;00:15;RR_TRE_mFRR_sa+;40;MW;0;MW;130.00;EUR/MWh;verfügbar
+TRE_25_09_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;136.00;EUR/MWh;verfügbar
+TRE_25_09_01;00:00;00:15;RR_TRE_mFRR_sa+;30;MW;0;MW;137.00;EUR/MWh;verfügbar
+TRE_25_09_01;00:00;00:15;RR_TRE_mFRR_sa+;17;MW;0;MW;143.00;EUR/MWh;verfügbar
+TRE_25_09_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;144.00;EUR/MWh;verfügbar
+TRE_25_09_01;00:00;00:15;RR_TRE_mFRR_sa+;9;MW;0;MW;150.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2025/2025-10-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_25_10_01;00:00;00:15;RR_TRE_mFRR_sa-;40;MW;0;MW;81.00;EUR/MWh;verfügbar
+TRE_25_10_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;70.00;EUR/MWh;verfügbar
+TRE_25_10_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;64.00;EUR/MWh;verfügbar
+TRE_25_10_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;60.00;EUR/MWh;verfügbar
+TRE_25_10_01;00:00;00:15;RR_TRE_mFRR_sa-;5;MW;0;MW;50.00;EUR/MWh;verfügbar
+TRE_25_10_01;00:00;00:15;RR_TRE_mFRR_sa-;8;MW;0;MW;30.00;EUR/MWh;verfügbar
+TRE_25_10_01;00:15;00:30;RR_TRE_mFRR_sa-;40;MW;0;MW;81.00;EUR/MWh;verfügbar
+TRE_25_10_01;00:15;00:30;RR_TRE_mFRR_sa-;5;MW;0;MW;70.00;EUR/MWh;verfügbar
+TRE_25_10_01;00:15;00:30;RR_TRE_mFRR_sa-;5;MW;0;MW;64.00;EUR/MWh;verfügbar
+TRE_25_10_01;00:15;00:30;RR_TRE_mFRR_sa-;5;MW;0;MW;60.00;EUR/MWh;verfügbar
+TRE_25_10_01;00:15;00:30;RR_TRE_mFRR_sa-;5;MW;0;MW;50.00;EUR/MWh;verfügbar
+TRE_25_10_01;00:15;00:30;RR_TRE_mFRR_sa-;8;MW;0;MW;30.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2025/2025-11-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_25_11_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;137.00;EUR/MWh;verfügbar
+TRE_25_11_01;00:00;00:15;RR_TRE_mFRR_sa+;27;MW;0;MW;139.00;EUR/MWh;verfügbar
+TRE_25_11_01;00:00;00:15;RR_TRE_mFRR_sa+;10;MW;0;MW;142.00;EUR/MWh;verfügbar
+TRE_25_11_01;00:00;00:15;RR_TRE_mFRR_sa+;5;MW;0;MW;144.00;EUR/MWh;verfügbar
+TRE_25_11_01;00:00;00:15;RR_TRE_mFRR_sa+;25;MW;0;MW;145.00;EUR/MWh;verfügbar
+TRE_25_11_01;00:00;00:15;RR_TRE_mFRR_sa+;25;MW;0;MW;147.00;EUR/MWh;verfügbar
+TRE_25_11_01;00:00;00:15;RR_TRE_mFRR_sa+;25;MW;0;MW;165.00;EUR/MWh;verfügbar
+TRE_25_11_01;00:00;00:15;RR_TRE_mFRR_sa+;21;MW;0;MW;205.00;EUR/MWh;verfügbar
+TRE_25_11_01;00:00;00:15;RR_TRE_mFRR_sa+;13;MW;0;MW;249.00;EUR/MWh;verfügbar
+TRE_25_11_01;00:00;00:15;RR_TRE_mFRR_sa+;9;MW;0;MW;605.00;EUR/MWh;verfügbar
+TRE_25_11_01;00:15;00:30;RR_TRE_mFRR_sa+;10;MW;0;MW;137.00;EUR/MWh;verfügbar
+TRE_25_11_01;00:15;00:30;RR_TRE_mFRR_sa+;27;MW;0;MW;139.00;EUR/MWh;verfügbar
+
+
+===== Tenders/Tertiary_control_energy/TRE-Ergebnisse-2025/2025-12-TRE-Ergebnis.csv =====
+[encoding=latin-1]
+Ausschreibung;Von;Bis;Produkt;Angebotene Menge;Einheit;Abgerufene Menge;Einheit;Preis;Einheit;Status
+TRE_25_12_01;00:00;00:15;TRE_mFRR_sa-;5;MW;0;MW;88.15;EUR/MWh;verfügbar
+TRE_25_12_01;00:00;00:15;TRE_mFRR_sa-;5;MW;0;MW;84.41;EUR/MWh;verfügbar
+TRE_25_12_01;00:00;00:15;TRE_mFRR_sa-;37;MW;0;MW;82.00;EUR/MWh;verfügbar
+TRE_25_12_01;00:00;00:15;TRE_mFRR_sa-;55;MW;0;MW;81.00;EUR/MWh;verfügbar
+TRE_25_12_01;00:00;00:15;TRE_mFRR_sa-;5;MW;0;MW;80.55;EUR/MWh;verfügbar
+TRE_25_12_01;00:00;00:15;TRE_mFRR_sa-;5;MW;0;MW;76.53;EUR/MWh;verfügbar
+TRE_25_12_01;00:00;00:15;TRE_mFRR_sa-;5;MW;0;MW;72.27;EUR/MWh;verfügbar
+TRE_25_12_01;00:00;00:15;TRE_mFRR_sa-;5;MW;0;MW;67.71;EUR/MWh;verfügbar
+TRE_25_12_01;00:00;00:15;TRE_mFRR_sa-;5;MW;0;MW;62.71;EUR/MWh;verfügbar
+TRE_25_12_01;00:00;00:15;TRE_mFRR_sa-;5;MW;0;MW;57.11;EUR/MWh;verfügbar
+TRE_25_12_01;00:00;00:15;TRE_mFRR_sa-;5;MW;0;MW;50.70;EUR/MWh;verfügbar
+TRE_25_12_01;00:00;00:15;TRE_mFRR_sa-;5;MW;0;MW;43.16;EUR/MWh;verfügbar
+
+
+===== Transmission/EnergieUebersichtCH-2009.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Transmission/EnergieUebersichtCH-2010.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Transmission/EnergieUebersichtCH-2011.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Transmission/EnergieUebersichtCH-2012.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Transmission/EnergieUebersichtCH-2013.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Transmission/EnergieUebersichtCH-2014.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Transmission/EnergieUebersichtCH-2015.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Transmission/EnergieUebersichtCH-2016.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Transmission/EnergieUebersichtCH-2017.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Transmission/EnergieUebersichtCH-2018.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Transmission/EnergieUebersichtCH-2019.xls =====
+[error: ImportError('`Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.')]
+
+===== Transmission/EnergieUebersichtCH-2020.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Transmission/EnergieUebersichtCH-2021.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Transmission/EnergieUebersichtCH-2022.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Transmission/EnergieUebersichtCH-2023.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Transmission/EnergieUebersichtCH-2024.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Transmission/EnergieUebersichtCH-2025.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== Transmission/EnergieUebersichtCH-2026.xlsx =====
+[error: ImportError('`Import openpyxl` failed.  Use pip or conda to install the openpyxl package.')]
+
+===== inventory_manual_download.py =====
+[skipped: unsupported type]

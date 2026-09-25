@@ -1,0 +1,758 @@
+
+===== 2015_PRL_SRL_TRL_Ergebnis.csv  rows=26557  cols=['Ausschreibung', 'Beschreibung', 'Angebotenes Volumen', 'Einheit__3', 'Zugesprochenes Volumen', 'Einheit.1__5', 'Leistungspreis', 'Einheit.2__7', 'Kosten', 'Einheit.3__9', 'Preis', 'Einheit.4__11', 'prod']
+-- PRL: 53 auctions, 4657 rows
+   ids: ['PRL_15_KW01', 'PRL_15_KW02', 'PRL_15_KW03', 'PRL_15_KW04'] ... ['PRL_15_KW51', 'PRL_15_KW52', 'PRL_15_KW53']
+   Beschreibung: ['Primary control Auction']
+   units: [['MW', 'MW', 'EUR/MW', 'EUR', 'EUR/MWh*']]
+   Land: {}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 0%
+-- SRL: 53 auctions, 787 rows
+   ids: ['SRL_15_KW01', 'SRL_15_KW02', 'SRL_15_KW03', 'SRL_15_KW04'] ... ['SRL_15_KW51', 'SRL_15_KW52', 'SRL_15_KW53']
+   Beschreibung: ['Secondary control Auction']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*']]
+   Land: {}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 0%
+-- TRL+: 53 auctions, 1638 rows
+   ids: ['TRL+_15_KW01', 'TRL+_15_KW02', 'TRL+_15_KW03', 'TRL+_15_KW04'] ... ['TRL+_15_KW51', 'TRL+_15_KW52', 'TRL+_15_KW53']
+   Beschreibung: ['Tertiary Power UP']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*']]
+   Land: {}
+   rows awarded==0: 1029
+   auctions with single Preis (marginal?): 0%
+-- TRL-: 208 auctions, 19475 rows
+   ids: ['TRL-_15_KW01', 'TRL-_15_KW02', 'TRL-_15_KW03', 'TRL-_15_KW04'] ... ['TRL-_15_06_02', 'TRL-_15_06_03', 'TRL-_15_06_04']
+   Beschreibung: ['Tertiary Power DOWN', 'Tertiary Power DOWN 00:00 bis 04:00', 'Tertiary Power DOWN 04:00 bis 08:00', 'Tertiary Power DOWN 08:00 bis 12:00', 'Tertiary Power DOWN 12:00 bis 16:00', 'Tertiary Power DOWN 16:00 bis 20:00', 'Tertiary Power DOWN 20:00 bis 24:00']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*'], ['MW', 'MW', 'CHF/MW', 'CHF', 'CH']]
+   Land: {}
+   rows awarded==0: 11878
+   auctions with single Preis (marginal?): 0%
+
+===== 2016_PRL_SRL_TRL_Ergebnis.csv  rows=106241  cols=['Ausschreibung', 'Beschreibung', 'Angebotenes Volumen', 'Einheit__3', 'Zugesprochenes Volumen', 'Einheit.1__5', 'Leistungspreis', 'Einheit.2__7', 'Kosten', 'Einheit.3__9', 'Preis', 'Einheit.4__11', 'prod']
+-- PRL: 54 auctions, 7732 rows
+   ids: ['PRL_15_KW53', 'PRL_16_KW01', 'PRL_16_KW02', 'PRL_16_KW03'] ... ['PRL_16_KW51', 'PRL_16_KW52', 'PRL_17_KW01']
+   Beschreibung: ['Primary control Auction']
+   units: [['MW', 'MW', 'EUR/MW', 'EUR', 'EUR/MWh*']]
+   Land: {}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 0%
+-- SRL: 83 auctions, 1015 rows
+   ids: ['SRL_15_KW53', 'SRL_16_KW01', 'SRL_16_KW02', 'SRL_16_KW03'] ... ['SRL_16_KW51', 'SRL_16_KW52', 'SRL_17_KW01']
+   Beschreibung: ['Secondary control Auction']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*']]
+   Land: {}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 0%
+-- TRL+: 449 auctions, 57134 rows
+   ids: ['TRL+_15_KW53', 'TRL+_16_KW01', 'TRL+_16_KW02', 'TRL+_16_KW03'] ... ['TRL+_16_12_31', 'TRL+_17_01_01', 'TRL+_17_01_02']
+   Beschreibung: ['Tertiary Power UP', 'Tertiary Power UP 00:00 bis 04:00', 'Tertiary Power UP 04:00 bis 08:00', 'Tertiary Power UP 08:00 bis 12:00', 'Tertiary Power UP 12:00 bis 16:00', 'Tertiary Power UP 16:00 bis 20:00', 'Tertiary Power UP 20:00 bis 24:00']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*']]
+   Land: {}
+   rows awarded==0: 33181
+   auctions with single Preis (marginal?): 0%
+-- TRL-: 449 auctions, 40360 rows
+   ids: ['TRL-_15_KW53', 'TRL-_16_KW01', 'TRL-_16_KW02', 'TRL-_16_KW03'] ... ['TRL-_16_12_31', 'TRL-_17_01_01', 'TRL-_17_01_02']
+   Beschreibung: ['Tertiary Power DOWN', 'Tertiary Power DOWN 00:00 bis 04:00', 'Tertiary Power DOWN 04:00 bis 08:00', 'Tertiary Power DOWN 08:00 bis 12:00', 'Tertiary Power DOWN 12:00 bis 16:00', 'Tertiary Power DOWN 16:00 bis 20:00', 'Tertiary Power DOWN 20:00 bis 24:00']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*']]
+   Land: {}
+   rows awarded==0: 24027
+   auctions with single Preis (marginal?): 0%
+
+===== 2017_PRL_SRL_TRL_Ergebnis.csv  rows=127535  cols=['Ausschreibung', 'Beschreibung', 'Angebotenes Volumen', 'Einheit__3', 'Zugesprochenes Volumen', 'Einheit.1__5', 'Leistungspreis', 'Einheit.2__7', 'Kosten', 'Einheit.3__9', 'Preis', 'Einheit.4__11', 'Land', 'prod']
+-- PRL: 53 auctions, 38263 rows
+   ids: ['PRL_16_KW52', 'PRL_17_KW01', 'PRL_17_KW02', 'PRL_17_KW03'] ... ['PRL_17_KW50', 'PRL_17_KW51', 'PRL_17_KW52']
+   Beschreibung: ['Primary control Auction']
+   units: [['MW', 'MW', 'EUR/MW', 'EUR', 'EUR/MWh*']]
+   Land: {'FR': 27569, 'DE': 5251, 'CH': 2859, 'AT': 2350, 'NL': 231, 'BE': 3}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 0%
+-- SRL: 83 auctions, 952 rows
+   ids: ['SRL_16_KW52', 'SRL_17_KW01', 'SRL_17_KW02', 'SRL_17_KW03'] ... ['SRL_17_KW50', 'SRL_17_KW51', 'SRL_17_KW52']
+   Beschreibung: ['Secondary control Auction']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*']]
+   Land: {'CH': 952}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 4%
+-- TRL+: 428 auctions, 51444 rows
+   ids: ['TRL+_16_KW52', 'TRL+_17_KW01', 'TRL+_17_KW02', 'TRL+_17_KW03'] ... ['TRL+_17_12_29', 'TRL+_17_12_30', 'TRL+_17_12_31']
+   Beschreibung: ['Tertiary Power UP', 'Tertiary Power UP 00:00 bis 04:00', 'Tertiary Power UP 04:00 bis 08:00', 'Tertiary Power UP 08:00 bis 12:00', 'Tertiary Power UP 12:00 bis 16:00', 'Tertiary Power UP 16:00 bis 20:00', 'Tertiary Power UP 20:00 bis 24:00']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*']]
+   Land: {'CH': 51444}
+   rows awarded==0: 33639
+   auctions with single Preis (marginal?): 0%
+-- TRL-: 448 auctions, 36876 rows
+   ids: ['TRL-_16_KW52', 'TRL-_17_KW01', 'TRL-_17_KW02', 'TRL-_17_KW03'] ... ['TRL-_17_12_29', 'TRL-_17_12_30', 'TRL-_17_12_31']
+   Beschreibung: ['Tertiary Power DOWN', 'Tertiary Power DOWN 00:00 bis 04:00', 'Tertiary Power DOWN 04:00 bis 08:00', 'Tertiary Power DOWN 08:00 bis 12:00', 'Tertiary Power DOWN 12:00 bis 16:00', 'Tertiary Power DOWN 16:00 bis 20:00', 'Tertiary Power DOWN 20:00 bis 24:00']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*']]
+   Land: {'CH': 36876}
+   rows awarded==0: 23634
+   auctions with single Preis (marginal?): 0%
+
+===== 2018-PRL-SRL-TRL-Ergebnis.csv  rows=112110  cols=['Ausschreibung', 'Beschreibung', 'Angebotenes Volumen', 'Einheit__3', 'Zugesprochenes Volumen', 'Einheit.1__5', 'Leistungspreis', 'Einheit.2__7', 'Kosten', 'Einheit.3__9', 'Preis', 'Einheit.4__11', 'Land', 'prod']
+-- PRL: 53 auctions, 38550 rows
+   ids: ['PRL_18_KW01', 'PRL_18_KW02', 'PRL_18_KW03', 'PRL_18_KW04'] ... ['PRL_18_KW51', 'PRL_18_KW52', 'PRL_19_KW01']
+   Beschreibung: ['Primary control Auction']
+   units: [['MW', 'MW', 'EUR/MW', 'EUR', 'EUR/MWh*']]
+   Land: {'FR': 27051, 'DE': 7129, 'CH': 2331, 'AT': 1980, 'BE': 35, 'NL': 24}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 0%
+-- SRL: 63 auctions, 1114 rows
+   ids: ['SRL_18_KW01', 'SRL_18_KW02', 'SRL_18_KW03', 'SRL_18_KW04'] ... ['SRL_18_KW51', 'SRL_18_KW52', 'SRL_19_KW01']
+   Beschreibung: ['Secondary control Auction', 'Secondary control Auction SRL+', 'Secondary control Auction SRL-']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*']]
+   Land: {'CH': 1114}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 0%
+-- TRL+: 428 auctions, 39312 rows
+   ids: ['TRL+_18_KW01', 'TRL+_18_KW02', 'TRL+_18_KW03', 'TRL+_18_KW04'] ... ['TRL+_18_12_29', 'TRL+_18_12_30', 'TRL+_18_12_31']
+   Beschreibung: ['Tertiary Power UP', 'Tertiary Power UP 00:00 bis 04:00', 'Tertiary Power UP 04:00 bis 08:00', 'Tertiary Power UP 08:00 bis 12:00', 'Tertiary Power UP 12:00 bis 16:00', 'Tertiary Power UP 16:00 bis 20:00', 'Tertiary Power UP 20:00 bis 24:00']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*']]
+   Land: {'CH': 39312}
+   rows awarded==0: 22472
+   auctions with single Preis (marginal?): 0%
+-- TRL-: 428 auctions, 33134 rows
+   ids: ['TRL-_18_KW01', 'TRL-_18_KW02', 'TRL-_18_KW03', 'TRL-_18_KW04'] ... ['TRL-_18_12_29', 'TRL-_18_12_30', 'TRL-_18_12_31']
+   Beschreibung: ['Tertiary Power DOWN', 'Tertiary Power DOWN 00:00 bis 04:00', 'Tertiary Power DOWN 04:00 bis 08:00', 'Tertiary Power DOWN 08:00 bis 12:00', 'Tertiary Power DOWN 12:00 bis 16:00', 'Tertiary Power DOWN 16:00 bis 20:00', 'Tertiary Power DOWN 20:00 bis 24:00']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*']]
+   Land: {'CH': 33134}
+   rows awarded==0: 22032
+   auctions with single Preis (marginal?): 0%
+
+===== 2019_PRL_SRL_TRL_Ergebnis.csv  rows=219397  cols=['Ausschreibung', 'Beschreibung', 'Angebotenes Volumen', 'Einheit__3', 'Zugesprochenes Volumen', 'Einheit.1__5', 'Leistungspreis', 'Einheit.2__7', 'Kosten', 'Einheit.3__9', 'Preis', 'Einheit.4__11', 'Land', 'Angebotspreis', 'Einheit.5__14', 'Teilbarkeit', 'prod']
+-- PRL: 210 auctions, 151715 rows
+   ids: ['PRL_19_07_01', 'PRL_19_07_02', 'PRL_19_07_03', 'PRL_19_07_04'] ... ['PRL_19_KW24', 'PRL_19_KW25', 'PRL_19_KW26']
+   Beschreibung: ['Primary control Auction']
+   units: [['MW', 'MW', 'EUR/MW', 'EUR', 'EUR/MWh*', 'EUR/MWh*']]
+   Land: {'FR': 107309, 'DE': 29729, 'CH': 7742, 'AT': 4525, 'NL': 2284, 'BE': 126}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 25%
+-- SRL: 63 auctions, 1461 rows
+   ids: ['SRL_19_KW01', 'SRL_19_KW02', 'SRL_19_KW03', 'SRL_19_KW04'] ... ['SRL_19_KW51', 'SRL_19_KW52', 'SRL_20_KW01']
+   Beschreibung: ['Secondary control Auction SRL+', 'Secondary control Auction SRL-']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 1461}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 0%
+-- TRL+: 429 auctions, 39368 rows
+   ids: ['TRL+_19_KW01', 'TRL+_19_KW02', 'TRL+_19_KW03', 'TRL+_19_KW04'] ... ['TRL+_19_12_29', 'TRL+_19_12_30', 'TRL+_19_12_31']
+   Beschreibung: ['Tertiary Power UP', 'Tertiary Power UP 00:00 bis 04:00', 'Tertiary Power UP 04:00 bis 08:00', 'Tertiary Power UP 08:00 bis 12:00', 'Tertiary Power UP 12:00 bis 16:00', 'Tertiary Power UP 16:00 bis 20:00', 'Tertiary Power UP 20:00 bis 24:00']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 39368}
+   rows awarded==0: 23557
+   auctions with single Preis (marginal?): 0%
+-- TRL-: 428 auctions, 26853 rows
+   ids: ['TRL-_19_KW01', 'TRL-_19_KW02', 'TRL-_19_KW03', 'TRL-_19_KW04'] ... ['TRL-_19_12_29', 'TRL-_19_12_30', 'TRL-_19_12_31']
+   Beschreibung: ['Tertiary Power DOWN', 'Tertiary Power DOWN 00:00 bis 04:00', 'Tertiary Power DOWN 04:00 bis 08:00', 'Tertiary Power DOWN 08:00 bis 12:00', 'Tertiary Power DOWN 12:00 bis 16:00', 'Tertiary Power DOWN 16:00 bis 20:00', 'Tertiary Power DOWN 20:00 bis 24:00']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 26853}
+   rows awarded==0: 19256
+   auctions with single Preis (marginal?): 0%
+
+===== 2020_PRL_SRL_TRL_Ergebnis.csv  rows=882788  cols=['Ausschreibung', 'Beschreibung', 'Angebotenes Volumen', 'Einheit__3', 'Zugesprochenes Volumen', 'Einheit.1__5', 'Leistungspreis', 'Einheit.2__7', 'Kosten', 'Einheit.3__9', 'Preis', 'Einheit.4__11', 'Land', 'Angebotspreis', 'Einheit.5__14', 'Teilbarkeit', 'prod']
+-- PRL: 366 auctions, 817532 rows
+   ids: ['PRL_20_01_01', 'PRL_20_01_02', 'PRL_20_01_03', 'PRL_20_01_04'] ... ['PRL_20_12_29', 'PRL_20_12_30', 'PRL_20_12_31']
+   Beschreibung: ['Primary control Auction', 'Primary control Auction 00:00 bis 04:00', 'Primary control Auction 04:00 bis 08:00', 'Primary control Auction 08:00 bis 12:00', 'Primary control Auction 12:00 bis 16:00', 'Primary control Auction 16:00 bis 20:00', 'Primary control Auction 20:00 bis 24:00']
+   units: [['MW', 'MW', 'EUR/MW', 'EUR', 'EUR/MWh*', 'EUR/MWh*']]
+   Land: {'FR': 603742, 'DE': 107294, 'CH': 63026, 'AT': 26904, 'NL': 13196, 'BE': 3370}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 20%
+-- SRL: 63 auctions, 1584 rows
+   ids: ['SRL_20_KW01', 'SRL_20_KW02', 'SRL_20_KW03', 'SRL_20_KW04'] ... ['SRL_20_KW51', 'SRL_20_KW52', 'SRL_20_KW53']
+   Beschreibung: ['Secondary control Auction SRL+', 'Secondary control Auction SRL-']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 1584}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 0%
+-- TRL+: 419 auctions, 36562 rows
+   ids: ['TRL+_20_KW01', 'TRL+_20_KW02', 'TRL+_20_KW03', 'TRL+_20_KW04'] ... ['TRL+_20_12_29', 'TRL+_20_12_30', 'TRL+_20_12_31']
+   Beschreibung: ['Tertiary Power UP', 'Tertiary Power UP 00:00 bis 04:00', 'Tertiary Power UP 04:00 bis 08:00', 'Tertiary Power UP 08:00 bis 12:00', 'Tertiary Power UP 12:00 bis 16:00', 'Tertiary Power UP 16:00 bis 20:00', 'Tertiary Power UP 20:00 bis 24:00']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 36562}
+   rows awarded==0: 21836
+   auctions with single Preis (marginal?): 0%
+-- TRL-: 419 auctions, 27110 rows
+   ids: ['TRL-_20_KW01', 'TRL-_20_KW02', 'TRL-_20_KW03', 'TRL-_20_KW04'] ... ['TRL-_20_12_29', 'TRL-_20_12_30', 'TRL-_20_12_31']
+   Beschreibung: ['Tertiary Power DOWN', 'Tertiary Power DOWN 00:00 bis 04:00', 'Tertiary Power DOWN 04:00 bis 08:00', 'Tertiary Power DOWN 08:00 bis 12:00', 'Tertiary Power DOWN 12:00 bis 16:00', 'Tertiary Power DOWN 16:00 bis 20:00', 'Tertiary Power DOWN 20:00 bis 24:00']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 27110}
+   rows awarded==0: 17254
+   auctions with single Preis (marginal?): 0%
+
+===== 2021_PRL_SRL_TRL_Ergebnis.csv  rows=827228  cols=['Ausschreibung', 'Beschreibung', 'Angebotenes Volumen', 'Einheit__3', 'Zugesprochenes Volumen', 'Einheit.1__5', 'Leistungspreis', 'Einheit.2__7', 'Kosten', 'Einheit.3__9', 'Preis', 'Einheit.4__11', 'Land', 'Angebotspreis', 'Einheit.5__14', 'Teilbarkeit', 'prod']
+-- PRL: 365 auctions, 757153 rows
+   ids: ['PRL_21_01_01', 'PRL_21_01_02', 'PRL_21_01_03', 'PRL_21_01_04'] ... ['PRL_21_12_29', 'PRL_21_12_30', 'PRL_21_12_31']
+   Beschreibung: ['Primary control Auction 00:00 bis 04:00', 'Primary control Auction 04:00 bis 08:00', 'Primary control Auction 08:00 bis 12:00', 'Primary control Auction 12:00 bis 16:00', 'Primary control Auction 16:00 bis 20:00', 'Primary control Auction 20:00 bis 24:00']
+   units: [['MW', 'MW', 'EUR/MW', 'EUR', 'EUR/MWh*', 'EUR/MWh*']]
+   Land: {'FR': 361577, 'DE': 196074, 'CH': 89939, 'AT': 48631, 'NL': 39889, 'DK': 12407, 'BE': 7233, 'SI': 1403}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 0%
+-- SRL: 63 auctions, 1948 rows
+   ids: ['SRL_20_KW53', 'SRL_21_KW01', 'SRL_21_KW02', 'SRL_21_KW03'] ... ['SRL_21_KW50', 'SRL_21_KW51', 'SRL_21_KW52']
+   Beschreibung: ['Secondary control Auction SRL+', 'Secondary control Auction SRL-']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 1948}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 0%
+-- TRL+: 418 auctions, 41541 rows
+   ids: ['TRL+_20_KW53', 'TRL+_21_KW01', 'TRL+_21_KW02', 'TRL+_21_KW03'] ... ['TRL+_21_12_29', 'TRL+_21_12_30', 'TRL+_21_12_31']
+   Beschreibung: ['Tertiary Power UP', 'Tertiary Power UP 00:00 bis 04:00', 'Tertiary Power UP 04:00 bis 08:00', 'Tertiary Power UP 08:00 bis 12:00', 'Tertiary Power UP 12:00 bis 16:00', 'Tertiary Power UP 16:00 bis 20:00', 'Tertiary Power UP 20:00 bis 24:00']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 41541}
+   rows awarded==0: 24885
+   auctions with single Preis (marginal?): 0%
+-- TRL-: 428 auctions, 26586 rows
+   ids: ['TRL-_20_KW53', 'TRL-_21_KW01', 'TRL-_21_KW02', 'TRL-_21_KW03'] ... ['TRL-_21_12_29', 'TRL-_21_12_30', 'TRL-_21_12_31']
+   Beschreibung: ['Tertiary Power DOWN', 'Tertiary Power DOWN 00:00 bis 04:00', 'Tertiary Power DOWN 04:00 bis 08:00', 'Tertiary Power DOWN 08:00 bis 12:00', 'Tertiary Power DOWN 12:00 bis 16:00', 'Tertiary Power DOWN 16:00 bis 20:00', 'Tertiary Power DOWN 20:00 bis 24:00']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 26586}
+   rows awarded==0: 17793
+   auctions with single Preis (marginal?): 0%
+
+===== 2022-PRL-SRL-TRL-Ergebnis.csv  rows=586611  cols=['Ausschreibung', 'Beschreibung', 'Angebotenes Volumen', 'Einheit__3', 'Zugesprochenes Volumen', 'Einheit.1__5', 'Leistungspreis', 'Einheit.2__7', 'Kosten', 'Einheit.3__9', 'Preis', 'Einheit.4__11', 'Land', 'Angebotspreis', 'Einheit.5__14', 'Teilbarkeit', 'prod']
+-- PRL: 365 auctions, 519390 rows
+   ids: ['PRL_22_01_01', 'PRL_22_01_02', 'PRL_22_01_03', 'PRL_22_01_04'] ... ['PRL_22_12_29', 'PRL_22_12_30', 'PRL_22_12_31']
+   Beschreibung: ['Primary control Auction 00:00 bis 04:00', 'Primary control Auction 04:00 bis 08:00', 'Primary control Auction 08:00 bis 12:00', 'Primary control Auction 12:00 bis 16:00', 'Primary control Auction 16:00 bis 20:00', 'Primary control Auction 20:00 bis 24:00']
+   units: [['MW', 'MW', 'EUR/MW', 'EUR', 'EUR/MWh*', 'EUR/MWh*']]
+   Land: {'DE': 237678, 'FR': 89326, 'CH': 66411, 'NL': 56061, 'AT': 49384, 'DK': 9913, 'BE': 8943, 'SI': 1674}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 0%
+-- SRL: 91 auctions, 2107 rows
+   ids: ['SRL_21_KW52', 'SRL_22_KW01', 'SRL_22_KW02', 'SRL_22_KW03'] ... ['SRL_22_KW52_S2', 'SRL_22_KW52_S3', 'SRL_22_KW52_S4']
+   Beschreibung: ['Secondary control Auction SRL+', 'Secondary control Auction SRL-']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 2107}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 0%
+-- TRL+: 446 auctions, 40493 rows
+   ids: ['TRL+_21_KW52', 'TRL+_22_KW01', 'TRL+_22_KW02', 'TRL+_22_KW03'] ... ['TRL+_22_12_29', 'TRL+_22_12_30', 'TRL+_22_12_31']
+   Beschreibung: ['Tertiary Power UP', 'Tertiary Power UP 00:00 bis 04:00', 'Tertiary Power UP 04:00 bis 08:00', 'Tertiary Power UP 08:00 bis 12:00', 'Tertiary Power UP 12:00 bis 16:00', 'Tertiary Power UP 16:00 bis 20:00', 'Tertiary Power UP 20:00 bis 24:00']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 40493}
+   rows awarded==0: 25983
+   auctions with single Preis (marginal?): 0%
+-- TRL-: 456 auctions, 24621 rows
+   ids: ['TRL-_21_KW52', 'TRL-_22_KW01', 'TRL-_22_KW02', 'TRL-_22_KW03'] ... ['TRL-_22_12_29', 'TRL-_22_12_30', 'TRL-_22_12_31']
+   Beschreibung: ['Tertiary Power DOWN', 'Tertiary Power DOWN 00:00 bis 04:00', 'Tertiary Power DOWN 04:00 bis 08:00', 'Tertiary Power DOWN 08:00 bis 12:00', 'Tertiary Power DOWN 12:00 bis 16:00', 'Tertiary Power DOWN 16:00 bis 20:00', 'Tertiary Power DOWN 20:00 bis 24:00']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 24621}
+   rows awarded==0: 17080
+   auctions with single Preis (marginal?): 0%
+
+===== 2023-PRL-SRL-TRL-Ergebnis.csv  rows=577558  cols=['Ausschreibung', 'Beschreibung', 'Angebotenes Volumen', 'Einheit__3', 'Zugesprochenes Volumen', 'Einheit.1__5', 'Leistungspreis', 'Einheit.2__7', 'Kosten', 'Einheit.3__9', 'Preis', 'Einheit.4__11', 'Land', 'Angebotspreis', 'Einheit.5__14', 'Teilbarkeit', 'prod']
+-- PRL: 365 auctions, 525351 rows
+   ids: ['PRL_23_01_01', 'PRL_23_01_02', 'PRL_23_01_03', 'PRL_23_01_04'] ... ['PRL_23_12_29', 'PRL_23_12_30', 'PRL_23_12_31']
+   Beschreibung: ['Primary control Auction 00:00 bis 04:00', 'Primary control Auction 04:00 bis 08:00', 'Primary control Auction 08:00 bis 12:00', 'Primary control Auction 12:00 bis 16:00', 'Primary control Auction 16:00 bis 20:00', 'Primary control Auction 20:00 bis 24:00']
+   units: [['MW', 'MW', 'EUR/MW', 'EUR', 'EUR/MWh*', 'EUR/MWh*']]
+   Land: {'DE': 246480, 'FR': 115346, 'CH': 50881, 'AT': 43650, 'NL': 39874, 'CZ': 14088, 'BE': 10718, 'DK': 3629, 'SI': 685}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 0%
+-- SRL: 145 auctions, 2436 rows
+   ids: ['SRL_22_KW52', 'SRL_22_KW52_S1', 'SRL_22_KW52_S2', 'SRL_22_KW52_S3'] ... ['SRL_23_KW50', 'SRL_23_KW51', 'SRL_23_KW52']
+   Beschreibung: ['Secondary control Auction SRL+', 'Secondary control Auction SRL-']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 2436}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 0%
+-- TRL+: 510 auctions, 24277 rows
+   ids: ['TRL+_22_KW52', 'TRL+_22_KW52_S1', 'TRL+_22_KW52_S2', 'TRL+_22_KW52_S3'] ... ['TRL+_23_12_29', 'TRL+_23_12_30', 'TRL+_23_12_31']
+   Beschreibung: ['Tertiary Power UP', 'Tertiary Power UP 00:00 bis 04:00', 'Tertiary Power UP 04:00 bis 08:00', 'Tertiary Power UP 08:00 bis 12:00', 'Tertiary Power UP 12:00 bis 16:00', 'Tertiary Power UP 16:00 bis 20:00', 'Tertiary Power UP 20:00 bis 24:00']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 24277}
+   rows awarded==0: 16986
+   auctions with single Preis (marginal?): 0%
+-- TRL-: 510 auctions, 25494 rows
+   ids: ['TRL-_22_KW52', 'TRL-_22_KW52_S1', 'TRL-_22_KW52_S2', 'TRL-_22_KW52_S3'] ... ['TRL-_23_12_29', 'TRL-_23_12_30', 'TRL-_23_12_31']
+   Beschreibung: ['Tertiary Power DOWN', 'Tertiary Power DOWN 00:00 bis 04:00', 'Tertiary Power DOWN 04:00 bis 08:00', 'Tertiary Power DOWN 08:00 bis 12:00', 'Tertiary Power DOWN 12:00 bis 16:00', 'Tertiary Power DOWN 16:00 bis 20:00', 'Tertiary Power DOWN 20:00 bis 24:00']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 25494}
+   rows awarded==0: 17967
+   auctions with single Preis (marginal?): 0%
+
+===== 20230906_regelleistung_2024_vorgezogene_beschaffung_ergebnis.csv  rows=941  cols=['Ausschreibung', 'Beschreibung', 'Angebotenes Volumen', 'Einheit__3', 'Zugesprochenes Volumen', 'Einheit.1__5', 'Leistungspreis', 'Einheit.2__7', 'Kosten', 'Einheit.3__9', 'Preis', 'Einheit.4__11', 'Land', 'Angebotspreis', 'Einheit.5__14', 'Teilbarkeit', 'prod']
+-- SRL: 14 auctions, 463 rows
+   ids: ['SRL_24_KW06_S1', 'SRL_24_KW07_S1', 'SRL_24_KW08_S1', 'SRL_24_KW09_S1'] ... ['SRL_24_KW17_S1', 'SRL_24_KW18_S1', 'SRL_24_KW19_S1']
+   Beschreibung: ['Secondary control Auction SRL+', 'Secondary control Auction SRL-']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 463}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 0%
+-- TRL-: 14 auctions, 478 rows
+   ids: ['TRL-_24_KW06_S1', 'TRL-_24_KW07_S1', 'TRL-_24_KW08_S1', 'TRL-_24_KW09_S1'] ... ['TRL-_24_KW17_S1', 'TRL-_24_KW18_S1', 'TRL-_24_KW19_S1']
+   Beschreibung: ['Tertiary Power DOWN']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 478}
+   rows awarded==0: 297
+   auctions with single Preis (marginal?): 0%
+
+===== 2024-PRL-SRL-TRL-Ergebnis.csv  rows=642417  cols=['Ausschreibung', 'Beschreibung', 'Angebotenes Volumen', 'Einheit__3', 'Zugesprochenes Volumen', 'Einheit.1__5', 'Leistungspreis', 'Einheit.2__7', 'Kosten', 'Einheit.3__9', 'Preis', 'Einheit.4__11', 'Land', 'Angebotspreis', 'Einheit.5__14', 'Teilbarkeit', 'prod']
+-- PRL: 366 auctions, 624440 rows
+   ids: ['PRL_24_01_01', 'PRL_24_01_02', 'PRL_24_01_03', 'PRL_24_01_04'] ... ['PRL_24_12_29', 'PRL_24_12_30', 'PRL_24_12_31']
+   Beschreibung: ['Primary control Auction 00:00 bis 04:00', 'Primary control Auction 04:00 bis 08:00', 'Primary control Auction 08:00 bis 12:00', 'Primary control Auction 12:00 bis 16:00', 'Primary control Auction 16:00 bis 20:00', 'Primary control Auction 20:00 bis 24:00']
+   units: [['MW', 'MW', 'EUR/MW', 'EUR', 'EUR/MWh*', 'EUR/MWh*']]
+   Land: {'DE': 267284, 'FR': 164251, 'CH': 63461, 'AT': 47155, 'NL': 32518, 'BE': 26304, 'CZ': 17504, 'DK': 5132, 'SI': 831}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 0%
+-- SRL: 67 auctions, 1653 rows
+   ids: ['SRL_24_KW01', 'SRL_24_KW02', 'SRL_24_KW03', 'SRL_24_KW04'] ... ['SRL_24_KW51', 'SRL_24_KW52', 'SRL_25_KW01']
+   Beschreibung: ['Secondary control Auction SRL+', 'Secondary control Auction SRL-']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 1653}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 0%
+-- TRL+: 387 auctions, 8603 rows
+   ids: ['TRL+_24_KW01', 'TRL+_24_KW02', 'TRL+_24_KW03', 'TRL+_24_KW04'] ... ['TRL+_24_12_29', 'TRL+_24_12_30', 'TRL+_24_12_31']
+   Beschreibung: ['Tertiary Power UP', 'Tertiary Power UP 00:00 bis 04:00', 'Tertiary Power UP 04:00 bis 08:00', 'Tertiary Power UP 08:00 bis 12:00', 'Tertiary Power UP 12:00 bis 16:00', 'Tertiary Power UP 16:00 bis 20:00', 'Tertiary Power UP 20:00 bis 24:00']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 8603}
+   rows awarded==0: 6261
+   auctions with single Preis (marginal?): 11%
+-- TRL-: 402 auctions, 7721 rows
+   ids: ['TRL-_24_KW01', 'TRL-_24_KW02', 'TRL-_24_KW03', 'TRL-_24_KW04'] ... ['TRL-_24_12_29', 'TRL-_24_12_30', 'TRL-_24_12_31']
+   Beschreibung: ['Tertiary Power DOWN', 'Tertiary Power DOWN 00:00 bis 04:00', 'Tertiary Power DOWN 04:00 bis 08:00', 'Tertiary Power DOWN 08:00 bis 12:00', 'Tertiary Power DOWN 12:00 bis 16:00', 'Tertiary Power DOWN 16:00 bis 20:00', 'Tertiary Power DOWN 20:00 bis 24:00']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 7721}
+   rows awarded==0: 5936
+   auctions with single Preis (marginal?): 17%
+
+===== 2025-PRL-SRL-TRL-Ergebnis.csv  rows=696237  cols=['Ausschreibung', 'Beschreibung', 'Angebotenes Volumen', 'Einheit__3', 'Zugesprochenes Volumen', 'Einheit.1__5', 'Leistungspreis', 'Einheit.2__7', 'Kosten', 'Einheit.3__9', 'Preis', 'Einheit.4__11', 'Land', 'Angebotspreis', 'Einheit.5__14', 'Teilbarkeit', 'prod']
+-- PRL: 365 auctions, 652035 rows
+   ids: ['PRL_25_01_01', 'PRL_25_01_02', 'PRL_25_01_03', 'PRL_25_01_04'] ... ['PRL_25_12_29', 'PRL_25_12_30', 'PRL_25_12_31']
+   Beschreibung: ['Primary Power 00:00 bis 04:00', 'Primary Power 04:00 bis 08:00', 'Primary Power 08:00 bis 12:00', 'Primary Power 12:00 bis 16:00', 'Primary Power 16:00 bis 20:00', 'Primary Power 20:00 bis 24:00']
+   units: [['MW', 'MW', 'EUR/MW', 'EUR', 'EUR/MWh*', 'EUR/MWh*']]
+   Land: {'DE': 258633, 'FR': 177454, 'BE': 67681, 'AT': 48516, 'CH': 40250, 'NL': 28986, 'CZ': 22518, 'DK': 7066, 'SI': 931}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 0%
+-- SRL: 160 auctions, 3439 rows
+   ids: ['SRL_25_09_30', 'SRL_25_10_01', 'SRL_25_10_02', 'SRL_25_10_03'] ... ['SRL_25_KW51', 'SRL_25_KW52', 'SRL_26_KW01']
+   Beschreibung: ['Secondary Power DOWN 00:00 bis 04:00', 'Secondary Power DOWN 04:00 bis 08:00', 'Secondary Power DOWN 08:00 bis 12:00', 'Secondary Power DOWN 12:00 bis 16:00', 'Secondary Power DOWN 16:00 bis 20:00', 'Secondary Power DOWN 20:00 bis 24:00', 'Secondary Power UP 00:00 bis 04:00', 'Secondary Power UP 04:00 bis 08:00', 'Secondary Power UP 08:00 bis 12:00', 'Secondary Power UP 12:00 bis 16:00', 'Secondary Power UP 16:00 bis 20:00', 'Secondary Power UP 20:00 bis 24:00']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 3439}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 0%
+-- TRL: 108 auctions, 10646 rows
+   ids: ['TRL_25_KW40', 'TRL_25_KW41', 'TRL_25_KW42', 'TRL_25_KW43'] ... ['TRL_25_12_29', 'TRL_25_12_30', 'TRL_25_12_31']
+   Beschreibung: ['Tertiary Power DOWN', 'Tertiary Power UP', 'Tertiary Power DOWN 00:00 bis 04:00', 'Tertiary Power DOWN 04:00 bis 08:00', 'Tertiary Power DOWN 08:00 bis 12:00', 'Tertiary Power DOWN 12:00 bis 16:00', 'Tertiary Power DOWN 16:00 bis 20:00', 'Tertiary Power DOWN 20:00 bis 24:00', 'Tertiary Power UP 00:00 bis 04:00', 'Tertiary Power UP 04:00 bis 08:00', 'Tertiary Power UP 08:00 bis 12:00', 'Tertiary Power UP 12:00 bis 16:00']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 10646}
+   rows awarded==0: 6737
+   auctions with single Preis (marginal?): 0%
+-- TRL+: 310 auctions, 14053 rows
+   ids: ['TRL+_25_KW01', 'TRL+_25_KW02', 'TRL+_25_KW03', 'TRL+_25_KW04'] ... ['TRL+_25_09_26', 'TRL+_25_09_27', 'TRL+_25_09_28']
+   Beschreibung: ['Tertiary Power UP', 'Tertiary Power UP 00:00 bis 04:00', 'Tertiary Power UP 04:00 bis 08:00', 'Tertiary Power UP 08:00 bis 12:00', 'Tertiary Power UP 12:00 bis 16:00', 'Tertiary Power UP 16:00 bis 20:00', 'Tertiary Power UP 20:00 bis 24:00']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 14053}
+   rows awarded==0: 9191
+   auctions with single Preis (marginal?): 0%
+-- TRL-: 324 auctions, 16064 rows
+   ids: ['TRL-_25_KW01', 'TRL-_25_KW02', 'TRL-_25_KW03', 'TRL-_25_KW04'] ... ['TRL-_25_09_26', 'TRL-_25_09_27', 'TRL-_25_09_28']
+   Beschreibung: ['Tertiary Power DOWN', 'Tertiary Power DOWN 00:00 bis 04:00', 'Tertiary Power DOWN 04:00 bis 08:00', 'Tertiary Power DOWN 08:00 bis 12:00', 'Tertiary Power DOWN 12:00 bis 16:00', 'Tertiary Power DOWN 16:00 bis 20:00', 'Tertiary Power DOWN 20:00 bis 24:00']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 16064}
+   rows awarded==0: 9408
+   auctions with single Preis (marginal?): 0%
+
+===== 2026-PRL-SRL-TRL-Ergebnis.csv  rows=563641  cols=['Ausschreibung', 'Beschreibung', 'Angebotenes Volumen', 'Einheit__3', 'Zugesprochenes Volumen', 'Einheit.1__5', 'Leistungspreis', 'Einheit.2__7', 'Kosten', 'Einheit.3__9', 'Preis', 'Einheit.4__11', 'Land', 'Angebotspreis', 'Einheit.5__14', 'Teilbarkeit', 'prod']
+-- PRL: 268 auctions, 517773 rows
+   ids: ['PRL_26_01_01', 'PRL_26_01_02', 'PRL_26_01_03', 'PRL_26_01_04'] ... ['PRL_26_09_23', 'PRL_26_09_24', 'PRL_26_09_25']
+   Beschreibung: ['Primary Power 00:00 bis 04:00', 'Primary Power 04:00 bis 08:00', 'Primary Power 08:00 bis 12:00', 'Primary Power 12:00 bis 16:00', 'Primary Power 16:00 bis 20:00', 'Primary Power 20:00 bis 24:00']
+   units: [['MW', 'MW', 'EUR/MW', 'EUR', 'EUR/MWh*', 'EUR/MWh*']]
+   Land: {'DE': 189448, 'FR': 160276, 'BE': 54251, 'CH': 32912, 'AT': 31175, 'NL': 22788, 'CZ': 19275, 'DK': 6662, 'SI': 986}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 0%
+-- SRL: 324 auctions, 9896 rows
+   ids: ['SRL_26_01_01', 'SRL_26_01_02', 'SRL_26_01_03', 'SRL_26_01_04'] ... ['SRL_26_KW38', 'SRL_26_KW39', 'SRL_26_KW40']
+   Beschreibung: ['Secondary Power DOWN 00:00 bis 04:00', 'Secondary Power DOWN 04:00 bis 08:00', 'Secondary Power DOWN 08:00 bis 12:00', 'Secondary Power DOWN 12:00 bis 16:00', 'Secondary Power DOWN 16:00 bis 20:00', 'Secondary Power DOWN 20:00 bis 24:00', 'Secondary Power UP 00:00 bis 04:00', 'Secondary Power UP 04:00 bis 08:00', 'Secondary Power UP 08:00 bis 12:00', 'Secondary Power UP 12:00 bis 16:00', 'Secondary Power UP 16:00 bis 20:00', 'Secondary Power UP 20:00 bis 24:00']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 9896}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 0%
+-- TRL: 310 auctions, 35458 rows
+   ids: ['TRL_26_KW01', 'TRL_26_KW02', 'TRL_26_KW03', 'TRL_26_KW04'] ... ['TRL_26_09_25', 'TRL_26_09_26', 'TRL_26_09_27']
+   Beschreibung: ['Tertiary Power DOWN', 'Tertiary Power UP', 'Tertiary Power DOWN 00:00 bis 04:00', 'Tertiary Power DOWN 04:00 bis 08:00', 'Tertiary Power DOWN 08:00 bis 12:00', 'Tertiary Power DOWN 12:00 bis 16:00', 'Tertiary Power DOWN 16:00 bis 20:00', 'Tertiary Power DOWN 20:00 bis 24:00', 'Tertiary Power UP 00:00 bis 04:00', 'Tertiary Power UP 04:00 bis 08:00', 'Tertiary Power UP 08:00 bis 12:00', 'Tertiary Power UP 12:00 bis 16:00']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 35458}
+   rows awarded==0: 20324
+   auctions with single Preis (marginal?): 0%
+-- TRL-: 14 auctions, 514 rows
+   ids: ['TRL-_26_KW06_S1', 'TRL-_26_KW07_S1', 'TRL-_26_KW08_S1', 'TRL-_26_KW09_S1'] ... ['TRL-_26_KW17_S1', 'TRL-_26_KW18_S1', 'TRL-_26_KW19_S1']
+   Beschreibung: ['Tertiary Power DOWN']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 514}
+   rows awarded==0: 403
+   auctions with single Preis (marginal?): 0%
+
+===== 2027-PRL-SRL-TRL-Ergebnis.csv  rows=871  cols=['Ausschreibung', 'Beschreibung', 'Angebotenes Volumen', 'Einheit__3', 'Zugesprochenes Volumen', 'Einheit.1__5', 'Leistungspreis', 'Einheit.2__7', 'Kosten', 'Einheit.3__9', 'Preis', 'Einheit.4__11', 'Land', 'Angebotspreis', 'Einheit.5__14', 'Teilbarkeit', 'prod']
+-- SRL: 15 auctions, 169 rows
+   ids: ['SRL_27_KW05_S1', 'SRL_27_KW06_S1', 'SRL_27_KW07_S1', 'SRL_27_KW08_S1'] ... ['SRL_27_KW17_S1', 'SRL_27_KW18_S1', 'SRL_27_KW19_S1']
+   Beschreibung: ['Secondary Power DOWN', 'Secondary Power UP']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 169}
+   rows awarded==0: 0
+   auctions with single Preis (marginal?): 0%
+-- TRL: 15 auctions, 702 rows
+   ids: ['TRL_27_KW05_S1', 'TRL_27_KW06_S1', 'TRL_27_KW07_S1', 'TRL_27_KW08_S1'] ... ['TRL_27_KW17_S1', 'TRL_27_KW18_S1', 'TRL_27_KW19_S1']
+   Beschreibung: ['Tertiary Power DOWN']
+   units: [['MW', 'MW', 'CHF/MW', 'CHF', 'CHF/MWh*', 'CHF/MWh*']]
+   Land: {'CH': 702}
+   rows awarded==0: 566
+   auctions with single Preis (marginal?): 0%
+
+===== EnergieUebersicht copies identical: False
+
+===== EnergieUebersichtCH-2019.xls sheets=['Einstellungen', 'Uebersicht', 'Zeitreihen0h15', 'Zeitreihen1h00']
+--- Einstellungen
+                      0                1        2                                          3
+0                   NaN              NaN      NaN  Betrachtungszeitraum / Observation Period
+1                   NaN              NaN      NaN                                        NaN
+2                   NaN              NaN      NaN                                        NaN
+3                   NaN              NaN      NaN                                        NaN
+4                   NaN              NaN      NaN                                        NaN
+5                   NaN              NaN      NaN                                        NaN
+6                   NaN              NaN      NaN                                        NaN
+7                   NaN              NaN      NaN                                        NaN
+8                   NaN              NaN      NaN                                        NaN
+9                   NaN              NaN      NaN                                        NaN
+10                  NaN              NaN      NaN                                        NaN
+11                  NaN              NaN      NaN                                        NaN
+12                  NaN              NaN      NaN                                        NaN
+13                  NaN              NaN      NaN                                        NaN
+14                    1                2        3                                          4
+15                  NaN              NaN      NaN                                        NaN
+16                  NaN              NaN      NaN                                        NaN
+17                    0                1        2                                          3
+18                    0               15       30                                         45
+19               kW/kWh           MW/MWh      NaN                                        NaN
+20       Frühstes Datum  Spätestes Datum  Faktor:                                    Prefix:
+21  1899-12-30 23:00:00         00:00:00        1                                          M
+--- Uebersicht
+      0    1         2    3
+0   NaN  NaN  Periode:  NaN
+1   NaN  NaN       NaN  NaN
+2   NaN  NaN       NaN  NaN
+3   NaN  NaN       NaN  NaN
+4   NaN  NaN       NaN  NaN
+5   NaN  NaN       NaN  NaN
+6   NaN  NaN       NaN  NaN
+7   NaN  NaN         -  NaN
+8   NaN  NaN       NaN  NaN
+9   NaN  NaN       NaN  NaN
+10  NaN  NaN       NaN  NaN
+11  NaN  NaN       NaN  NaN
+12  NaN  NaN       NaN  NaN
+13  NaN  NaN       NaN  NaN
+14  NaN  NaN       NaN  NaN
+--- Zeitreihen0h15
+                                                              0            1                    2                    3
+0                                                           NaN  Zeitstempel  2019-01-01 00:15:00  2019-01-01 00:30:00
+1   Summe endverbrauchte Energie Regelblock Schweiz\nTotal e...          kWh          1540639.983          1527919.449
+2   Summe produzierte Energie Regelblock Schweiz\nTotal ener...          kWh       1348915.471313       1334778.597189
+3   Summe verbrauchte Energie Regelblock Schweiz\nTotal ener...          kWh       1805275.110583       1774762.221959
+4   Netto Ausspeisung aus dem Übertragungsnetz Schweiz\nNet ...          kWh        410240.653877        401305.931042
+5   Vertikale Einspeisung ins Übertragungsnetz Schweiz\nGrid...          kWh        900748.397313        895294.538189
+6   Positive Sekundär-Regelenergie\nPositive secundary contr...          kWh                 4164                  350
+7   Negative Sekundär-Regelenergie\nNegative secundary contr...          kWh                -5300                 -773
+8   Positive Tertiär-Regelenergie\nPositive tertiary control...          kWh                    0                    0
+9   Negative Tertiär-Regelenergie\nNegative tertiary control...          kWh                    0                    0
+10        Verbundaustausch CH->AT\nCross Border Exchange CH->AT          kWh                  600                10400
+11        Verbundaustausch AT->CH\nCross Border Exchange AT->CH          kWh               246700               194100
+12        Verbundaustausch CH->DE\nCross Border Exchange CH->DE          kWh                41059                33072
+13        Verbundaustausch DE->CH\nCross Border Exchange DE->CH          kWh               871268               774948
+14        Verbundaustausch CH->FR\nCross Border Exchange CH->FR          kWh             225431.5             215231.5
+15        Verbundaustausch FR->CH\nCross Border Exchange FR->CH          kWh               100550               100550
+16        Verbundaustausch CH->IT\nCross Border Exchange CH->IT          kWh               539342               434424
+17        Verbundaustausch IT->CH\nCross Border Exchange IT->CH          kWh                62378                76075
+18                                                      Transit          kWh             804486.5             694165.5
+19                                                       Import          kWh           1279259.75           1144678.75
+20                                                       Export          kWh             804486.5             694165.5
+21  Durchschnittliche positive Sekundär-Regelenergie Preise\...     Euro/MWh                60.31                60.31
+22  Durchschnittliche negative Sekundär-Regelenergie Preise\...     Euro/MWh                40.21                40.21
+23  Durchschnittliche positive Tertiär-Regelenergie Preise\n...     Euro/MWh                    0                    0
+24  Durchschnittliche negative Tertiär-Regelenergie Preise\n...     Euro/MWh                    0                    0
+25                   Produktion Kanton AG\nProduction Canton AG          kWh           483231.569           483394.176
+26                   Verbrauch Kanton AG\nConsumption Canton AG          kWh           126134.893           124564.392
+27                   Produktion Kanton FR\nProduction Canton FR          kWh             10249.69            10201.835
+28                   Verbrauch Kanton FR\nConsumption Canton FR          kWh            69918.522            68029.867
+29                   Produktion Kanton GL\nProduction Canton GL          kWh            30588.952            27623.973
+30                   Verbrauch Kanton GL\nConsumption Canton GL          kWh            56813.165            56484.246
+31                   Produktion Kanton GR\nProduction Canton GR          kWh            69767.551            64961.944
+32                   Verbrauch Kanton GR\nConsumption Canton GR          kWh             75362.77            75337.136
+33                   Produktion Kanton LU\nProduction Canton LU          kWh              8242.75             7457.739
+34                   Verbrauch Kanton LU\nConsumption Canton LU          kWh            91239.974             90450.59
+35                   Produktion Kanton NE\nProduction Canton NE          kWh               781.46               803.81
+36                   Verbrauch Kanton NE\nConsumption Canton NE          kWh             14835.09             14415.19
+37                   Produktion Kanton SO\nProduction Canton SO          kWh           268887.388           269445.598
+38                   Verbrauch Kanton SO\nConsumption Canton SO          kWh             51336.32            50124.857
+39                   Produktion Kanton SG\nProduction Canton SG          kWh           10791.7948           10639.4328
+40                   Verbrauch Kanton SG\nConsumption Canton SG          kWh           95981.6026           81980.1698
+41                   Produktion Kanton TI\nProduction Canton TI          kWh            25708.699            24518.384
+42                   Verbrauch Kanton TI\nConsumption Canton TI          kWh              79706.8            78847.839
+43                   Produktion Kanton TG\nProduction Canton TG          kWh             3339.399             3288.846
+44                   Verbrauch Kanton TG\nConsumption Canton TG          kWh            46304.754            46140.535
+45                   Produktion Kanton VS\nProduction Canton VS          kWh        106368.854313        109826.590189
+46                   Verbrauch Kanton VS\nConsumption Canton VS          kWh         104900.35146        103836.825001
+47         Produktion Kantone AI, AR\nProduction Cantons AI, AR          kWh            1853.9352            1857.2432
+48         Verbrauch Kantone AI, AR\nConsumption Cantons AI, AR          kWh           15613.4734           15278.2622
+49         Produktion Kantone BL, BS\nProduction Cantons BL, BS          kWh            26170.083             25616.99
+50         Verbrauch Kantone BL, BS\nConsumption Cantons BL, BS          kWh            88054.869            87377.787
+51         Produktion Kantone BE, JU\nProduction Cantons BE, JU          kWh           141293.685           140411.546
+52         Verbrauch Kantone BE, JU\nConsumption Cantons BE, JU          kWh           226741.503           227358.992
+53         Produktion Kantone SZ, ZG\nProduction Cantons SZ, ZG          kWh             2748.317             2720.468
+54         Verbrauch Kantone SZ, ZG\nConsumption Cantons SZ, ZG          kWh            50004.859            48788.535
+55  Produktion Kantone OW, NW, UR\nProduction Cantons OW, NW...          kWh            12255.289            10934.633
+56  Verbrauch Kantone OW, NW, UR\nConsumption Cantons OW, NW...          kWh            29345.122            28984.733
+57         Produktion Kantone GE, VD\nProduction Cantons GE, VD          kWh            39807.981             37456.38
+58         Verbrauch Kantone GE, VD\nConsumption Cantons GE, VD          kWh           254135.731           253943.085
+59         Produktion Kantone SH, ZH\nProduction Cantons SH, ZH          kWh            22384.238            21566.876
+60         Verbrauch Kantone SH, ZH\nConsumption Cantons SH, ZH          kWh           258097.952           256777.717
+61    Produktion Kantonsübergreifend\nProduction across Cantons          kWh            80786.005             78857.38
+62    Verbrauch Kantonsübergreifend\nConsumption across Cantons          kWh         58314.235123         53410.971958
+63  Produktion Regelzone CH - Ausländische Gebiete\nProducti...          kWh              279.675              275.225
+64  Verbrauch Regelzone CH - Ausländische Gebiete\nConsumpti...          kWh             4216.443             4224.925
+--- Zeitreihen1h00
+                                                             0            1                    2                    3
+0                                                          NaN  Zeitstempel  2019-01-01 01:00:00  2019-01-01 02:00:00
+1  Vertikale Netzlast Übertragungsnetz Schweiz\nVertical lo...           MW          5569.868233          5730.919475
+
+===== EnergieUebersichtCH-2020.xlsx sheets=['Einstellungen', 'Uebersicht', 'Zeitreihen0h15', 'Zeitreihen1h00']
+--- Einstellungen
+                                0                                  1        2        3
+0   Energieübersicht Schweiz 2020  Energy Statistic Switzerland 2020      NaN      NaN
+1                             NaN                                NaN      NaN      NaN
+2                             NaN                                NaN      NaN      NaN
+3                             NaN                                NaN      NaN      NaN
+4                             NaN                                NaN      NaN      NaN
+5                             NaN                                NaN      NaN      NaN
+6                             NaN                                NaN      NaN      NaN
+7                             NaN                                NaN      NaN      NaN
+8                             NaN                                NaN      NaN      NaN
+9                             NaN                                NaN      NaN      NaN
+10                            NaN                                NaN      NaN      NaN
+11                            NaN                                NaN      NaN      NaN
+12                            NaN                                NaN      NaN      NaN
+13                            NaN                                NaN      NaN      NaN
+14                              1                                  2        3        4
+15                              1                                  2        3        4
+16                         2020.0                             2021.0      NaN      NaN
+17                              0                                  1        2        3
+18                              0                                 15       30       45
+19                       kW / kWh                           MW / MWh      NaN      NaN
+20                 Frühstes Datum                    Spätestes Datum  Faktor:  Prefix:
+21            2020-01-01 00:00:00                2021-01-01 00:00:00        1        M
+--- Uebersicht
+                                0    1                    2    3
+0   Energieübersicht Schweiz 2020  NaN             Periode:  NaN
+1                             NaN  NaN                  NaN  NaN
+2                             NaN  NaN                  NaN  NaN
+3                             NaT  NaT  2020-01-01 00:00:00  NaT
+4                             NaN  NaN                  NaN  NaN
+5                             NaN  NaN                  NaN  NaN
+6                             NaN  NaN                  NaN  NaN
+7                             NaN  NaN                    -  NaN
+8                             NaT  NaT  2021-01-01 00:00:00  NaT
+9                             NaN  NaN                  NaN  NaN
+10                            NaN  NaN                  NaN  NaN
+11                            NaN  NaN                  NaN  NaN
+12                            NaN  NaN                  NaN  NaN
+13                            NaN  NaN                  NaN  NaN
+14                            NaN  NaN                  NaN  NaN
+--- Zeitreihen0h15
+                                                              0            1                    2                    3
+0                                                           NaN  Zeitstempel  2020-01-01 00:15:00  2020-01-01 00:30:00
+1   Summe endverbrauchte Energie Regelblock Schweiz\nTotal e...          kWh          1641923.835          1633538.662
+2   Summe produzierte Energie Regelblock Schweiz\nTotal ener...          kWh        1406614.06901       1393221.813766
+3   Summe verbrauchte Energie Regelblock Schweiz\nTotal ener...          kWh       1777784.959098       1762930.782139
+4   Netto Ausspeisung aus dem Übertragungsnetz Schweiz\nNet ...          kWh        337804.533307        340919.045477
+5   Vertikale Einspeisung ins Übertragungsnetz Schweiz\nGrid...          kWh         991384.32001        982585.673766
+6   Positive Sekundär-Regelenergie\nPositive secundary contr...          kWh                 1846                 1801
+7   Negative Sekundär-Regelenergie\nNegative secundary contr...          kWh                 -275                 -234
+8   Positive Tertiär-Regelenergie\nPositive tertiary control...          kWh                17500                17500
+9   Negative Tertiär-Regelenergie\nNegative tertiary control...          kWh                    0                    0
+10        Verbundaustausch CH->AT\nCross Border Exchange CH->AT          kWh                    0                    0
+11        Verbundaustausch AT->CH\nCross Border Exchange AT->CH          kWh               220608               190616
+12        Verbundaustausch CH->DE\nCross Border Exchange CH->DE          kWh                 9500                 9600
+13        Verbundaustausch DE->CH\nCross Border Exchange DE->CH          kWh               544900               476163
+14        Verbundaustausch CH->FR\nCross Border Exchange CH->FR          kWh            120204.75            113904.75
+15        Verbundaustausch FR->CH\nCross Border Exchange FR->CH          kWh            161957.25            166357.25
+16        Verbundaustausch CH->IT\nCross Border Exchange CH->IT          kWh               451379               378744
+17        Verbundaustausch IT->CH\nCross Border Exchange IT->CH          kWh                46039                49338
+18                                                      Transit          kWh            581944.25            501437.25
+19                                                       Import          kWh            975932.75            881483.75
+20                                                       Export          kWh            581944.25            501437.25
+21  Durchschnittliche positive Sekundär-Regelenergie Preise\...     Euro/MWh                 42.5                 42.5
+22  Durchschnittliche negative Sekundär-Regelenergie Preise\...     Euro/MWh                28.34                28.34
+23  Durchschnittliche positive Tertiär-Regelenergie Preise\n...     Euro/MWh            51.407143            51.407143
+24  Durchschnittliche negative Tertiär-Regelenergie Preise\n...     Euro/MWh                    0                    0
+25                   Produktion Kanton AG\nProduction Canton AG          kWh           434292.802           433590.658
+26                   Verbrauch Kanton AG\nConsumption Canton AG          kWh           142321.865           140750.097
+27                   Produktion Kanton FR\nProduction Canton FR          kWh             15537.06            15645.457
+28                   Verbrauch Kanton FR\nConsumption Canton FR          kWh            77314.767            77911.913
+29                   Produktion Kanton GL\nProduction Canton GL          kWh            89556.341            81646.489
+30                   Verbrauch Kanton GL\nConsumption Canton GL          kWh            45550.258            45327.543
+31                   Produktion Kanton GR\nProduction Canton GR          kWh            76298.139            74045.916
+32                   Verbrauch Kanton GR\nConsumption Canton GR          kWh            77285.998            77440.245
+33                   Produktion Kanton LU\nProduction Canton LU          kWh             8616.977             8516.039
+34                   Verbrauch Kanton LU\nConsumption Canton LU          kWh           115228.934           114165.881
+35                   Produktion Kanton NE\nProduction Canton NE          kWh              823.556              1067.03
+36                   Verbrauch Kanton NE\nConsumption Canton NE          kWh            14872.655             14544.88
+37                   Produktion Kanton SO\nProduction Canton SO          kWh           270945.589           271241.773
+38                   Verbrauch Kanton SO\nConsumption Canton SO          kWh            54899.696             54126.02
+39                   Produktion Kanton SG\nProduction Canton SG          kWh            9891.1526            9998.2474
+40                   Verbrauch Kanton SG\nConsumption Canton SG          kWh            87781.712            86502.817
+41                   Produktion Kanton TI\nProduction Canton TI          kWh            63296.485            67456.886
+42                   Verbrauch Kanton TI\nConsumption Canton TI          kWh            84597.793            83062.128
+43                   Produktion Kanton TG\nProduction Canton TG          kWh             4016.767             3991.797
+44                   Verbrauch Kanton TG\nConsumption Canton TG          kWh            50214.691            49646.792
+45                   Produktion Kanton VS\nProduction Canton VS          kWh         139083.46101        136984.333766
+46                   Verbrauch Kanton VS\nConsumption Canton VS          kWh        101445.821405        100434.820616
+47         Produktion Kantone AI, AR\nProduction Cantons AI, AR          kWh            1258.5834            1257.5106
+48         Verbrauch Kantone AI, AR\nConsumption Cantons AI, AR          kWh            16151.256            15872.819
+49         Produktion Kantone BL, BS\nProduction Cantons BL, BS          kWh            24480.889            24334.438
+50         Verbrauch Kantone BL, BS\nConsumption Cantons BL, BS          kWh            89856.005            89447.561
+51         Produktion Kantone BE, JU\nProduction Cantons BE, JU          kWh            57457.194            54369.192
+52         Verbrauch Kantone BE, JU\nConsumption Cantons BE, JU          kWh           219256.279            223531.87
+53         Produktion Kantone SZ, ZG\nProduction Cantons SZ, ZG          kWh             2584.887              2574.73
+54         Verbrauch Kantone SZ, ZG\nConsumption Cantons SZ, ZG          kWh             56663.58            55603.565
+55  Produktion Kantone OW, NW, UR\nProduction Cantons OW, NW...          kWh            12970.174            12205.899
+56  Verbrauch Kantone OW, NW, UR\nConsumption Cantons OW, NW...          kWh            31592.373            31530.899
+57         Produktion Kantone GE, VD\nProduction Cantons GE, VD          kWh            57556.293            56440.368
+58         Verbrauch Kantone GE, VD\nConsumption Cantons GE, VD          kWh           187701.224           183950.982
+59         Produktion Kantone SH, ZH\nProduction Cantons SH, ZH          kWh            22772.043             22483.35
+60         Verbrauch Kantone SH, ZH\nConsumption Cantons SH, ZH          kWh           274635.072           274167.349
+61    Produktion Kantonsübergreifend\nProduction across Cantons          kWh            97907.513            97350.797
+62    Verbrauch Kantonsübergreifend\nConsumption across Cantons          kWh         37557.385693         32175.910523
+63  Produktion Regelzone CH - Ausländische Gebiete\nProducti...          kWh              281.425              277.625
+64  Verbrauch Regelzone CH - Ausländische Gebiete\nConsumpti...          kWh             5070.775             4953.982
+--- Zeitreihen1h00
+                                                             0            1                    2                    3
+0                                                          NaN  Zeitstempel  2020-01-01 01:00:00  2020-01-01 02:00:00
+1  Vertikale Netzlast Übertragungsnetz Schweiz\nVertical lo...           MW          5198.188724          5355.600076
+
+===== EnergieUebersichtCH-2025.xlsx sheets=['Einstellungen', 'Datetime', 'Uebersicht', 'Zeitreihen0h15']
+--- Einstellungen
+                                0                                  1        2        3
+0   Energieübersicht Schweiz 2025  Energy Statistic Switzerland 2025      NaN      NaN
+1                             NaN                                NaN      NaN      NaN
+2                             NaN                                NaN      NaN      NaN
+3                             NaN                                NaN      NaN      NaN
+4                             NaN                                NaN      NaN      NaN
+5                             NaN                                NaN      NaN      NaN
+6                             NaN                                NaN      NaN      NaN
+7                             NaN                                NaN      NaN      NaN
+8                             NaN                                NaN      NaN      NaN
+9                             NaN                                NaN      NaN      NaN
+10                            NaN                                NaN      NaN      NaN
+11                            NaN                                NaN      NaN      NaN
+12                            NaN                                NaN      NaN      NaN
+13                            NaN                                NaN      NaN      NaN
+14                              1                                  2        3        4
+15                              1                                  2        3        4
+16                         2025.0                             2026.0      NaN      NaN
+17                              0                                  1        2        3
+18                              0                                 15       30       45
+19                       kW / kWh                           MW / MWh      NaN      NaN
+20                 Frühstes Datum                    Spätestes Datum  Faktor:  Prefix:
+21            2025-01-01 00:00:00                2026-01-01 00:00:00        1        M
+--- Datetime
+     0                 1                    2                    3
+0  NaN  Zeitstempel 0h15  2025-01-01 00:00:00  2025-01-01 00:15:00
+--- Uebersicht
+                                0    1                    2    3
+0   Energieübersicht Schweiz 2025  NaN             Periode:  NaN
+1                             NaN  NaN                  NaN  NaN
+2                             NaN  NaN                  NaN  NaN
+3                             NaT  NaT  2025-01-01 00:00:00  NaT
+4                             NaN  NaN                  NaN  NaN
+5                             NaN  NaN                  NaN  NaN
+6                             NaN  NaN                  NaN  NaN
+7                             NaN  NaN                    -  NaN
+8                             NaT  NaT  2026-01-01 00:00:00  NaT
+9                             NaN  NaN                  NaN  NaN
+10                            NaN  NaN                  NaN  NaN
+11                            NaN  NaN                  NaN  NaN
+12                            NaN  NaN                  NaN  NaN
+13                            NaN  NaN                  NaN  NaN
+14                            NaN  NaN                  NaN  NaN
+--- Zeitreihen0h15
+                                                              0            1                 2                 3
+0                                                           NaN  Zeitstempel  01.01.2025 00:00  01.01.2025 00:15
+1   Summe endverbrauchte Energie Regelblock Schweiz\nTotal e...          kWh    1659414.843193     1654563.48312
+2   Summe produzierte Energie Regelblock Schweiz\nTotal ener...          kWh       1346483.723       1336186.057
+3   Summe verbrauchte Energie Regelblock Schweiz\nTotal ener...          kWh    1894980.135373    1883657.447453
+4   Netto Ausspeisung aus dem Übertragungsnetz Schweiz\nNet ...          kWh     501763.715627     506524.813547
+5   Vertikale Einspeisung ins Übertragungsnetz Schweiz\nGrid...          kWh    1466277.041627    1465358.140547
+6   Positive Sekundär-Regelenergie\nPositive secundary contr...          kWh         18260.102         28628.197
+7   Negative Sekundär-Regelenergie\nNegative secundary contr...          kWh           -29.325                 0
+8   Positive Tertiär-Regelenergie\nPositive tertiary control...          kWh             51750             51750
+9   Negative Tertiär-Regelenergie\nNegative tertiary control...          kWh                 0                 0
+10        Verbundaustausch CH->AT\nCross Border Exchange CH->AT          kWh             44500           13900.0
+11        Verbundaustausch AT->CH\nCross Border Exchange AT->CH          kWh            222630            223640
+12        Verbundaustausch CH->DE\nCross Border Exchange CH->DE          kWh              6800               700
+13        Verbundaustausch DE->CH\nCross Border Exchange DE->CH          kWh          817936.0          743470.0
+14        Verbundaustausch CH->FR\nCross Border Exchange CH->FR          kWh             94388           92752.0
+15        Verbundaustausch FR->CH\nCross Border Exchange FR->CH          kWh            368563          351840.0
+16        Verbundaustausch CH->IT\nCross Border Exchange CH->IT          kWh          727188.0            680404
+17        Verbundaustausch IT->CH\nCross Border Exchange IT->CH          kWh             12887           18002.0
+18                                                      Transit          kWh            872876          787756.0
+19                                                       Import          kWh         1422016.0         1336952.0
+20                                                       Export          kWh          872876.0          787756.0
+21  Durchschnittliche positive Sekundär-Regelenergie Preise\...     Euro/MWh            294.81            559.75
+22  Durchschnittliche negative Sekundär-Regelenergie Preise\...     Euro/MWh             39.24                 0
+23  Durchschnittliche positive Tertiär-Regelenergie Preise\n...     Euro/MWh             155.1             155.1
+24  Durchschnittliche negative Tertiär-Regelenergie Preise\n...     Euro/MWh                 0                 0
+25                   Produktion Kanton AG\nProduction Canton AG          kWh        506882.465        507043.911
+26                   Verbrauch Kanton AG\nConsumption Canton AG          kWh        154357.286        156974.162
+27                   Produktion Kanton FR\nProduction Canton FR          kWh          9306.136          9389.394
+28                   Verbrauch Kanton FR\nConsumption Canton FR          kWh         84200.122          83945.14
+29                   Produktion Kanton GL\nProduction Canton GL          kWh         22279.579          25880.16
+30                   Verbrauch Kanton GL\nConsumption Canton GL          kWh         11138.966         10858.787
+31                   Produktion Kanton GR\nProduction Canton GR          kWh         79466.867         78600.258
+32                   Verbrauch Kanton GR\nConsumption Canton GR          kWh         76374.081         76356.566
+33                   Produktion Kanton LU\nProduction Canton LU          kWh          6976.613          7146.725
+34                   Verbrauch Kanton LU\nConsumption Canton LU          kWh          96906.24         96016.401
+35                   Produktion Kanton NE\nProduction Canton NE          kWh           321.799            297.84
+36                   Verbrauch Kanton NE\nConsumption Canton NE          kWh         14355.237         14104.866
+37                   Produktion Kanton SO\nProduction Canton SO          kWh        263314.729        263102.377
+38                   Verbrauch Kanton SO\nConsumption Canton SO          kWh         40334.206         40683.899
+39                   Produktion Kanton SG\nProduction Canton SG          kWh         9035.9378         9382.1442
+40                   Verbrauch Kanton SG\nConsumption Canton SG          kWh        92677.6594        91026.4212
+41                   Produktion Kanton TI\nProduction Canton TI          kWh          21785.35         20054.713
+42                   Verbrauch Kanton TI\nConsumption Canton TI          kWh         80666.605         79706.047
+43                   Produktion Kanton TG\nProduction Canton TG          kWh          4152.845          4310.246
+44                   Verbrauch Kanton TG\nConsumption Canton TG          kWh         53415.145         53074.626
+45                   Produktion Kanton VS\nProduction Canton VS          kWh        188570.902        180579.233
+46                   Verbrauch Kanton VS\nConsumption Canton VS          kWh        157104.636        155613.107
+47         Produktion Kantone AI, AR\nProduction Cantons AI, AR          kWh          955.7222          976.2988
+48         Verbrauch Kantone AI, AR\nConsumption Cantons AI, AR          kWh        16240.5116        15847.0478
+49         Produktion Kantone BL, BS\nProduction Cantons BL, BS          kWh         23703.419         24057.597
+50         Verbrauch Kantone BL, BS\nConsumption Cantons BL, BS          kWh          92203.57         92454.866
+51         Produktion Kantone BE, JU\nProduction Cantons BE, JU          kWh         58575.414         55170.101
+52         Verbrauch Kantone BE, JU\nConsumption Cantons BE, JU          kWh        228827.886        230406.028
+53         Produktion Kantone SZ, ZG\nProduction Cantons SZ, ZG          kWh          5004.696          5003.418
+54         Verbrauch Kantone SZ, ZG\nConsumption Cantons SZ, ZG          kWh         58266.431         57887.527
+55  Produktion Kantone OW, NW, UR\nProduction Cantons OW, NW...          kWh         10274.564          9351.599
+56  Verbrauch Kantone OW, NW, UR\nConsumption Cantons OW, NW...          kWh         31812.567           31343.6
+57         Produktion Kantone GE, VD\nProduction Cantons GE, VD          kWh         28985.001         28952.908
+58         Verbrauch Kantone GE, VD\nConsumption Cantons GE, VD          kWh        249591.732        246870.003
+59         Produktion Kantone SH, ZH\nProduction Cantons SH, ZH          kWh         21357.967         21640.989
+60         Verbrauch Kantone SH, ZH\nConsumption Cantons SH, ZH          kWh        288071.288        286650.267
+61    Produktion Kantonsübergreifend\nProduction across Cantons          kWh         80285.354         79923.912
+62    Verbrauch Kantonsübergreifend\nConsumption across Cantons          kWh      52433.261373      47961.099453
+63  Produktion Regelzone CH - Ausländische Gebiete\nProducti...          kWh          5248.363          5322.233
+64  Verbrauch Regelzone CH - Ausländische Gebiete\nConsumpti...          kWh         16002.705         15876.987
+
+===== swissgrid-prices-for-balance-energy-250101-250201.xlsx
+                                         0        1         2   3                 4
+0   prezzi per l'energia di compensazione      NaN       NaN NaN  18.02.2025 10:32
+1     les prix de l'energie d'adjustement      NaN       NaN NaN               NaN
+2            Preise für Ausgleichsenergie      NaN       NaN NaN               NaN
+3               prices for balance energy      NaN       NaN NaN               NaN
+4                                     NaN      NaN       NaN NaN               NaN
+5                     2025-01-01 00:00:00      NaN       NaN NaN               NaN
+6                                     NaN      NaN       NaN NaN               NaN
+7                                     NaN  BG-long  BG-short NaN               NaN
+8                                     NaN  BG-long  BG-short NaN               NaN
+9                                     NaN  BG-long  BG-short NaN               NaN
+10                                    NaN  BG-long  BG-short NaN               NaN
+11                                    NaN   ct/kWh    ct/kWh NaN               NaN
+<?xml version="1.0" encoding="ISO-8859-1" ?><template><printedAt>2025-02-18T10:32:54+01:00</printedAt><timeSeriesGroup><Report_Titel_it>prezzi per l'energia di compensazione</Report_Titel_it><Report_Titel_fr>les prix de l'energie d'adjustement</Report_Titel_fr><Report_Titel_de>Preise f�r Ausgleichsenergie</Report_Titel_de><Report_Titel_en>prices for balance energy</Report_Titel_en><Report_Disclaimer_de>Im Falle von Rechenfehlern und Missschreibungen in der vorliegenden Preisbekanntgabe beh�lt sich swissgrid das Recht vor, die korrekten Werte im Rahmen der n�chsten Rechnungslegung einzusetzen.</Report_Disclaimer_de><Report_Disclaimer_en>In the event of miscalculations or misstatements in this price notification, swissgrid reserves the right to apply the correct values in the next billing period.</Report_Disclaimer_en><Report_Disclaimer_it>Nell'eventualit� di errori di calcolo e di scrittura nella presente indicazione dei prezzi, swissgrid si riserva il diritto di applicare i valori rettificati nel quadro del successivo rendiconto.</Report_Disclaimer_it><Report_Disclaimer_fr>En cas d'erreurs de calcul ou de frappe dans la pr�sente communication des prix, swissgrid se r�serve le droit d'appliquer les valeurs correctes dans le cadre de la prochaine facturation.</Report_Disclaimer_fr><timeSeriesGroupLink><timeSeries><Report_TS_Titel_de>BG-long</Report_TS_Titel_de><Report_TS_Titel_en>BG-long</Report_TS_Titel_en><Report_TS_Titel_fr>BG-long</Report_TS_Titel_fr><Report_TS_Titel_it>BG-long</Report_TS_Titel_it><unit>ct/kWh</unit><timeSeriesData><DATAVALUE><TIME>2025-01-01T00:00:00+01:00</TIME><VALUE>3.08</VALUE></DATAVALUE><DATAVALUE><TIME>2025-01-01T00:15:00+01:00</TIME><VALUE>8.75</VALUE></DATAVALUE><DATAVALUE><TIME>2025-01-01T00:30:00+01:00</TIME><VALUE>8.75</VALUE></DATAVALUE><DATAVALUE><TIME>2025-01-01T00:45:00+01:00</TIME><VALUE>0.20</VALUE></DATAVALUE><DATAVALUE><TIME>2025-01-01T01:00:00+01:00</TIME><VALUE>8.39</VALUE></DATAVALUE><DATAVALUE><TIME>2025-01-01T01:15:00+01:00</TIME><VALUE>7.97</VALUE></DATAVALUE><DATAVALUE><TIME>2025-01-01T01:30:00+01:00</TIME><VALUE>3.45</VALUE></DATAVALUE><DATAVALUE><TIME>2025-01-01T01:45:00+01:00</TIME><VALUE>-1.01</VALUE></DATAVALUE><DATAVALUE><TIME>2025-01-01T02:00:00+01:00</TIME><VALUE>6.08</VALUE></DATAVALUE><DATAVALUE><TIME>2025-01-01T02:15:00+01:00</TIME><VALUE>1.90</VALUE></DATAVALUE><DATAVALUE><TIME>2025-01-01T02:30:00+01:00</TIME><VALUE>-4.85</VALUE></DATAVALUE><DATAVALUE><TIME>2025-01-01T02:45:00+01:00</TIME><VALUE>-34.54</VALUE></DATAVALUE><DATAVALUE><TIME>2025-01-01T03:00:00+01:00</TIME><VALUE>-7.04</VALUE></DATAVALUE><DATAVALUE><TIME>2025-01-01T03:15:00+01:00</TIME><VALUE>1.90</VALUE></DATAVALUE><DATAVALUE><TIME>2025-01-01T03:30:00+01:00</TIME><VALUE>1.73</VALUE></DATAVALUE><DATAVALUE><TIME>2025-01-01T03:45:00+01:00</TIME><VALUE>-35.45</VALUE></DATAVALUE><DATAVALUE><TIME>2025-01-01T04:00:00+01:00</TIME><VALUE>-28.65</VALUE></DATAVALUE><DATAVALUE><TIME>2025-01-01T04:15:00+01:00</TIME><VALUE>-22.28</VALUE><
