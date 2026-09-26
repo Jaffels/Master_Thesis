@@ -288,8 +288,7 @@ def main() -> int:
     if not api_key:
         log.error("ENTSOE_API_KEY not found — export it or put it in .env")
         return 1
-    client = EntsoePandasClient(api_key=api_key,
-                                timeout=probe.REQUEST_TIMEOUT_S)
+    client = EntsoePandasClient(api_key=api_key)
     throttle = probe.Throttle(args.interval)
     out_root.mkdir(parents=True, exist_ok=True)
     manifest_path = out_root / "_pull_manifest.csv"

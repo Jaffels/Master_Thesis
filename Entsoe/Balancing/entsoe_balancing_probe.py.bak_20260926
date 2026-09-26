@@ -215,12 +215,6 @@ AREAS: dict[str, list[str]] = {
 #   4.52 EUR for CH-FCR day 1 on TenneT, 50Hertz and TransnetBW alike) and any
 #   one of them is representative. VOLUME is per TSO and must be summed —
 #   see SUM_AREAS.
-# Hard per-request socket timeout (seconds) for every ENTSO-E call (fix P4).
-# entsoe-py sends requests with no timeout by default; one stalled connection
-# hung the 2026-09 production pull at [217/222] for ~13 h. A timeout raises
-# requests.Timeout, which call_with_retry treats as transient.
-REQUEST_TIMEOUT_S = 60
-
 PINNED_AREA_CODE: dict[tuple[str, str], str] = {
     ("activated_balancing_energy_prices", "DE"): "DE_TENNET",
     ("activated_balancing_energy_prices", "IT"): "IT_NORD",
@@ -724,7 +718,7 @@ def main() -> int:
     if state_path.exists() and not args.force:
         state = json.loads(state_path.read_text())
 
-    client = EntsoePandasClient(api_key=api_key, timeout=REQUEST_TIMEOUT_S)
+    client = EntsoePandasClient(api_key=api_key)
     throttle = Throttle(args.interval)
     tasks = [t for t in build_tasks()
              if (t.enabled or args.include_broken)

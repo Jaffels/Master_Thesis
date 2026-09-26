@@ -344,30 +344,7 @@ def targets_for(task: "Task") -> list[Border]:
 #   ("physical_flows",      "DE-CH"): ("DE_TRANSNET", "CH"),
 #   ("scheduled_exchanges", "CH-DE"): ("CH", "DE_LU"),
 #   ("scheduled_exchanges", "DE-CH"): ("DE_LU", "CH"),
-PINNED_BORDER_CODE: dict[tuple[str, str], tuple[str, str]] = {
-    # 2026-09-26: the German end resolves to DIFFERENT levels per product.
-    #   NTC (11.1) is published on the DE_LU bidding-zone border only; querying
-    #   DE_TRANSNET returned NoMatchingData for every year -> the original pull
-    #   saved CH-DE / DE-CH NTC as _empty.parquet. Pinned to DE_LU.
-    **{("ntc", b): (f, t)
-       for b, (f, t) in {"CH-DE": ("CH", "DE_LU"),
-                         "DE-CH": ("DE_LU", "CH")}.items()},
-    #   Physical flows, schedules and countertrading were pulled on the
-    #   TransnetBW control area; pinned so a re-pull never drifts levels.
-    **{(ds, b): (f, t)
-       for ds in ("physical_flows", "scheduled_exchanges", "countertrading")
-       for b, (f, t) in {"CH-DE": ("CH", "DE_TRANSNET"),
-                         "DE-CH": ("DE_TRANSNET", "CH")}.items()},
-    #   Countertrading on the Italian border resolved to national IT (probe).
-    ("countertrading", "CH-IT_NORD"): ("CH", "IT"),
-    ("countertrading", "IT_NORD-CH"): ("IT", "CH"),
-}
-
-# Hard per-request socket timeout (seconds) for every ENTSO-E call (fix P4).
-# entsoe-py sends requests with no timeout by default, so one stalled
-# connection hung the Balancing pull for ~13 h. A timeout raises
-# requests.Timeout, which call_with_retry already treats as transient.
-REQUEST_TIMEOUT_S = 60
+PINNED_BORDER_CODE: dict[tuple[str, str], tuple[str, str]] = {}
 
 # ENTSO-E code reminders (Transmission domain)
 #   documentType: A61 Forecasted transfer capacity (NTC)   A11 Physical flows
@@ -661,7 +638,7 @@ def main() -> int:
     if state_path.exists() and not args.force:
         state = json.loads(state_path.read_text())
 
-    client = EntsoePandasClient(api_key=api_key, timeout=REQUEST_TIMEOUT_S)
+    client = EntsoePandasClient(api_key=api_key)
     throttle = Throttle(args.interval)
     tasks = [t for t in build_tasks()
              if t.enabled and args.only.lower() in t.dataset.lower()]
