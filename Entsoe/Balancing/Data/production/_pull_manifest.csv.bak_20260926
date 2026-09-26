@@ -1,0 +1,43 @@
+dataset,variant,area,area_code,year,rows,file,first_ts,last_ts,cols
+imbalance_prices,all,DE,DE,2021,0,,,,
+imbalance_prices,all,IT,IT_NORD,2021,0,,,,
+imbalance_volumes,all,DE,DE_AMPRION,2021,0,,,,
+imbalance_volumes,all,IT,IT,2021,0,,,,
+activated_balancing_energy_prices,A16_realised,DE,DE_TENNET,2021,0,,,,
+aggregated_bids,A47_mFRR,FR,FR,2022,19105,aggregated_bids/A47_mFRR/FR/2022.parquet,2022-01-01 00:00:00+01:00,2022-12-31 06:00:00+01:00,4.0
+aggregated_bids,A47_mFRR,FR,FR,2023,20341,aggregated_bids/A47_mFRR/FR/2023.parquet,2023-01-01 00:00:00+01:00,2023-12-31 10:45:00+01:00,4.0
+aggregated_bids,A47_mFRR,FR,FR,2024,35716,aggregated_bids/A47_mFRR/FR/2024.parquet,2024-01-01 00:00:00+01:00,2024-12-31 09:45:00+01:00,4.0
+aggregated_bids,A47_mFRR,FR,FR,2025,45211,aggregated_bids/A47_mFRR/FR/2025.parquet,2025-01-01 00:00:00+01:00,2025-12-31 23:30:00+01:00,4.0
+aggregated_bids,A47_mFRR,FR,FR,2026,48063,aggregated_bids/A47_mFRR/FR/2026.parquet,2026-01-01 00:00:00+01:00,2026-08-31 23:30:00+02:00,4.0
+contracted_reserve_amount,FCR_A02_weekly,CH,CH,2021,28509,contracted_reserve_amount/FCR_A02_weekly/CH/2021.parquet,2021-01-01 00:00:00+01:00,2021-10-25 00:00:00+02:00,1.0
+contracted_reserve_amount,FCR_A02_weekly,CH,CH,2022,0,,,,
+contracted_reserve_amount,FCR_A02_weekly,CH,CH,2023,0,,,,
+contracted_reserve_amount,FCR_A02_weekly,CH,CH,2024,0,,,,
+contracted_reserve_amount,FCR_A02_weekly,CH,CH,2025,0,,,,
+contracted_reserve_amount,FCR_A02_weekly,CH,CH,2026,0,,,,
+contracted_reserve_prices,FCR_A02_weekly,CH,CH,2021,35042,contracted_reserve_prices/FCR_A02_weekly/CH/2021.parquet,2021-01-01 00:00:00+01:00,2021-12-31 23:45:00+01:00,1.0
+contracted_reserve_prices,FCR_A02_weekly,CH,CH,2022,23049,contracted_reserve_prices/FCR_A02_weekly/CH/2022.parquet,2022-01-01 00:00:00+01:00,2022-09-26 00:00:00+02:00,1.0
+contracted_reserve_prices,FCR_A02_weekly,CH,CH,2023,0,,,,
+contracted_reserve_prices,FCR_A02_weekly,CH,CH,2024,0,,,,
+contracted_reserve_prices,FCR_A02_weekly,CH,CH,2025,0,,,,
+contracted_reserve_prices,FCR_A02_weekly,CH,CH,2026,0,,,,
+contracted_reserve_amount,aFRR_A01_daily,CH,CH,2021,0,,,,
+contracted_reserve_amount,aFRR_A01_daily,CH,CH,2022,0,,,,
+contracted_reserve_amount,aFRR_A01_daily,CH,CH,2023,0,,,,
+contracted_reserve_amount,aFRR_A01_daily,CH,CH,2024,0,,,,
+contracted_reserve_amount,aFRR_A01_daily,CH,CH,2025,7489,contracted_reserve_amount/aFRR_A01_daily/CH/2025.parquet,2025-10-14 00:00:00+02:00,2025-12-31 23:45:00+01:00,2.0
+contracted_reserve_amount,aFRR_A01_daily,CH,CH,2026,23229,contracted_reserve_amount/aFRR_A01_daily/CH/2026.parquet,2026-01-01 00:00:00+01:00,2026-08-31 23:45:00+02:00,2.0
+contracted_reserve_prices,aFRR_A01_daily,CH,CH,2021,0,,,,
+contracted_reserve_prices,aFRR_A01_daily,CH,CH,2022,0,,,,
+contracted_reserve_prices,aFRR_A01_daily,CH,CH,2023,0,,,,
+contracted_reserve_prices,aFRR_A01_daily,CH,CH,2024,0,,,,
+contracted_reserve_prices,aFRR_A01_daily,CH,CH,2025,7491,contracted_reserve_prices/aFRR_A01_daily/CH/2025.parquet,2025-10-14 00:00:00+02:00,2025-12-31 23:45:00+01:00,2.0
+contracted_reserve_prices,aFRR_A01_daily,CH,CH,2026,23232,contracted_reserve_prices/aFRR_A01_daily/CH/2026.parquet,2026-01-01 00:00:00+01:00,2026-08-31 23:45:00+02:00,2.0
+contracted_reserve_prices,FCR_A01_daily,DE,DE_TENNET,2021,0,,,,
+contracted_reserve_prices,aFRR_A01_daily,DE,DE_TENNET,2021,0,,,,
+contracted_reserve_prices,aFRR_A01_daily,FR,FR,2022,0,,,,
+contracted_reserve_prices,mFRR_A01_daily,CH,CH,2023,0,,,,
+contracted_reserve_prices,mFRR_A01_daily,CH,CH,2024,0,,,,
+contracted_reserve_prices,mFRR_A01_daily,DE,DE_TENNET,2021,0,,,,
+contracted_reserve_amount,mFRR_A02_weekly,CH,CH,2024,0,,,,
+contracted_reserve_prices,mFRR_A02_weekly,CH,CH,2024,0,,,,

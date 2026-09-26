@@ -276,13 +276,6 @@ def build_tasks() -> list[Task]:
     return tasks
 
 
-# Hard per-request socket timeout (seconds) for every ENTSO-E call (fix P4,
-# added 2026-09-26). entsoe-py sends requests with no timeout by default; one
-# stalled connection hung the Balancing pull for ~13 h. A timeout raises
-# requests.Timeout, which call_with_retry treats as transient and retries.
-REQUEST_TIMEOUT_S = 60
-
-
 class Throttle:
     """Keep a minimum gap between API calls. ENTSO-E allows 400 req/min;
     we stay far below that so the probe never trips the limiter.
@@ -510,7 +503,7 @@ def main() -> int:
     if state_path.exists() and not args.force:
         state = json.loads(state_path.read_text())
 
-    client = EntsoePandasClient(api_key=api_key, timeout=REQUEST_TIMEOUT_S)
+    client = EntsoePandasClient(api_key=api_key)
     throttle = Throttle(args.interval)
     tasks = [t for t in build_tasks()
              if t.enabled and args.only.lower() in t.dataset.lower()]

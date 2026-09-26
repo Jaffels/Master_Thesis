@@ -192,8 +192,8 @@ def main() -> int:
                     help="substring filter on dataset name")
     ap.add_argument("--include-errors", action="store_true",
                     help="also attempt borders the probe flagged as hard error")
-    ap.add_argument("--interval", type=float, default=2.0,
-                    help="minimum seconds between API calls (default 2.0)")
+    ap.add_argument("--interval", type=float, default=0.3,
+                    help="minimum seconds between API calls (default 0.3 = ~200 req/min, half the 400/min limit)")
     ap.add_argument("--force", action="store_true",
                     help="re-pull and overwrite series-years already on disk")
     ap.add_argument("--plan", action="store_true",

@@ -64,6 +64,15 @@ from entsoe import EntsoePandasClient  # noqa: E402
 # un-paginated and already time-split by chunked_call.
 PAGINATED_FLOOR_DAYS = 1
 
+# (dataset, area) combinations never pulled (D6, decided 2026-09-26): DE and IT
+# aggregated bids are too dense - a single day exceeds the API's 100-TimeSeries
+# cap, so they come back irreducibly incomplete. Only CH (and FR) bids are kept.
+# Remove an entry here to pull it again.
+EXCLUDE_SERIES: set[tuple[str, str]] = {
+    ("aggregated_bids", "DE"),
+    ("aggregated_bids", "IT"),
+}
+
 log = logging.getLogger("pull")
 
 TZ = probe.TZ
@@ -209,8 +218,8 @@ def main() -> int:
                          f"(default {probe.UNPAGINATED_CHUNK}); adaptive")
     ap.add_argument("--chunk-floor", default=probe.CHUNK_FLOOR,
                     help=f"smallest adaptive window (default {probe.CHUNK_FLOOR})")
-    ap.add_argument("--interval", type=float, default=2.0,
-                    help="minimum seconds between API calls (default 2.0)")
+    ap.add_argument("--interval", type=float, default=0.3,
+                    help="minimum seconds between API calls (default 0.3 = ~200 req/min, half the 400/min limit)")
     ap.add_argument("--force", action="store_true",
                     help="re-pull and overwrite series-years already on disk")
     ap.add_argument("--plan", action="store_true",
@@ -233,6 +242,10 @@ def main() -> int:
         return 1
 
     ok = load_ok_series(coverage)
+    excluded = [(d, a) for d, a in zip(ok["dataset"], ok["area"]) if (d, a) in EXCLUDE_SERIES]
+    if excluded:
+        log.info("excluded by EXCLUDE_SERIES (D6): %s", sorted(set(excluded)))
+    ok = ok[[(d, a) not in EXCLUDE_SERIES for d, a in zip(ok["dataset"], ok["area"])]]
     if args.only:
         ok = ok[ok["dataset"].str.contains(args.only, case=False)]
     if ok.empty:

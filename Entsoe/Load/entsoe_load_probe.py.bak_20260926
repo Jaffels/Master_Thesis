@@ -1,82 +1,60 @@
 """
-ENTSO-E Generation probe — one window, five areas, coverage report.
+ENTSO-E Load probe — one month, five areas, coverage report.
 
-Purpose: find out which Generation endpoints actually return data for the
-thesis-relevant areas (CH and its four bordering bidding zones DE_LU / FR /
-IT_NORD / AT) before committing to a multi-year download. Structurally
-identical to entsoe_load_probe.py / entsoe_balancing_probe.py so the pull can
-drive off the same coverage CSV.
+Purpose: find out which Load endpoints actually return data for the thesis-
+relevant areas (CH and its four bordering bidding zones DE_LU / FR / IT_NORD /
+AT) before committing to a multi-year download. Structurally identical to
+entsoe_balancing_probe.py so the pull can drive off the same coverage CSV.
 
-Covers the Generation-domain articles requested (and a couple of close
-neighbours — "not limited to"):
+Covers the Load-domain articles requested:
+    6.1.A   Actual Total Load                 -> query_load
+    6.1.B   Day-Ahead Total Load Forecast     -> query_load_forecast(A01)
+    6.1.C   Week-Ahead Total Load Forecast    -> query_load_forecast(A31)
+    6.1.D   Month-Ahead Total Load Forecast   -> query_load_forecast(A32)
+    6.1.E   Year-Ahead Total Load Forecast    -> query_load_forecast(A33)
+    8.1     Year-Ahead Forecast Margin        -> query_load_forecast_margin(A33)
 
-    14.1.A  Installed Capacity per Production Type   -> query_installed_generation_capacity          [annual]
-    14.1.B  Installed Capacity per Production Unit    -> query_installed_generation_capacity_per_unit  [annual]
-    14.1.C  Day-ahead Aggregated Generation           -> query_generation_forecast (processType A01)
-    14.1.D  Gen. Forecast Wind & Solar (day-ahead)    -> query_wind_and_solar_forecast (A01)
-    14.1.D  Gen. Forecast Wind & Solar (intraday)     -> query_intraday_wind_and_solar_forecast   (bonus)
-    16.1.A  Actual Generation per Generation Unit     -> query_generation_per_plant               [day-limited, heavy]
-    16.1.B&C Actual Generation per Production Type     -> query_generation
-    16.1.D  Water Reservoirs & Hydro Storage Plants    -> query_aggregate_water_reservoirs_and_hydro_storage
+Why one raw series per article (not the "A&B" / "A&C&D&E" combined TP views):
+    The TP web views 6.1.A&B and 6.1.A&C&D&E simply overlay actual load on the
+    forecasts; 6.1.A appears in both. Pulling each article whole — actual once,
+    each forecast horizon once — is the same RAW-pull / reconcile-later choice
+    the balancing scripts make: nothing is double-counted at pull time, and the
+    A&B / A&C&D&E overlays are trivial downstream joins on the timestamp index.
+    (entsoe-py's query_load_and_forecast exists as a convenience for 6.1.A&B, but
+    it would re-fetch 6.1.A, so it is deliberately not used here.)
 
-Why one raw series per article (psr_type=None, i.e. ALL production types in one
-wide frame) rather than iterating per fuel:
-    Passing psr_type=None returns every production type as its own column (or,
-    for query_generation, a (type, Actual Aggregated / Actual Consumption)
-    column MultiIndex that tidy() stacks to long). That is the same RAW-pull /
-    reconcile-later choice the Load and balancing scripts make: pull each
-    article whole, split by fuel downstream. It also keeps the request count
-    low and the on-disk schema identical to the other domains.
+8.1 is not exposed by entsoe-py: query_load_forecast_margin is added below via a
+thin raw-request wrapper (documentType A70), the same monkeypatch approach the
+balancing probe uses for its parsers. Verify its output once against a live pull
+— the A70 document shape is less battle-tested than the A65 load documents.
 
-Expect a LOT of empty / N/A here, and that is fine — it is the whole reason the
-probe exists:
-  * A small country like CH reports only a handful of production types (hydro,
-    nuclear, solar, a little thermal), so most fuel columns in 16.1.B&C /
-    14.1.A come back entirely NaN. They are kept, not dropped, so the on-disk
-    schema is stable across areas.
-  * 14.1.B (per production unit) and 16.1.A (per generation unit) are not
-    published by every TSO; where they are missing, those combinations surface
-    as status=empty in the coverage CSV, exactly as intended. Do NOT assume in
-    advance which areas are empty — the probe is what decides that. (16.1.D
-    water reservoirs IS published for CH — it is the weekly filling rate of the
-    Swiss storage fleet, a central hydro series for this thesis, not an
-    afterthought.)
+Forecast-parser fix (6.1.C/D/E): entsoe-py's parse_loads keeps ONLY the min /
+max forecast TimeSeries (businessType A60 / A61) for the week/month/year-ahead
+horizons and silently drops everything else. Some zones/years publish the
+horizon as a single forecast series under a different (or absent) businessType —
+e.g. AT month-ahead 2021-2024 — so the stock parser returns an all-empty frame
+and the pull records the year as 'empty' even though the document has data.
+_patch_load_forecast_keep_all() below replaces the non-A01/A16 branch to keep
+A60/A61 as Min/Max AND any other series as a plain 'Forecasted Load' column,
+leaving the min/max case unchanged. A year may therefore carry Min/Max columns,
+a Forecasted Load column, or both, across its per-year files — downstream joins
+align on the timestamp index.
 
-Unlike the Load probe there is NO missing endpoint to monkeypatch: every
-article above has a native entsoe-py method, so this file is pure request
-machinery + a build_tasks() for the Generation domain.
+Load endpoints are @month_limited in entsoe-py (a >1-month range is split into
+monthly sub-requests internally) and return few TimeSeries per period, so the
+100-TimeSeries response cap that forces adaptive chunking on the balancing side
+does not arise here. No chunk logic is needed; every Task keeps chunk=None.
 
-Rate-limit / windowing notes (entsoe-py 0.8.x decorators):
-  * query_generation, query_generation_forecast, query_wind_and_solar_forecast
-    are @month_limited and cap-free at CH scale -> one call per calendar year
-    is fine (the library splits it into monthly sub-requests). Same as Load.
-  * query_aggregate_water_reservoirs_and_hydro_storage is @year_limited
-    @paginated -> one call per year, offset handled internally.
-  * query_installed_generation_capacity[_per_unit] are @year_limited ANNUAL
-    snapshots: the yearly value sits at the start of the year, so a 1-month
-    probe window reads empty. These Tasks carry annual=True and the probe
-    widens their window to the whole calendar year of --start so coverage is
-    not a false negative. (The production pull already works per calendar year,
-    so it needs no such special-casing.)
-  * query_generation_per_plant (16.1.A) is @day_limited: a multi-day range is
-    split into DAILY sub-requests internally, and it is NOT paginated, so a
-    single day that exceeds the 100-TimeSeries cap (possible for large zones
-    like DE) is silently truncated. For CH it is well under the cap. It is left
-    enabled but flagged heavy; probe it over a short window first.
-
-Writes one parquet per (dataset, variant, area) into Entsoe/Generation/Data/
-plus a coverage report. Lives in Master_Thesis/Entsoe/Generation/ and writes to
-its own Data/ subfolder.
+Writes one parquet per (dataset, variant, area) into Entsoe/Load/Data/ plus a
+coverage report so you can see at a glance what is empty and what is usable.
+Lives in Master_Thesis/Entsoe/Load/ and writes to its own Data/ subfolder.
 
 Usage (macOS), run from the thesis root:
     # key is read from ENTSOE_API_KEY, or from the nearest .env walking up
-    .venv/bin/python Entsoe/Generation/entsoe_generation_probe.py
-    .venv/bin/python Entsoe/Generation/entsoe_generation_probe.py --retry-errors
-    .venv/bin/python Entsoe/Generation/entsoe_generation_probe.py \
-        --start 2024-06-01 --end 2024-07-01
-    # per-plant is heavy; probe it on its own over a short window:
-    .venv/bin/python Entsoe/Generation/entsoe_generation_probe.py \
-        --only per_unit --start 2024-06-01 --end 2024-06-08
+    .venv/bin/python Entsoe/Load/entsoe_load_probe.py
+    .venv/bin/python Entsoe/Load/entsoe_load_probe.py --retry-errors
+    .venv/bin/python Entsoe/Load/entsoe_load_probe.py \
+        --start 2021-06-01 --end 2021-07-01
 
 Re-runs are cheap: every attempted (dataset, variant, area) is recorded in
 Data/_probe_state.json and skipped next run. --force ignores the state file;
@@ -118,30 +96,107 @@ NO_DATA_ERRORS = (
     InvalidPSRTypeError,
 )
 
-try:
-    from requests.exceptions import HTTPError as _HTTPError
-except ImportError:  # pragma: no cover
-    class _HTTPError(Exception): ...  # type: ignore[no-redef]
 
-def _is_client_error(exc: Exception) -> bool:
-    """True for 4xx HTTP errors — bad parameter / not published, not transient."""
-    resp = getattr(exc, "response", None)
-    return resp is not None and 400 <= resp.status_code < 500
+def _add_forecast_margin_method() -> None:
+    """Add query_load_forecast_margin to the client (article 8.1, docType A70).
+
+    entsoe-py ships no method for the Year-Ahead Forecast Margin, so we build one
+    from the raw request machinery it already exposes: _base_request handles the
+    security token, period formatting and the 'No matching data found' ->
+    NoMatchingDataError translation, so an empty year behaves exactly like an
+    empty load pull. Each A70 TimeSeries is read with the library's own generic
+    quantity parser and labelled by businessType where present, defaulting to a
+    single 'Forecast Margin' column. Attached to the class so the Task machinery
+    can call it by name just like a native method."""
+    from entsoe.parsers import _extract_timeseries, _parse_load_timeseries
+    from entsoe.mappings import lookup_area
+
+    bt_label = {
+        "A91": "Forecast Margin",       # positive/expected margin
+        "A92": "Forecast Margin",
+        "A60": "Min Forecast Margin",
+        "A61": "Max Forecast Margin",
+    }
+
+    def query_load_forecast_margin(self, country_code, start, end,
+                                   process_type: str = "A33") -> pd.DataFrame:
+        area = lookup_area(country_code)
+        params = {
+            "documentType": "A70",           # Load forecast margin
+            "processType": process_type,     # A33 = year ahead
+            "outBiddingZone_Domain": area.code,
+        }
+        # _base_request raises NoMatchingDataError on an empty response, so no
+        # data for a year is surfaced as "empty", not an error.
+        text = self._base_request(params=params, start=start, end=end).text
+
+        cols: dict[str, list[pd.Series]] = {}
+        for soup in _extract_timeseries(text):
+            s = _parse_load_timeseries(soup)
+            bt = soup.find("businesstype")
+            name = bt_label.get(bt.text, "Forecast Margin") if bt else "Forecast Margin"
+            cols.setdefault(name, []).append(s)
+        if not cols:
+            raise NoMatchingDataError
+
+        df = pd.DataFrame({k: pd.concat(v).sort_index() for k, v in cols.items()})
+        df = df.tz_convert(area.tz).truncate(before=start, after=end)
+        return df
+
+    EntsoePandasClient.query_load_forecast_margin = query_load_forecast_margin
 
 
-def _is_parser_error(exc: Exception) -> bool:
-    """True for entsoe-py XML parser crashes — e.g. a generation unit with no
-    <name> tag triggers AttributeError: 'NoneType' object has no attribute 'text'.
-    These are non-retryable bugs in the response data for a specific day/area,
-    not transient network issues."""
-    return isinstance(exc, (AttributeError, TypeError, KeyError))
+
+
+_add_forecast_margin_method()
+
+
+def _patch_load_forecast_keep_all() -> None:
+    """Keep every week/month/year-ahead forecast TimeSeries, not just min/max.
+
+    entsoe-py's parse_loads, for any process_type other than A01/A16, keeps only
+    businessType A60 (min) and A61 (max) and discards the rest. A horizon that a
+    zone publishes as a single forecast series under another/absent businessType
+    then parses to an empty frame, and the pull marks the year 'empty'. This
+    replacement delegates A01/A16 to the original parser (unchanged) and, for the
+    forecast horizons, keeps A60/A61 as Min/Max plus any other series as
+    'Forecasted Load'. Unparseable TimeSeries are skipped rather than aborting
+    the document; a document with nothing usable degrades to NoMatchingDataError
+    ('empty'), which month_limited handles per block."""
+    import entsoe.parsers as parsers
+    import entsoe.entsoe as client_mod
+
+    _orig_parse_loads = parsers.parse_loads
+    label = {"A60": "Min Forecasted Load", "A61": "Max Forecasted Load"}
+
+    def parse_loads(xml_text, process_type="A01"):
+        if process_type in ("A01", "A16"):
+            return _orig_parse_loads(xml_text, process_type=process_type)
+        cols: dict[str, list[pd.Series]] = {}
+        for soup in parsers._extract_timeseries(xml_text):
+            try:
+                s = parsers._parse_load_timeseries(soup)
+            except (AttributeError, KeyError):
+                continue  # TimeSeries missing curveType / an expected tag
+            bt = soup.find("businesstype")
+            name = label.get(bt.text, "Forecasted Load") if bt else "Forecasted Load"
+            cols.setdefault(name, []).append(s)
+        if not cols:
+            raise NoMatchingDataError
+        return pd.DataFrame({k: pd.concat(v).sort_index() for k, v in cols.items()})
+
+    parsers.parse_loads = parse_loads      # zip / by-name path
+    client_mod.parse_loads = parse_loads   # module global bound at import
+
+
+_patch_load_forecast_keep_all()
 
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s | %(levelname)-7s | %(message)s",
     datefmt="%H:%M:%S",
 )
-log = logging.getLogger("gen-probe")
+log = logging.getLogger("load-probe")
 
 TZ = "Europe/Zurich"
 
@@ -149,11 +204,10 @@ TZ = "Europe/Zurich"
 # code is only tried if the previous one returns nothing. CH plus the four
 # bordering bidding zones the thesis names (Germany/Luxembourg, France,
 # Italy North, Austria).
-#   Generation per type / per unit for Germany is historically published on the
-#   four control areas (Amprion / TenneT / 50Hertz / TransnetBW) as well as the
-#   DE_LU bidding zone, so those are listed as fallbacks.
-#   Italy publishes generation per zone; IT_NORD is the CH-bordering zone, with
-#   the national IT market area as a fallback.
+#   DE_LU is the aggregate German-Luxembourg bidding zone and is what carries
+#   total load; the control areas are listed only as a fallback.
+#   Italy publishes load per zone; IT_NORD is the CH-bordering zone the thesis
+#   uses for prices, with the national IT market area as a fallback.
 AREAS: dict[str, list[str]] = {
     "CH": ["CH"],
     "DE_LU": ["DE_LU", "DE_AMPRION", "DE_TENNET", "DE_50HZ", "DE_TRANSNET"],
@@ -165,15 +219,13 @@ AREAS: dict[str, list[str]] = {
 # Which area code actually serves each dataset, as established by the first
 # probe run. A pinned code is the ONLY one tried — no fallback, no silent
 # level-mixing. Fill this in from the coverage CSV's "Pin these" hint before the
-# production pull. Empty for now.
+# production pull. Empty for now; load usually answers on the primary code.
 PINNED_AREA_CODE: dict[tuple[str, str], str] = {}
 
-# ENTSO-E code reminders (Generation domain)
-#   documentType:  A68=Installed capacity aggregated  A71=Gen forecast
-#                  A69=Wind/solar forecast  A73=Actual per unit
-#                  A75=Actual per type  A72=Water reservoirs
-#   processType:   A16=Realised  A01=Day ahead  A40=Intraday total
-#   psr_type=None  -> ALL production types returned as columns (what we want)
+# ENTSO-E code reminders (Load domain)
+#   documentType:  A65=System total load   A70=Load forecast margin
+#   processType:   A16=Realised  A01=Day ahead  A31=Week ahead
+#                  A32=Month ahead  A33=Year ahead
 
 
 @dataclass
@@ -186,21 +238,10 @@ class Task:
     kwargs: dict[str, Any] = field(default_factory=dict)
     note: str = ""
     enabled: bool = True
-    # Kept for parity with the balancing scripts' Task/pull interface. All the
-    # Generation endpoints are @month_limited / @year_limited / @day_limited and
-    # cap-free at CH scale, so this stays None (the library handles splitting).
+    # Kept for parity with the balancing scripts' Task/pull interface. Load
+    # endpoints are @month_limited and cap-free, so this stays None (one call
+    # per calendar year; the library splits it into months internally).
     chunk: str | None = None
-    # Annual snapshot (14.1.A / 14.1.B): the value sits at the start of the
-    # year, so the probe widens a short --start/--end window to the full
-    # calendar year before querying. The production pull works per calendar
-    # year already and ignores this flag.
-    annual: bool = False
-    # @day_limited endpoint (16.1.A): entsoe-py fans out into daily sub-requests
-    # internally, but its loop only catches NoMatchingDataError — a 400 on any
-    # single day (e.g. a DST-transition boundary) kills the entire call. When
-    # this flag is True the pull can fall back to its own per-day loop that
-    # catches 400s per day, losing only the bad day(s) instead of the year.
-    day_limited: bool = False
 
     @property
     def key(self) -> str:
@@ -208,88 +249,46 @@ class Task:
 
 
 def build_tasks() -> list[Task]:
-    """The Generation-domain articles requested for the thesis."""
+    """The Load-domain articles requested for the thesis."""
     tasks: list[Task] = []
 
-    # --- 14.1.A : Installed Capacity per Production Type (aggregated) ------
+    # --- 6.1.A : Actual Total Load ----------------------------------------
     tasks.append(Task(
-        "installed_capacity", "per_type", "query_installed_generation_capacity",
-        {},  # psr_type=None -> all production types as columns
-        "14.1.A installed capacity per production type (MW, annual)",
-        annual=True,
+        "actual_load", "A16_realised", "query_load", {},
+        "6.1.A actual total load (MW)",
     ))
 
-    # --- 14.1.B : Installed Capacity per Production Unit -------------------
-    tasks.append(Task(
-        "installed_capacity_unit", "per_unit",
-        "query_installed_generation_capacity_per_unit", {},
-        "14.1.B installed capacity per production unit (MW, annual) — "
-        "not published by every TSO",
-        annual=True,
-    ))
+    # --- 6.1.B/C/D/E : Total Load Forecast at four horizons ----------------
+    # A01 returns a single 'Forecasted Load' column; A31/A32/A33 normally return
+    # 'Min Forecasted Load' / 'Max Forecasted Load' (businessType A60/A61), but
+    # a zone/year that publishes a single forecast series is now kept as
+    # 'Forecasted Load' too (see _patch_load_forecast_keep_all).
+    for pt, label, art in [
+        ("A01", "day_ahead",   "6.1.B"),
+        ("A31", "week_ahead",  "6.1.C"),
+        ("A32", "month_ahead", "6.1.D"),
+        ("A33", "year_ahead",  "6.1.E"),
+    ]:
+        tasks.append(Task(
+            "load_forecast", f"{label}_{pt}", "query_load_forecast",
+            {"process_type": pt},
+            f"{art} total load forecast, {label.replace('_', '-')} (MW)",
+        ))
 
-    # --- 14.1.C : Day-ahead Aggregated Generation forecast ----------------
+    # --- 8.1 : Year-Ahead Forecast Margin ---------------------------------
+    # Not a native entsoe-py method; served by the A70 wrapper added above.
     tasks.append(Task(
-        "generation_forecast", "day_ahead", "query_generation_forecast",
-        {"process_type": "A01"},
-        "14.1.C day-ahead aggregated generation forecast (MW)",
-    ))
-
-    # --- 14.1.D : Generation Forecast for Wind and Solar ------------------
-    # Day-ahead (A01) and the intraday variant (bonus, "not limited to").
-    tasks.append(Task(
-        "wind_solar_forecast", "day_ahead", "query_wind_and_solar_forecast",
-        {"process_type": "A01"},
-        "14.1.D day-ahead wind & solar generation forecast (MW)",
-    ))
-    tasks.append(Task(
-        "wind_solar_forecast", "intraday",
-        "query_intraday_wind_and_solar_forecast", {},
-        "14.1.D intraday wind & solar generation forecast (MW) — bonus",
-    ))
-
-    # --- 16.1.B&C : Actual Generation per Production Type -----------------
-    # nett=False -> both 'Actual Aggregated' (B) and 'Actual Consumption' (C)
-    # for storage-capable types (pumped hydro); tidy() stacks the fuel level.
-    tasks.append(Task(
-        "actual_generation", "per_type", "query_generation", {},
-        "16.1.B&C actual generation per production type (MW), incl. consumption",
-    ))
-
-    # --- 16.1.A : Actual Generation per Generation Unit ------------------
-    # @day_limited and NOT paginated: heavy, and a single day over the
-    # 100-series cap (large zones) is truncated. Fine for CH; probe short.
-    tasks.append(Task(
-        "actual_generation_unit", "per_unit", "query_generation_per_plant", {},
-        "16.1.A actual generation per generation unit (MW) — DAY-LIMITED, heavy",
-        day_limited=True,
-    ))
-
-    # --- 16.1.D : Water Reservoirs & Hydro Storage Plants ---------------
-    tasks.append(Task(
-        "water_reservoirs", "weekly",
-        "query_aggregate_water_reservoirs_and_hydro_storage", {},
-        "16.1.D aggregate weekly average filling rate of water reservoirs & "
-        "hydro storage (MWh stored energy) — published for CH, core hydro series",
+        "forecast_margin", "year_ahead_A33", "query_load_forecast_margin",
+        {"process_type": "A33"},
+        "8.1 year-ahead forecast margin (MW) — A70 wrapper, verify output",
     ))
 
     return tasks
 
 
-# Hard per-request socket timeout (seconds) for every ENTSO-E call (fix P4,
-# added 2026-09-26). entsoe-py sends requests with no timeout by default; one
-# stalled connection hung the Balancing pull for ~13 h. A timeout raises
-# requests.Timeout, which call_with_retry treats as transient and retries.
-REQUEST_TIMEOUT_S = 60
-
-
 class Throttle:
     """Keep a minimum gap between API calls. ENTSO-E allows 400 req/min;
-    we stay far below that so the probe never trips the limiter.
-
-    Note: for @day_limited endpoints (16.1.A) entsoe-py fires its per-day
-    sub-requests inside a single library call, so the Throttle only spaces the
-    OUTER calls. Keep --interval sane and the probe window short for per-unit."""
+    we stay far below that so the probe never trips the limiter."""
 
     def __init__(self, min_interval: float):
         self.min_interval = min_interval
@@ -321,12 +320,12 @@ def describe_error(exc: Exception) -> str:
 def tidy(obj: pd.Series | pd.DataFrame, name: str) -> pd.DataFrame:
     """Normalise whatever entsoe-py returns into a tidy, parquet-safe frame.
 
-    Identical to the Load/balancing probe's tidy() so the on-disk schema matches
-    across domains. A Series is framed under `name`; any column MultiIndex (e.g.
-    query_generation's (production_type, Actual Aggregated/Consumption), or
-    query_generation_per_plant's (unit, type)) is stacked to long with the outer
-    levels moved into columns; numeric columns are coerced; duplicate column
-    labels are disambiguated; the index is named 'timestamp' and sorted."""
+    Load frames come back already tidy (a DatetimeIndex and one or two named
+    value columns), so this is mostly a no-op for them; it is kept identical to
+    the balancing probe's tidy() so the on-disk schema conventions match — a
+    Series is framed under `name`, any MultiIndex is stacked to long, numeric
+    columns are coerced, duplicate column labels are disambiguated, and the
+    index is named 'timestamp' and sorted."""
     df = obj.to_frame(name=name) if isinstance(obj, pd.Series) else obj.copy()
 
     if isinstance(df.columns, pd.MultiIndex) and df.columns.nlevels > 1:
@@ -337,9 +336,9 @@ def tidy(obj: pd.Series | pd.DataFrame, name: str) -> pd.DataFrame:
             df = df.stack(outer, future_stack=True)
         except TypeError:  # pandas < 2.1
             df = df.stack(outer, dropna=False)
+        value_cols = list(df.columns)
         df = df.reset_index(level=outer)
-        # do NOT dropna here — all-NaN rows are n/e fields from ENTSO-E and
-        # must be preserved so the on-disk schema is stable across areas/years
+        df = df.dropna(subset=value_cols, how="all")
         df[outer] = df[outer].astype(str)
 
     df.columns = [str(c) for c in df.columns]
@@ -369,10 +368,7 @@ def tidy(obj: pd.Series | pd.DataFrame, name: str) -> pd.DataFrame:
 
 def profile(df: pd.DataFrame) -> dict[str, Any]:
     """Diagnostics that survive long-format data: resolution is measured on
-    unique timestamps, and duplicates are reported rather than hidden.
-
-    na_share is expected to be high for generation-per-type frames: fuels a
-    country does not operate are all-NaN columns, by design."""
+    unique timestamps, and duplicates are reported rather than hidden."""
     out: dict[str, Any] = {"rows": len(df), "cols": df.shape[1]}
     if isinstance(df.index, pd.DatetimeIndex) and len(df):
         uniq = df.index.unique().sort_values()
@@ -392,10 +388,7 @@ def profile(df: pd.DataFrame) -> dict[str, Any]:
 def call_with_retry(fn: Callable[..., Any], throttle: Throttle,
                     attempts: int = 3, **kwargs) -> Any:
     """Retry transient failures (429, 5xx, timeouts) with backoff.
-    'No data' and 4xx client errors are not retried — they are answers, not
-    failures. A 400 means the TSO does not publish this series for this area;
-    it is raised immediately so the caller records it as status=error and skips
-    without wasting further retries."""
+    'No data' responses are not retried — they are an answer, not a failure."""
     for i in range(attempts):
         throttle.wait()
         try:
@@ -403,8 +396,6 @@ def call_with_retry(fn: Callable[..., Any], throttle: Throttle,
         except NO_DATA_ERRORS:
             raise
         except Exception as exc:  # network / HTTP / parse
-            if _is_client_error(exc) or _is_parser_error(exc):
-                raise  # 4xx or parser crash — don't retry, let caller handle
             msg = str(exc)
             transient = any(t in msg for t in ("429", "500", "502", "503",
                                                "504", "timeout", "Timeout",
@@ -460,24 +451,12 @@ def _log_task_summary(key: str, outcomes: list[dict[str, Any]]) -> None:
     log.info("%-42s %s", key, "  |  ".join(parts) if parts else "(no areas)")
 
 
-def _effective_window(task: Task, start: pd.Timestamp, end: pd.Timestamp
-                      ) -> tuple[pd.Timestamp, pd.Timestamp]:
-    """Widen a short probe window to the whole calendar year for annual
-    snapshots (14.1.A / 14.1.B), so their yearly value is not missed. All other
-    tasks probe exactly the requested [start, end)."""
-    if not task.annual:
-        return start, end
-    y0 = pd.Timestamp(f"{start.year}-01-01", tz=start.tz)
-    y1 = pd.Timestamp(f"{start.year + 1}-01-01", tz=start.tz)
-    return y0, y1
-
-
 def main() -> int:
     ap = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--start", default="2024-06-01", help="inclusive, YYYY-MM-DD")
-    ap.add_argument("--end", default="2024-07-01", help="exclusive, YYYY-MM-DD")
+    ap.add_argument("--start", default="2026-08-01", help="inclusive, YYYY-MM-DD")
+    ap.add_argument("--end", default="2026-09-01", help="exclusive, YYYY-MM-DD")
     ap.add_argument("--out", default=str(Path(__file__).resolve().parent / "Data"),
                     help="output folder (default: Data/ next to this script)")
     ap.add_argument("--only", default="", help="substring filter on dataset name")
@@ -510,7 +489,7 @@ def main() -> int:
     if state_path.exists() and not args.force:
         state = json.loads(state_path.read_text())
 
-    client = EntsoePandasClient(api_key=api_key, timeout=REQUEST_TIMEOUT_S)
+    client = EntsoePandasClient(api_key=api_key)
     throttle = Throttle(args.interval)
     tasks = [t for t in build_tasks()
              if t.enabled and args.only.lower() in t.dataset.lower()]
@@ -523,11 +502,6 @@ def main() -> int:
     report: list[dict[str, Any]] = []
 
     for task in tasks:
-        eff_start, eff_end = _effective_window(task, start, end)
-        if task.annual and (eff_start, eff_end) != (start, end):
-            log.info("%-42s annual snapshot — widening window to %s..%s",
-                     task.key, eff_start.date(), eff_end.date())
-
         outcomes: list[dict[str, Any]] = []  # one per area, for the summary line
         for area_label, codes in AREAS.items():
             state_key = f"{task.key}__{area_label}__{stamp}"
@@ -547,8 +521,7 @@ def main() -> int:
                 try:
                     raw = call_with_retry(
                         getattr(client, task.method), throttle,
-                        country_code=code, start=eff_start, end=eff_end,
-                        **task.kwargs)
+                        country_code=code, start=start, end=end, **task.kwargs)
                 except NO_DATA_ERRORS as exc:
                     err, status = type(exc).__name__, "empty"
                     continue
@@ -564,7 +537,7 @@ def main() -> int:
                 # the API end boundary is inclusive: drop the timestamp that
                 # belongs to the next period, or multi-period pulls double-count
                 if isinstance(df.index, pd.DatetimeIndex):
-                    df = df[df.index < eff_end]
+                    df = df[df.index < end]
                 if df.empty:
                     status = "empty"
                     continue

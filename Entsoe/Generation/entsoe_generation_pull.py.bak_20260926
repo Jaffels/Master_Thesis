@@ -230,8 +230,8 @@ def main() -> int:
                     help="output root for the per-year parquet files")
     ap.add_argument("--only", default="",
                     help="substring filter on dataset name")
-    ap.add_argument("--interval", type=float, default=0.3,
-                    help="minimum seconds between API calls (default 0.3 = ~200 req/min, half the 400/min limit)")
+    ap.add_argument("--interval", type=float, default=2.0,
+                    help="minimum seconds between API calls (default 2.0)")
     ap.add_argument("--force", action="store_true",
                     help="re-pull and overwrite series-years already on disk")
     ap.add_argument("--plan", action="store_true",
@@ -301,8 +301,7 @@ def main() -> int:
     if not api_key:
         log.error("ENTSOE_API_KEY not found — export it or put it in .env")
         return 1
-    client = EntsoePandasClient(api_key=api_key,
-                                timeout=probe.REQUEST_TIMEOUT_S)
+    client = EntsoePandasClient(api_key=api_key)
     throttle = probe.Throttle(args.interval)
     out_root.mkdir(parents=True, exist_ok=True)
     manifest_path = out_root / "_pull_manifest.csv"
