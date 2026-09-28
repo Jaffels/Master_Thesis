@@ -1,23 +1,23 @@
-Sep 26, 2026 · @Johan
+Sep 28, 2026 · @Johan
 
 Data acquisition layer for the Master Thesis (Swiss ancillary-service price forecasting). All ENTSO-E pipelines cover 2021-01 to 2026-09; Swissgrid auctions cover 2015-2027.
 
 ## Pipeline status snapshot
 
-| Domain | Scripts | Coverage | Pull result | Last updated |
-| --- | --- | --- | --- | --- |
-| **Balancing** (17.1.B/C/F/G/H, 12.3.E/F) | probe + pull | CH complete; DE/FR/IT context | 204 files in production (IT/DE bids set aside); CH aFRR daily (Oct 2025→) and FCR weekly (2021–22) added; manifest rebuilt from disk | 2026-09-26 |
-| **Generation** (14.1.A/B/C/D, 16.1.A/B&C/D) | probe + pull | CH + 4 neighbours | Complete; 1–2 DST days lost on per-unit (negligible) | 2026-09-22 |
-| **Load** (6.1.A/B/C/D/E, 8.1) | probe + pull | CH + 4 neighbours | Complete; CH longer horizons start \~2023 (genuine) | 2026-09-21 |
-| **Transmission** (11.1, 12.1.F/G, 13.1.B/C) | probe + pull | 8 directed CH borders | CH↔DE NTC re-pulled on `DE_LU` (day/month/year-ahead ok; week-ahead genuinely empty); border codes pinned | 2026-09-26 |
-| **Outages** (15.1.A–D, 10.1.A–C, IF fall-backs) | probe + pull | CH + 4 neighbours | 335 ok / 227 empty / 0 error | 2026-09-24 |
-| **Swissgrid — Auctions** (FCR/aFRR/mFRR 2015–2027) | swissgrid\_auctions\_parse.py | 2015–2027 all products | 5,366,493 bids / 69,421 auction-blocks / 0 unparsed | 2026-09-24 |
-| **Swissgrid — Energy Overview** | swissgrid\_energy\_overview\_parse.py | 2009–2026 complete | 18/18 files ok, 0 errors, 0 NaN; fixed 64-column schema | 2026-09-26 |
-| **Swissgrid — Imbalance prices** | swissgrid\_imbalance\_prices\_parse.py | 2023-01 → 2026-08 (+ ENTSO-E 2021–2022 in combined file) | 44/44 months ok, 0 errors, 0 NaN; XLSX = XML in all 44; ENTSO-E match ≥99% except 2–5 Jan 2025; Jan 2026 absent in ENTSO-E; 31 Dec 2022 confirmed missing at source | 2026-09-26 |
-| **Swissgrid — TRE / CSVs** | not built | 2023-01 → 2026-09 (downloaded) | Not parsed | — |
-| **Combined dataset (ENTSO-E + Swissgrid)** | not built | 2021-01 → 2026-08 | Planned: clean layer → 15-min master → modelling views | — |
-| **RQ3 response-time data** | — | No confirmed source | Unsourced — at risk | — |
-| **JAO (NTC)** | — | Partially covered by TR 11.1 | Not addressed | — |
+| Domain                                             | Scripts                                | Coverage                                                 | Pull result                                                                                                                                                                         | Last updated |
+| -------------------------------------------------- | :------------------------------------- | -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| **Balancing** (17.1.B/C/F/G/H, 12.3.E/F)           | probe + pull                           | CH complete; DE/FR/IT context (no foreign bids)          | 204 files, manifest re-verified (234 entries = 204 files + 30 empty records); FR mFRR bids decided → set aside (expect 198 files, CH bids only); retry classifier fixed (P7)        | 2026-09-27   |
+| **Generation** (14.1.A/B/C/D, 16.1.A/B&C/D)        | probe + pull                           | CH + 4 neighbours                                        | Manifest re-verified 228/228. CH/DE_LU complete; AT 1 h. DST loss checked hour by hour: 7 h in total (CH 1 h) → negligible. Source gaps: FR per-unit 9 + 16–26 Feb 2026 + scattered hours 2021–24; IT_NORD per-unit 5 full days 2022–26 + ends 18 Jul 2026 (check ~20 Oct); DE_LU reservoirs not published. Gap check: `check_data_gaps.py` | 2026-09-28   |
+| **Load** (6.1.A/B/C/D/E, 8.1)                      | probe + pull                           | CH + 4 neighbours                                        | Complete; CH longer horizons start \~2023 (genuine); retry classifier fixed (P7)                                                                                                    | 2026-09-27   |
+| **Transmission** (11.1, 12.1.F/G, 13.1.B/C)        | probe + pull                           | 8 directed CH borders                                    | CH↔DE NTC re-pulled on `DE_LU` (day/month/year-ahead ok; week-ahead genuinely empty); border codes pinned; diag script deleted                                                      | 2026-09-27   |
+| **Outages** (15.1.A–D, 10.1.A–C, IF fall-backs)    | probe + pull                           | CH + 4 neighbours                                        | 335 ok / 227 empty / 0 error; fall-backs re-checked field by field: no RQ3 value confirmed; CH aFRR platform fall-back almost continuous 2025–26 (new structural break) — 2022–24 history only published 15 Apr 2025, all documents start at 00:00; retry classifier fixed (P7) | 2026-09-28   |
+| **Swissgrid — Auctions** (FCR/aFRR/mFRR 2015–2027) | swissgrid\_auctions\_parse.py          | 2015–2027 all products                                   | 5,366,493 bids / 69,421 auction-blocks / 0 unparsed                                                                                                                                 | 2026-09-24   |
+| **Swissgrid — Energy Overview**                    | swissgrid\_energy\_overview\_parse.py  | 2009–2026 complete                                       | 18/18 files ok, 0 errors, 0 NaN; fixed 64-column schema                                                                                                                             | 2026-09-26   |
+| **Swissgrid — Imbalance prices**                   | swissgrid\_imbalance\_prices\_parse.py | 2023-01 → 2026-08 (+ ENTSO-E 2021–2022 in combined file) | 44/44 months ok, 0 errors, 0 NaN; XLSX = XML in all 44; ENTSO-E match ≥99% except 2–5 Jan 2025; Jan 2026 absent in ENTSO-E; 31 Dec 2022 confirmed missing at source                 | 2026-09-26   |
+| **Swissgrid — TRE / CSVs**                         | not built                              | 2023-01 → 2026-09 (downloaded)                           | Not parsed                                                                                                                                                                          | —            |
+| **Combined dataset (ENTSO-E + Swissgrid)**         | not built                              | 2021-01 → 2026-08                                        | Planned: clean layer → 15-min master → modelling views                                                                                                                              | —            |
+| **RQ3 response-time data**                         | —                                      | No confirmed source                                      | Unsourced — at risk. ENTSO-E fall-back lead closed 2026-09-27 (re-confirmed 2026-09-28: no provider, quantity or timing fields); Swissgrid email is the only lead                  | 2026-09-28   |
+| **JAO (NTC)**                                      | —                                      | Partially covered by TR 11.1                             | Not addressed                                                                                                                                                                       | —            |
 
 ---
 
@@ -27,6 +27,8 @@ Two scripts: `entsoe_balancing_probe.py` (coverage probe + all shared request ma
 
 **Update 2026-09-26:** FR bids 2021–2026 are now on disk; IT/DE bids moved to `Data/_set_aside/` (D6); CH aFRR daily and CH FCR weekly contracted reserves added via `_coverage_union.csv`; manifest rebuilt from disk (234 entries). See *ENTSO-E data-integrity round* below.
 
+**Update 2026-09-27:** Manifest re-verified (rebuild is idempotent: 234 → 234). Request timeout (P4) re-verified in all 5 pipelines. Retry classifier fixed (P7). FR mFRR aggregated bids: decided to set aside (D9) and add to `EXCLUDE_SERIES` → only CH bids remain. See *ENTSO-E verification round* below.
+
 ### What's on disk
 
 | Series | ENTSO-E | Status | Notes |
@@ -34,7 +36,7 @@ Two scripts: `entsoe_balancing_probe.py` (coverage probe + all shared request ma
 | Imbalance prices | 17.1.G | OK | 15-min |
 | Imbalance volumes | 17.1.H | OK | 15-min |
 | Activated balancing energy prices | 17.1.F | OK | Long format (duplicate timestamps legitimate) |
-| Aggregated bids — aFRR / mFRR | 12.3.E | OK (CH, FR) | CH bids sparse → no cap issues; IT/DE set aside 2026-09-26 (D6) |
+| Aggregated bids — aFRR / mFRR | 12.3.E | OK (CH only) | CH aFRR complete; CH mFRR sparse in 2021 (105 days) and 2022 (197 days), complete from 2023 → use Swissgrid bids; IT/DE set aside 2026-09-26 (D6); FR set aside 2026-09-27 (D9) |
 | Contracted reserve price + volume — FCR | 17.1.B&C | OK | Daily; + weekly pre-reform |
 | Contracted reserve price + volume — aFRR | 17.1.B&C | OK | Weekly (A02); daily (A01) from 14 Oct 2025 (added 2026-09-26) |
 | Contracted reserve price + volume — mFRR | 17.1.B&C | Gaps | Daily + weekly; daily prices 2023–24 and weekly 2024 empty at source |
@@ -51,12 +53,14 @@ CH FCR was daily + weekly in 2021 → daily-only by 2025. CH mFRR volume/price s
 - **D5 — Forward-fill artefact:** Weekly/daily capacity blocks are ffilled to 15-min — these are step functions, not 15-min observations. Resample accordingly.
 - **D6 — Dense foreign aggregated bids (IT, DE) irreducibly incomplete:** Single day exceeds the 100-TimeSeries cap. Recommend dropping IT/DE bids, keeping CH. **Done 2026-09-26** (`EXCLUDE_SERIES` in pull; files in `Data/_set_aside/`).
 - **D8 — `procured_balancing_capacity` (12.3.F) unstable across years.** CH FCR/mFRR present in 2021, empty in 2025.
+- **D9 — FR mFRR aggregated bids patchy:** 193–299 days per year (2021 only from May). Cap truncation and non-publication can't be told apart. Not used in modelling → set aside and added to `EXCLUDE_SERIES` (2026-09-27).
 
 ### Key pipeline issues
 
 - **P4 — No request timeout (FIXED 2026-09-26 — 60 s `REQUEST_TIMEOUT_S` in all 5 pipelines):** `entsoe-py` issues HTTP requests with no timeout. A stalled connection hangs forever. This is what hung the run at \[217/222\] for \~13 h. Fix: wrap requests with a hard \~60 s socket timeout.
 - **P5 — Throttle interval too conservative (FIXED 2026-09-26 — default `--interval 0.3` in all 5 pulls):** At `--interval 2.0` the pull ran \~19 h. Lever: `--interval 0.3` (\~200 req/min, half the 400/min ceiling) cuts runtime dramatically.
 - **P6 — Rate limiting is NOT the cause of errors:** ENTSO-E's limit is 400 req/min; exceeding it returns HTTP 429 + a 10-min ban. We never hit 429. The 400/599 errors are data-volume/server issues.
+- **P7 — Retry classifier matched status codes as text (FIXED 2026-09-27):** Balancing, Generation, Load and Outages retried when `"429"` or `"50x"` appeared anywhere in the error message. The message includes the request URL, so dates like `202502…`, `202504…` or `…0429…` made genuine 400 errors retry with backoff (wasted time only, no data affected). Now classified from the HTTP status code, the same logic as the Transmission fix (D-T5); text matching only when there is no response (timeouts, dropped connections). Offline test 5/5 ok. Backups: `*.py.bak_classifier`.
 
 ### Next steps
 
@@ -64,6 +68,7 @@ CH FCR was daily + weekly in 2021 → daily-only by 2025. CH mFRR volume/price s
 2. ~~Verify via `_pull_manifest.csv`~~ — **DONE 2026-09-26** (manifest rebuilt from disk; CH covers 2021-01 → 2026-08 except the gaps listed above).
 3. ~~Drop IT/DE from the bids pull; `--interval 0.3` default~~ — **DONE 2026-09-26.**
 4. German benchmark capacity prices → **regelleistung.net** (ENTSO-E DE coverage late/patchy).
+5. ~~Decide on FR bids~~ — **DECIDED 2026-09-27:** set aside (D9) + `EXCLUDE_SERIES`; rebuild manifest (expect 198 files). Mark done once `--only aggregated_bids --plan` shows CH only.
 
 ---
 
@@ -82,18 +87,21 @@ Two scripts: `entsoe_generation_probe.py` and `entsoe_generation_pull.py`. Eight
 | 14.1.C | Day-ahead aggregated generation forecast | OK | OK | OK | OK | OK |
 | 14.1.D | Wind & solar forecast (day-ahead) | OK | OK | OK | OK | OK |
 | 14.1.D | Wind & solar forecast (intraday) | sparse | OK | OK | sparse | sparse |
-| 16.1.A | Actual generation per unit | OK (1–2 DST days lost/yr) | OK | OK (parser fallback) | OK | OK |
+| 16.1.A | Actual generation per unit | OK (1 h missing 2021–26: 26 Oct 2025) | OK (0 h missing) | OK; 13/36/18/5 h missing 2021–24; 2026 missing 9 Feb + 16–26 Feb | OK; full days missing 12 May 2022, 18 Jun 2025, 26 Jan + 9 Jul 2026; 2 Mar 2025 23 h; 2026 ends 18 Jul | OK (1 h missing: 26 Oct 2025) |
 | 16.1.B&C | Actual generation per type | OK | OK | OK | OK | OK |
-| 16.1.D | Water reservoirs & hydro storage | OK | OK | OK | OK | OK |
+| 16.1.D | Water reservoirs & hydro storage | OK | Empty (genuine, `NoMatchingDataError`) | OK | OK | OK |
 
 All-NaN fuel columns (e.g. offshore wind for CH) are preserved in parquet — do not drop them; the schema must be stable across areas.
 
 ### Key issues
 
-- **D-G1 — DST-transition 400s on 16.1.A:** entsoe-py constructs malformed period parameters on CET fall-back days. Per-day fallback catches these; 1–2 days lost per year. No fix without patching entsoe-py.
+- **D-G1 — DST-transition 400s on 16.1.A:** entsoe-py constructs malformed period parameters on CET fall-back days. Per-day fallback catches these; 1–2 days lost per year. No fix without patching entsoe-py. Day-level check (2026-09-27): no whole days lost for CH/AT/DE_LU. **Hour-level check (2026-09-28): 7 h lost on all 55 DST days (2021–26, 5 areas) — CH 1 h, AT 1 h (both 26 Oct 2025), DE_LU 0, FR 5, IT_NORD 0. Share of non-empty unit values on DST days is the same as on normal days → negligible, closed.**
 - **D-G2 — entsoe-py parser crash on FR 16.1.A:** Some FR generation units lack the `<name>` XML tag → `AttributeError`. Per-day fallback recovers the vast majority of days.
 - **P-G1 — 16.1.A is slow:** A single area-year takes several minutes. Use `--only per_unit` to run separately.
 - **P-G2 — No request timeout (shared with Balancing P4 and Load P-L2).** FIXED 2026-09-26.
+- **D-G3 — Source gaps confirmed by re-pull (2026-09-27):** FR 2026 per-unit is missing 9 Feb and 16–26 Feb (the per-day loop skips the same 12 days again). IT_NORD 2026 per-unit ends 18 Jul 2026 (the year-wide call succeeds and returns an identical file) — probably publication lag, re-pull later. `water_reservoirs` DE_LU is never published (probe: `NoMatchingDataError`).
+- **D-G4 — Non-DST hour gaps in neighbour per-unit data (found 2026-09-28, hour-level check):** IT_NORD has more missing days than the day-level check showed: 12 May 2022, 18 Jun 2025, 26 Jan 2026 and 9 Jul 2026 (full days), 2 Mar 2025 (23 h) and three 2-h gaps in 2025. FR has scattered missing hours in 2021–24 (13/36/18/5 h; largest 23 May 2022, 14 h). CH is not affected. Flag in the clean layer; only relevant if neighbour per-unit data is used.
+- **Note:** a pull reports "OK" per year even when single hours or days are missing. The hour-level check (`check_data_gaps.py`) is what finds them.
 
 ### Thesis relevance
 
@@ -102,9 +110,11 @@ All-NaN fuel columns (e.g. offshore wind for CH) are preserved in parquet — do
 
 ### Next steps
 
-1. ~~Verify pull via `_pull_manifest.csv`~~ — **DONE 2026-09-26**: manifest was stale (37 entries); rebuilt from disk → all 228 files listed.
-2. Check per-day fallback results for 16.1.A: confirm skipped days are negligible.
+1. ~~Verify pull via `_pull_manifest.csv`~~ — **DONE 2026-09-26**: manifest was stale (37 entries); rebuilt from disk → all 228 files listed. Re-verified 2026-09-27 (228/228).
+2. ~~Check per-day fallback for 16.1.A~~ — **DONE 2026-09-27**: CH/AT/DE_LU complete 2021–2026; IT_NORD 1 day missing in 2022 and 2025; FR 2026 and IT_NORD 2026 gaps confirmed at source (D-G3).
 3. Feature engineering (downstream): VRES share = wind+solar / total generation; hydro availability = reservoir filling rate.
+4. Re-pull IT_NORD 2026 per-unit later, in case the gap after 18 Jul is publication lag. **~20 Oct 2026:** first check the Transparency Platform; re-pull only if data exists (step-by-step procedure in *Gap-check round* below). If still missing, log as a source gap and stop checking.
+5. ~~Hour-level DST check for 16.1.A~~ — **DONE 2026-09-28**: 7 h lost in total, negligible (D-G1).
 
 ---
 
@@ -172,7 +182,7 @@ Two structural differences from Load/Generation: (1) every product is directiona
 ### Next steps
 
 1. ~~Pin resolved border codes~~ — **DONE 2026-09-26.**
-2. ~~Delete `entsoe_congestion_diag.py`~~ — moved to `Transmission/_to_delete/` 2026-09-26; delete that folder manually.
+2. ~~Delete `entsoe_congestion_diag.py`~~ — **DONE 2026-09-27** (deleted; no references remain).
 3. Feature engineering (downstream): NTC utilization = scheduled exchange ÷ NTC per border/hour; countertrading volume as congestion-activity proxy.
 4. Integrate with Load, Generation, and Swissgrid data for EDA.
 
@@ -209,13 +219,19 @@ DE\_LU generation/production unit outages are the densest series (\~18,000 docs/
 
 - **RQ1:** Planned unavailability of generation/production units (15.1.A&B&C&D) is one of the most informative exogenous regressors identified in Kraft et al. (2020) for FCR prices. DE\_LU series particularly relevant given Switzerland's participation in the joint FCR Cooperation.
 - **RQ1b:** Transmission outage volumes (10.1.A&B) are a secondary indicator of grid stress around the 2019–2020 reform period.
-- **RQ3:** IF aFRR/mFRR fall-backs may be relevant, but the high empty rate suggests limited activation-level granularity — Swissgrid's own activation records remain the primary RQ3 target.
+- **RQ1b / RQ2 — CH aFRR platform fall-back (new, 2026-09-27):** The aFRR fall-back documents show CH aFRR running in fall-back mode (connection to the European platform lost) for about 99% of 2025 and all of 2026 to date. First full-day fall-back 9 Feb 2024; continuous without gaps since 21 May 2026. This is a structural break for aFRR prices → build a `ch_afrr_platform_fallback` flag in the clean layer.
+- **RQ3:** ~~IF aFRR/mFRR fall-backs~~ — checked 2026-09-27: no RQ3 value. The documents are TSO-level platform connection losses (reason B13, "Real time connection lost"), with no provider, activation or response-time data. CH mFRR fall-backs are empty. Swissgrid's own activation records remain the only RQ3 target. **Re-confirmed 2026-09-28 field by field:** every document has Swissgrid as sender and receiver, reason B13 only, revision 1, and no `Point`/quantity data in the XML (the parser keeps Points when present). Nothing about providers, activation or timing.
+- **Caveats for the fall-back flag (found 2026-09-28):**
+  - **Published after the fact:** all 2022–2024 documents were created on 15 Apr 2025 (median lag 998 / 618 / 201 days for 2022 / 2023 / 2024); from Apr 2025 each day is published the next day. For forecasting (RQ2) the flag was not known in real time before Apr 2025 → use it as a regime indicator, not as a same-day feature.
+  - **Coarse intraday timing:** all 831 documents start at local 00:00, 796 last exactly 24 h. On partial days the duration is known but probably not the true start time → build the flag per day, or treat intraday timing as approximate.
 
 ### Next steps
 
-1. Inspect manifest for non-empty fall-back rows: which `(processType, businessType, area, year)` combinations have data, and are volumes meaningful for RQ3?
-2. Deduplicate on `(doc_mrid, revision)` before any cross-year analysis.
+1. ~~Inspect fall-back rows for RQ3~~ — **DONE 2026-09-27**: no RQ3 value; aFRR platform fall-back is a new structural break (see thesis relevance and *ENTSO-E verification round*).
+2. Deduplicate on `(doc_mrid, revision)` before any cross-year analysis — **and across the business-type folders** (`planned_A53`, `unplanned_A54`, `disconnection_C47`, …): the API ignores the business-type filter for fall-backs, so every folder holds the same documents (aFRR: 3,324 rows → 831 unique; imbalance netting: 52 → 13).
 3. Feature engineering (downstream): planned unavailable capacity (MW) per area per hour from 15.1.A+C; net transmission outage capacity per border from 10.1.A+B.
+4. ~~Re-check fall-back rows for RQ3~~ — **DONE 2026-09-28**: confirmed no RQ3 value; publication-lag and intraday-timing caveats added (see thesis relevance).
+5. After any Outages re-pull: run `check_data_gaps.py fallback` and compare with the baseline (see *Gap-check round*).
 
 ---
 
@@ -444,7 +460,7 @@ Goal: close the open ENTSO-E issues **before** combining ENTSO-E and Swissgrid i
 | 5 | P4 — no request timeout | entsoe-py default | `REQUEST_TIMEOUT_S = 60` in all 5 probes, passed to the client in every probe and pull | Fixed in all domains; timeouts are retried |
 | 6 | P5 slow throttle; D6 dense IT/DE bids | — | Default `--interval 0.3` in all 5 pulls; `EXCLUDE_SERIES` in the Balancing pull | Checked with `--plan`: only CH + FR bids remain |
 | 7 | Partial IT/DE bid files | D6 | Moved to `Entsoe/Balancing/Data/_set_aside/` with a README | Done |
-| 8 | `entsoe_congestion_diag.py` | Diagnostic finished | Moved to `Entsoe/Transmission/_to_delete/` | Delete the folder manually |
+| 8 | `entsoe_congestion_diag.py` | Diagnostic finished | Moved to `Entsoe/Transmission/_to_delete/`, then deleted | Deleted 2026-09-27 |
 
 ### Findings relevant to the thesis
 
@@ -469,19 +485,138 @@ python Entsoe/rebuild_manifest_from_disk.py <Balancing|Generation|Load> [--write
 
 ---
 
+## ENTSO-E verification round — work done 2026-09-27
+
+Goal: verify on the Mac that the 2026-09-26 fixes are really in place, and close the two remaining disk-only checks. Everything was run by hand from `Master_Thesis` with `.venv` active. Nothing was deleted except the old diagnostic script; every edited script has a backup.
+
+### What was checked or fixed
+
+| # | Item | Finding | Action | Result |
+| --- | --- | --- | --- | --- |
+| 9 | Balancing / Generation manifests | Already rebuilt on 2026-09-26; the 18/37 figures came from the old `.bak_20260926` files | Re-ran the rebuild (dry run + `--write`) | Identical: Balancing 234 entries (204 files + 30 empty records), Generation 228/228. Rebuild is idempotent |
+| 10 | `entsoe_congestion_diag.py` | `_to_delete/` no longer existed; `find` shows no copy anywhere | — | Deleted; no references remain |
+| 11 | P4 request timeout | All 5 probes and 5 pulls create the client with `timeout=REQUEST_TIMEOUT_S`; no direct HTTP calls; entsoe-py 0.8.1 supports `timeout`. `Load/check_a32.py` (one-off diagnostic) has no timeout — harmless | None needed | Confirmed |
+| 12 | P7 retry classifier | Same bug class as D-T5 in Balancing, Generation, Load, Outages (status codes matched as text, URL dates matched) | Status-code classification copied from Transmission; backups `*.py.bak_classifier` | All 5 pipelines consistent; compile ok; offline test 5/5 ok |
+| 13 | P5 interval / D6 exclusion | `--interval` default 0.3 in all 5 pulls; `EXCLUDE_SERIES` drops DE/IT bids; 12 IT/DE files in `_set_aside/` | None needed | Confirmed |
+| 14 | FR mFRR aggregated bids (D9) | 193–299 days per year; not used in modelling | Decided: move to `_set_aside/`, add `("aggregated_bids", "FR")` to `EXCLUDE_SERIES` (backup `.bak_fr_exclude`), README note, rebuild manifest | Decided; verify: `--plan` shows 2 CH series, 198 files |
+| 15 | 16.1.A per-day fallback | CH/AT/DE_LU: 0 missing days. IT_NORD: 1 day in 2022, 1 in 2025. FR 2026: 12 days. IT_NORD 2026: ends 18 Jul | Re-pulled FR and IT_NORD 2026 with a filtered coverage CSV (`/tmp/coverage_perunit_fr_itnord.csv`), `--force`, after a backup | Identical files → gaps are at source (D-G3) |
+| 16 | Outages fall-backs (RQ3) | TSO-level "Real time connection lost" documents; no provider or activation data; all business-type folders identical | — | RQ3 lead closed; new aFRR structural break found |
+| 17 | Generation `water_reservoirs` | 24 series instead of 30: DE_LU missing | Checked probe coverage: `NoMatchingDataError` | Genuine non-publication |
+
+### Finding: CH aFRR platform fall-back
+
+Fall-back hours per year after deduplication (CH, aFRR):
+
+| Year | Documents | Fall-back hours | Share of year |
+| --- | --- | --- | --- |
+| 2022 | 62 | 1,378 | \~16% (from June) |
+| 2023 | 6 | 61 | <1% |
+| 2024 | 157 | 3,716 | \~42% |
+| 2025 | 363 | 8,660 | \~99% |
+| 2026 (to 31 Aug) | 243 | 5,821 | \~100% |
+
+First full-day fall-back 9 Feb 2024; from 2025 almost every day (breaks of 1–3 days only: late Feb, early Apr, early Nov 2025; late Mar 2026); continuous since 21 May 2026. Imbalance netting fall-backs are rare and short (3–4 events per year, minutes each, \~5 h in total). CH mFRR fall-backs: no data.
+
+**To do:** confirm the reason with Swissgrid (announcements about the European aFRR platform, and the email), and model it as a flag, not a single break date.
+
+### Other findings
+
+- **CH mFRR aggregated bids** are sparse in 2021 (105 days) and 2022 (197 days), complete from 2023. The Swissgrid auction files (full mFRR bid curve) are the primary source anyway.
+- **IT_NORD 2026 per-unit generation** may be publication lag: re-pull later and check on the Transparency Platform (Actual Generation per Generation Unit, IT-North, any date after 18 Jul).
+
+### Commands (run from `Master_Thesis`, venv active)
+
+```
+python Entsoe/rebuild_manifest_from_disk.py Balancing [--write]
+python Entsoe/Balancing/entsoe_balancing_pull.py --only aggregated_bids --plan
+# targeted re-pull: filtered copy of the coverage CSV, so other areas are not overwritten
+python Entsoe/Generation/entsoe_generation_pull.py --coverage /tmp/coverage_perunit_fr_itnord.csv \
+  --start 2026-01-01 --end 2026-09-01 --force [--plan]
+```
+
+---
+
+## Gap-check round — work done 2026-09-28
+
+Goal: close the two remaining checks from 2026-09-27 (DST loss on 16.1.A; RQ3 value of the fall-back rows) and make them repeatable. Read-only: no data or pipeline script was changed.
+
+### What was checked
+
+| # | Item | Finding | Result |
+| --- | --- | --- | --- |
+| 18 | 16.1.A hours lost around DST switches | Checked hour by hour (UTC hour buckets) on all 55 DST days 2021–26, 5 areas: 7 h missing in total — CH 1 h and AT 1 h (26 Oct 2025), FR 5 h (31 Oct 2021 3 h, 27 Mar 2022 1 h, 26 Mar 2023 1 h), DE_LU/IT_NORD 0. Non-empty unit share on DST days = normal days | **Negligible → closed** (D-G1) |
+| 19 | 16.1.A hour gaps outside DST days | IT_NORD: 4 more full days + 2 Mar 2025 (23 h) not caught by the day-level check; FR: scattered hours 2021–24 | New issue D-G4 (neighbour data only) |
+| 20 | CH aFRR fall-back rows for RQ3 | 3,324 rows → 831 documents; all fields constant except dates; no quantity/Point data | **No RQ3 value — confirmed** |
+| 21 | Fall-back flag usability | 2022–24 history published 15 Apr 2025; all documents start 00:00 | Caveats added (Outages → thesis relevance) |
+
+### New script: `Entsoe/Generation/check_data_gaps.py`
+
+Repeatable, read-only gap check for both items. `--write` saves CSVs to `Entsoe/_checks/` (nothing else is written).
+
+```
+python Entsoe/Generation/check_data_gaps.py generation        # per-unit hour gaps + DST hours
+python Entsoe/Generation/check_data_gaps.py fallback          # CH aFRR fall-back summary + sanity checks
+python Entsoe/Generation/check_data_gaps.py all --write       # both + CSVs in Entsoe/_checks/
+```
+
+Checks whole hours only (missing single quarter-hours inside an hour are not reported). A file that ends early shows in `last_ts`, not as missing hours.
+
+**Baseline (2026-09-28) to compare against:**
+
+- DST hours missing: CH 1, AT 1, DE_LU 0, FR 5, IT_NORD 0.
+- 2026 missing hours: FR 288 (12 full days); IT_NORD 48 (2 full days), `last_ts` 2026-07-18.
+- Fall-back share of period: 2022 0.17, 2023 0.01, 2024 0.42, 2025 0.99, 2026 1.00; checks: reason `['B13']`, start hours `[0]`, revisions `[1]`, quantity `False`.
+
+**When to run:**
+
+1. After any Generation re-pull → `generation` (next: IT_NORD 2026, ~20 Oct).
+2. After any Outages re-pull → `fallback` (the four check lines must stay at baseline; otherwise revisit RQ3 / flag design).
+3. Before building the clean layer → `all --write` (gap list for flags, fall-back documents for the flag).
+4. Before finalising Chapter 3 → `all` (confirm cited numbers).
+5. Only if the sample is extended past Oct 2026 → after the full refresh, `all` (covers the 25 Oct 2026 DST switch).
+
+### IT_NORD 2026 re-pull procedure (~20 Oct 2026)
+
+First check the Transparency Platform: [Actual Generation per Generation Unit](https://transparency.entsoe.eu/generation/r2/actualGenerationPerGenerationUnit/show) → Area Italy / IT-North → a date after 18 Jul 2026 (e.g. 15 Aug and 1 Sep). Values shown → re-pull. Empty / N/A → source gap, log it and stop checking.
+
+The pull has no area filter, so a filtered coverage CSV limits it to IT_NORD per-unit:
+
+```
+# 1. back up the current file
+cp Entsoe/Generation/Data/production/actual_generation_unit/per_unit/IT_NORD/2026.parquet Entsoe/Generation/Data/production/actual_generation_unit/per_unit/IT_NORD/2026.parquet.bak
+# 2. coverage list with only IT_NORD per-unit
+python -c "import pandas as pd; c=pd.read_csv('Entsoe/Generation/Data/_coverage_20240601_20240701.csv'); c[(c.dataset=='actual_generation_unit')&(c.area=='IT_NORD')].to_csv('/tmp/coverage_itnord.csv', index=False)"
+# 3. dry run — must list only IT_NORD per-unit 2026
+python Entsoe/Generation/entsoe_generation_pull.py --coverage /tmp/coverage_itnord.csv --start 2026-01-01 --end 2026-09-01 --force --plan
+# 4. real run (same command without --plan)
+python Entsoe/Generation/entsoe_generation_pull.py --coverage /tmp/coverage_itnord.csv --start 2026-01-01 --end 2026-09-01 --force
+# 5. check: IT_NORD 2026 last_ts later than 2026-07-18
+python Entsoe/Generation/check_data_gaps.py generation
+```
+
+### Decision (recommended, to confirm with supervisor): no full ENTSO-E re-pull — fixed data cut-off 31 Aug 2026
+
+- All ENTSO-E data is complete and verified to 31 Aug 2026; a full re-pull takes more than a day (Outages ~9 h, Balancing ~19 h at the old interval) and fixes no known gap.
+- A fixed cut-off makes every cited number reproducible and matches the combined dataset (2021-01 → 2026-08).
+- ENTSO-E revisions of recent months are covered by Swissgrid, which takes priority where both exist.
+- Only targeted re-pulls (IT_NORD 2026 per-unit). If the sample is extended (e.g. autumn 2026), do **one** full refresh just before modelling.
+
+---
+
 ## Plan going forward — from raw data to one dataset
 
 Order: **fix open data issues → clean layer → combined dataset → modelling views → EDA.**
 
-1. **Close the remaining data issues.** ENTSO-E checks 9–10 and the Swissgrid list (see open items).
+1. **Close the remaining data issues.** ENTSO-E checks are done (2026-09-27/28), apart from verifying the FR-bids set-aside and the IT_NORD 2026 check (~20 Oct). Remaining: the Swissgrid list (see open items). Data cut-off 31 Aug 2026 (see *Gap-check round*).
 2. **Clean layer, per domain (not started).**
    - One time convention: UTC internally, Europe/Zurich interval-start labels.
    - Clear column names, e.g. `ch_load_actual_mw`, `de_lu_solar_da_fc_mw`.
    - Coalesce forecast column variants (D-L2).
    - Treat daily/weekly block products as step functions (D5).
    - Deduplicate outages on `(doc_mrid, revision)` and convert them to MW unavailable per interval.
-   - Drop unreliable series: 8.1 margin, 12.3.F, CH FCR weekly, IT/DE bids.
-   - Flag known gaps: 31 Dec 2022, ENTSO-E Jan 2026, imbalance-volume gaps.
+   - Deduplicate fall-back documents across business-type folders; build a `ch_afrr_platform_fallback` flag (per day, or per 15 min with approximate intraday timing), and mark that pre-Apr 2025 values were not known in real time.
+   - Drop unreliable series: 8.1 margin, 12.3.F, CH FCR weekly, IT/DE/FR bids.
+   - Flag known gaps: 31 Dec 2022, ENTSO-E Jan 2026, imbalance-volume gaps, FR per-unit Feb 2026 + scattered hours 2021–24, IT_NORD per-unit full days (D-G4) and after 18 Jul 2026. Take the gap list from `check_data_gaps.py all --write`.
 3. **Combined dataset.** One 15-min master table (2021-01 → 2026-08), rows = time, columns = variables. CH plus neighbours as prefixed columns. Swissgrid takes priority where both sources overlap.
 4. **Modelling views.** Aggregate to each target's grain: 4h blocks and days (FCR, aFRR daily), weeks (weekly products).
 5. **EDA (Phase 3).** Data quality, distributions, seasonality, structural breaks (RQ1b), relationships between drivers and prices, target definition. Most of it feeds Chapter 3.
@@ -498,39 +633,45 @@ Order: **fix open data issues → clean layer → combined dataset → modelling
 
 ### ENTSO-E status
 
-Items 1–8 of the data-integrity list are **DONE** (see above). Remaining:
+Data-integrity items 1–8 (2026-09-26), 9–17 (2026-09-27) and 18–21 (2026-09-28) are **DONE**. Remaining:
 
-1. **\[Generation\] Check 16.1.A per-day fallback** (item 9). Confirm the skipped DST days are negligible. Reads disk only.
-2. **\[Outages\] Check fall-back rows for RQ3** (item 10). CH aFRR fall-backs have about 830 rows. Reads disk only.
+1. **\[Balancing\] Verify the FR-bids set-aside:** `--only aggregated_bids --plan` shows 2 CH series; manifest rebuilt with 198 files.
+2. **\[Generation\] ~20 Oct 2026: check IT_NORD per-unit after 18 Jul on the Transparency Platform.** Data there → re-pull procedure (*Gap-check round*) + `check_data_gaps.py generation`. Not there → log as source gap, done.
+3. **\[All\] Confirm the data cut-off (31 Aug 2026)** with the supervisor; no full re-pull unless the sample is extended.
 
 ### Swissgrid (next focus)
 
-3. **Email `sdl-ausschreibung@swissgrid.ch` (overdue; the only RQ3 lead).** Request:
+4. **Email `sdl-ausschreibung@swissgrid.ch` (overdue; the only RQ3 lead).** Request:
    - the historical second-by-second aFRR archive;
    - anonymised provider-level activation / response-time data;
    - pre-2023 imbalance prices, **incl. 31 Dec 2022**;
-   - pre-2026 control-energy and cross-border files.
-4. **Inspect `secondary-daily_2026-09-24.csv`.** Is it relevant for RQ3?
-5. **Parse the 2026-only CSVs** (`Ausgleichsenergie-und-Regelenergie`, `Grenzfluesse`, `control-area-balance`). Weekly cumulative cost columns must be differenced.
-6. **Confirm the switch to a single imbalance price (AEP)** with Swissgrid's official announcement.
-7. **Check the Swissgrid mFRR 2024 gap** (about 30 days of 4h blocks missing).
-8. **TRE parser** (lower priority).
-9. **Imbalance prices:** re-run `--years 2026 --force` after each new monthly download.
+   - pre-2026 control-energy and cross-border files;
+   - why CH aFRR has run in platform fall-back almost continuously since 2024/25, and whether there is an official announcement;
+   - **new (2026-09-28):** why the 2022–24 fall-back history was only published on 15 Apr 2025, and whether exact intraday start/end times of the fall-back periods are available (ENTSO-E documents all start at 00:00).
+5. **Inspect `secondary-daily_2026-09-24.csv`.** Is it relevant for RQ3?
+6. **Parse the 2026-only CSVs** (`Ausgleichsenergie-und-Regelenergie`, `Grenzfluesse`, `control-area-balance`). Weekly cumulative cost columns must be differenced.
+7. **Confirm the switch to a single imbalance price (AEP)** with Swissgrid's official announcement.
+8. **Check the Swissgrid mFRR 2024 gap** (about 30 days of 4h blocks missing).
+9. **TRE parser** (lower priority).
+10. **Imbalance prices:** re-run `--years 2026 --force` after each new monthly download.
 
 ### Then
 
-10. **Clean layer → combined dataset → views → EDA** (see plan above).
-11. **\[JAO\]** Assess whether a dedicated pull is needed (NTC is now complete for all 4 CH borders via ENTSO-E 11.1).
+11. **Run `check_data_gaps.py all --write`**, then **clean layer → combined dataset → views → EDA** (see plan above).
+12. **\[JAO\]** Assess whether a dedicated pull is needed (NTC is now complete for all 4 CH borders via ENTSO-E 11.1).
+13. **Before finalising Chapter 3:** run `check_data_gaps.py all` to confirm the cited gap numbers.
 
 ### Thesis scope updates
 
-- **RQ1b is no longer at risk.** Auction data for 2015–2026 covers all reform transitions. Update Chapter 3 to include the aFRR/mFRR structural breaks (2018 direction split; 2025 daily blocks; 2025 mFRR merger) and the switch from dual to single imbalance pricing (2025/26).
-- **RQ3 remains at risk.** There is still no confirmed access path. If the Swissgrid email and the `secondary-daily` inspection yield nothing, trigger the contingency and drop RQ3. The original deadline (~25 Jul 2026) has passed; send the email now and agree a new date with the supervisor.
+- **RQ1b is no longer at risk.** Auction data for 2015–2026 covers all reform transitions. Update Chapter 3 to include the aFRR/mFRR structural breaks (2018 direction split; 2025 daily blocks; 2025 mFRR merger) and the switch from dual to single imbalance pricing (2025/26). Add the CH aFRR platform fall-back (first full-day 9 Feb 2024; almost continuous 2025–26) as a further break — noting that the 2022–24 history was only published in Apr 2025.
+- **RQ3 remains at risk.** There is still no confirmed access path. If the Swissgrid email and the `secondary-daily` inspection yield nothing, trigger the contingency and drop RQ3. The original deadline (~25 Jul 2026) has passed; send the email now and agree a new date with the supervisor. The ENTSO-E fall-back lead is closed (2026-09-27, re-confirmed 2026-09-28): no response-time information.
 - **Schedule:** late September 2026 is week 17 of 29. EDA was planned for weeks 7–12 and model development for weeks 13–19, but data acquisition is still running. Review the remaining phases with the supervisor.
 - **Chapter 3 — data description:**
   - Energy Overview coverage changes (20 → 24 → 64 variables), the 2025 timestamp change, and the end of hourly vertical load in 2022.
   - Swissgrid auctions as the primary reserve-price source; ENTSO-E as cross-check (aFRR validation above).
-  - **Known source gaps:** 31 Dec 2022 imbalance prices; ENTSO-E Jan 2026 imbalance prices; ENTSO-E CH FCR daily prices Nov 2021 – Apr 2022; ENTSO-E CH mFRR daily prices 2023–24; CH↔DE week-ahead NTC not published.
+  - DST handling: per-unit generation loses 7 h in total on 55 DST days (CH 1 h) — negligible.
+  - Data cut-off 31 Aug 2026 (if confirmed with the supervisor).
+  - **Known source gaps:** 31 Dec 2022 imbalance prices; ENTSO-E Jan 2026 imbalance prices; ENTSO-E CH FCR daily prices Nov 2021 – Apr 2022; ENTSO-E CH mFRR daily prices 2023–24; CH↔DE week-ahead NTC not published. FR per-unit generation 9 + 16–26 Feb 2026 (+ scattered hours 2021–24); IT_NORD per-unit generation after 18 Jul 2026 and 4 further full days (12 May 2022, 18 Jun 2025, 26 Jan + 9 Jul 2026); DE_LU reservoir filling not published; CH mFRR aggregated bids sparse 2021–22.
 
 ### Blocked
 
@@ -553,13 +694,14 @@ Master_Thesis/
 │   │   └── Data/
 │   │       ├── _coverage_<range>.csv
 │   │       ├── _coverage_union.csv          # union of all probe windows (drives the pull)
-│   │       ├── _set_aside/                  # IT/DE aggregated bids (D6) + README
+│   │       ├── _set_aside/                  # IT/DE (D6) and FR (D9) aggregated bids + README
 │   │       └── production/
 │   │           ├── _pull_manifest.csv
 │   │           └── <dataset>/<variant>/<area>/<year>.parquet
-│   ├── Generation/     # same structure
+│   ├── _checks/                             # CSVs from check_data_gaps.py --write
+│   ├── Generation/     # same structure + check_data_gaps.py (read-only gap check: per-unit + fall-backs)
 │   ├── Load/           # same structure
-│   ├── Transmission/   # target = directed border (e.g. CH-DE); _to_delete/ holds the old diag script
+│   ├── Transmission/   # target = directed border (e.g. CH-DE)
 │   └── Outages/        # year.parquet | year.empty | _empty.parquet
 │
 └── Swissgrid/
@@ -600,3 +742,6 @@ Master_Thesis/
 - All datetime columns: `datetime64[us, Europe/Zurich]` — except in the raw ENTSO-E files: DE series use Europe/Berlin, IT per-unit Europe/Rome, water reservoirs UTC (normalised in the clean layer).
 - Every probe/pull has a 60 s request timeout (`REQUEST_TIMEOUT_S`) and every pull defaults to `--interval 0.3`.
 - Edited scripts from 2026-09-26 have a `*.bak_20260926` backup next to them.
+- Retry logic classifies errors by HTTP status code (429 and 5xx are retried; text matching only for timeouts and dropped connections) in all 5 probes.
+- Gap check (2026-09-28): `python Entsoe/Generation/check_data_gaps.py <generation|fallback|all> [--write]` — read-only; compare with the baseline in *Gap-check round*.
+- Backups from 2026-09-27: `*.py.bak_classifier` (Balancing, Generation, Load, Outages probes) and `entsoe_balancing_pull.py.bak_fr_exclude`.

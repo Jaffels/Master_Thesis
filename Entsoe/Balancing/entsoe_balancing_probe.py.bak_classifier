@@ -481,10 +481,9 @@ def call_with_retry(fn: Callable[..., Any], throttle: Throttle,
             raise
         except Exception as exc:  # network / HTTP / parse
             msg = str(exc)
-            status = getattr(getattr(exc, "response", None), "status_code", None)
-            transient = (status == 429 or (status is not None and status >= 500)
-                         or (status is None and any(t in msg for t in (
-                             "timeout", "Timeout", "Connection"))))
+            transient = any(t in msg for t in ("429", "500", "502", "503",
+                                               "504", "timeout", "Timeout",
+                                               "Connection"))
             if not transient or i == attempts - 1:
                 raise
             backoff = 5 * (2 ** i)

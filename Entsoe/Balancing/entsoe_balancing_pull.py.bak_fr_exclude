@@ -71,7 +71,6 @@ PAGINATED_FLOOR_DAYS = 1
 EXCLUDE_SERIES: set[tuple[str, str]] = {
     ("aggregated_bids", "DE"),
     ("aggregated_bids", "IT"),
-    ("aggregated_bids", "FR"),   # patchy coverage, not used (set aside 2026-09-26)
 }
 
 log = logging.getLogger("pull")
