@@ -280,7 +280,7 @@ TZ = "Europe/Zurich"
 #   BZN-vs-CTA split as Germany — check the probe's resolved codes for CH-IT too.
 CH_CODES: list[str] = ["CH"]
 NEIGHBOURS: dict[str, list[str]] = {
-    "DE": ["DE_TRANSNET", "DE_LU", "DE_AT_LU", "DE_AMPRION", "DE_TENNET", "DE_50HZ"],  # DE_AT_LU: pre-Oct-2018
+    "DE": ["DE_TRANSNET", "DE_LU", "DE_AMPRION", "DE_TENNET", "DE_50HZ"],
     "FR": ["FR"],
     "IT_NORD": ["IT_NORD", "IT"],
     "AT": ["AT"],
@@ -362,28 +362,6 @@ PINNED_BORDER_CODE: dict[tuple[str, str], tuple[str, str]] = {
     ("countertrading", "CH-IT_NORD"): ("CH", "IT"),
     ("countertrading", "IT_NORD-CH"): ("IT", "CH"),
 }
-
-# 2026-09-28 (pre-2021 extension): before 1 Oct 2018 the German bidding zone was
-# DE_AT_LU, so the DE_LU NTC pin above cannot answer. For windows that END on or
-# before the split, these pins replace the ones above. Windows that straddle the
-# split (2018) must be pulled in two parts -- see pinned_border_code().
-DE_LU_SPLIT = "2018-10-01"
-PINNED_BORDER_CODE_PRE_SPLIT: dict[tuple[str, str], tuple[str, str]] = {
-    ("ntc", "CH-DE"): ("CH", "DE_AT_LU"),
-    ("ntc", "DE-CH"): ("DE_AT_LU", "CH"),
-}
-
-
-def pinned_border_code(dataset: str, border_label: str, end) -> tuple[str, str] | None:
-    """Pinned (from, to) codes for a query window ending at `end`."""
-    import pandas as _pd
-    end_ts = _pd.Timestamp(end)
-    split = _pd.Timestamp(DE_LU_SPLIT, tz=end_ts.tz) if end_ts.tz else _pd.Timestamp(DE_LU_SPLIT)
-    if end_ts <= split:
-        pre = PINNED_BORDER_CODE_PRE_SPLIT.get((dataset, border_label))
-        if pre:
-            return pre
-    return PINNED_BORDER_CODE.get((dataset, border_label))
 
 # Hard per-request socket timeout (seconds) for every ENTSO-E call (fix P4).
 # entsoe-py sends requests with no timeout by default, so one stalled
@@ -707,7 +685,7 @@ def main() -> int:
                     log.info("skip (already attempted: %s)  %s", prior, state_key)
                 continue
 
-            pinned = pinned_border_code(task.dataset, border.label, end)
+            pinned = PINNED_BORDER_CODE.get((task.dataset, border.label))
             if pinned:
                 combos = [pinned]
             elif task.scope == "area":

@@ -210,11 +210,7 @@ TZ = "Europe/Zurich"
 #   uses for prices, with the national IT market area as a fallback.
 AREAS: dict[str, list[str]] = {
     "CH": ["CH"],
-    # 2026-09-28 (pre-2021 extension): the DE_LU bidding zone only exists from
-    # 1 Oct 2018 (before: joint DE_AT_LU zone). Germany-wide codes are tried
-    # BEFORE the control areas, so a pre-2018 window never silently falls
-    # back to one TSO (e.g. Amprion = ~1/4 of Germany).
-    "DE_LU": ["DE_LU", "DE", "DE_AT_LU", "DE_AMPRION", "DE_TENNET", "DE_50HZ", "DE_TRANSNET"],
+    "DE_LU": ["DE_LU", "DE_AMPRION", "DE_TENNET", "DE_50HZ", "DE_TRANSNET"],
     "FR": ["FR"],
     "IT_NORD": ["IT_NORD", "IT"],
     "AT": ["AT"],
