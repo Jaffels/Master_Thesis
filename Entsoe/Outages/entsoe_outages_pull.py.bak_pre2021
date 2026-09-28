@@ -61,8 +61,6 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import entsoe_outages_probe as probe  # noqa: E402
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-import pre_split  # noqa: E402  (DE bidding-zone split, added 2026-09-28)
 from entsoe import EntsoePandasClient  # noqa: E402
 
 log = logging.getLogger("outages-pull")
@@ -120,35 +118,6 @@ def build_series(cov: pd.DataFrame, only: str, ok_only: bool
     return series
 
 
-def _invoke_or_none(client, task, code, start, end):
-    """probe.invoke for one segment; None on a definitive no-data answer."""
-    try:
-        return probe.invoke(client, task, code, start, end)
-    except probe.NO_DATA_ERRORS:
-        return None
-
-
-def merge_split_series(post: list[dict[str, Any]], pre: list[dict[str, Any]]
-                       ) -> list[dict[str, Any]]:
-    """Join the post- and pre-split series lists on (dataset, variant, area).
-    Pre-split codes the probe never resolved (sparse fall-through to the
-    task's first code) are mapped DE_LU -> DE_AT_LU (pre_split_code)."""
-    key = lambda s: (s["dataset"], s["variant"], s["area"])  # noqa: E731
-    out: dict[tuple, dict[str, Any]] = {}
-    for s in post:
-        out[key(s)] = {**s, "post_code": s["area_code"], "pre_code": None}
-    for s in pre:
-        code = (s["area_code"] if s["probe_status"] == "ok"
-                else pre_split.pre_split_code(s["area_code"]))
-        if key(s) in out:
-            out[key(s)]["pre_code"] = code
-        else:
-            out[key(s)] = {**s, "post_code": None, "pre_code": code}
-    for s in out.values():
-        s["area_code"] = "|".join(c for c in (s["pre_code"], s["post_code"]) if c)
-    return list(out.values())
-
-
 def main() -> int:
     ap = argparse.ArgumentParser(
         description=__doc__,
@@ -159,12 +128,6 @@ def main() -> int:
                     help="exclusive, YYYY-MM-DD (default: first of this month)")
     ap.add_argument("--coverage", default=None,
                     help="coverage CSV (default: newest _coverage_*.csv under --data)")
-    ap.add_argument("--coverage-pre", default=None,
-                    help="coverage CSV for the part of each year BEFORE --split "
-                         "(German bidding-zone split). Without it, one code per "
-                         "series for all years (unchanged behaviour)")
-    ap.add_argument("--split", default=pre_split.DE_LU_SPLIT,
-                    help="split date used with --coverage-pre (default %(default)s)")
     ap.add_argument("--data", default=str(here / "Data"),
                     help="folder holding the probe's coverage CSV")
     ap.add_argument("--out", default=str(here / "Data" / "production"),
@@ -196,13 +159,6 @@ def main() -> int:
         return 1
 
     series = build_series(load_coverage(coverage), args.only, args.ok_only)
-    split_on = bool(args.coverage_pre)
-    split = pre_split.split_ts(args.split, TZ)
-    if split_on:
-        series = merge_split_series(
-            series,
-            build_series(load_coverage(Path(args.coverage_pre).expanduser().resolve()),
-                         args.only, args.ok_only))
     if not series:
         log.error("nothing to pull (after --only / --ok-only)")
         return 1
@@ -241,16 +197,10 @@ def main() -> int:
         statuses: list[str] = []
         for year, y_start, y_end in years:
             i += 1
-            segs = (pre_split.segments(y_start, y_end, split,
-                                       s["pre_code"], s["post_code"])
-                    if split_on else [(y_start, y_end, s["area_code"])])
-            if not segs:
-                continue  # series not available on this side of the split
             tag = f"{s['dataset']}__{s['variant']}__{s['area']}__{year}"
             fparq = sdir / f"{year}.parquet"
             fempty = sdir / f"{year}.empty"
-            ident = {k: s[k] for k in ("dataset", "variant", "area")}
-            ident["area_code"] = pre_split.codes_label(segs)
+            ident = {k: s[k] for k in ("dataset", "variant", "area", "area_code")}
 
             if not args.force and fparq.exists():
                 log.info("[%d/%d] skip (on disk) %s", i, total, tag)
@@ -262,13 +212,7 @@ def main() -> int:
                 continue
 
             try:
-                # one request per segment (two only in a year spanning the
-                # split); documents crossing the split appear in both -> dedupe
-                df = pre_split.join_parts(
-                    [_invoke_or_none(client, s["task"], c, a, b)
-                     for a, b, c in segs], dedupe_rows=True)
-                if df is None:
-                    raise probe.NoMatchingDataError
+                df = probe.invoke(client, s["task"], s["area_code"], y_start, y_end)
             except probe.NO_DATA_ERRORS:
                 sdir.mkdir(parents=True, exist_ok=True)
                 fempty.touch()
