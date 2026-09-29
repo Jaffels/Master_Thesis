@@ -1,0 +1,3872 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Energy-Charts API",
+    "description": "\n       \n\n<h4>Timestamp Format Options</h4>\n        <p>When specifying timestamps, you can choose from the following three formats:</p>\n        <ol>\n            <li><strong>ISO 8601 Format</strong>:\n                <ul>\n                    <li>This format includes the full date and time, with an optional timezone indicator.</li>\n                    <li>Examples:\n                        <ul>\n                            <li><code>2026-01-01T17:00Z</code> (UTC time)</li>\n                            <li><code>2026-01-01T18:00+01:00</code> (Local time offset by +01:00)</li>\n                        </ul>\n                    </li>\n                </ul>\n            </li>\n            <li><strong>Daily Format</strong>:\n                <ul>\n                    <li>This format specifies only the date.</li>\n                    <li>The start time is assumed to be at 00:00 on the specified date in the local timezone of the specified country or bidding zone (bzn).</li>\n                    <li>The end timestamp is interpreted as the last minute of the specified day in the same local timezone.</li>\n                    <li>Example:\n                        <ul>\n                            <li><code>2026-01-01</code> (Starts at 00:00 and ends at 23:59 on January 1, 2026, local time)</li>\n                        </ul>\n                    </li>\n                </ul>\n            </li>\n            <li><strong>UNIX Timestamp</strong>:\n                <ul>\n                    <li>This format specifies the time as the number of seconds since the Unix Epoch (January 1st, 1970, at 00:00 UTC).</li>\n                    <li>Example:\n                        <ul>\n                            <li><code>1767222000</code></li>\n                        </ul>\n                    </li>\n                </ul>\n            </li>\n        </ol>\n        <h4>Default Behavior for Timestamps</h4>\n        <p>If an end timestamp is not explicitly provided, it is assumed to be the same as the start timestamp. For daily formats, this means that one full day will be returned. If also no start timestamp is provided, the current day in the local timezone is used.</p>\n        <h4>Timestamp Semantics in Responses</h4>\n        <p>All timestamps returned by the API mark the <b>beginning</b> of the period the value refers to. Single exception: <code>/installed_power</code> and <code>/v2/installed_power</code>, where the timestamp labels the reporting year or month and the value represents the installed power at the <b>end</b> of that period (or, with <code>installation_decommission=true</code>, the net change during the period).</p>\n        <h4>Rate Limiting</h4>\n        <p>Requests are limited per client IP <b>and</b> per endpoint (token bucket, so short bursts are allowed). The default is 2 requests per minute with a burst of 4; <code>/signal</code> allows 20 per minute (burst 40), <code>/price</code> 2 per minute (burst 2), and every <code>/v2</code> endpoint inherits the limit of its v1 counterpart. In addition, the limits are adjusted dynamically to the current server load, so the effective limit can be lower during peak times.</p>\n        <p>Exceeding a limit returns <b>HTTP 429</b> with a <code>Retry-After</code> header giving the number of seconds to wait. Clients should honour that header instead of assuming fixed limits, and cache responses on their side. For higher limits (commercial access) please contact <a href=\"mailto:leonhard.gandhi@ise.fraunhofer.de\">leonhard.gandhi@ise.fraunhofer.de</a>.</p>\n        <h4>Discontinuation of endpoints</h4>\n        <p>Endpoint discontinuations will be preceded by an announcement at least six months in advance, indicated by setting the \"deprecated\" status to true.</p>\n        <h4>Data License</h4>\n        <p>Unless stated otherwise, the data provided by the Energy-Charts API is licensed under the <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\">CC BY 4.0</a> license. Proper attribution to Energy-Charts.info as the source is required.</p>\n       <details>\n       <summary><b>New in release v2.0 (2026-07-20)</b></summary>\n       <ul>\n       <li>New machine-readable <code>/v2/...</code> twin for every public endpoint (v1 endpoints remain unchanged)</li>\n       <li>New endpoints <code>/v2/price_current</code> (price of the current interval, with <code>valid_until</code>) and <code>/v2/price_next_day</code> (full day-ahead curve for tomorrow)</li>\n       <li>Machine-readable catalog of all v2 endpoints at <code>GET /v2</code></li>\n       <li>LLM-friendly API self-description at <code>/llms.txt</code> and <code>/llms-full.txt</code> (llmstxt.org convention)</li>\n       <li>Uniform self-describing response envelope: ISO 8601 timestamps in local timezone, explicit <code>timezone</code>, <code>unit</code>, <code>resolution</code>/<code>interval_minutes</code></li>\n       <li>Series identified by stable snake_case ids; row-oriented <code>data</code> records (<code>timestamp</code> + <code>values</code>)</li>\n       <li><code>generated_at</code>, <code>available_from</code> and <code>available_until</code> reflect the data actually available at generation time</li>\n       <li>Closed enum value lists for <code>country</code>, <code>bzn</code>, <code>production_type</code>, <code>forecast_type</code> and <code>time_step</code> in the OpenAPI schema</li>\n       </ul>\n       </details>\n       <details>\n       <summary><b>v1.6 (2026-06-26)</b></summary>\n       <ul>\n       <li>Improved caching for higher bandwith</li>\n       <li>Extended api key access for commercial customers</li>\n       </ul>\n       </details>\n       <details>\n          <summary><b> Older Releases </b></summary>\n           <details>\n           <summary><b>v1.5 (2025-10-21)</b></summary>\n           <ul>\n           <li>\n              Include stricter rate limitations for public API\n              (please contact <a href=\"mailto:leonhard.gandhi@ise.fraunhofer.de\">leonhard.gandhi@ise.fraunhofer.de</a> for commercial access)\n           </li>\n           <li>Improved load balancing on concurrent requests</li>\n           </ul>\n           </details><details>\n           <summary><b>v1.4 (2024-07-08)</b></summary>\n           <ul>\n           <li>Fix bug with wrong timezone for unix timestamps as input</li>\n           </ul>\n           </details><details>\n           <summary><b>v1.3 (2024-04-22)</b></summary>\n           <ul>\n           <li>Fix bug which hid most recent data for /cbet and /cbpf</li>\n           <li>Inlcude deprecated tag to all active endpoints</li>\n           </ul>\n           </details>\n           <details>\n           <summary><b>v1.2 (2024-04-16)</b></summary>\n           <ul>\n           <li>Allow also input timestamps in day format and UNIX timestamp</li>\n           <li>Inlcude license info for price data available at /price</li>\n           </ul>\n           </details>\n           <details>\n           <summary><b>v1.1 (2023-10-20)</b></summary>\n           <ul>\n               <li>Deprecated /ren_share</li>\n               <li>Deprecated /ren_share_prognosis and replaced it with /ren_share_forecast</li>\n               <li>Deprecated /power and replaced it with /public_power</li>\n               <li>Deprecated /price_spot_market and replaced it with /price</li>\n               <li>Deprecated /traffic_signal and replaced it with /signal</li>\n               <li>Added endpoint for cross-border electricity trading (/cbet)</li>\n               <li>Added endpoint for cross-border physical flow (/cbpf)</li>\n               <li>Changed response structure of all endpoints to fit with json specification</li>\n               <li>Simplified the response json structure</li>\n               <li>Removed unnecessary information from responses like names, descriptions and units</li>\n               <li>Added typed response schemes to every endpoint</li>\n               <li>Added example values and example requests to every endpoint</li>\n               <li>Added postal code to /signal, to consider grid state in future implementations</li>\n               <li>Responses that return unix timestamps now all return unix seconds</li>\n               <li>Added error handling for false requests and responses</li>\n               <li>Added a list of available bidding zones for /price</li>\n           </ul>\n           </details>\n          <details>\n              <summary><b>v1.0 (2022-11-30)</b></summary>\n              <ul>\n                  <li>Initial release</li>\n              </ul>\n          </details>\n       </details>\n       \n\n<b>Available countries:</b>\n       \n\n<details><summary>de - Germany (click to show all available countries)</summary>\n       ch - Switzerland<br>\n       eu - European Union<br>\n       all - Europe<br>\n       at - Austria<br>\n       ba - Bosnia-Herzegovina<br>\n       be - Belgium<br>\n       bg - Bulgaria<br>\n       cy - Cyprus<br>\n       cz - Czech Republic<br>\n       dk - Denmark<br>\n       ee - Estonia<br>\n       es - Spain<br>\n       fi - Finland<br>\n       fr - France<br>\n       ge - Georgia<br>\n       gr - Greece<br>\n       hr - Croatia<br>\n       hu - Hungary<br>\n       ie - Ireland<br>\n       it - Italy<br>\n       lt - Lithuania<br>\n       lu - Luxembourg<br>\n       lv - Latvia<br>\n       md - Moldova<br>\n       me - Montenegro<br>\n       mk - North Macedonia<br>\n       nl - Netherlands<br>\n       no - Norway<br>\n       pl - Poland<br>\n       pt - Portugal<br>\n       ro - Romania<br>\n       rs - Serbia<br>\n       se - Sweden<br>\n       si - Slovenia<br>\n       sk - Slovak Republic<br>\n       ua - Ukraine<br>\n       uk - United Kingdom<br>\n       xk - Kosovo<br>\n       </details>\n       \n\n<b>Available bidding zones:</b>\n       \n\n<details><summary>AT - Austria (click to show all available bidding zones)</summary>\n        BE - Belgium<br>\n        BG - Bulgaria<br>\n        CH - Switzerland<br>\n        CZ - Czech Republic<br>\n        DE-LU - Germany, Luxembourg<br>\n        DE-AT-LU - Germany, Austria, Luxembourg<br>\n        DK1 - Denmark 1<br>\n        DK2 - Denmark 2<br>\n        EE - Estionia<br>\n        ES - Spain<br>\n        FI - Finland<br>\n        FR - France<br>\n        GR - Greece<br>\n        HR - Croatia<br>\n        HU - Hungary<br>\n        IE(SEM) - Ireland (Single Electricity Market)<br>\n        IT-Brindisi - Italy Brindisi<br>\n        IT-Calabria - Italy Calabria<br>\n        IT-Centre-North - Italy Centre North<br>\n        IT-Centre-South - Italy Centre South<br>\n        IT-Foggia - Italy Foggia<br>\n        IT-GR - Italy Greece (interconnector)<br>\n        IT-North - Italy North<br>\n        IT-North-AT - Italy North Austria (interconnector)<br>\n        IT-North-CH - Italy North Switzerland (interconnector)<br>\n        IT-North-FR - Italy North France (interconnector)<br>\n        IT-North-SI - Italy North Slovenia (interconnector)<br>\n        IT-Priolo - Italy Priolo<br>\n        IT-Rossano - Italy Rossano<br>\n        IT-SACOAC - Italy Sardinia Corsica AC<br>\n        IT-SACODC - Italy Sardinia Corsica DC<br>\n        IT-Sardinia - Italy Sardinia<br>\n        IT-Sicily - Italy Sicily<br>\n        IT-South - Italy South<br>\n        LT - Lithuania<br>\n        LV - Latvia<br>\n        ME - Montenegro<br>\n        NL - Netherlands<br>\n        NO1 - Norway 1<br>\n        NO2 - Norway 2<br>\n        NO2NSL - Norway North Sea Link<br>\n        NO3 - Norway 3<br>\n        NO4 - Norway 4<br>\n        NO5 - Norway 5<br>\n        PL - Poland<br>\n        PT - Portugal<br>\n        RO - Romania<br>\n        RS - Serbia<br>\n        SE1 - Sweden 1<br>\n        SE2 - Sweden 2<br>\n        SE3 - Sweden 3<br>\n        SE4 - Sweden 4<br>\n        SI - Slovenia<br>\n        SK - Slovakia<br>\n        UA-BEI - Ukraine Burshtyn Island<br>\n        UA-IPS - Ukraine IPS<br>\n       </details>\n       \n\n<b>Hint:</b> Don't use the <b>Try it out</b> button on this documentation page to download large datasets as it might lead to long loading times.\n       ",
+    "termsOfService": "https://energy-charts.info/data-protection.html",
+    "contact": {
+      "name": "Contact",
+      "url": "https://energy-charts.info/contact.html"
+    },
+    "license": {
+      "name": "Publishing notes",
+      "url": "https://energy-charts.info/publishing-notes.html"
+    },
+    "version": "2.0"
+  },
+  "paths": {
+    "/v2": {
+      "get": {
+        "tags": [
+          "v2"
+        ],
+        "summary": "Machine-readable catalog of all v2 endpoints",
+        "description": "Self-describing directory of the v2 API.\n\nLists every v2 endpoint with its parameters, accepted values and\ndefaults, derived from the live OpenAPI schema. Intended as the single\nentry point for AI agents and other automated clients.",
+        "operationId": "v2_catalog_v2_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatalogResponseV2"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/public_power": {
+      "get": {
+        "tags": [
+          "power v2"
+        ],
+        "summary": "Public net electricity production per production type",
+        "description": "Public net electricity production in megawatt (MW) for a given country, one series per production type. Timestamps are ISO 8601 in the local timezone and mark the interval start. Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start.",
+        "operationId": "handler_v2_public_power_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CountryV2",
+              "description": "Country code",
+              "default": "de"
+            },
+            "description": "Country code"
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start.",
+              "default": "",
+              "title": "Start"
+            },
+            "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start."
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start.",
+              "default": "",
+              "title": "End"
+            },
+            "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start."
+          },
+          {
+            "name": "subtype",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Optional subtype, e.g. \"solarlog\" for Switzerland",
+              "default": "",
+              "title": "Subtype"
+            },
+            "description": "Optional subtype, e.g. \"solarlog\" for Switzerland"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeSeriesResponseV2"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/public_power_forecast": {
+      "get": {
+        "tags": [
+          "power v2"
+        ],
+        "summary": "Forecast of public net electricity production or load",
+        "description": "Forecast of the public net electricity production (or load) in megawatt (MW). If no dates are provided, values from today until the end of the available forecast are returned. Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start.",
+        "operationId": "handler_v2_public_power_forecast_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CountryV2",
+              "description": "Country code",
+              "default": "de"
+            },
+            "description": "Country code"
+          },
+          {
+            "name": "production_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/ForecastProductionTypeV2",
+              "description": "Forecasted quantity",
+              "default": "solar"
+            },
+            "description": "Forecasted quantity"
+          },
+          {
+            "name": "forecast_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/ForecastTypeV2",
+              "description": "Forecast horizon; 'load' supports only 'day-ahead'",
+              "default": "current"
+            },
+            "description": "Forecast horizon; 'load' supports only 'day-ahead'"
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start.",
+              "default": "",
+              "title": "Start"
+            },
+            "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start."
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start.",
+              "default": "",
+              "title": "End"
+            },
+            "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeSeriesResponseV2"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/total_power": {
+      "get": {
+        "tags": [
+          "power v2"
+        ],
+        "summary": "Total net electricity production (incl. industrial self supply)",
+        "description": "Total net electricity production (including industrial self supply) in megawatt (MW), one series per production type. Currently only available for Germany. Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start.",
+        "operationId": "handler_v2_total_power_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CountryV2",
+              "description": "Country code (currently only 'de')",
+              "default": "de"
+            },
+            "description": "Country code (currently only 'de')"
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start.",
+              "default": "",
+              "title": "Start"
+            },
+            "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start."
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start.",
+              "default": "",
+              "title": "End"
+            },
+            "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeSeriesResponseV2"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/installed_power": {
+      "get": {
+        "tags": [
+          "power v2"
+        ],
+        "summary": "Installed power per production type",
+        "description": "Installed power per production type. Units are carried per series (typically GW; battery storage capacity in GWh; monthly installation / decommission figures in MW). NOTE: unlike all other endpoints, timestamps here label the reporting year or month, and values represent the installed power at the END of that period (or, with installation_decommission=true, the net change during the period).",
+        "operationId": "handler_v2_installed_power_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CountryV2",
+              "description": "Country code",
+              "default": "de"
+            },
+            "description": "Country code"
+          },
+          {
+            "name": "time_step",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/TimeStepV2",
+              "description": "'monthly' is only available for Germany",
+              "default": "yearly"
+            },
+            "description": "'monthly' is only available for Germany"
+          },
+          {
+            "name": "installation_decommission",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "If true, net installation / decommission per period is returned instead of cumulative installed power",
+              "default": false,
+              "title": "Installation Decommission"
+            },
+            "description": "If true, net installation / decommission per period is returned instead of cumulative installed power"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeSeriesResponseV2"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/frequency": {
+      "get": {
+        "tags": [
+          "power v2"
+        ],
+        "summary": "Grid frequency (RG Continental Europe), 1 second resolution",
+        "description": "Grid frequency in hertz (Hz) measured at Fraunhofer ISE in Freiburg, Germany (RG Continental Europe). Available in 1 second steps from 2022-05-01 on; the requested interval is limited to 3 days. Timestamps are ISO 8601 in UTC.",
+        "operationId": "handler_v2_frequency_get",
+        "parameters": [
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Measurement region (currently only 'DE-Freiburg')",
+              "default": "DE-Freiburg",
+              "title": "Region"
+            },
+            "description": "Measurement region (currently only 'DE-Freiburg')"
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start.",
+              "default": "",
+              "title": "Start"
+            },
+            "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start."
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start.",
+              "default": "",
+              "title": "End"
+            },
+            "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeSeriesResponseV2"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/price": {
+      "get": {
+        "tags": [
+          "prices v2"
+        ],
+        "summary": "Day-ahead spot market price",
+        "description": "Day-ahead spot market price for a bidding zone in EUR/MWh. The `license` field states the license of the returned data; for several zones the data is CC BY 4.0 from Bundesnetzagentur | SMARD.de, for all other zones it is restricted to private and internal use. Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start.",
+        "operationId": "handler_v2_price_get",
+        "parameters": [
+          {
+            "name": "bzn",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/BiddingZoneV2",
+              "description": "Bidding zone",
+              "default": "DE-LU"
+            },
+            "description": "Bidding zone"
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start.",
+              "default": "",
+              "title": "Start"
+            },
+            "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start."
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start.",
+              "default": "",
+              "title": "End"
+            },
+            "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeSeriesResponseV2"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/price_current": {
+      "get": {
+        "tags": [
+          "prices v2"
+        ],
+        "summary": "Day-ahead spot market price of the current interval",
+        "description": "Day-ahead spot market price of the interval that contains the current time, as a single-record envelope. `attributes.valid_until` states when the returned price expires (start of the next interval); re-fetch after that time. Returns 404 if no price is available for the current interval. License handling as for /v2/price.",
+        "operationId": "handler_v2_price_current_get",
+        "parameters": [
+          {
+            "name": "bzn",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/BiddingZoneV2",
+              "description": "Bidding zone",
+              "default": "DE-LU"
+            },
+            "description": "Bidding zone"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeSeriesResponseV2"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/price_next_day": {
+      "get": {
+        "tags": [
+          "prices v2"
+        ],
+        "summary": "Day-ahead spot market price for the next day",
+        "description": "Day-ahead spot market prices for the next local day of the bidding zone (the day after today), covering the full day. `attributes.delivery_date` states the day the prices refer to. Returns 404 while tomorrow's auction results are not yet published (results typically become available in the early afternoon CET of the current day). License handling as for /v2/price.",
+        "operationId": "handler_v2_price_next_day_get",
+        "parameters": [
+          {
+            "name": "bzn",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/BiddingZoneV2",
+              "description": "Bidding zone",
+              "default": "DE-LU"
+            },
+            "description": "Bidding zone"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeSeriesResponseV2"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/cbet": {
+      "get": {
+        "tags": [
+          "import_export v2"
+        ],
+        "summary": "Cross-border electricity trading (scheduled commercial exchanges)",
+        "description": "Cross-border electricity trading (scheduled commercial exchanges) in gigawatt (GW) between a country and each of its neighbors, plus a 'sum' series. Positive values are imports, negative values exports. Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start.",
+        "operationId": "handler_v2_cbet_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CountryV2",
+              "description": "Country code",
+              "default": "de"
+            },
+            "description": "Country code"
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start.",
+              "default": "",
+              "title": "Start"
+            },
+            "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start."
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start.",
+              "default": "",
+              "title": "End"
+            },
+            "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeSeriesResponseV2"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/cbpf": {
+      "get": {
+        "tags": [
+          "import_export v2"
+        ],
+        "summary": "Cross-border physical flows",
+        "description": "Cross-border physical electricity flows in gigawatt (GW) between a country and each of its neighbors, plus a 'sum' series. Positive values are imports, negative values exports. Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start.",
+        "operationId": "handler_v2_cbpf_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CountryV2",
+              "description": "Country code",
+              "default": "de"
+            },
+            "description": "Country code"
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start.",
+              "default": "",
+              "title": "Start"
+            },
+            "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start."
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start.",
+              "default": "",
+              "title": "End"
+            },
+            "description": "Accepted formats: ISO 8601 (`2026-01-01T17:00Z`), day (`2026-01-01`, interpreted in the local timezone) or unix seconds (`1767222000`). Empty start defaults to today; empty end defaults to start."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeSeriesResponseV2"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/signal": {
+      "get": {
+        "tags": [
+          "ren_share v2"
+        ],
+        "summary": "Electricity traffic signal (renewable share of load)",
+        "description": "Renewable share of load in percent from today until the end of the available forecast, together with a traffic light signal per timestamp: -1 = red (grid congestion), 0 = red (low renewable share), 1 = yellow (average), 2 = green (high renewable share).",
+        "operationId": "handler_v2_signal_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CountryV2",
+              "description": "Country code",
+              "default": "de"
+            },
+            "description": "Country code"
+          },
+          {
+            "name": "postal_code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Reserved for future local-grid awareness",
+              "default": "",
+              "title": "Postal Code"
+            },
+            "description": "Reserved for future local-grid awareness"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeSeriesResponseV2"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/ren_share_forecast": {
+      "get": {
+        "tags": [
+          "ren_share v2"
+        ],
+        "summary": "Renewable share of load forecast",
+        "description": "Forecast of the renewable share of load in percent from today until the end of the available forecast, including the solar, wind onshore and wind offshore contributions.",
+        "operationId": "handler_v2_ren_share_forecast_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CountryV2",
+              "description": "Country code",
+              "default": "de"
+            },
+            "description": "Country code"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeSeriesResponseV2"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/ren_share_daily_avg": {
+      "get": {
+        "tags": [
+          "ren_share v2"
+        ],
+        "summary": "Average daily renewable share of load",
+        "description": "Average daily renewable share of load in percent, either for the trailing 365 days (year = -1) or for a given calendar year. Timestamps mark local midnight of each day.",
+        "operationId": "handler_v2_ren_share_daily_avg_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CountryV2",
+              "description": "Country code",
+              "default": "de"
+            },
+            "description": "Country code"
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "description": "Calendar year; -1 = trailing 365 days",
+              "default": -1,
+              "title": "Year"
+            },
+            "description": "Calendar year; -1 = trailing 365 days"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeSeriesResponseV2"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/solar_share": {
+      "get": {
+        "tags": [
+          "ren_share v2"
+        ],
+        "summary": "Solar share of load",
+        "description": "Solar share of load in percent from today until the end of the available forecast, as measured values plus forecast.",
+        "operationId": "handler_v2_solar_share_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CountryV2",
+              "description": "Country code",
+              "default": "de"
+            },
+            "description": "Country code"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeSeriesResponseV2"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/solar_share_daily_avg": {
+      "get": {
+        "tags": [
+          "ren_share v2"
+        ],
+        "summary": "Average daily solar share of load",
+        "description": "Average daily solar share of load in percent, either for the trailing 365 days (year = -1) or for a given calendar year. Timestamps mark local midnight of each day.",
+        "operationId": "handler_v2_solar_share_daily_avg_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CountryV2",
+              "description": "Country code",
+              "default": "de"
+            },
+            "description": "Country code"
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "description": "Calendar year; -1 = trailing 365 days",
+              "default": -1,
+              "title": "Year"
+            },
+            "description": "Calendar year; -1 = trailing 365 days"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeSeriesResponseV2"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/wind_onshore_share": {
+      "get": {
+        "tags": [
+          "ren_share v2"
+        ],
+        "summary": "Wind onshore share of load",
+        "description": "Wind onshore share of load in percent from today until the end of the available forecast, as measured values plus forecast.",
+        "operationId": "handler_v2_wind_onshore_share_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CountryV2",
+              "description": "Country code",
+              "default": "de"
+            },
+            "description": "Country code"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeSeriesResponseV2"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/wind_onshore_share_daily_avg": {
+      "get": {
+        "tags": [
+          "ren_share v2"
+        ],
+        "summary": "Average daily wind onshore share of load",
+        "description": "Average daily wind onshore share of load in percent, either for the trailing 365 days (year = -1) or for a given calendar year. Timestamps mark local midnight of each day.",
+        "operationId": "handler_v2_wind_onshore_share_daily_avg_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CountryV2",
+              "description": "Country code",
+              "default": "de"
+            },
+            "description": "Country code"
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "description": "Calendar year; -1 = trailing 365 days",
+              "default": -1,
+              "title": "Year"
+            },
+            "description": "Calendar year; -1 = trailing 365 days"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeSeriesResponseV2"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/wind_offshore_share": {
+      "get": {
+        "tags": [
+          "ren_share v2"
+        ],
+        "summary": "Wind offshore share of load",
+        "description": "Wind offshore share of load in percent from today until the end of the available forecast, as measured values plus forecast.",
+        "operationId": "handler_v2_wind_offshore_share_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CountryV2",
+              "description": "Country code",
+              "default": "de"
+            },
+            "description": "Country code"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeSeriesResponseV2"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/wind_offshore_share_daily_avg": {
+      "get": {
+        "tags": [
+          "ren_share v2"
+        ],
+        "summary": "Average daily wind offshore share of load",
+        "description": "Average daily wind offshore share of load in percent, either for the trailing 365 days (year = -1) or for a given calendar year. Timestamps mark local midnight of each day.",
+        "operationId": "handler_v2_wind_offshore_share_daily_avg_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CountryV2",
+              "description": "Country code",
+              "default": "de"
+            },
+            "description": "Country code"
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "description": "Calendar year; -1 = trailing 365 days",
+              "default": -1,
+              "title": "Year"
+            },
+            "description": "Calendar year; -1 = trailing 365 days"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeSeriesResponseV2"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No data available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseV2"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public_power": {
+      "get": {
+        "tags": [
+          "power"
+        ],
+        "summary": "Public Power",
+        "description": "Returns the public net electricity production in Megawatt (MW) for a given country for each production type. Subtype can be \"solarlog\" for Switzerland (ch).\n    \n\n\n    \n\nResponse schema:\n    \n\n ```json\n{\n  \"unix_seconds\": list[int],\n  \"production_types\": [\n    {\n        \"name\": str,\n        \"data\": list[float]\n    }\n  ],\n  \"deprecated\": bool\n}\n```",
+        "operationId": "public_power_public_power_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "de",
+              "title": "Country"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Start"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "End"
+            }
+          },
+          {
+            "name": "subtype",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Subtype"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public_power_forecast": {
+      "get": {
+        "tags": [
+          "power"
+        ],
+        "summary": "Public Power Forecast",
+        "description": "Returns the forecast of the public net electricity production in Megawatt (MW) for a given country for each production type.\n    \n\n\n    \n\n<b>production_type:</b> Can be solar, wind_onshore, wind_offshore or load\n    <br><b>forecast_type:</b> Can be current, intraday or day-ahead\n    \n\n\n    \n\nIf no dates are provided, values for today until forecast is available are returned. For load only the forecast type \"day-ahead\" is available.\n    \n\n\n    \n\nResponse schema:\n    \n\n ```json\n{\n  \"unix_seconds\": list[int],\n  \"forecast_values\": list[float],\n  \"production_type\": str,\n  \"forecast_type\": str,\n  \"deprecated\": bool\n}\n```",
+        "operationId": "public_power_forecast_public_power_forecast_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "de",
+              "title": "Country"
+            }
+          },
+          {
+            "name": "production_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "solar",
+              "title": "Production Type"
+            }
+          },
+          {
+            "name": "forecast_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "current",
+              "title": "Forecast Type"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Start"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "End"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicPowerForecastModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/total_power": {
+      "get": {
+        "tags": [
+          "power"
+        ],
+        "summary": "Total Power",
+        "description": "Returns the total net electricity production (including industrial self supply) in Megawatt (MW) for a given country for each production type.\n    \n\n\n    \n\nCurrently only available for Germany.\n    \n\n\n    \n\nResponse schema:\n    \n\n ```json\n{\n  \"unix_seconds\": list[int],\n  \"production_types\": [\n    {\n        \"name\": str,\n        \"data\": list[float]\n    }\n  ],\n  \"deprecated\": bool\n}\n```",
+        "operationId": "total_power_total_power_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "de",
+              "title": "Country"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Start"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "End"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/installed_power": {
+      "get": {
+        "tags": [
+          "power"
+        ],
+        "summary": "Installed Power",
+        "description": "Returns the installed power for a specified country in GW except for battery storage capacity, which is given in GWh. Monthly installation / decommission numbers are returned in MW instead of GW. \"last_update\" is the time of the last data update, expressed as seconds since the Unix epoch (UTC). Note: unlike all other endpoints, the entries in \"time\" label the reporting year or month and the values represent the installed power at the <b>end</b> of that period (or, with installation_decommission=true, the net change during the period).\n    \n\n\n    \n\n<b>time_step:</b> Time step can be either \"yearly\" or \"monthly\" (only for Germany)\n    <br><b>installation_decommission:</b> If true, the net installation / decommission numbers are returned instead of total installed power\n    \n\n\n    \n\nResponse schema:\n    \n\n ```json\n{ \n  \"time\": list[str],\n  \"production_types\": [\n    {\n        \"name\": str, \n        \"data\": list[float]\n    }\n  ],\n  \"last_update\": int,\n  \"deprecated\": bool\n}\n```",
+        "operationId": "installed_power_installed_power_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "de",
+              "title": "Country"
+            }
+          },
+          {
+            "name": "time_step",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "yearly",
+              "title": "Time Step"
+            }
+          },
+          {
+            "name": "installation_decommission",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Installation Decommission"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstalledModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/price": {
+      "get": {
+        "tags": [
+          "prices"
+        ],
+        "summary": "Day Ahead Price",
+        "description": "Returns the day-ahead spot market price for a specified bidding zone in EUR/MWh.\n    \n\n\n    \n\nAvailable bidding zones (bzn) are shown above.\n    \n\n\n    \n\n<b>The data for the following bidding zones is licensed as <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\">CC BY 4.0</a> from Bundesnetzagentur | SMARD.de and is published without changes:\n    <ul>\n        <li>AT (Austria)</li>\n        <li>BE (Belgium)</li>\n        <li>CH (Switzerland)</li>\n        <li>CZ (Czech Republic)</li>\n        <li>DE-LU (Germany, Luxembourg)</li>\n        <li>DE-AT-LU (Germany, Austria, Luxembourg)</li>\n        <li>DK1 (Denmark 1)</li>\n        <li>DK2 (Denmark 2)</li>\n        <li>FR (France)</li>\n        <li>HU (Hungary)</li>\n        <li>IT-North (Italy North)</li>\n        <li>NL (Netherlands)</li>\n        <li>NO2 (Norway 2)</li>\n        <li>PL (Poland)</li>\n        <li>SE4 (Sweden 4)</li>\n        <li>SI (Slovenia)\n    </ul></b>\n    \n\n\n    \n\n<b>The data for the other bidding zones is for private and internal use only. The utilization of any data</li>\nwhether in its raw or derived form, for external or commercial purposes is expressly prohibited. Should you require licensing for market-related data, please direct your inquiries to the original data providers, including but not limited to EPEX SPOT SE.</b>\n    \n\nResponse schema:\n    \n\n```json\n{\n    \"license_info\": str,\n    \"unix_seconds\": [int],\n    \"price\": [float],\n    \"unit\": str,\n    \"deprecated\": bool\n}\n```",
+        "operationId": "day_ahead_price_price_get",
+        "parameters": [
+          {
+            "name": "bzn",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "DE-LU",
+              "title": "Bzn"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Start"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "End"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PriceModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No price data available for that bidding zone/time range"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cbet": {
+      "get": {
+        "tags": [
+          "import_export"
+        ],
+        "summary": "Cross Border Electricity Trading",
+        "description": "Returns the cross-border electricity trading (cbet) in GW between a specified country and its neighbors.\n        \n\nPositive values indicate an import of electricity, whereas negative values show electricity exports.\n        \n\n\n        \n\nResponse schema:\n        \n\n```json\n{\n    \"unix_seconds\": [int],\n    \"countries\": [\n        {\n        \"name\": str,\n        \"data\": [float]\n        }\n    ],\n    \"deprecated\": bool\n}\n```",
+        "operationId": "cross_border_electricity_trading_cbet_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "de",
+              "title": "Country"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Start"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "End"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CrossBorderModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cbpf": {
+      "get": {
+        "tags": [
+          "import_export"
+        ],
+        "summary": "Cross Border Physical Flows",
+        "description": "Returns the cross-border physical flows (cbpfs) of electricity in GW between a specified country and its neighbors.\n        \n\nPositive values indicate an import of electricity, whereas negative values show electricity exports.\n        \n\n\n        \n\nResponse schema:\n        \n\n```json\n{\n    \"unix_seconds\": [int],\n    \"countries\": [\n        {\n        \"name\": str,\n        \"data\": [float]\n        }\n    ],\n    \"deprecated\": bool\n}\n```",
+        "operationId": "cross_border_physical_flows_cbpf_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "de",
+              "title": "Country"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Start"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "End"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CrossBorderModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/signal": {
+      "get": {
+        "tags": [
+          "ren_share"
+        ],
+        "summary": "Traffic Signal",
+        "description": "<b>Electricity traffic signal</b>\n    \n\n\n    \n\nReturns the renewable share of load in percent from today until prediction is currently available and the corresponding traffic light.\n    \n\n\n    \n\nThe traffic light \"signal\" is indicated by the following numbers:\n    \n\n\n    -1: Red (grid congestion),\n    0: Red (low renewable share),\n    1: Yellow (average renewable share),\n    2: Green (high renewable share)\n    \n\n\n    \n\nIf no data is available from the primary data providers, a best guess is made from historic data. This is indicated by \"substitute\" set to True.\n    \n\n\n    \n\n\"postal_code\" is an optional input parameter, which will consider the local grid state (e.g. transmission line overload) in future implementations.\n    \n\n\n    \n\nResponse schema:\n    \n\n```json\n{\n    \"unix_seconds\": [int],\n    \"share\": [float],\n    \"signal\": [int],\n    \"substitute\": bool,\n    \"deprecated\": bool\n}\n```",
+        "operationId": "traffic_signal_signal_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "de",
+              "title": "Country"
+            }
+          },
+          {
+            "name": "postal_code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Postal Code"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TrafficModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ren_share_forecast": {
+      "get": {
+        "tags": [
+          "ren_share"
+        ],
+        "summary": "Renewable Share Forecast",
+        "description": "<b>Renewable share forecast</b>\n    \n\n\n    \n\nReturns the renewable share of load forecast in percent from today until prediction is currently available. It also includes the forecast for solar, wind on- and offshore share of load.\n    \n\n\n    \n\nIf no data is available from the primary data providers, a best guess is made from historic data. This is indicated by \"substitute\" set to True.\n    \n\n\n    \n\nResponse schema:\n    \n\n```json\n{\n    \"unix_seconds\": [int],\n    \"ren_share\": [float],\n    \"solar_share\": [float],\n    \"wind_onshore_share\": [float],\n    \"wind_offshore_share\": [float],\n    \"substitute\": bool,\n    \"deprecated\": bool\n}\n```",
+        "operationId": "renewable_share_forecast_ren_share_forecast_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "de",
+              "title": "Country"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenShareModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ren_share_daily_avg": {
+      "get": {
+        "tags": [
+          "ren_share"
+        ],
+        "summary": "Ren Share Daily Avg",
+        "description": "<b>Average daily renewable share of load</b>\n    \n\n\n    \n\nReturns the average daily renewable share of load of the last 365 days (year = -1) or for a given year if provided.\n    \n\n\n    \n\nResponse schema:\n    \n\n```json\n\n    {\n        \"days\": [\"dd.mm.yyyy\"],\n        \"data\": [float],\n        \"deprecated\": bool\n    }\n\n    ```",
+        "operationId": "ren_share_daily_avg_ren_share_daily_avg_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "de",
+              "title": "Country"
+            }
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": -1,
+              "title": "Year"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DailyAvgDict"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/solar_share": {
+      "get": {
+        "tags": [
+          "ren_share"
+        ],
+        "summary": "Solar Share",
+        "description": "<b>Solar Share of Load</b>\n    \n\n\n    \n\nReturns the solar share of load from today until prediction is currently available\n    \n\n\n    \n\nResponse schema:\n    \n\n```json\n{\n    \"unix_seconds\": list[int],\n    \"data\": list[float],\n    \"forecast\": list[float],\n    \"deprecated\": bool\n}\n```",
+        "operationId": "solar_share_solar_share_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "de",
+              "title": "Country"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShareModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/solar_share_daily_avg": {
+      "get": {
+        "tags": [
+          "ren_share"
+        ],
+        "summary": "Solar Share Daily Avg",
+        "description": "<b>Average daily solar share of load</b>\n    \n\n\n    \n\nReturns the average daily solar share of load of the last 365 days (year = -1) or for a given year if provided.\n    \n\n\n    \n\nResponse schema:\n    \n\n```json\n{\n    \"days\": [\"dd.mm.yyyy\"],\n    \"data\": [float],\n    \"deprecated\": bool\n}\n```",
+        "operationId": "solar_share_daily_avg_solar_share_daily_avg_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "de",
+              "title": "Country"
+            }
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": -1,
+              "title": "Year"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DailyAvgDict"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wind_onshore_share": {
+      "get": {
+        "tags": [
+          "ren_share"
+        ],
+        "summary": "Wind Onshore Share",
+        "description": "<b>Wind Onshore Share of Load</b>\n    \n\n\n    \n\nReturns the wind onshore share of load from today until prediction is currently available\n    \n\n\n    \n\nResponse schema:\n    \n\n```json\n{\n    \"unix_seconds\": list[int],\n    \"data\": list[float],\n    \"forecast\": list[float],\n    \"deprecated\": bool\n}\n```",
+        "operationId": "wind_onshore_share_wind_onshore_share_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "de",
+              "title": "Country"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShareModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wind_onshore_share_daily_avg": {
+      "get": {
+        "tags": [
+          "ren_share"
+        ],
+        "summary": "Wind Onshore Share Daily Avg",
+        "description": "<b>Average daily wind onshore share of load</b>\n    \n\n\n    \n\nReturns the average daily wind onshore share of load of the last 365 days\n    \n\n\n    \n\nResponse schema:\n    \n\n```json\n{\n    \"days\": [\"dd.mm.yyyy\"],\n    \"data\": [float],\n    \"deprecated\": bool\n}\n```",
+        "operationId": "wind_onshore_share_daily_avg_wind_onshore_share_daily_avg_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "de",
+              "title": "Country"
+            }
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": -1,
+              "title": "Year"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DailyAvgDict"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wind_offshore_share": {
+      "get": {
+        "tags": [
+          "ren_share"
+        ],
+        "summary": "Wind Offshore Share",
+        "description": "<b>Wind Offshore Share of Load</b>\n    \n\n\n    \n\nReturns the wind offshore share of load from today until prediction is currently available\n    \n\n\n    \n\nResponse schema:\n    \n\n```json\n{\n    \"unix_seconds\": list[int],\n    \"data\": list[float],\n    \"forecast\": list[float],\n    \"deprecated\": bool\n}\n```",
+        "operationId": "wind_offshore_share_wind_offshore_share_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "de",
+              "title": "Country"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShareModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wind_offshore_share_daily_avg": {
+      "get": {
+        "tags": [
+          "ren_share"
+        ],
+        "summary": "Wind Offshore Share Daily Avg",
+        "description": "<b>Average daily wind offshore share of load</b>\n    \n\n\n    \n\nReturns the average daily wind offshore share of load of the last 365 days\n    \n\n\n    \n\nResponse schema:\n    \n\n```json\n\n{\n    \"days\": [\"dd.mm.yyyy\"],\n    \"data\": [float],\n    \"deprecated\": bool\n}\n\n```",
+        "operationId": "wind_offshore_share_daily_avg_wind_offshore_share_daily_avg_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "de",
+              "title": "Country"
+            }
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": -1,
+              "title": "Year"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DailyAvgDict"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/frequency": {
+      "get": {
+        "tags": [
+          "power"
+        ],
+        "summary": "Frequency",
+        "description": "Returns the frequency measured at Fraunhofer ISE in Freiburg, Germany. Currently only the frequency in RG Continental Europe (formerly UCTE) is available. The data is available in 1 second timesteps from 1st of May 2022 onwards.\n    \n\n\n    \n\nResponse schema:\n    \n\n ```json\n{\n  \"unix_seconds\": list[int],\n  \"data\": list[float],\n  \"deprecated\": bool\n}\n```",
+        "operationId": "frequency_frequency_get",
+        "parameters": [
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "DE-Freiburg",
+              "title": "Region"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Start"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "End"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FrequencyModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BiddingZoneV2": {
+        "type": "string",
+        "enum": [
+          "DE-LU",
+          "AT",
+          "BE",
+          "BG",
+          "CH",
+          "CZ",
+          "DK1",
+          "DK2",
+          "EE",
+          "ES",
+          "FI",
+          "FR",
+          "GR",
+          "HR",
+          "HU",
+          "IT-Calabria",
+          "IT-Centre-North",
+          "IT-Centre-South",
+          "IT-North",
+          "IT-SACOAC",
+          "IT-SACODC",
+          "IT-Sardinia",
+          "IT-Sicily",
+          "IT-South",
+          "LT",
+          "LV",
+          "ME",
+          "NL",
+          "NO1",
+          "NO2",
+          "NO2NSL",
+          "NO3",
+          "NO4",
+          "NO5",
+          "PL",
+          "PT",
+          "RO",
+          "RS",
+          "SE1",
+          "SE2",
+          "SE3",
+          "SE4",
+          "SI",
+          "SK",
+          "DE-AT-LU",
+          "IE(SEM)",
+          "UA-IPS",
+          "UA-BEI",
+          "IT-Brindisi",
+          "IT-Foggia",
+          "IT-GR",
+          "IT-North-AT",
+          "IT-North-CH",
+          "IT-North-SI",
+          "IT-North-FR",
+          "IT-Priolo",
+          "IT-Rossano"
+        ],
+        "title": "BiddingZoneV2",
+        "description": "European day-ahead market bidding zone."
+      },
+      "CatalogEntryV2": {
+        "properties": {
+          "path": {
+            "type": "string",
+            "title": "Path",
+            "description": "Absolute request path.",
+            "examples": [
+              "/v2/public_power"
+            ]
+          },
+          "method": {
+            "type": "string",
+            "title": "Method",
+            "description": "HTTP method.",
+            "examples": [
+              "GET"
+            ]
+          },
+          "summary": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Summary",
+            "description": "One-line summary."
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description",
+            "description": "Full description."
+          },
+          "tag": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tag",
+            "description": "OpenAPI tag group."
+          },
+          "parameters": {
+            "items": {
+              "$ref": "#/components/schemas/ParameterDescriptorV2"
+            },
+            "type": "array",
+            "title": "Parameters",
+            "description": "Query parameters accepted by this endpoint."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "path",
+          "method",
+          "parameters"
+        ],
+        "title": "CatalogEntryV2",
+        "description": "Describes one v2 endpoint."
+      },
+      "CatalogResponseV2": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "title": "Schema Version",
+            "description": "Version of the v2 response schema."
+          },
+          "title": {
+            "type": "string",
+            "title": "Title",
+            "description": "API title."
+          },
+          "description": {
+            "type": "string",
+            "title": "Description",
+            "description": "What this API provides and how to read responses."
+          },
+          "openapi_url": {
+            "type": "string",
+            "title": "Openapi Url",
+            "description": "Path of the full OpenAPI 3 schema."
+          },
+          "response_envelope": {
+            "type": "string",
+            "title": "Response Envelope",
+            "description": "Name of the uniform response model every data endpoint returns."
+          },
+          "endpoints": {
+            "items": {
+              "$ref": "#/components/schemas/CatalogEntryV2"
+            },
+            "type": "array",
+            "title": "Endpoints",
+            "description": "All available v2 endpoints."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "schema_version",
+          "title",
+          "description",
+          "openapi_url",
+          "response_envelope",
+          "endpoints"
+        ],
+        "title": "CatalogResponseV2",
+        "description": "Self-describing directory of the v2 API, returned by ``GET /v2``."
+      },
+      "CountryV2": {
+        "type": "string",
+        "enum": [
+          "ch",
+          "eu",
+          "all",
+          "at",
+          "ba",
+          "be",
+          "bg",
+          "cy",
+          "cz",
+          "de",
+          "dk",
+          "ee",
+          "es",
+          "fi",
+          "fr",
+          "ge",
+          "gr",
+          "hr",
+          "hu",
+          "ie",
+          "it",
+          "lt",
+          "lu",
+          "lv",
+          "md",
+          "me",
+          "mk",
+          "nl",
+          "no",
+          "pl",
+          "pt",
+          "ro",
+          "rs",
+          "se",
+          "si",
+          "sk",
+          "ua",
+          "uk",
+          "xk"
+        ],
+        "title": "CountryV2",
+        "description": "ISO-like country code accepted by the Energy-Charts API."
+      },
+      "CrossBorderModel": {
+        "properties": {
+          "unix_seconds": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unix Seconds"
+          },
+          "countries": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/NamedData"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Countries"
+          },
+          "deprecated": {
+            "type": "boolean",
+            "title": "Deprecated"
+          }
+        },
+        "type": "object",
+        "required": [
+          "deprecated"
+        ],
+        "title": "CrossBorderModel"
+      },
+      "DailyAvgDict": {
+        "properties": {
+          "days": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Days",
+            "description": "List of days in the format dd.mm.yyyy"
+          },
+          "data": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Data",
+            "description": "List of average daily values"
+          },
+          "deprecated": {
+            "type": "boolean",
+            "title": "Deprecated"
+          }
+        },
+        "type": "object",
+        "required": [
+          "days",
+          "data",
+          "deprecated"
+        ],
+        "title": "DailyAvgDict"
+      },
+      "DataPointV2": {
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "title": "Timestamp",
+            "description": "ISO 8601 timestamp with UTC offset, expressed in the envelope `timezone`. Marks the START of the period the values refer to. Single exception: `installed_power`, where the timestamp labels the reporting year or month and values represent the state at the END of that period (or the net change during it, with installation_decommission=true).",
+            "examples": [
+              "2026-07-20T12:15:00+02:00"
+            ]
+          },
+          "values": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": "object",
+            "title": "Values",
+            "description": "Mapping of series id -> value. `null` means the value is not (yet) available for this timestamp.",
+            "examples": [
+              {
+                "solar": 42135.7,
+                "wind_onshore": 18421.3
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "timestamp",
+          "values"
+        ],
+        "title": "DataPointV2",
+        "description": "One timestamped record holding the value of every series."
+      },
+      "ErrorResponseV2": {
+        "properties": {
+          "detail": {
+            "type": "string",
+            "title": "Detail",
+            "description": "Human readable error description."
+          }
+        },
+        "type": "object",
+        "required": [
+          "detail"
+        ],
+        "title": "ErrorResponseV2",
+        "description": "Standard error body (FastAPI default shape, documented explicitly)."
+      },
+      "ForecastProductionTypeV2": {
+        "type": "string",
+        "enum": [
+          "solar",
+          "wind_onshore",
+          "wind_offshore",
+          "load",
+          "wind"
+        ],
+        "title": "ForecastProductionTypeV2",
+        "description": "Production types for which forecasts are published."
+      },
+      "ForecastTypeV2": {
+        "type": "string",
+        "enum": [
+          "current",
+          "intraday",
+          "day-ahead",
+          "week-ahead"
+        ],
+        "title": "ForecastTypeV2",
+        "description": "Forecast horizon / publication time."
+      },
+      "FrequencyModel": {
+        "properties": {
+          "unix_seconds": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unix Seconds"
+          },
+          "data": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Data"
+          },
+          "deprecated": {
+            "type": "boolean",
+            "title": "Deprecated"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data",
+          "deprecated"
+        ],
+        "title": "FrequencyModel"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "InstalledModel": {
+        "properties": {
+          "time": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Time"
+          },
+          "production_types": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/NamedData"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Production Types"
+          },
+          "last_update": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Update"
+          },
+          "deprecated": {
+            "type": "boolean",
+            "title": "Deprecated"
+          }
+        },
+        "type": "object",
+        "required": [
+          "time",
+          "last_update",
+          "deprecated"
+        ],
+        "title": "InstalledModel"
+      },
+      "NamedData": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "data": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "data"
+        ],
+        "title": "NamedData"
+      },
+      "ParameterDescriptorV2": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Query parameter name."
+          },
+          "type": {
+            "type": "string",
+            "title": "Type",
+            "description": "JSON type of the parameter (string, integer, boolean)."
+          },
+          "required": {
+            "type": "boolean",
+            "title": "Required",
+            "description": "Whether the parameter must be provided."
+          },
+          "default": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Default",
+            "description": "Default value used when the parameter is omitted."
+          },
+          "allowed_values": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Allowed Values",
+            "description": "Closed list of accepted values, if the parameter is an enum."
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description",
+            "description": "Free-text explanation of the parameter."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "name",
+          "type",
+          "required"
+        ],
+        "title": "ParameterDescriptorV2",
+        "description": "Describes one query parameter of a catalog entry."
+      },
+      "PriceModel": {
+        "properties": {
+          "license_info": {
+            "type": "string",
+            "title": "License Info"
+          },
+          "unix_seconds": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unix Seconds"
+          },
+          "price": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price"
+          },
+          "unit": {
+            "type": "string",
+            "title": "Unit"
+          },
+          "deprecated": {
+            "type": "boolean",
+            "title": "Deprecated"
+          }
+        },
+        "type": "object",
+        "required": [
+          "license_info",
+          "unit",
+          "deprecated"
+        ],
+        "title": "PriceModel"
+      },
+      "ProductionModel": {
+        "properties": {
+          "unix_seconds": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unix Seconds"
+          },
+          "production_types": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/NamedData"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Production Types"
+          },
+          "deprecated": {
+            "type": "boolean",
+            "title": "Deprecated"
+          }
+        },
+        "type": "object",
+        "required": [
+          "deprecated"
+        ],
+        "title": "ProductionModel"
+      },
+      "PublicPowerForecastModel": {
+        "properties": {
+          "unix_seconds": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Unix Seconds"
+          },
+          "forecast_values": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Forecast Values"
+          },
+          "production_type": {
+            "type": "string",
+            "title": "Production Type"
+          },
+          "forecast_type": {
+            "type": "string",
+            "title": "Forecast Type"
+          },
+          "deprecated": {
+            "type": "boolean",
+            "title": "Deprecated"
+          }
+        },
+        "type": "object",
+        "required": [
+          "unix_seconds",
+          "forecast_values",
+          "production_type",
+          "forecast_type",
+          "deprecated"
+        ],
+        "title": "PublicPowerForecastModel"
+      },
+      "RenShareModel": {
+        "properties": {
+          "unix_seconds": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Unix Seconds"
+          },
+          "ren_share": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Ren Share"
+          },
+          "solar_share": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Solar Share"
+          },
+          "wind_onshore_share": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wind Onshore Share"
+          },
+          "wind_offshore_share": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wind Offshore Share"
+          },
+          "substitute": {
+            "type": "boolean",
+            "title": "Substitute"
+          },
+          "deprecated": {
+            "type": "boolean",
+            "title": "Deprecated"
+          }
+        },
+        "type": "object",
+        "required": [
+          "unix_seconds",
+          "ren_share",
+          "substitute",
+          "deprecated"
+        ],
+        "title": "RenShareModel"
+      },
+      "SeriesDescriptorV2": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "description": "Stable snake_case identifier. Key of this series inside every `data[*].values` object.",
+            "examples": [
+              "wind_onshore"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Human readable display name of the series.",
+            "examples": [
+              "Wind onshore"
+            ]
+          },
+          "unit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unit",
+            "description": "Unit of this series if it differs from the envelope-level `unit`. Omitted when the envelope-level unit applies.",
+            "examples": [
+              "%"
+            ]
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description",
+            "description": "Free-text explanation of the series semantics. Omitted when there is nothing to explain beyond the name."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "title": "SeriesDescriptorV2",
+        "description": "Describes one series contained in ``data[*].values``.\n\n``unit`` and ``description`` are omitted from the JSON output when unset,\nso a plain entry is just ``{\"id\": ..., \"name\": ...}`` and the\nenvelope-level ``unit`` applies."
+      },
+      "ShareModel": {
+        "properties": {
+          "unix_seconds": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unix Seconds"
+          },
+          "data": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data"
+          },
+          "forecast": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Forecast"
+          },
+          "deprecated": {
+            "type": "boolean",
+            "title": "Deprecated"
+          }
+        },
+        "type": "object",
+        "required": [
+          "deprecated"
+        ],
+        "title": "ShareModel"
+      },
+      "TimeSeriesResponseV2": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "title": "Schema Version",
+            "description": "Version of this response schema.",
+            "examples": [
+              "2.0"
+            ]
+          },
+          "endpoint": {
+            "type": "string",
+            "title": "Endpoint",
+            "description": "Name of the endpoint that produced this response.",
+            "examples": [
+              "public_power"
+            ]
+          },
+          "country": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Country",
+            "description": "Country code the data refers to (lowercase), if applicable.",
+            "examples": [
+              "de"
+            ]
+          },
+          "bidding_zone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bidding Zone",
+            "description": "Bidding zone the data refers to, if applicable.",
+            "examples": [
+              "DE-LU"
+            ]
+          },
+          "timezone": {
+            "type": "string",
+            "title": "Timezone",
+            "description": "IANA timezone in which all timestamps of this response are expressed.",
+            "examples": [
+              "Europe/Berlin"
+            ]
+          },
+          "resolution": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Resolution",
+            "description": "Temporal resolution as ISO 8601 duration (e.g. PT15M, PT1H, P1D, P1M, P1Y). `null` if the time axis is irregular.",
+            "examples": [
+              "PT15M"
+            ]
+          },
+          "interval_minutes": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Interval Minutes",
+            "description": "Temporal resolution in minutes. `null` if irregular or if the step is calendar based (months / years).",
+            "examples": [
+              15
+            ]
+          },
+          "unit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unit",
+            "description": "Default unit of all series. Individual series may override it via `series[*].unit`.",
+            "examples": [
+              "MW"
+            ]
+          },
+          "generated_at": {
+            "type": "string",
+            "title": "Generated At",
+            "description": "ISO 8601 time at which this response body was generated. Responses may be served from a short-lived cache; this field always reflects the true generation time.",
+            "examples": [
+              "2026-07-20T19:45:00+02:00"
+            ]
+          },
+          "available_from": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Available From",
+            "description": "Timestamp of the first record that contains at least one non-null value. `null` if the response is empty."
+          },
+          "available_until": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Available Until",
+            "description": "Timestamp of the last record that contains at least one non-null value (data availability at generation time). `null` if the response is empty."
+          },
+          "series": {
+            "items": {
+              "$ref": "#/components/schemas/SeriesDescriptorV2"
+            },
+            "type": "array",
+            "title": "Series",
+            "description": "Descriptors of all series present in `data[*].values`."
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/DataPointV2"
+            },
+            "type": "array",
+            "title": "Data",
+            "description": "Chronologically ordered records."
+          },
+          "attributes": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Attributes",
+            "description": "Endpoint specific metadata (e.g. forecast_type)."
+          },
+          "license": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "License",
+            "description": "License of the data in this response."
+          },
+          "deprecated": {
+            "type": "boolean",
+            "title": "Deprecated",
+            "description": "True if this endpoint is scheduled for discontinuation."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "schema_version",
+          "endpoint",
+          "timezone",
+          "generated_at",
+          "series",
+          "data",
+          "deprecated"
+        ],
+        "title": "TimeSeriesResponseV2",
+        "description": "Uniform, self-describing time-series envelope of all v2 endpoints.",
+        "example": {
+          "attributes": {},
+          "available_from": "2026-07-20T00:00:00+02:00",
+          "available_until": "2026-07-20T19:30:00+02:00",
+          "country": "de",
+          "data": [
+            {
+              "timestamp": "2026-07-20T12:00:00+02:00",
+              "values": {
+                "renewable_share_of_load": 61.4,
+                "solar": 42135.7,
+                "wind_onshore": 18421.3
+              }
+            },
+            {
+              "timestamp": "2026-07-20T12:15:00+02:00",
+              "values": {
+                "renewable_share_of_load": 62.0,
+                "solar": 42891.2,
+                "wind_onshore": 18154.8
+              }
+            }
+          ],
+          "deprecated": false,
+          "endpoint": "public_power",
+          "generated_at": "2026-07-20T19:45:00+02:00",
+          "interval_minutes": 15,
+          "license": "CC BY 4.0 (creativecommons.org/licenses/by/4.0), attribution: energy-charts.info",
+          "resolution": "PT15M",
+          "schema_version": "2.0",
+          "series": [
+            {
+              "id": "solar",
+              "name": "Solar"
+            },
+            {
+              "id": "wind_onshore",
+              "name": "Wind onshore"
+            },
+            {
+              "id": "renewable_share_of_load",
+              "name": "Renewable share of load",
+              "unit": "%"
+            }
+          ],
+          "timezone": "Europe/Berlin",
+          "unit": "MW"
+        }
+      },
+      "TimeStepV2": {
+        "type": "string",
+        "enum": [
+          "yearly",
+          "monthly"
+        ],
+        "title": "TimeStepV2",
+        "description": "Aggregation step for installed power."
+      },
+      "TrafficModel": {
+        "properties": {
+          "unix_seconds": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Unix Seconds"
+          },
+          "share": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Share"
+          },
+          "signal": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Signal",
+            "description": "\n    0: Red (low renewable share)\n    1: Yellow (average renewable share)\n    2: Green (high renewable share)\n    "
+          },
+          "substitute": {
+            "type": "boolean",
+            "title": "Substitute"
+          },
+          "deprecated": {
+            "type": "boolean",
+            "title": "Deprecated"
+          }
+        },
+        "type": "object",
+        "required": [
+          "unix_seconds",
+          "share",
+          "substitute",
+          "deprecated"
+        ],
+        "title": "TrafficModel"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "v2",
+      "description": "Machine-readable API v2: catalog and uniform envelope"
+    },
+    {
+      "name": "power v2",
+      "description": "Power values in the uniform, machine-readable v2 envelope"
+    },
+    {
+      "name": "prices v2",
+      "description": "Price values in the uniform, machine-readable v2 envelope"
+    },
+    {
+      "name": "import_export v2",
+      "description": "Import/export values in the uniform, machine-readable v2 envelope"
+    },
+    {
+      "name": "ren_share v2",
+      "description": "Renewable shares in the uniform, machine-readable v2 envelope"
+    },
+    {
+      "name": "power",
+      "description": "Query power values (legacy v1)"
+    },
+    {
+      "name": "import_export",
+      "description": "Import/export values (legacy v1)"
+    },
+    {
+      "name": "prices",
+      "description": "Query price values (legacy v1)"
+    },
+    {
+      "name": "ren_share",
+      "description": "Renewable shares (legacy v1)"
+    }
+  ]
+}
