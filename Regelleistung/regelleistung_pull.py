@@ -3,9 +3,21 @@
 regelleistung.net Datacenter — production pull (download raw day files, build parquet).
 
 Default scope = what the thesis needs: German / FCR-cooperation CAPACITY tender
-results (prices + demand) for FCR, aFRR, mFRR, 2015-01-01 -> 2026-08-31
+results (prices + demand) for FCR, aFRR, mFRR, 2018-07-01 -> 2026-08-31
 (data cut-off 31 Aug 2026). Anonymous bid lists, demands and the ENERGY market
 are available with --only.
+
+Coverage (probe 2026-09-29): the datacenter starts with the daily auctions —
+aFRR/mFRR from Jul 2018 (4h blocks), FCR from Jul 2019 (daily NEGPOS_00_24,
+4h blocks from Jul 2020). Earlier (weekly) German tenders are NOT served;
+requests before that return an empty workbook (-> .empty). Hence the default
+start 2018-07-01; --start 2015-01-01 works but only adds empty days.
+Schema breaks to handle in the clean layer (kept as separate columns here):
+  - aFRR/mFRR capacity price unit: [EUR/MW] per block until 2021 ->
+    [(EUR/MW)/h] from 2022 (columns *_eur_mw vs *_eur_mw_h); energy-price
+    columns only until 2021 (separate energy market from Nov 2020).
+  - FCR country prefix: AT_/DE_/CH_ ... until 2022 -> AUSTRIA_/GERMANY_/... from
+    2023, and IMPORT(-)_EXPORT(+) -> DEFICIT(-)_SURPLUS(+) (check the sign).
 
 Run from the thesis root (venv active). Run the probe first.
     python Regelleistung/regelleistung_pull.py --plan                       # what would be requested
@@ -313,6 +325,11 @@ def build(tasks: list[probe.Task], years: list[int], raw_root: Path, out_root: P
                 continue
             df = pd.concat(frames, ignore_index=True, sort=False)
             n_raw = len(df)
+            if n_raw == 0:                      # header-only workbooks: nothing to write
+                man_rows.append({"task": t.key, "year": y, "files": len(files),
+                                 "empty_days": n_empty, "rows_raw": 0, "rows": 0,
+                                 "status": "empty"})
+                continue
             for c in df.columns:
                 if c != "query_date":
                     df[c] = to_numeric_if_clean(df[c])
@@ -365,7 +382,8 @@ def main() -> int:
     here = Path(__file__).resolve().parent
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--start", default="2015-01-01", help="first delivery day, inclusive")
+    ap.add_argument("--start", default="2018-07-01",
+                    help="first delivery day, inclusive (datacenter has nothing earlier)")
     ap.add_argument("--end", default="2026-09-01", help="exclusive (default = cut-off 31 Aug 2026)")
     ap.add_argument("--only", default="",
                     help="tasks as in the probe: 'results', 'anonymous:CAPACITY:aFRR', 'ENERGY', "

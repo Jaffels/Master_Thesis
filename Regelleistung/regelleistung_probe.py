@@ -41,6 +41,7 @@ import hashlib
 import io
 import sys
 import time
+import warnings
 from pathlib import Path
 
 import pandas as pd
@@ -62,6 +63,9 @@ BACKOFF_S = (5, 20, 60)          # waits before attempt 2, 3, 4
 RETRY_STATUS = {429, 500, 502, 503, 504}
 HEADERS = {"User-Agent": "Mozilla/5.0 (academic research; master thesis data download)",
            "Accept": "*/*"}
+# Every datacenter xlsx triggers this harmless openpyxl warning -> silence it
+warnings.filterwarnings("ignore", message="Workbook contains no default style",
+                        category=UserWarning, module="openpyxl")
 NULL_TOKENS = {"", "-", "n/a", "N/A", "n.a.", "NaN", "nan", "None"}
 
 
