@@ -1,8 +1,0 @@
-[11:26:41] Plan: 12 solar calls, 528 frequency calls (2022-05-01 -> 2026-08-31, 3-day windows), gap 33 s, raw=yes
-[11:26:41] ETA ~5.2 h
-[11:26:41] SOLAR: 12 requests to do (~7 min)
-[11:26:41]   solarlog_2021
-[11:26:41]     -> empty (404, before series start)
-[11:26:41]   public_power_2021
-[11:27:15]     -> ok, 8,760 rows, 2020-12-31 23:00:00+00:00 -> 2021-12-31 22:00:00+00:00, cols ['cross_border_electricity_trading', 'nuclear', 'hydro_run_of_river', 'hydro_water_reservoir', 'hydro_pumped_storage', 'others', 'wind_onshore', 'solar', 'load', 'residual_load', 'renewable_share_of_load', 'renewable_share_of_generation']
-[11:27:15]   solarlog_2022
