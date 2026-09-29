@@ -1,0 +1,1447 @@
+
+===== Load  13:09
+13:09:45 | INFO    | coverage: _coverage_post_split.csv | 28 ok series x 6 years = 168 series-years | 2015-01-01 -> 2021-01-01
+13:09:45 | INFO    | using ENTSOE_API_KEY from /Users/johan/Master_Thesis/.env
+13:10:04 | INFO    | [1/168] OK  actual_load__A16_realised__CH__2015                8760 rows -> actual_load/A16_realised/CH/2015.parquet
+13:10:43 | INFO    | [2/168] OK  actual_load__A16_realised__CH__2016                8784 rows -> actual_load/A16_realised/CH/2016.parquet
+13:11:12 | INFO    | [3/168] OK  actual_load__A16_realised__CH__2017                8760 rows -> actual_load/A16_realised/CH/2017.parquet
+13:11:45 | INFO    | [4/168] OK  actual_load__A16_realised__CH__2018                8760 rows -> actual_load/A16_realised/CH/2018.parquet
+13:12:03 | INFO    | [5/168] OK  actual_load__A16_realised__CH__2019                8760 rows -> actual_load/A16_realised/CH/2019.parquet
+13:12:23 | INFO    | [6/168] OK  actual_load__A16_realised__CH__2020                8784 rows -> actual_load/A16_realised/CH/2020.parquet
+13:12:45 | INFO    | [7/168] OK  actual_load__A16_realised__DE_LU__2015            35040 rows -> actual_load/A16_realised/DE_LU/2015.parquet
+13:13:11 | INFO    | [8/168] OK  actual_load__A16_realised__DE_LU__2016            35136 rows -> actual_load/A16_realised/DE_LU/2016.parquet
+13:13:28 | INFO    | [9/168] OK  actual_load__A16_realised__DE_LU__2017            35040 rows -> actual_load/A16_realised/DE_LU/2017.parquet
+13:13:44 | INFO    | [10/168] OK  actual_load__A16_realised__DE_LU__2018            35024 rows -> actual_load/A16_realised/DE_LU/2018.parquet
+13:13:58 | INFO    | [11/168] OK  actual_load__A16_realised__DE_LU__2019            35040 rows -> actual_load/A16_realised/DE_LU/2019.parquet
+13:14:15 | INFO    | [12/168] OK  actual_load__A16_realised__DE_LU__2020            35136 rows -> actual_load/A16_realised/DE_LU/2020.parquet
+13:14:28 | INFO    | [13/168] OK  actual_load__A16_realised__FR__2015                8759 rows -> actual_load/A16_realised/FR/2015.parquet
+13:14:40 | INFO    | [14/168] OK  actual_load__A16_realised__FR__2016                8778 rows -> actual_load/A16_realised/FR/2016.parquet
+13:14:50 | INFO    | [15/168] OK  actual_load__A16_realised__FR__2017                8741 rows -> actual_load/A16_realised/FR/2017.parquet
+13:14:57 | INFO    | [16/168] OK  actual_load__A16_realised__FR__2018                8743 rows -> actual_load/A16_realised/FR/2018.parquet
+13:15:40 | INFO    | [17/168] OK  actual_load__A16_realised__FR__2019                8752 rows -> actual_load/A16_realised/FR/2019.parquet
+13:16:23 | INFO    | [18/168] OK  actual_load__A16_realised__FR__2020                8782 rows -> actual_load/A16_realised/FR/2020.parquet
+13:16:58 | INFO    | [19/168] OK  actual_load__A16_realised__IT_NORD__2015           8760 rows -> actual_load/A16_realised/IT_NORD/2015.parquet
+13:17:35 | INFO    | [20/168] OK  actual_load__A16_realised__IT_NORD__2016           8784 rows -> actual_load/A16_realised/IT_NORD/2016.parquet
+13:17:52 | INFO    | [21/168] OK  actual_load__A16_realised__IT_NORD__2017           8760 rows -> actual_load/A16_realised/IT_NORD/2017.parquet
+13:18:13 | INFO    | [22/168] OK  actual_load__A16_realised__IT_NORD__2018           8760 rows -> actual_load/A16_realised/IT_NORD/2018.parquet
+13:18:28 | INFO    | [23/168] OK  actual_load__A16_realised__IT_NORD__2019           8760 rows -> actual_load/A16_realised/IT_NORD/2019.parquet
+13:18:42 | INFO    | [24/168] OK  actual_load__A16_realised__IT_NORD__2020           8784 rows -> actual_load/A16_realised/IT_NORD/2020.parquet
+13:18:55 | INFO    | [25/168] OK  actual_load__A16_realised__AT__2015               35040 rows -> actual_load/A16_realised/AT/2015.parquet
+13:19:09 | INFO    | [26/168] OK  actual_load__A16_realised__AT__2016               35136 rows -> actual_load/A16_realised/AT/2016.parquet
+13:19:23 | INFO    | [27/168] OK  actual_load__A16_realised__AT__2017               35040 rows -> actual_load/A16_realised/AT/2017.parquet
+13:19:27 | WARNING | Connection Error, retrying in 10 seconds
+13:19:43 | INFO    | [28/168] OK  actual_load__A16_realised__AT__2018               35040 rows -> actual_load/A16_realised/AT/2018.parquet
+13:19:54 | INFO    | [29/168] OK  actual_load__A16_realised__AT__2019               35040 rows -> actual_load/A16_realised/AT/2019.parquet
+13:20:06 | INFO    | [30/168] OK  actual_load__A16_realised__AT__2020               35136 rows -> actual_load/A16_realised/AT/2020.parquet
+13:20:32 | INFO    | [31/168] OK  load_forecast__day_ahead_A01__CH__2015             8736 rows -> load_forecast/day_ahead_A01/CH/2015.parquet
+13:20:57 | INFO    | [32/168] OK  load_forecast__day_ahead_A01__CH__2016             8784 rows -> load_forecast/day_ahead_A01/CH/2016.parquet
+13:21:25 | INFO    | [33/168] OK  load_forecast__day_ahead_A01__CH__2017             8760 rows -> load_forecast/day_ahead_A01/CH/2017.parquet
+13:21:49 | INFO    | [34/168] OK  load_forecast__day_ahead_A01__CH__2018             8760 rows -> load_forecast/day_ahead_A01/CH/2018.parquet
+13:22:03 | INFO    | [35/168] OK  load_forecast__day_ahead_A01__CH__2019             8760 rows -> load_forecast/day_ahead_A01/CH/2019.parquet
+13:22:25 | INFO    | [36/168] OK  load_forecast__day_ahead_A01__CH__2020             8784 rows -> load_forecast/day_ahead_A01/CH/2020.parquet
+13:22:37 | INFO    | [37/168] OK  load_forecast__day_ahead_A01__DE_LU__2015         35040 rows -> load_forecast/day_ahead_A01/DE_LU/2015.parquet
+13:22:54 | INFO    | [38/168] OK  load_forecast__day_ahead_A01__DE_LU__2016         35136 rows -> load_forecast/day_ahead_A01/DE_LU/2016.parquet
+13:23:07 | INFO    | [39/168] OK  load_forecast__day_ahead_A01__DE_LU__2017         35040 rows -> load_forecast/day_ahead_A01/DE_LU/2017.parquet
+13:23:26 | INFO    | [40/168] OK  load_forecast__day_ahead_A01__DE_LU__2018         31672 rows -> load_forecast/day_ahead_A01/DE_LU/2018.parquet
+13:23:38 | INFO    | [41/168] OK  load_forecast__day_ahead_A01__DE_LU__2019         35040 rows -> load_forecast/day_ahead_A01/DE_LU/2019.parquet
+13:23:48 | INFO    | [42/168] OK  load_forecast__day_ahead_A01__DE_LU__2020         35136 rows -> load_forecast/day_ahead_A01/DE_LU/2020.parquet
+13:23:54 | INFO    | [43/168] OK  load_forecast__day_ahead_A01__FR__2015             8760 rows -> load_forecast/day_ahead_A01/FR/2015.parquet
+13:24:00 | INFO    | [44/168] OK  load_forecast__day_ahead_A01__FR__2016             8784 rows -> load_forecast/day_ahead_A01/FR/2016.parquet
+13:24:16 | INFO    | [45/168] OK  load_forecast__day_ahead_A01__FR__2017             8760 rows -> load_forecast/day_ahead_A01/FR/2017.parquet
+13:24:24 | INFO    | [46/168] OK  load_forecast__day_ahead_A01__FR__2018             8760 rows -> load_forecast/day_ahead_A01/FR/2018.parquet
+13:24:40 | INFO    | [47/168] OK  load_forecast__day_ahead_A01__FR__2019             8760 rows -> load_forecast/day_ahead_A01/FR/2019.parquet
+13:24:45 | INFO    | [48/168] OK  load_forecast__day_ahead_A01__FR__2020             8784 rows -> load_forecast/day_ahead_A01/FR/2020.parquet
+13:24:52 | INFO    | [49/168] OK  load_forecast__day_ahead_A01__IT_NORD__2015        8760 rows -> load_forecast/day_ahead_A01/IT_NORD/2015.parquet
+13:24:56 | INFO    | [50/168] OK  load_forecast__day_ahead_A01__IT_NORD__2016        8784 rows -> load_forecast/day_ahead_A01/IT_NORD/2016.parquet
+13:25:00 | INFO    | [51/168] OK  load_forecast__day_ahead_A01__IT_NORD__2017        8760 rows -> load_forecast/day_ahead_A01/IT_NORD/2017.parquet
+13:25:19 | INFO    | [52/168] OK  load_forecast__day_ahead_A01__IT_NORD__2018        8760 rows -> load_forecast/day_ahead_A01/IT_NORD/2018.parquet
+13:25:35 | INFO    | [53/168] OK  load_forecast__day_ahead_A01__IT_NORD__2019        8760 rows -> load_forecast/day_ahead_A01/IT_NORD/2019.parquet
+13:25:45 | INFO    | [54/168] OK  load_forecast__day_ahead_A01__IT_NORD__2020        8784 rows -> load_forecast/day_ahead_A01/IT_NORD/2020.parquet
+13:25:56 | INFO    | [55/168] OK  load_forecast__day_ahead_A01__AT__2015            35040 rows -> load_forecast/day_ahead_A01/AT/2015.parquet
+13:26:11 | INFO    | [56/168] OK  load_forecast__day_ahead_A01__AT__2016            35136 rows -> load_forecast/day_ahead_A01/AT/2016.parquet
+13:26:37 | INFO    | [57/168] OK  load_forecast__day_ahead_A01__AT__2017            35040 rows -> load_forecast/day_ahead_A01/AT/2017.parquet
+13:26:54 | INFO    | [58/168] OK  load_forecast__day_ahead_A01__AT__2018            35040 rows -> load_forecast/day_ahead_A01/AT/2018.parquet
+13:27:11 | INFO    | [59/168] OK  load_forecast__day_ahead_A01__AT__2019            35040 rows -> load_forecast/day_ahead_A01/AT/2019.parquet
+13:27:29 | INFO    | [60/168] OK  load_forecast__day_ahead_A01__AT__2020            35136 rows -> load_forecast/day_ahead_A01/AT/2020.parquet
+13:27:36 | INFO    | [61/168] OK  load_forecast__week_ahead_A31__CH__2015             364 rows -> load_forecast/week_ahead_A31/CH/2015.parquet
+13:27:41 | INFO    | [62/168] OK  load_forecast__week_ahead_A31__CH__2016             364 rows -> load_forecast/week_ahead_A31/CH/2016.parquet
+13:27:51 | INFO    | [63/168] OK  load_forecast__week_ahead_A31__CH__2017             364 rows -> load_forecast/week_ahead_A31/CH/2017.parquet
+13:27:56 | INFO    | [64/168] OK  load_forecast__week_ahead_A31__CH__2018             364 rows -> load_forecast/week_ahead_A31/CH/2018.parquet
+13:27:58 | INFO    | [65/168] OK  load_forecast__week_ahead_A31__CH__2019             362 rows -> load_forecast/week_ahead_A31/CH/2019.parquet
+13:28:02 | INFO    | [66/168] OK  load_forecast__week_ahead_A31__CH__2020             365 rows -> load_forecast/week_ahead_A31/CH/2020.parquet
+13:28:07 | INFO    | [67/168] OK  load_forecast__week_ahead_A31__DE_LU__2015          325 rows -> load_forecast/week_ahead_A31/DE_LU/2015.parquet
+13:28:12 | INFO    | [68/168] OK  load_forecast__week_ahead_A31__DE_LU__2016          345 rows -> load_forecast/week_ahead_A31/DE_LU/2016.parquet
+13:28:19 | INFO    | [69/168] OK  load_forecast__week_ahead_A31__DE_LU__2017          364 rows -> load_forecast/week_ahead_A31/DE_LU/2017.parquet
+13:28:22 | INFO    | [70/168] OK  load_forecast__week_ahead_A31__DE_LU__2018          364 rows -> load_forecast/week_ahead_A31/DE_LU/2018.parquet
+13:28:25 | INFO    | [71/168] OK  load_forecast__week_ahead_A31__DE_LU__2019          292 rows -> load_forecast/week_ahead_A31/DE_LU/2019.parquet
+13:28:32 | INFO    | [72/168] OK  load_forecast__week_ahead_A31__DE_LU__2020          186 rows -> load_forecast/week_ahead_A31/DE_LU/2020.parquet
+13:28:39 | INFO    | [73/168] OK  load_forecast__week_ahead_A31__FR__2015             364 rows -> load_forecast/week_ahead_A31/FR/2015.parquet
+13:28:44 | INFO    | [74/168] OK  load_forecast__week_ahead_A31__FR__2016             365 rows -> load_forecast/week_ahead_A31/FR/2016.parquet
+13:28:51 | INFO    | [75/168] OK  load_forecast__week_ahead_A31__FR__2017             364 rows -> load_forecast/week_ahead_A31/FR/2017.parquet
+13:28:58 | INFO    | [76/168] OK  load_forecast__week_ahead_A31__FR__2018             364 rows -> load_forecast/week_ahead_A31/FR/2018.parquet
+13:29:02 | INFO    | [77/168] OK  load_forecast__week_ahead_A31__FR__2019             364 rows -> load_forecast/week_ahead_A31/FR/2019.parquet
+13:29:12 | INFO    | [78/168] OK  load_forecast__week_ahead_A31__FR__2020             365 rows -> load_forecast/week_ahead_A31/FR/2020.parquet
+13:29:17 | INFO    | [79/168] OK  load_forecast__week_ahead_A31__IT_NORD__2015        360 rows -> load_forecast/week_ahead_A31/IT_NORD/2015.parquet
+13:29:24 | INFO    | [80/168] OK  load_forecast__week_ahead_A31__IT_NORD__2016        365 rows -> load_forecast/week_ahead_A31/IT_NORD/2016.parquet
+13:29:27 | INFO    | [81/168] OK  load_forecast__week_ahead_A31__IT_NORD__2017        364 rows -> load_forecast/week_ahead_A31/IT_NORD/2017.parquet
+13:29:35 | INFO    | [82/168] OK  load_forecast__week_ahead_A31__IT_NORD__2018        364 rows -> load_forecast/week_ahead_A31/IT_NORD/2018.parquet
+13:29:42 | INFO    | [83/168] OK  load_forecast__week_ahead_A31__IT_NORD__2019        364 rows -> load_forecast/week_ahead_A31/IT_NORD/2019.parquet
+13:29:51 | INFO    | [84/168] OK  load_forecast__week_ahead_A31__IT_NORD__2020        365 rows -> load_forecast/week_ahead_A31/IT_NORD/2020.parquet
+13:30:22 | INFO    | [85/168] OK  load_forecast__week_ahead_A31__AT__2015             364 rows -> load_forecast/week_ahead_A31/AT/2015.parquet
+13:31:07 | INFO    | [86/168] OK  load_forecast__week_ahead_A31__AT__2016             365 rows -> load_forecast/week_ahead_A31/AT/2016.parquet
+13:31:34 | INFO    | [87/168] OK  load_forecast__week_ahead_A31__AT__2017             364 rows -> load_forecast/week_ahead_A31/AT/2017.parquet
+13:31:50 | INFO    | [88/168] OK  load_forecast__week_ahead_A31__AT__2018             364 rows -> load_forecast/week_ahead_A31/AT/2018.parquet
+13:32:24 | INFO    | [89/168] OK  load_forecast__week_ahead_A31__AT__2019             364 rows -> load_forecast/week_ahead_A31/AT/2019.parquet
+13:32:50 | INFO    | [90/168] OK  load_forecast__week_ahead_A31__AT__2020             365 rows -> load_forecast/week_ahead_A31/AT/2020.parquet
+13:33:10 | INFO    | [91/168] OK  load_forecast__month_ahead_A32__DE_LU__2015          49 rows -> load_forecast/month_ahead_A32/DE_LU/2015.parquet
+13:33:32 | INFO    | [92/168] OK  load_forecast__month_ahead_A32__DE_LU__2016          50 rows -> load_forecast/month_ahead_A32/DE_LU/2016.parquet
+13:33:48 | INFO    | [93/168] OK  load_forecast__month_ahead_A32__DE_LU__2017          46 rows -> load_forecast/month_ahead_A32/DE_LU/2017.parquet
+13:34:07 | INFO    | [94/168] OK  load_forecast__month_ahead_A32__DE_LU__2018          14 rows -> load_forecast/month_ahead_A32/DE_LU/2018.parquet
+13:34:24 | INFO    | [95/168] OK  load_forecast__month_ahead_A32__DE_LU__2019          24 rows -> load_forecast/month_ahead_A32/DE_LU/2019.parquet
+13:34:40 | INFO    | [96/168] OK  load_forecast__month_ahead_A32__DE_LU__2020          46 rows -> load_forecast/month_ahead_A32/DE_LU/2020.parquet
+13:34:49 | INFO    | [97/168] OK  load_forecast__month_ahead_A32__FR__2015             49 rows -> load_forecast/month_ahead_A32/FR/2015.parquet
+13:34:57 | INFO    | [98/168] OK  load_forecast__month_ahead_A32__FR__2016             50 rows -> load_forecast/month_ahead_A32/FR/2016.parquet
+13:35:07 | INFO    | [99/168] OK  load_forecast__month_ahead_A32__FR__2017             50 rows -> load_forecast/month_ahead_A32/FR/2017.parquet
+13:35:26 | INFO    | [100/168] OK  load_forecast__month_ahead_A32__FR__2018             52 rows -> load_forecast/month_ahead_A32/FR/2018.parquet
+13:35:43 | INFO    | [101/168] OK  load_forecast__month_ahead_A32__FR__2019             48 rows -> load_forecast/month_ahead_A32/FR/2019.parquet
+13:35:52 | INFO    | [102/168] OK  load_forecast__month_ahead_A32__FR__2020             50 rows -> load_forecast/month_ahead_A32/FR/2020.parquet
+13:36:10 | INFO    | [103/168] OK  load_forecast__month_ahead_A32__IT_NORD__2015        49 rows -> load_forecast/month_ahead_A32/IT_NORD/2015.parquet
+13:36:26 | INFO    | [104/168] OK  load_forecast__month_ahead_A32__IT_NORD__2016        50 rows -> load_forecast/month_ahead_A32/IT_NORD/2016.parquet
+13:36:41 | INFO    | [105/168] OK  load_forecast__month_ahead_A32__IT_NORD__2017        50 rows -> load_forecast/month_ahead_A32/IT_NORD/2017.parquet
+13:36:54 | INFO    | [106/168] OK  load_forecast__month_ahead_A32__IT_NORD__2018        52 rows -> load_forecast/month_ahead_A32/IT_NORD/2018.parquet
+13:37:05 | INFO    | [107/168] OK  load_forecast__month_ahead_A32__IT_NORD__2019        48 rows -> load_forecast/month_ahead_A32/IT_NORD/2019.parquet
+13:37:14 | INFO    | [108/168] OK  load_forecast__month_ahead_A32__IT_NORD__2020        50 rows -> load_forecast/month_ahead_A32/IT_NORD/2020.parquet
+13:37:22 | INFO    | [109/168] OK  load_forecast__year_ahead_A33__CH__2015              49 rows -> load_forecast/year_ahead_A33/CH/2015.parquet
+13:37:33 | INFO    | [110/168] OK  load_forecast__year_ahead_A33__CH__2016              39 rows -> load_forecast/year_ahead_A33/CH/2016.parquet
+13:37:43 | INFO    | [111/168] OK  load_forecast__year_ahead_A33__CH__2017              49 rows -> load_forecast/year_ahead_A33/CH/2017.parquet
+13:37:52 | INFO    | [112/168] OK  load_forecast__year_ahead_A33__CH__2018              52 rows -> load_forecast/year_ahead_A33/CH/2018.parquet
+13:37:56 | INFO    | [113/168] OK  load_forecast__year_ahead_A33__CH__2019              47 rows -> load_forecast/year_ahead_A33/CH/2019.parquet
+13:38:02 | INFO    | [114/168] OK  load_forecast__year_ahead_A33__CH__2020              49 rows -> load_forecast/year_ahead_A33/CH/2020.parquet
+13:38:26 | INFO    | [115/168] OK  load_forecast__year_ahead_A33__DE_LU__2015           49 rows -> load_forecast/year_ahead_A33/DE_LU/2015.parquet
+13:38:48 | INFO    | [116/168] OK  load_forecast__year_ahead_A33__DE_LU__2016           50 rows -> load_forecast/year_ahead_A33/DE_LU/2016.parquet
+13:38:53 | INFO    | [117/168] OK  load_forecast__year_ahead_A33__DE_LU__2017           50 rows -> load_forecast/year_ahead_A33/DE_LU/2017.parquet
+13:38:58 | INFO    | [118/168] OK  load_forecast__year_ahead_A33__DE_LU__2018           38 rows -> load_forecast/year_ahead_A33/DE_LU/2018.parquet
+13:39:04 | INFO    | [119/168] OK  load_forecast__year_ahead_A33__DE_LU__2019            1 rows -> load_forecast/year_ahead_A33/DE_LU/2019.parquet
+13:39:13 | INFO    | [120/168] OK  load_forecast__year_ahead_A33__DE_LU__2020           50 rows -> load_forecast/year_ahead_A33/DE_LU/2020.parquet
+13:39:25 | INFO    | [121/168] OK  load_forecast__year_ahead_A33__FR__2015              49 rows -> load_forecast/year_ahead_A33/FR/2015.parquet
+13:39:36 | INFO    | [122/168] OK  load_forecast__year_ahead_A33__FR__2016              50 rows -> load_forecast/year_ahead_A33/FR/2016.parquet
+13:39:42 | INFO    | [123/168] OK  load_forecast__year_ahead_A33__FR__2017              50 rows -> load_forecast/year_ahead_A33/FR/2017.parquet
+13:39:52 | INFO    | [124/168] OK  load_forecast__year_ahead_A33__FR__2018              52 rows -> load_forecast/year_ahead_A33/FR/2018.parquet
+13:39:56 | INFO    | [125/168] OK  load_forecast__year_ahead_A33__FR__2019              48 rows -> load_forecast/year_ahead_A33/FR/2019.parquet
+13:39:59 | INFO    | [126/168] OK  load_forecast__year_ahead_A33__FR__2020              50 rows -> load_forecast/year_ahead_A33/FR/2020.parquet
+13:40:20 | INFO    | [127/168] OK  load_forecast__year_ahead_A33__IT_NORD__2015         48 rows -> load_forecast/year_ahead_A33/IT_NORD/2015.parquet
+13:40:43 | INFO    | [128/168] OK  load_forecast__year_ahead_A33__IT_NORD__2016         50 rows -> load_forecast/year_ahead_A33/IT_NORD/2016.parquet
+13:40:52 | INFO    | [129/168] OK  load_forecast__year_ahead_A33__IT_NORD__2017         50 rows -> load_forecast/year_ahead_A33/IT_NORD/2017.parquet
+13:41:05 | INFO    | [130/168] OK  load_forecast__year_ahead_A33__IT_NORD__2018         52 rows -> load_forecast/year_ahead_A33/IT_NORD/2018.parquet
+13:41:20 | INFO    | [131/168] OK  load_forecast__year_ahead_A33__IT_NORD__2019         48 rows -> load_forecast/year_ahead_A33/IT_NORD/2019.parquet
+13:41:32 | INFO    | [132/168] OK  load_forecast__year_ahead_A33__IT_NORD__2020         49 rows -> load_forecast/year_ahead_A33/IT_NORD/2020.parquet
+13:41:46 | INFO    | [133/168] OK  load_forecast__year_ahead_A33__AT__2015              49 rows -> load_forecast/year_ahead_A33/AT/2015.parquet
+13:41:54 | INFO    | [134/168] OK  load_forecast__year_ahead_A33__AT__2016              50 rows -> load_forecast/year_ahead_A33/AT/2016.parquet
+13:41:59 | INFO    | [135/168] OK  load_forecast__year_ahead_A33__AT__2017              50 rows -> load_forecast/year_ahead_A33/AT/2017.parquet
+13:42:17 | INFO    | [136/168] OK  load_forecast__year_ahead_A33__AT__2018              52 rows -> load_forecast/year_ahead_A33/AT/2018.parquet
+13:42:36 | INFO    | [137/168] OK  load_forecast__year_ahead_A33__AT__2019              48 rows -> load_forecast/year_ahead_A33/AT/2019.parquet
+13:42:45 | INFO    | [138/168] OK  load_forecast__year_ahead_A33__AT__2020              50 rows -> load_forecast/year_ahead_A33/AT/2020.parquet
+13:42:46 | INFO    | [139/168] OK  forecast_margin__year_ahead_A33__CH__2015             1 rows -> forecast_margin/year_ahead_A33/CH/2015.parquet
+13:42:46 | INFO    | [140/168] OK  forecast_margin__year_ahead_A33__CH__2016             1 rows -> forecast_margin/year_ahead_A33/CH/2016.parquet
+13:42:46 | INFO    | [141/168] OK  forecast_margin__year_ahead_A33__CH__2017             1 rows -> forecast_margin/year_ahead_A33/CH/2017.parquet
+13:42:47 | INFO    | [142/168] OK  forecast_margin__year_ahead_A33__CH__2018             1 rows -> forecast_margin/year_ahead_A33/CH/2018.parquet
+13:42:48 | INFO    | [143/168] OK  forecast_margin__year_ahead_A33__CH__2019             1 rows -> forecast_margin/year_ahead_A33/CH/2019.parquet
+13:42:48 | INFO    | [144/168] OK  forecast_margin__year_ahead_A33__CH__2020             1 rows -> forecast_margin/year_ahead_A33/CH/2020.parquet
+13:42:48 | INFO    | [145/168] OK  forecast_margin__year_ahead_A33__DE_LU__2015          1 rows -> forecast_margin/year_ahead_A33/DE_LU/2015.parquet
+13:42:49 | INFO    | [146/168] OK  forecast_margin__year_ahead_A33__DE_LU__2016          1 rows -> forecast_margin/year_ahead_A33/DE_LU/2016.parquet
+13:42:50 | INFO    | [147/168] OK  forecast_margin__year_ahead_A33__DE_LU__2017          1 rows -> forecast_margin/year_ahead_A33/DE_LU/2017.parquet
+13:42:51 | INFO    | [148/168] OK  forecast_margin__year_ahead_A33__DE_LU__2018          1 rows -> forecast_margin/year_ahead_A33/DE_LU/2018.parquet
+13:42:51 | INFO    | [149/168] OK  forecast_margin__year_ahead_A33__DE_LU__2019          1 rows -> forecast_margin/year_ahead_A33/DE_LU/2019.parquet
+13:42:52 | INFO    | [150/168] OK  forecast_margin__year_ahead_A33__DE_LU__2020          1 rows -> forecast_margin/year_ahead_A33/DE_LU/2020.parquet
+13:42:52 | INFO    | [151/168] OK  forecast_margin__year_ahead_A33__FR__2015             1 rows -> forecast_margin/year_ahead_A33/FR/2015.parquet
+13:42:52 | INFO    | [152/168] OK  forecast_margin__year_ahead_A33__FR__2016             1 rows -> forecast_margin/year_ahead_A33/FR/2016.parquet
+13:42:53 | INFO    | [153/168] OK  forecast_margin__year_ahead_A33__FR__2017             1 rows -> forecast_margin/year_ahead_A33/FR/2017.parquet
+13:42:54 | INFO    | [154/168] OK  forecast_margin__year_ahead_A33__FR__2018             1 rows -> forecast_margin/year_ahead_A33/FR/2018.parquet
+13:42:55 | INFO    | [155/168] OK  forecast_margin__year_ahead_A33__FR__2019             1 rows -> forecast_margin/year_ahead_A33/FR/2019.parquet
+13:42:55 | INFO    | [156/168] OK  forecast_margin__year_ahead_A33__FR__2020             1 rows -> forecast_margin/year_ahead_A33/FR/2020.parquet
+13:42:55 | INFO    | [157/168] OK  forecast_margin__year_ahead_A33__IT_NORD__2015        1 rows -> forecast_margin/year_ahead_A33/IT_NORD/2015.parquet
+13:42:56 | INFO    | [158/168] OK  forecast_margin__year_ahead_A33__IT_NORD__2016        1 rows -> forecast_margin/year_ahead_A33/IT_NORD/2016.parquet
+13:42:56 | INFO    | [159/168] OK  forecast_margin__year_ahead_A33__IT_NORD__2017        1 rows -> forecast_margin/year_ahead_A33/IT_NORD/2017.parquet
+13:42:57 | INFO    | [160/168] OK  forecast_margin__year_ahead_A33__IT_NORD__2018        1 rows -> forecast_margin/year_ahead_A33/IT_NORD/2018.parquet
+13:42:57 | INFO    | [161/168] OK  forecast_margin__year_ahead_A33__IT_NORD__2019        1 rows -> forecast_margin/year_ahead_A33/IT_NORD/2019.parquet
+13:42:57 | INFO    | [162/168] OK  forecast_margin__year_ahead_A33__IT_NORD__2020        1 rows -> forecast_margin/year_ahead_A33/IT_NORD/2020.parquet
+13:42:58 | INFO    | [163/168] OK  forecast_margin__year_ahead_A33__AT__2015             1 rows -> forecast_margin/year_ahead_A33/AT/2015.parquet
+13:42:58 | INFO    | [164/168] OK  forecast_margin__year_ahead_A33__AT__2016             1 rows -> forecast_margin/year_ahead_A33/AT/2016.parquet
+13:42:59 | INFO    | [165/168] OK  forecast_margin__year_ahead_A33__AT__2017             1 rows -> forecast_margin/year_ahead_A33/AT/2017.parquet
+13:43:01 | INFO    | [166/168] OK  forecast_margin__year_ahead_A33__AT__2018             1 rows -> forecast_margin/year_ahead_A33/AT/2018.parquet
+13:43:01 | INFO    | [167/168] OK  forecast_margin__year_ahead_A33__AT__2019             1 rows -> forecast_margin/year_ahead_A33/AT/2019.parquet
+13:43:03 | INFO    | [168/168] OK  forecast_margin__year_ahead_A33__AT__2020             1 rows -> forecast_margin/year_ahead_A33/AT/2020.parquet
+13:43:03 | INFO    | wrote 168 series-years (168 non-empty) | manifest: /Users/johan/Master_Thesis/Entsoe/Load/Data/production_pre2021/_pull_manifest.csv
+
+parquet written under: /Users/johan/Master_Thesis/Entsoe/Load/Data/production_pre2021
+
+===== Balancing  13:43
+13:43:04 | INFO    | coverage: _coverage_pre2021.csv | 13 ok series x 6 years = 78 series-years | 2015-01-01 -> 2021-01-01
+13:43:04 | INFO    | using ENTSOE_API_KEY from /Users/johan/Master_Thesis/.env
+13:43:19 | INFO    | [1/78] OK  contracted_reserve_amount__FCR_A02_weekly__CH__2015   35040 rows -> contracted_reserve_amount/FCR_A02_weekly/CH/2015.parquet
+13:43:31 | INFO    | [2/78] OK  contracted_reserve_amount__FCR_A02_weekly__CH__2016   34465 rows -> contracted_reserve_amount/FCR_A02_weekly/CH/2016.parquet
+13:43:41 | INFO    | [3/78] OK  contracted_reserve_amount__FCR_A02_weekly__CH__2017   34369 rows -> contracted_reserve_amount/FCR_A02_weekly/CH/2017.parquet
+13:43:54 | INFO    | [4/78] OK  contracted_reserve_amount__FCR_A02_weekly__CH__2018   35037 rows -> contracted_reserve_amount/FCR_A02_weekly/CH/2018.parquet
+13:44:04 | INFO    | [5/78] OK  contracted_reserve_amount__FCR_A02_weekly__CH__2019   34366 rows -> contracted_reserve_amount/FCR_A02_weekly/CH/2019.parquet
+13:44:23 | INFO    | [6/78] OK  contracted_reserve_amount__FCR_A02_weekly__CH__2020   34462 rows -> contracted_reserve_amount/FCR_A02_weekly/CH/2020.parquet
+13:44:41 | INFO    | [7/78] OK  contracted_reserve_prices__FCR_A02_weekly__CH__2015   35045 rows -> contracted_reserve_prices/FCR_A02_weekly/CH/2015.parquet
+13:44:52 | INFO    | [8/78] OK  contracted_reserve_prices__FCR_A02_weekly__CH__2016   35141 rows -> contracted_reserve_prices/FCR_A02_weekly/CH/2016.parquet
+13:45:34 | INFO    | [9/78] OK  contracted_reserve_prices__FCR_A02_weekly__CH__2017   35045 rows -> contracted_reserve_prices/FCR_A02_weekly/CH/2017.parquet
+13:46:59 | WARNING | transient error (599 Server Error: status code 599 for url: https://web-api.tp.entsoe.eu/api?docu) — retrying in 5s
+13:48:18 | INFO    | [10/78] OK  contracted_reserve_prices__FCR_A02_weekly__CH__2018   35042 rows -> contracted_reserve_prices/FCR_A02_weekly/CH/2018.parquet
+13:49:03 | INFO    | [11/78] OK  contracted_reserve_prices__FCR_A02_weekly__CH__2019   34371 rows -> contracted_reserve_prices/FCR_A02_weekly/CH/2019.parquet
+13:51:33 | INFO    | [12/78] OK  contracted_reserve_prices__FCR_A02_weekly__CH__2020   34467 rows -> contracted_reserve_prices/FCR_A02_weekly/CH/2020.parquet
+13:52:08 | INFO    | [13/78] OK  contracted_reserve_amount__aFRR_A02_weekly__CH__2015   9121 rows -> contracted_reserve_amount/aFRR_A02_weekly/CH/2015.parquet
+13:53:38 | INFO    | [14/78] OK  contracted_reserve_amount__aFRR_A02_weekly__CH__2016  35133 rows -> contracted_reserve_amount/aFRR_A02_weekly/CH/2016.parquet
+13:54:29 | INFO    | [15/78] OK  contracted_reserve_amount__aFRR_A02_weekly__CH__2017  35037 rows -> contracted_reserve_amount/aFRR_A02_weekly/CH/2017.parquet
+13:55:22 | INFO    | [16/78] OK  contracted_reserve_amount__aFRR_A02_weekly__CH__2018  35034 rows -> contracted_reserve_amount/aFRR_A02_weekly/CH/2018.parquet
+13:55:48 | INFO    | [17/78] OK  contracted_reserve_amount__aFRR_A02_weekly__CH__2019  34366 rows -> contracted_reserve_amount/aFRR_A02_weekly/CH/2019.parquet
+13:56:41 | INFO    | [18/78] OK  contracted_reserve_amount__aFRR_A02_weekly__CH__2020  34462 rows -> contracted_reserve_amount/aFRR_A02_weekly/CH/2020.parquet
+13:57:04 | INFO    | [19/78] empty     contracted_reserve_amount__mFRR_A01_daily__CH__2015
+13:57:30 | INFO    | [20/78] empty     contracted_reserve_amount__mFRR_A01_daily__CH__2016
+13:57:47 | INFO    | [21/78] empty     contracted_reserve_amount__mFRR_A01_daily__CH__2017
+13:58:38 | INFO    | [22/78] empty     contracted_reserve_amount__mFRR_A01_daily__CH__2018
+13:59:07 | INFO    | [23/78] OK  contracted_reserve_amount__mFRR_A01_daily__CH__2019   17277 rows -> contracted_reserve_amount/mFRR_A01_daily/CH/2019.parquet
+13:59:21 | INFO    | [24/78] empty     contracted_reserve_amount__mFRR_A01_daily__CH__2020
+13:59:29 | INFO    | [25/78] empty     contracted_reserve_amount__mFRR_A02_weekly__CH__2015
+13:59:37 | INFO    | [26/78] empty     contracted_reserve_amount__mFRR_A02_weekly__CH__2016
+13:59:44 | INFO    | [27/78] empty     contracted_reserve_amount__mFRR_A02_weekly__CH__2017
+13:59:53 | INFO    | [28/78] empty     contracted_reserve_amount__mFRR_A02_weekly__CH__2018
+14:01:55 | INFO    | [29/78] OK  contracted_reserve_amount__mFRR_A02_weekly__CH__2019  35040 rows -> contracted_reserve_amount/mFRR_A02_weekly/CH/2019.parquet
+14:04:46 | INFO    | [30/78] OK  contracted_reserve_amount__mFRR_A02_weekly__CH__2020  35136 rows -> contracted_reserve_amount/mFRR_A02_weekly/CH/2020.parquet
+14:05:44 | INFO    | [31/78] empty     imbalance_prices__all__CH__2015
+14:06:57 | INFO    | [32/78] OK  imbalance_prices__all__CH__2016                       17756 rows -> imbalance_prices/all/CH/2016.parquet
+14:08:03 | INFO    | [33/78] OK  imbalance_prices__all__CH__2017                       35040 rows -> imbalance_prices/all/CH/2017.parquet
+14:08:53 | INFO    | [34/78] OK  imbalance_prices__all__CH__2018                       35040 rows -> imbalance_prices/all/CH/2018.parquet
+14:09:52 | INFO    | [35/78] OK  imbalance_prices__all__CH__2019                       35040 rows -> imbalance_prices/all/CH/2019.parquet
+14:11:59 | INFO    | [36/78] OK  imbalance_prices__all__CH__2020                       35136 rows -> imbalance_prices/all/CH/2020.parquet
+14:13:00 | INFO    | [37/78] OK  imbalance_prices__all__FR__2015                       17517 rows -> imbalance_prices/all/FR/2015.parquet
+14:13:56 | INFO    | [38/78] OK  imbalance_prices__all__FR__2016                       17510 rows -> imbalance_prices/all/FR/2016.parquet
+14:14:46 | INFO    | [39/78] OK  imbalance_prices__all__FR__2017                       17520 rows -> imbalance_prices/all/FR/2017.parquet
+14:15:40 | INFO    | [40/78] OK  imbalance_prices__all__FR__2018                       17519 rows -> imbalance_prices/all/FR/2018.parquet
+14:16:51 | INFO    | [41/78] OK  imbalance_prices__all__FR__2019                       17520 rows -> imbalance_prices/all/FR/2019.parquet
+14:17:48 | INFO    | [42/78] OK  imbalance_prices__all__FR__2020                       17568 rows -> imbalance_prices/all/FR/2020.parquet
+14:18:44 | INFO    | [43/78] OK  imbalance_volumes__all__CH__2015                      26500 rows -> imbalance_volumes/all/CH/2015.parquet
+14:19:51 | INFO    | [44/78] OK  imbalance_volumes__all__CH__2016                      35136 rows -> imbalance_volumes/all/CH/2016.parquet
+14:21:10 | INFO    | [45/78] OK  imbalance_volumes__all__CH__2017                      35040 rows -> imbalance_volumes/all/CH/2017.parquet
+14:22:06 | INFO    | [46/78] OK  imbalance_volumes__all__CH__2018                      35040 rows -> imbalance_volumes/all/CH/2018.parquet
+14:22:50 | INFO    | [47/78] OK  imbalance_volumes__all__CH__2019                      35040 rows -> imbalance_volumes/all/CH/2019.parquet
+14:23:30 | INFO    | [48/78] OK  imbalance_volumes__all__CH__2020                      35136 rows -> imbalance_volumes/all/CH/2020.parquet
+14:24:35 | INFO    | [49/78] OK  imbalance_volumes__all__FR__2015                      17517 rows -> imbalance_volumes/all/FR/2015.parquet
+14:25:14 | INFO    | [50/78] OK  imbalance_volumes__all__FR__2016                      17566 rows -> imbalance_volumes/all/FR/2016.parquet
+14:25:54 | INFO    | [51/78] OK  imbalance_volumes__all__FR__2017                      17517 rows -> imbalance_volumes/all/FR/2017.parquet
+14:26:29 | INFO    | [52/78] OK  imbalance_volumes__all__FR__2018                      17517 rows -> imbalance_volumes/all/FR/2018.parquet
+14:26:57 | INFO    | [53/78] OK  imbalance_volumes__all__FR__2019                      17517 rows -> imbalance_volumes/all/FR/2019.parquet
+14:27:28 | INFO    | [54/78] OK  imbalance_volumes__all__FR__2020                      17568 rows -> imbalance_volumes/all/FR/2020.parquet
+14:27:54 | INFO    | [55/78] OK  activated_balancing_energy_prices__A16_realised__CH__2015  89104 rows -> activated_balancing_energy_prices/A16_realised/CH/2015.parquet
+14:28:22 | INFO    | [56/78] OK  activated_balancing_energy_prices__A16_realised__CH__2016 140544 rows -> activated_balancing_energy_prices/A16_realised/CH/2016.parquet
+14:28:50 | INFO    | [57/78] OK  activated_balancing_energy_prices__A16_realised__CH__2017 140160 rows -> activated_balancing_energy_prices/A16_realised/CH/2017.parquet
+14:29:24 | INFO    | [58/78] OK  activated_balancing_energy_prices__A16_realised__CH__2018 139776 rows -> activated_balancing_energy_prices/A16_realised/CH/2018.parquet
+14:30:22 | INFO    | [59/78] OK  activated_balancing_energy_prices__A16_realised__CH__2019 140064 rows -> activated_balancing_energy_prices/A16_realised/CH/2019.parquet
+14:34:41 | INFO    | [60/78] OK  activated_balancing_energy_prices__A16_realised__CH__2020 136896 rows -> activated_balancing_energy_prices/A16_realised/CH/2020.parquet
+14:35:33 | INFO    | [61/78] OK  activated_balancing_energy_prices__A16_realised__FR__2015 124416 rows -> activated_balancing_energy_prices/A16_realised/FR/2015.parquet
+14:36:50 | INFO    | [62/78] OK  activated_balancing_energy_prices__A16_realised__FR__2016 140544 rows -> activated_balancing_energy_prices/A16_realised/FR/2016.parquet
+14:37:51 | INFO    | [63/78] OK  activated_balancing_energy_prices__A16_realised__FR__2017 107228 rows -> activated_balancing_energy_prices/A16_realised/FR/2017.parquet
+14:39:10 | INFO    | [64/78] OK  activated_balancing_energy_prices__A16_realised__FR__2018 140156 rows -> activated_balancing_energy_prices/A16_realised/FR/2018.parquet
+14:40:44 | INFO    | [65/78] OK  activated_balancing_energy_prices__A16_realised__FR__2019 140160 rows -> activated_balancing_energy_prices/A16_realised/FR/2019.parquet
+14:42:03 | INFO    | [66/78] OK  activated_balancing_energy_prices__A16_realised__FR__2020 143616 rows -> activated_balancing_energy_prices/A16_realised/FR/2020.parquet
+14:42:53 | INFO    | [67/78] OK  contracted_reserve_prices__aFRR_A02_weekly__CH__2015   9123 rows -> contracted_reserve_prices/aFRR_A02_weekly/CH/2015.parquet
+14:43:52 | INFO    | [68/78] OK  contracted_reserve_prices__aFRR_A02_weekly__CH__2016  34466 rows -> contracted_reserve_prices/aFRR_A02_weekly/CH/2016.parquet
+14:44:36 | INFO    | [69/78] OK  contracted_reserve_prices__aFRR_A02_weekly__CH__2017  35042 rows -> contracted_reserve_prices/aFRR_A02_weekly/CH/2017.parquet
+14:45:35 | INFO    | [70/78] OK  contracted_reserve_prices__aFRR_A02_weekly__CH__2018  28226 rows -> contracted_reserve_prices/aFRR_A02_weekly/CH/2018.parquet
+14:46:35 | INFO    | [71/78] OK  contracted_reserve_prices__aFRR_A02_weekly__CH__2019    673 rows -> contracted_reserve_prices/aFRR_A02_weekly/CH/2019.parquet
+14:47:14 | INFO    | [72/78] OK  contracted_reserve_prices__aFRR_A02_weekly__CH__2020    385 rows -> contracted_reserve_prices/aFRR_A02_weekly/CH/2020.parquet
+14:48:17 | INFO    | [73/78] OK  imbalance_volumes__all__IT__2015                      34633 rows -> imbalance_volumes/all/IT/2015.parquet
+14:48:50 | INFO    | [74/78] OK  imbalance_volumes__all__IT__2016                      35108 rows -> imbalance_volumes/all/IT/2016.parquet
+14:49:19 | INFO    | [75/78] OK  imbalance_volumes__all__IT__2017                      35035 rows -> imbalance_volumes/all/IT/2017.parquet
+14:49:41 | INFO    | [76/78] OK  imbalance_volumes__all__IT__2018                      17290 rows -> imbalance_volumes/all/IT/2018.parquet
+14:49:56 | INFO    | [77/78] empty     imbalance_volumes__all__IT__2019
+14:50:15 | INFO    | [78/78] empty     imbalance_volumes__all__IT__2020
+14:50:15 | INFO    | wrote 78 series-years (66 non-empty) | manifest: /Users/johan/Master_Thesis/Entsoe/Balancing/Data/production_pre2021/_pull_manifest.csv
+
+parquet written under: /Users/johan/Master_Thesis/Entsoe/Balancing/Data/production_pre2021
+
+===== Transmission  14:50
+14:50:16 | INFO    | coverage: _coverage_post_split.csv | 9 articles = 69 series x 6 years | 2015-01-01 -> 2021-01-01
+14:50:16 | INFO    | using ENTSOE_API_KEY from /Users/johan/Master_Thesis/.env
+14:50:24 | INFO    | [1/69] OK    ntc/dayahead/CH-DE                         2015 ->   8760 rows
+14:50:26 | INFO    | [1/69] OK    ntc/dayahead/CH-DE                         2016 ->   8784 rows
+14:50:31 | INFO    | [1/69] OK    ntc/dayahead/CH-DE                         2017 ->   8760 rows
+14:50:32 | INFO    | [1/69] OK    ntc/dayahead/CH-DE                         2018 ->   8760 rows
+14:50:33 | INFO    | [1/69] OK    ntc/dayahead/CH-DE                         2019 ->   8760 rows
+14:50:38 | INFO    | [1/69] OK    ntc/dayahead/CH-DE                         2020 ->   8784 rows
+14:50:43 | INFO    | [2/69] OK    ntc/dayahead/DE-CH                         2015 ->   8760 rows
+14:50:46 | INFO    | [2/69] OK    ntc/dayahead/DE-CH                         2016 ->   8784 rows
+14:50:49 | INFO    | [2/69] OK    ntc/dayahead/DE-CH                         2017 ->   8760 rows
+14:50:53 | INFO    | [2/69] OK    ntc/dayahead/DE-CH                         2018 ->   8760 rows
+14:50:57 | INFO    | [2/69] OK    ntc/dayahead/DE-CH                         2019 ->   8760 rows
+14:50:58 | INFO    | [2/69] OK    ntc/dayahead/DE-CH                         2020 ->   8784 rows
+14:50:59 | INFO    | [3/69] OK    ntc/dayahead/CH-FR                         2015 ->   8760 rows
+14:51:04 | INFO    | [3/69] OK    ntc/dayahead/CH-FR                         2016 ->   8784 rows
+14:51:05 | INFO    | [3/69] OK    ntc/dayahead/CH-FR                         2017 ->   8760 rows
+14:51:09 | INFO    | [3/69] OK    ntc/dayahead/CH-FR                         2018 ->   8760 rows
+14:51:10 | INFO    | [3/69] OK    ntc/dayahead/CH-FR                         2019 ->   8760 rows
+14:51:11 | INFO    | [3/69] OK    ntc/dayahead/CH-FR                         2020 ->   8784 rows
+14:51:13 | INFO    | [4/69] OK    ntc/dayahead/FR-CH                         2015 ->   8760 rows
+14:51:15 | INFO    | [4/69] OK    ntc/dayahead/FR-CH                         2016 ->   8784 rows
+14:51:17 | INFO    | [4/69] OK    ntc/dayahead/FR-CH                         2017 ->   8760 rows
+14:51:20 | INFO    | [4/69] OK    ntc/dayahead/FR-CH                         2018 ->   8760 rows
+14:51:22 | INFO    | [4/69] OK    ntc/dayahead/FR-CH                         2019 ->   8760 rows
+14:51:23 | INFO    | [4/69] OK    ntc/dayahead/FR-CH                         2020 ->   8784 rows
+14:51:24 | INFO    | [5/69] OK    ntc/dayahead/CH-IT_NORD                    2015 ->   8088 rows
+14:51:25 | INFO    | [5/69] OK    ntc/dayahead/CH-IT_NORD                    2016 ->   8784 rows
+14:51:27 | INFO    | [5/69] OK    ntc/dayahead/CH-IT_NORD                    2017 ->   8760 rows
+14:51:31 | INFO    | [5/69] OK    ntc/dayahead/CH-IT_NORD                    2018 ->   8760 rows
+14:51:33 | INFO    | [5/69] OK    ntc/dayahead/CH-IT_NORD                    2019 ->   8760 rows
+14:51:35 | INFO    | [5/69] OK    ntc/dayahead/CH-IT_NORD                    2020 ->   8784 rows
+14:51:36 | INFO    | [6/69] OK    ntc/dayahead/IT_NORD-CH                    2015 ->   8088 rows
+14:51:36 | INFO    | [6/69] OK    ntc/dayahead/IT_NORD-CH                    2016 ->   8784 rows
+14:51:38 | INFO    | [6/69] OK    ntc/dayahead/IT_NORD-CH                    2017 ->   8760 rows
+14:51:40 | INFO    | [6/69] OK    ntc/dayahead/IT_NORD-CH                    2018 ->   8760 rows
+14:51:41 | INFO    | [6/69] OK    ntc/dayahead/IT_NORD-CH                    2019 ->   8760 rows
+14:51:42 | INFO    | [6/69] OK    ntc/dayahead/IT_NORD-CH                    2020 ->   8784 rows
+14:51:43 | INFO    | [7/69] OK    ntc/dayahead/CH-AT                         2015 ->   8760 rows
+14:51:44 | INFO    | [7/69] OK    ntc/dayahead/CH-AT                         2016 ->   8760 rows
+14:51:44 | INFO    | [7/69] OK    ntc/dayahead/CH-AT                         2017 ->   8760 rows
+14:51:45 | INFO    | [7/69] OK    ntc/dayahead/CH-AT                         2018 ->   8760 rows
+14:51:45 | INFO    | [7/69] OK    ntc/dayahead/CH-AT                         2019 ->   8760 rows
+14:51:46 | INFO    | [7/69] OK    ntc/dayahead/CH-AT                         2020 ->   8784 rows
+14:51:47 | INFO    | [8/69] OK    ntc/dayahead/AT-CH                         2015 ->   8760 rows
+14:51:49 | INFO    | [8/69] OK    ntc/dayahead/AT-CH                         2016 ->   8714 rows
+14:51:51 | INFO    | [8/69] OK    ntc/dayahead/AT-CH                         2017 ->   8760 rows
+14:51:51 | INFO    | [8/69] OK    ntc/dayahead/AT-CH                         2018 ->   8760 rows
+14:51:52 | INFO    | [8/69] OK    ntc/dayahead/AT-CH                         2019 ->   8760 rows
+14:51:52 | INFO    | [8/69] OK    ntc/dayahead/AT-CH                         2020 ->   8784 rows
+14:51:52 | INFO    | [9/69] OK    ntc/weekahead/CH-DE                        2015 ->    365 rows
+14:51:54 | INFO    | [9/69] OK    ntc/weekahead/CH-DE                        2016 ->    366 rows
+14:51:54 | INFO    | [9/69] OK    ntc/weekahead/CH-DE                        2017 ->    365 rows
+14:51:55 | INFO    | [9/69] OK    ntc/weekahead/CH-DE                        2018 ->    272 rows
+14:51:57 | INFO    | [10/69] OK    ntc/weekahead/DE-CH                        2015 ->    365 rows
+14:51:58 | INFO    | [10/69] OK    ntc/weekahead/DE-CH                        2016 ->    358 rows
+14:52:00 | INFO    | [10/69] OK    ntc/weekahead/DE-CH                        2017 ->    365 rows
+14:52:02 | INFO    | [10/69] OK    ntc/weekahead/DE-CH                        2018 ->    272 rows
+14:52:06 | INFO    | [11/69] OK    ntc/weekahead/CH-FR                        2015 ->    358 rows
+14:52:07 | INFO    | [11/69] OK    ntc/weekahead/CH-FR                        2016 ->    359 rows
+14:52:08 | INFO    | [11/69] OK    ntc/weekahead/CH-FR                        2017 ->    365 rows
+14:52:09 | INFO    | [11/69] OK    ntc/weekahead/CH-FR                        2018 ->    364 rows
+14:52:12 | INFO    | [11/69] OK    ntc/weekahead/CH-FR                        2019 ->    365 rows
+14:52:13 | INFO    | [11/69] OK    ntc/weekahead/CH-FR                        2020 ->    366 rows
+14:52:14 | INFO    | [12/69] OK    ntc/weekahead/FR-CH                        2015 ->    358 rows
+14:52:15 | INFO    | [12/69] OK    ntc/weekahead/FR-CH                        2016 ->    359 rows
+14:52:16 | INFO    | [12/69] OK    ntc/weekahead/FR-CH                        2017 ->    365 rows
+14:52:16 | INFO    | [12/69] OK    ntc/weekahead/FR-CH                        2018 ->    364 rows
+14:52:17 | INFO    | [12/69] OK    ntc/weekahead/FR-CH                        2019 ->    365 rows
+14:52:18 | INFO    | [12/69] OK    ntc/weekahead/FR-CH                        2020 ->    366 rows
+14:52:22 | INFO    | [13/69] OK    ntc/weekahead/CH-IT_NORD                   2018 ->    364 rows
+14:52:22 | INFO    | [13/69] OK    ntc/weekahead/CH-IT_NORD                   2019 ->    365 rows
+14:52:24 | INFO    | [13/69] OK    ntc/weekahead/CH-IT_NORD                   2020 ->    359 rows
+14:52:27 | INFO    | [14/69] OK    ntc/weekahead/IT_NORD-CH                   2018 ->    364 rows
+14:52:27 | INFO    | [14/69] OK    ntc/weekahead/IT_NORD-CH                   2019 ->    365 rows
+14:52:28 | INFO    | [14/69] OK    ntc/weekahead/IT_NORD-CH                   2020 ->    359 rows
+14:52:30 | INFO    | [15/69] OK    ntc/weekahead/CH-AT                        2015 ->    365 rows
+14:52:30 | INFO    | [15/69] OK    ntc/weekahead/CH-AT                        2016 ->    366 rows
+14:52:30 | INFO    | [15/69] OK    ntc/weekahead/CH-AT                        2017 ->    365 rows
+14:52:33 | INFO    | [15/69] OK    ntc/weekahead/CH-AT                        2018 ->    364 rows
+14:52:33 | INFO    | [15/69] OK    ntc/weekahead/CH-AT                        2019 ->    365 rows
+14:52:33 | INFO    | [15/69] OK    ntc/weekahead/CH-AT                        2020 ->    366 rows
+14:52:35 | INFO    | [16/69] OK    ntc/weekahead/AT-CH                        2015 ->    365 rows
+14:52:35 | INFO    | [16/69] OK    ntc/weekahead/AT-CH                        2016 ->    366 rows
+14:52:37 | INFO    | [16/69] OK    ntc/weekahead/AT-CH                        2017 ->    365 rows
+14:52:42 | INFO    | [16/69] OK    ntc/weekahead/AT-CH                        2018 ->    364 rows
+14:52:42 | INFO    | [16/69] OK    ntc/weekahead/AT-CH                        2019 ->    365 rows
+14:52:43 | INFO    | [16/69] OK    ntc/weekahead/AT-CH                        2020 ->    366 rows
+14:52:44 | INFO    | [17/69] OK    ntc/monthahead/CH-DE                       2015 ->    365 rows
+14:52:45 | INFO    | [17/69] OK    ntc/monthahead/CH-DE                       2016 ->    366 rows
+14:52:46 | INFO    | [17/69] OK    ntc/monthahead/CH-DE                       2017 ->    365 rows
+14:52:48 | INFO    | [17/69] OK    ntc/monthahead/CH-DE                       2018 ->    364 rows
+14:52:51 | INFO    | [17/69] OK    ntc/monthahead/CH-DE                       2019 ->    365 rows
+14:52:52 | INFO    | [17/69] OK    ntc/monthahead/CH-DE                       2020 ->    366 rows
+14:52:56 | INFO    | [18/69] OK    ntc/monthahead/DE-CH                       2015 ->    365 rows
+14:52:57 | INFO    | [18/69] OK    ntc/monthahead/DE-CH                       2016 ->    366 rows
+14:52:58 | INFO    | [18/69] OK    ntc/monthahead/DE-CH                       2017 ->    365 rows
+14:52:59 | INFO    | [18/69] OK    ntc/monthahead/DE-CH                       2018 ->    364 rows
+14:53:00 | INFO    | [18/69] OK    ntc/monthahead/DE-CH                       2019 ->    365 rows
+14:53:02 | INFO    | [18/69] OK    ntc/monthahead/DE-CH                       2020 ->    366 rows
+14:53:03 | INFO    | [19/69] OK    ntc/monthahead/CH-FR                       2015 ->    365 rows
+14:53:04 | INFO    | [19/69] OK    ntc/monthahead/CH-FR                       2016 ->    366 rows
+14:53:05 | INFO    | [19/69] OK    ntc/monthahead/CH-FR                       2017 ->    365 rows
+14:53:07 | INFO    | [19/69] OK    ntc/monthahead/CH-FR                       2018 ->    364 rows
+14:53:08 | INFO    | [19/69] OK    ntc/monthahead/CH-FR                       2019 ->    365 rows
+14:53:08 | INFO    | [19/69] OK    ntc/monthahead/CH-FR                       2020 ->    366 rows
+14:53:09 | INFO    | [20/69] OK    ntc/monthahead/FR-CH                       2015 ->    365 rows
+14:53:10 | INFO    | [20/69] OK    ntc/monthahead/FR-CH                       2016 ->    366 rows
+14:53:10 | INFO    | [20/69] OK    ntc/monthahead/FR-CH                       2017 ->    365 rows
+14:53:10 | INFO    | [20/69] OK    ntc/monthahead/FR-CH                       2018 ->    364 rows
+14:53:12 | INFO    | [20/69] OK    ntc/monthahead/FR-CH                       2019 ->    365 rows
+14:53:13 | INFO    | [20/69] OK    ntc/monthahead/FR-CH                       2020 ->    366 rows
+14:53:14 | INFO    | [21/69] OK    ntc/monthahead/CH-IT_NORD                  2015 ->    365 rows
+14:53:15 | INFO    | [21/69] OK    ntc/monthahead/CH-IT_NORD                  2016 ->    366 rows
+14:53:16 | INFO    | [21/69] OK    ntc/monthahead/CH-IT_NORD                  2017 ->    365 rows
+14:53:18 | INFO    | [21/69] OK    ntc/monthahead/CH-IT_NORD                  2018 ->    364 rows
+14:53:18 | INFO    | [21/69] OK    ntc/monthahead/CH-IT_NORD                  2019 ->    365 rows
+14:53:19 | INFO    | [21/69] OK    ntc/monthahead/CH-IT_NORD                  2020 ->    366 rows
+14:53:20 | INFO    | [22/69] OK    ntc/monthahead/IT_NORD-CH                  2015 ->    365 rows
+14:53:21 | INFO    | [22/69] OK    ntc/monthahead/IT_NORD-CH                  2016 ->    366 rows
+14:53:21 | INFO    | [22/69] OK    ntc/monthahead/IT_NORD-CH                  2017 ->    365 rows
+14:53:23 | INFO    | [22/69] OK    ntc/monthahead/IT_NORD-CH                  2018 ->    364 rows
+14:53:25 | INFO    | [22/69] OK    ntc/monthahead/IT_NORD-CH                  2019 ->    365 rows
+14:53:26 | INFO    | [22/69] OK    ntc/monthahead/IT_NORD-CH                  2020 ->    366 rows
+14:53:26 | INFO    | [23/69] OK    ntc/monthahead/CH-AT                       2015 ->    365 rows
+14:53:26 | INFO    | [23/69] OK    ntc/monthahead/CH-AT                       2016 ->    366 rows
+14:53:27 | INFO    | [23/69] OK    ntc/monthahead/CH-AT                       2017 ->    365 rows
+14:53:29 | INFO    | [23/69] OK    ntc/monthahead/CH-AT                       2018 ->    364 rows
+14:53:30 | INFO    | [23/69] OK    ntc/monthahead/CH-AT                       2019 ->    365 rows
+14:53:31 | INFO    | [23/69] OK    ntc/monthahead/CH-AT                       2020 ->    366 rows
+14:53:32 | INFO    | [24/69] OK    ntc/monthahead/AT-CH                       2015 ->    365 rows
+14:53:32 | INFO    | [24/69] OK    ntc/monthahead/AT-CH                       2016 ->    366 rows
+14:53:33 | INFO    | [24/69] OK    ntc/monthahead/AT-CH                       2017 ->    365 rows
+14:53:34 | INFO    | [24/69] OK    ntc/monthahead/AT-CH                       2018 ->    364 rows
+14:53:35 | INFO    | [24/69] OK    ntc/monthahead/AT-CH                       2019 ->    365 rows
+14:53:35 | INFO    | [24/69] OK    ntc/monthahead/AT-CH                       2020 ->    366 rows
+14:53:36 | INFO    | [25/69] OK    ntc/yearahead/CH-DE                        2015 ->     12 rows
+14:53:36 | INFO    | [25/69] OK    ntc/yearahead/CH-DE                        2016 ->     12 rows
+14:53:37 | INFO    | [25/69] OK    ntc/yearahead/CH-DE                        2017 ->     12 rows
+14:53:37 | INFO    | [25/69] OK    ntc/yearahead/CH-DE                        2018 ->     11 rows
+14:53:38 | INFO    | [25/69] OK    ntc/yearahead/CH-DE                        2019 ->     12 rows
+14:53:38 | INFO    | [25/69] OK    ntc/yearahead/CH-DE                        2020 ->     12 rows
+14:53:38 | INFO    | [26/69] OK    ntc/yearahead/DE-CH                        2015 ->     12 rows
+14:53:39 | INFO    | [26/69] OK    ntc/yearahead/DE-CH                        2016 ->     12 rows
+14:53:39 | INFO    | [26/69] OK    ntc/yearahead/DE-CH                        2017 ->     12 rows
+14:53:40 | INFO    | [26/69] OK    ntc/yearahead/DE-CH                        2018 ->     11 rows
+14:53:40 | INFO    | [26/69] OK    ntc/yearahead/DE-CH                        2019 ->     12 rows
+14:53:40 | INFO    | [26/69] OK    ntc/yearahead/DE-CH                        2020 ->     12 rows
+14:53:43 | INFO    | [27/69] EMPTY ntc/yearahead/CH-FR                        all years no-data -> _empty.parquet
+14:53:46 | INFO    | [28/69] EMPTY ntc/yearahead/FR-CH                        all years no-data -> _empty.parquet
+14:53:47 | INFO    | [29/69] OK    ntc/yearahead/CH-IT_NORD                   2015 ->     12 rows
+14:53:47 | INFO    | [29/69] OK    ntc/yearahead/CH-IT_NORD                   2016 ->     12 rows
+14:53:48 | INFO    | [29/69] OK    ntc/yearahead/CH-IT_NORD                   2017 ->     12 rows
+14:53:48 | INFO    | [29/69] OK    ntc/yearahead/CH-IT_NORD                   2018 ->     11 rows
+14:53:49 | INFO    | [29/69] OK    ntc/yearahead/CH-IT_NORD                   2019 ->     12 rows
+14:53:49 | INFO    | [29/69] OK    ntc/yearahead/CH-IT_NORD                   2020 ->     12 rows
+14:53:50 | INFO    | [30/69] OK    ntc/yearahead/IT_NORD-CH                   2015 ->     12 rows
+14:53:50 | INFO    | [30/69] OK    ntc/yearahead/IT_NORD-CH                   2016 ->     12 rows
+14:53:50 | INFO    | [30/69] OK    ntc/yearahead/IT_NORD-CH                   2017 ->     12 rows
+14:53:51 | INFO    | [30/69] OK    ntc/yearahead/IT_NORD-CH                   2018 ->     11 rows
+14:53:52 | INFO    | [30/69] OK    ntc/yearahead/IT_NORD-CH                   2019 ->     12 rows
+14:53:52 | INFO    | [30/69] OK    ntc/yearahead/IT_NORD-CH                   2020 ->     12 rows
+14:53:53 | INFO    | [31/69] OK    ntc/yearahead/CH-AT                        2015 ->     12 rows
+14:53:54 | INFO    | [31/69] OK    ntc/yearahead/CH-AT                        2016 ->     12 rows
+14:53:54 | INFO    | [31/69] OK    ntc/yearahead/CH-AT                        2017 ->     12 rows
+14:53:55 | INFO    | [31/69] OK    ntc/yearahead/CH-AT                        2018 ->     11 rows
+14:53:56 | INFO    | [31/69] OK    ntc/yearahead/CH-AT                        2019 ->     12 rows
+14:53:57 | INFO    | [31/69] OK    ntc/yearahead/CH-AT                        2020 ->     12 rows
+14:53:57 | INFO    | [32/69] OK    ntc/yearahead/AT-CH                        2015 ->     12 rows
+14:53:58 | INFO    | [32/69] OK    ntc/yearahead/AT-CH                        2016 ->     12 rows
+14:53:58 | INFO    | [32/69] OK    ntc/yearahead/AT-CH                        2017 ->     12 rows
+14:54:00 | INFO    | [32/69] OK    ntc/yearahead/AT-CH                        2018 ->     11 rows
+14:54:01 | INFO    | [32/69] OK    ntc/yearahead/AT-CH                        2019 ->     12 rows
+14:54:02 | INFO    | [32/69] OK    ntc/yearahead/AT-CH                        2020 ->     12 rows
+14:54:11 | INFO    | [33/69] OK    scheduled_exchanges/total_A05/CH-DE        2015 ->   8760 rows
+14:54:26 | INFO    | [33/69] OK    scheduled_exchanges/total_A05/CH-DE        2016 ->   8784 rows
+14:54:49 | INFO    | [33/69] OK    scheduled_exchanges/total_A05/CH-DE        2017 ->   8760 rows
+14:55:06 | INFO    | [33/69] OK    scheduled_exchanges/total_A05/CH-DE        2018 ->   8760 rows
+14:55:30 | INFO    | [33/69] OK    scheduled_exchanges/total_A05/CH-DE        2019 ->   8760 rows
+14:55:47 | INFO    | [33/69] OK    scheduled_exchanges/total_A05/CH-DE        2020 ->   8784 rows
+14:56:02 | INFO    | [34/69] OK    scheduled_exchanges/total_A05/DE-CH        2015 ->   8760 rows
+14:56:17 | INFO    | [34/69] OK    scheduled_exchanges/total_A05/DE-CH        2016 ->   8784 rows
+14:56:27 | INFO    | [34/69] OK    scheduled_exchanges/total_A05/DE-CH        2017 ->   8760 rows
+14:56:40 | INFO    | [34/69] OK    scheduled_exchanges/total_A05/DE-CH        2018 ->   8760 rows
+14:56:47 | INFO    | [34/69] OK    scheduled_exchanges/total_A05/DE-CH        2019 ->   8760 rows
+14:56:53 | INFO    | [34/69] OK    scheduled_exchanges/total_A05/DE-CH        2020 ->   8784 rows
+14:57:06 | INFO    | [35/69] OK    scheduled_exchanges/total_A05/CH-FR        2015 ->   8760 rows
+14:57:15 | INFO    | [35/69] OK    scheduled_exchanges/total_A05/CH-FR        2016 ->   8784 rows
+14:57:36 | INFO    | [35/69] OK    scheduled_exchanges/total_A05/CH-FR        2017 ->   8760 rows
+14:57:46 | INFO    | [35/69] OK    scheduled_exchanges/total_A05/CH-FR        2018 ->   8760 rows
+14:57:55 | INFO    | [35/69] OK    scheduled_exchanges/total_A05/CH-FR        2019 ->   8760 rows
+14:58:08 | INFO    | [35/69] OK    scheduled_exchanges/total_A05/CH-FR        2020 ->   8784 rows
+14:58:15 | INFO    | [36/69] OK    scheduled_exchanges/total_A05/FR-CH        2015 ->   8760 rows
+14:58:26 | INFO    | [36/69] OK    scheduled_exchanges/total_A05/FR-CH        2016 ->   8784 rows
+14:58:39 | INFO    | [36/69] OK    scheduled_exchanges/total_A05/FR-CH        2017 ->   8760 rows
+14:58:44 | INFO    | [36/69] OK    scheduled_exchanges/total_A05/FR-CH        2018 ->   8760 rows
+14:58:48 | INFO    | [36/69] OK    scheduled_exchanges/total_A05/FR-CH        2019 ->   8760 rows
+14:59:12 | INFO    | [36/69] OK    scheduled_exchanges/total_A05/FR-CH        2020 ->   8784 rows
+14:59:19 | INFO    | [37/69] OK    scheduled_exchanges/total_A05/CH-IT_NORD   2015 ->   8712 rows
+14:59:25 | INFO    | [37/69] OK    scheduled_exchanges/total_A05/CH-IT_NORD   2016 ->   8784 rows
+14:59:30 | INFO    | [37/69] OK    scheduled_exchanges/total_A05/CH-IT_NORD   2017 ->   8760 rows
+14:59:38 | INFO    | [37/69] OK    scheduled_exchanges/total_A05/CH-IT_NORD   2018 ->   8760 rows
+14:59:43 | INFO    | [37/69] OK    scheduled_exchanges/total_A05/CH-IT_NORD   2019 ->   8760 rows
+14:59:49 | INFO    | [37/69] OK    scheduled_exchanges/total_A05/CH-IT_NORD   2020 ->   8784 rows
+14:59:53 | INFO    | [38/69] OK    scheduled_exchanges/total_A05/IT_NORD-CH   2015 ->   8712 rows
+14:59:57 | INFO    | [38/69] OK    scheduled_exchanges/total_A05/IT_NORD-CH   2016 ->   8784 rows
+15:00:09 | INFO    | [38/69] OK    scheduled_exchanges/total_A05/IT_NORD-CH   2017 ->   8760 rows
+15:01:54 | INFO    | [38/69] OK    scheduled_exchanges/total_A05/IT_NORD-CH   2018 ->   8760 rows
+15:03:14 | INFO    | [38/69] OK    scheduled_exchanges/total_A05/IT_NORD-CH   2019 ->   8760 rows
+15:03:51 | INFO    | [38/69] OK    scheduled_exchanges/total_A05/IT_NORD-CH   2020 ->   8784 rows
+15:04:36 | INFO    | [39/69] OK    scheduled_exchanges/total_A05/CH-AT        2015 ->   8760 rows
+15:05:15 | INFO    | [39/69] OK    scheduled_exchanges/total_A05/CH-AT        2016 ->   8784 rows
+15:06:04 | INFO    | [39/69] OK    scheduled_exchanges/total_A05/CH-AT        2017 ->   8760 rows
+15:06:36 | INFO    | [39/69] OK    scheduled_exchanges/total_A05/CH-AT        2018 ->   8760 rows
+15:07:50 | INFO    | [39/69] OK    scheduled_exchanges/total_A05/CH-AT        2019 ->   8760 rows
+15:08:31 | INFO    | [39/69] OK    scheduled_exchanges/total_A05/CH-AT        2020 ->   8784 rows
+15:09:11 | INFO    | [40/69] OK    scheduled_exchanges/total_A05/AT-CH        2015 ->   8760 rows
+15:09:47 | INFO    | [40/69] OK    scheduled_exchanges/total_A05/AT-CH        2016 ->   8784 rows
+15:10:40 | INFO    | [40/69] OK    scheduled_exchanges/total_A05/AT-CH        2017 ->   8760 rows
+15:11:23 | INFO    | [40/69] OK    scheduled_exchanges/total_A05/AT-CH        2018 ->   8760 rows
+15:11:56 | INFO    | [40/69] OK    scheduled_exchanges/total_A05/AT-CH        2019 ->   8760 rows
+15:12:28 | INFO    | [40/69] OK    scheduled_exchanges/total_A05/AT-CH        2020 ->   8784 rows
+15:13:49 | INFO    | [41/69] OK    scheduled_exchanges/dayahead_A01/CH-DE     2018 ->   8760 rows
+15:14:08 | INFO    | [41/69] OK    scheduled_exchanges/dayahead_A01/CH-DE     2019 ->   8760 rows
+15:14:25 | INFO    | [41/69] OK    scheduled_exchanges/dayahead_A01/CH-DE     2020 ->   8784 rows
+15:16:19 | INFO    | [42/69] OK    scheduled_exchanges/dayahead_A01/DE-CH     2018 ->   8760 rows
+15:16:44 | INFO    | [42/69] OK    scheduled_exchanges/dayahead_A01/DE-CH     2019 ->   8760 rows
+15:17:06 | INFO    | [42/69] OK    scheduled_exchanges/dayahead_A01/DE-CH     2020 ->   8784 rows
+15:18:43 | INFO    | [43/69] OK    scheduled_exchanges/dayahead_A01/CH-FR     2018 ->   5953 rows
+15:19:00 | INFO    | [43/69] OK    scheduled_exchanges/dayahead_A01/CH-FR     2019 ->   8760 rows
+15:19:17 | INFO    | [43/69] OK    scheduled_exchanges/dayahead_A01/CH-FR     2020 ->   8760 rows
+15:20:13 | INFO    | [44/69] OK    scheduled_exchanges/dayahead_A01/FR-CH     2018 ->   5977 rows
+15:20:46 | INFO    | [44/69] OK    scheduled_exchanges/dayahead_A01/FR-CH     2019 ->   8760 rows
+15:21:12 | INFO    | [44/69] OK    scheduled_exchanges/dayahead_A01/FR-CH     2020 ->   8784 rows
+15:22:28 | INFO    | [45/69] OK    scheduled_exchanges/dayahead_A01/CH-IT_NORD 2018 ->   4417 rows
+15:22:46 | INFO    | [45/69] OK    scheduled_exchanges/dayahead_A01/CH-IT_NORD 2019 ->   8760 rows
+15:23:01 | INFO    | [45/69] OK    scheduled_exchanges/dayahead_A01/CH-IT_NORD 2020 ->   8784 rows
+15:23:43 | INFO    | [46/69] OK    scheduled_exchanges/dayahead_A01/IT_NORD-CH 2018 ->   4417 rows
+15:23:50 | INFO    | [46/69] OK    scheduled_exchanges/dayahead_A01/IT_NORD-CH 2019 ->   8760 rows
+15:23:57 | INFO    | [46/69] OK    scheduled_exchanges/dayahead_A01/IT_NORD-CH 2020 ->   8784 rows
+15:24:40 | INFO    | [47/69] OK    scheduled_exchanges/dayahead_A01/CH-AT     2018 ->   3673 rows
+15:24:45 | INFO    | [47/69] OK    scheduled_exchanges/dayahead_A01/CH-AT     2019 ->   8760 rows
+15:24:51 | INFO    | [47/69] OK    scheduled_exchanges/dayahead_A01/CH-AT     2020 ->   8784 rows
+15:25:41 | INFO    | [48/69] OK    scheduled_exchanges/dayahead_A01/AT-CH     2018 ->   3673 rows
+15:25:50 | INFO    | [48/69] OK    scheduled_exchanges/dayahead_A01/AT-CH     2019 ->   8760 rows
+15:25:56 | INFO    | [48/69] OK    scheduled_exchanges/dayahead_A01/AT-CH     2020 ->   8784 rows
+15:26:08 | INFO    | [49/69] OK    physical_flows/A11/CH-DE                   2015 ->   8760 rows
+15:26:20 | INFO    | [49/69] OK    physical_flows/A11/CH-DE                   2016 ->   8784 rows
+15:26:37 | INFO    | [49/69] OK    physical_flows/A11/CH-DE                   2017 ->   8760 rows
+15:26:47 | INFO    | [49/69] OK    physical_flows/A11/CH-DE                   2018 ->   8760 rows
+15:26:53 | INFO    | [49/69] OK    physical_flows/A11/CH-DE                   2019 ->   8760 rows
+15:27:00 | INFO    | [49/69] OK    physical_flows/A11/CH-DE                   2020 ->   8784 rows
+15:27:12 | INFO    | [50/69] OK    physical_flows/A11/DE-CH                   2015 ->   8760 rows
+15:27:22 | INFO    | [50/69] OK    physical_flows/A11/DE-CH                   2016 ->   8784 rows
+15:27:27 | INFO    | [50/69] OK    physical_flows/A11/DE-CH                   2017 ->   8760 rows
+15:27:35 | INFO    | [50/69] OK    physical_flows/A11/DE-CH                   2018 ->   8760 rows
+15:27:39 | INFO    | [50/69] OK    physical_flows/A11/DE-CH                   2019 ->   8760 rows
+15:27:46 | INFO    | [50/69] OK    physical_flows/A11/DE-CH                   2020 ->   8784 rows
+15:27:53 | INFO    | [51/69] OK    physical_flows/A11/CH-FR                   2015 ->   8760 rows
+15:28:00 | INFO    | [51/69] OK    physical_flows/A11/CH-FR                   2016 ->   8784 rows
+15:28:08 | INFO    | [51/69] OK    physical_flows/A11/CH-FR                   2017 ->   8760 rows
+15:28:17 | INFO    | [51/69] OK    physical_flows/A11/CH-FR                   2018 ->   8760 rows
+15:28:27 | INFO    | [51/69] OK    physical_flows/A11/CH-FR                   2019 ->   8760 rows
+15:28:36 | INFO    | [51/69] OK    physical_flows/A11/CH-FR                   2020 ->   8784 rows
+15:28:44 | INFO    | [52/69] OK    physical_flows/A11/FR-CH                   2015 ->   8760 rows
+15:28:49 | INFO    | [52/69] OK    physical_flows/A11/FR-CH                   2016 ->   8784 rows
+15:28:54 | INFO    | [52/69] OK    physical_flows/A11/FR-CH                   2017 ->   8760 rows
+15:28:58 | INFO    | [52/69] OK    physical_flows/A11/FR-CH                   2018 ->   8760 rows
+15:29:07 | INFO    | [52/69] OK    physical_flows/A11/FR-CH                   2019 ->   8760 rows
+15:29:18 | INFO    | [52/69] OK    physical_flows/A11/FR-CH                   2020 ->   8784 rows
+15:29:29 | INFO    | [53/69] OK    physical_flows/A11/CH-IT_NORD              2015 ->   8760 rows
+15:29:35 | INFO    | [53/69] OK    physical_flows/A11/CH-IT_NORD              2016 ->   8784 rows
+15:29:39 | INFO    | [53/69] OK    physical_flows/A11/CH-IT_NORD              2017 ->   8760 rows
+15:29:44 | INFO    | [53/69] OK    physical_flows/A11/CH-IT_NORD              2018 ->   8760 rows
+15:29:49 | INFO    | [53/69] OK    physical_flows/A11/CH-IT_NORD              2019 ->   8760 rows
+15:30:36 | INFO    | [53/69] OK    physical_flows/A11/CH-IT_NORD              2020 ->   8784 rows
+15:31:11 | INFO    | [54/69] OK    physical_flows/A11/IT_NORD-CH              2015 ->   8760 rows
+15:31:34 | INFO    | [54/69] OK    physical_flows/A11/IT_NORD-CH              2016 ->   8784 rows
+15:31:57 | INFO    | [54/69] OK    physical_flows/A11/IT_NORD-CH              2017 ->   8760 rows
+15:32:22 | INFO    | [54/69] OK    physical_flows/A11/IT_NORD-CH              2018 ->   8760 rows
+15:32:58 | INFO    | [54/69] OK    physical_flows/A11/IT_NORD-CH              2019 ->   8760 rows
+15:33:19 | INFO    | [54/69] OK    physical_flows/A11/IT_NORD-CH              2020 ->   8784 rows
+15:33:36 | INFO    | [55/69] OK    physical_flows/A11/CH-AT                   2015 ->   8760 rows
+15:33:49 | INFO    | [55/69] OK    physical_flows/A11/CH-AT                   2016 ->   8784 rows
+15:34:08 | INFO    | [55/69] OK    physical_flows/A11/CH-AT                   2017 ->   8760 rows
+15:34:28 | INFO    | [55/69] OK    physical_flows/A11/CH-AT                   2018 ->   8760 rows
+15:34:47 | INFO    | [55/69] OK    physical_flows/A11/CH-AT                   2019 ->   8760 rows
+15:35:04 | INFO    | [55/69] OK    physical_flows/A11/CH-AT                   2020 ->   8784 rows
+15:35:31 | INFO    | [56/69] OK    physical_flows/A11/AT-CH                   2015 ->   8760 rows
+15:35:47 | INFO    | [56/69] OK    physical_flows/A11/AT-CH                   2016 ->   8784 rows
+15:35:59 | INFO    | [56/69] OK    physical_flows/A11/AT-CH                   2017 ->   8760 rows
+15:36:15 | INFO    | [56/69] OK    physical_flows/A11/AT-CH                   2018 ->   8760 rows
+15:36:32 | INFO    | [56/69] OK    physical_flows/A11/AT-CH                   2019 ->   8760 rows
+15:36:52 | INFO    | [56/69] OK    physical_flows/A11/AT-CH                   2020 ->   8784 rows
+15:37:06 | INFO    | [57/69] OK    countertrading/A91/CH-DE                   2015 ->    384 rows
+15:42:46 | INFO    | [57/69] OK    countertrading/A91/CH-DE                   2016 ->  16552 rows
+15:52:03 | INFO    | [57/69] OK    countertrading/A91/CH-DE                   2017 ->  31324 rows
+15:57:48 | WARNING | transient error (HTTPError: 599 Server Error: status code 599 for url: https://web-api.tp.entsoe.) — retrying in 5s
+15:59:19 | INFO    | [57/69] OK    countertrading/A91/CH-DE                   2018 ->  35016 rows
+16:19:11 | INFO    | [57/69] OK    countertrading/A91/CH-DE                   2019 ->  35020 rows
+16:28:08 | INFO    | [57/69] OK    countertrading/A91/CH-DE                   2020 ->  34802 rows
+16:28:45 | INFO    | [58/69] EMPTY countertrading/A91/DE-CH                   all years no-data -> _empty.parquet
+16:29:11 | INFO    | [59/69] OK    countertrading/A91/CH-FR                   2015 ->   8675 rows
+16:39:45 | INFO    | [59/69] OK    countertrading/A91/CH-FR                   2016 ->  20464 rows
+16:49:23 | INFO    | [59/69] OK    countertrading/A91/CH-FR                   2017 ->  31164 rows
+16:58:49 | INFO    | [59/69] OK    countertrading/A91/CH-FR                   2018 ->  35016 rows
+17:23:02 | INFO    | [59/69] OK    countertrading/A91/CH-FR                   2019 ->  35024 rows
+17:35:43 | INFO    | [59/69] OK    countertrading/A91/CH-FR                   2020 ->  34805 rows
+17:35:57 | INFO    | [60/69] OK    countertrading/A91/FR-CH                   2015 ->      2 rows
+17:36:12 | INFO    | [60/69] OK    countertrading/A91/FR-CH                   2016 ->      4 rows
+17:36:58 | INFO    | [60/69] OK    countertrading/A91/FR-CH                   2019 ->     20 rows
+17:39:13 | INFO    | [61/69] OK    countertrading/A91/CH-IT_NORD              2016 ->  16437 rows
+17:42:13 | INFO    | [61/69] OK    countertrading/A91/CH-IT_NORD              2017 ->  31158 rows
+17:44:24 | INFO    | [61/69] OK    countertrading/A91/CH-IT_NORD              2018 ->  35016 rows
+17:48:08 | INFO    | [61/69] OK    countertrading/A91/CH-IT_NORD              2019 ->  35016 rows
+17:51:52 | INFO    | [61/69] OK    countertrading/A91/CH-IT_NORD              2020 ->  34802 rows
+17:51:56 | INFO    | [62/69] OK    countertrading/A91/IT_NORD-CH              2015 ->   6121 rows
+17:53:42 | INFO    | [62/69] OK    countertrading/A91/IT_NORD-CH              2016 ->  23493 rows
+17:55:30 | INFO    | [62/69] OK    countertrading/A91/IT_NORD-CH              2017 ->  31577 rows
+17:58:13 | INFO    | [62/69] OK    countertrading/A91/IT_NORD-CH              2018 ->  35708 rows
+18:02:26 | INFO    | [62/69] OK    countertrading/A91/IT_NORD-CH              2019 ->  35059 rows
+18:12:18 | INFO    | [62/69] OK    countertrading/A91/IT_NORD-CH              2020 ->  34875 rows
+18:18:59 | INFO    | [63/69] OK    countertrading/A91/CH-AT                   2016 ->  24118 rows
+18:24:04 | INFO    | [63/69] OK    countertrading/A91/CH-AT                   2017 ->  31165 rows
+18:28:12 | INFO    | [63/69] OK    countertrading/A91/CH-AT                   2018 ->  35016 rows
+18:34:13 | INFO    | [63/69] OK    countertrading/A91/CH-AT                   2019 ->  35024 rows
+18:40:29 | INFO    | [63/69] OK    countertrading/A91/CH-AT                   2020 ->  34802 rows
+18:41:23 | INFO    | [64/69] EMPTY countertrading/A91/AT-CH                   all years no-data -> _empty.parquet
+18:41:50 | INFO    | [65/69] EMPTY congestion_costs/A92/CH                    all years no-data -> _empty.parquet
+18:42:09 | INFO    | [66/69] EMPTY congestion_costs/A92/DE_LU                 all years no-data -> _empty.parquet
+18:42:41 | INFO    | [67/69] EMPTY congestion_costs/A92/FR                    all years no-data -> _empty.parquet
+18:42:53 | INFO    | [68/69] EMPTY congestion_costs/A92/IT_NORD               all years no-data -> _empty.parquet
+18:43:17 | INFO    | [69/69] EMPTY congestion_costs/A92/AT                    all years no-data -> _empty.parquet
+18:43:17 | INFO    | done: 60 ok, 9 empty (saved as _empty.parquet), 0 error | manifest: /Users/johan/Master_Thesis/Entsoe/Transmission/Data/production_pre2021/_pull_manifest.csv
+
+parquet written under: /Users/johan/Master_Thesis/Entsoe/Transmission/Data/production_pre2021
+
+===== Generation  18:43
+18:43:17 | INFO    | coverage: _coverage_post_split.csv | 32 ok series x 6 years = 195 series-years | 2015-01-01 -> 2021-01-01
+18:43:17 | INFO    | using ENTSOE_API_KEY from /Users/johan/Master_Thesis/.env
+18:43:18 | INFO    | [1/195] OK  installed_capacity__per_type__CH__2015                    1 rows (na_share=0.00) -> installed_capacity/per_type/CH/2015.parquet
+18:43:18 | INFO    | [2/195] OK  installed_capacity__per_type__CH__2016                    1 rows (na_share=0.00) -> installed_capacity/per_type/CH/2016.parquet
+18:43:18 | INFO    | [3/195] OK  installed_capacity__per_type__CH__2017                    1 rows (na_share=0.00) -> installed_capacity/per_type/CH/2017.parquet
+18:43:19 | INFO    | [4/195] OK  installed_capacity__per_type__CH__2018                    2 rows (na_share=0.00) -> installed_capacity/per_type/CH/2018.parquet
+18:43:19 | INFO    | [5/195] OK  installed_capacity__per_type__CH__2019                    1 rows (na_share=0.00) -> installed_capacity/per_type/CH/2019.parquet
+18:43:19 | INFO    | [6/195] OK  installed_capacity__per_type__CH__2020                    1 rows (na_share=0.00) -> installed_capacity/per_type/CH/2020.parquet
+18:43:20 | INFO    | [7/195] OK  installed_capacity__per_type__DE_LU__2015                 1 rows (na_share=0.00) -> installed_capacity/per_type/DE_LU/2015.parquet
+18:43:20 | INFO    | [8/195] OK  installed_capacity__per_type__DE_LU__2016                 1 rows (na_share=0.00) -> installed_capacity/per_type/DE_LU/2016.parquet
+18:43:21 | INFO    | [9/195] OK  installed_capacity__per_type__DE_LU__2017                 1 rows (na_share=0.00) -> installed_capacity/per_type/DE_LU/2017.parquet
+18:43:21 | INFO    | [10/195] OK  installed_capacity__per_type__DE_LU__2018                 2 rows (na_share=0.07) -> installed_capacity/per_type/DE_LU/2018.parquet
+18:43:22 | INFO    | [11/195] OK  installed_capacity__per_type__DE_LU__2019                 1 rows (na_share=0.00) -> installed_capacity/per_type/DE_LU/2019.parquet
+18:43:22 | INFO    | [12/195] OK  installed_capacity__per_type__DE_LU__2020                 1 rows (na_share=0.00) -> installed_capacity/per_type/DE_LU/2020.parquet
+18:43:23 | INFO    | [13/195] OK  installed_capacity__per_type__FR__2015                    1 rows (na_share=0.00) -> installed_capacity/per_type/FR/2015.parquet
+18:43:24 | INFO    | [14/195] OK  installed_capacity__per_type__FR__2016                    1 rows (na_share=0.00) -> installed_capacity/per_type/FR/2016.parquet
+18:43:24 | INFO    | [15/195] OK  installed_capacity__per_type__FR__2017                    1 rows (na_share=0.00) -> installed_capacity/per_type/FR/2017.parquet
+18:43:25 | INFO    | [16/195] OK  installed_capacity__per_type__FR__2018                    2 rows (na_share=0.00) -> installed_capacity/per_type/FR/2018.parquet
+18:43:25 | INFO    | [17/195] OK  installed_capacity__per_type__FR__2019                    1 rows (na_share=0.00) -> installed_capacity/per_type/FR/2019.parquet
+18:43:25 | INFO    | [18/195] OK  installed_capacity__per_type__FR__2020                    1 rows (na_share=0.00) -> installed_capacity/per_type/FR/2020.parquet
+18:43:25 | INFO    | [19/195] OK  installed_capacity__per_type__IT_NORD__2015               1 rows (na_share=0.00) -> installed_capacity/per_type/IT_NORD/2015.parquet
+18:43:26 | INFO    | [20/195] OK  installed_capacity__per_type__IT_NORD__2016               1 rows (na_share=0.00) -> installed_capacity/per_type/IT_NORD/2016.parquet
+18:43:26 | INFO    | [21/195] OK  installed_capacity__per_type__IT_NORD__2017               1 rows (na_share=0.00) -> installed_capacity/per_type/IT_NORD/2017.parquet
+18:43:27 | INFO    | [22/195] OK  installed_capacity__per_type__IT_NORD__2018               2 rows (na_share=0.00) -> installed_capacity/per_type/IT_NORD/2018.parquet
+18:43:28 | INFO    | [23/195] OK  installed_capacity__per_type__IT_NORD__2019               1 rows (na_share=0.00) -> installed_capacity/per_type/IT_NORD/2019.parquet
+18:43:28 | INFO    | [24/195] OK  installed_capacity__per_type__IT_NORD__2020               1 rows (na_share=0.00) -> installed_capacity/per_type/IT_NORD/2020.parquet
+18:43:28 | INFO    | [25/195] OK  installed_capacity__per_type__AT__2015                    1 rows (na_share=0.00) -> installed_capacity/per_type/AT/2015.parquet
+18:43:29 | INFO    | [26/195] OK  installed_capacity__per_type__AT__2016                    1 rows (na_share=0.00) -> installed_capacity/per_type/AT/2016.parquet
+18:43:29 | INFO    | [27/195] OK  installed_capacity__per_type__AT__2017                    1 rows (na_share=0.00) -> installed_capacity/per_type/AT/2017.parquet
+18:43:30 | INFO    | [28/195] OK  installed_capacity__per_type__AT__2018                    2 rows (na_share=0.00) -> installed_capacity/per_type/AT/2018.parquet
+18:43:30 | INFO    | [29/195] OK  installed_capacity__per_type__AT__2019                    1 rows (na_share=0.00) -> installed_capacity/per_type/AT/2019.parquet
+18:43:30 | INFO    | [30/195] OK  installed_capacity__per_type__AT__2020                    1 rows (na_share=0.00) -> installed_capacity/per_type/AT/2020.parquet
+18:43:31 | INFO    | [31/195] OK  installed_capacity_unit__per_unit__CH__2015              11 rows (na_share=0.00) -> installed_capacity_unit/per_unit/CH/2015.parquet
+18:43:31 | INFO    | [32/195] OK  installed_capacity_unit__per_unit__CH__2016              22 rows (na_share=0.00) -> installed_capacity_unit/per_unit/CH/2016.parquet
+18:43:31 | INFO    | [33/195] OK  installed_capacity_unit__per_unit__CH__2017              22 rows (na_share=0.00) -> installed_capacity_unit/per_unit/CH/2017.parquet
+18:43:32 | INFO    | [34/195] OK  installed_capacity_unit__per_unit__CH__2018              52 rows (na_share=0.00) -> installed_capacity_unit/per_unit/CH/2018.parquet
+18:43:33 | INFO    | [35/195] OK  installed_capacity_unit__per_unit__CH__2019              31 rows (na_share=0.00) -> installed_capacity_unit/per_unit/CH/2019.parquet
+18:43:33 | INFO    | [36/195] OK  installed_capacity_unit__per_unit__CH__2020              31 rows (na_share=0.00) -> installed_capacity_unit/per_unit/CH/2020.parquet
+18:43:34 | INFO    | [37/195] OK  installed_capacity_unit__per_unit__DE_LU__2015            8 rows (na_share=0.00) -> installed_capacity_unit/per_unit/DE_LU/2015.parquet
+18:43:34 | INFO    | [38/195] OK  installed_capacity_unit__per_unit__DE_LU__2016            8 rows (na_share=0.00) -> installed_capacity_unit/per_unit/DE_LU/2016.parquet
+18:43:34 | INFO    | [39/195] OK  installed_capacity_unit__per_unit__DE_LU__2017            9 rows (na_share=0.00) -> installed_capacity_unit/per_unit/DE_LU/2017.parquet
+18:43:35 | INFO    | [40/195] OK  installed_capacity_unit__per_unit__DE_LU__2018           20 rows (na_share=0.00) -> installed_capacity_unit/per_unit/DE_LU/2018.parquet
+18:43:36 | INFO    | [41/195] OK  installed_capacity_unit__per_unit__DE_LU__2019          127 rows (na_share=0.00) -> installed_capacity_unit/per_unit/DE_LU/2019.parquet
+18:43:37 | INFO    | [42/195] OK  installed_capacity_unit__per_unit__DE_LU__2020          131 rows (na_share=0.00) -> installed_capacity_unit/per_unit/DE_LU/2020.parquet
+18:43:38 | INFO    | [43/195] OK  installed_capacity_unit__per_unit__FR__2015             181 rows (na_share=0.00) -> installed_capacity_unit/per_unit/FR/2015.parquet
+18:43:40 | INFO    | [44/195] OK  installed_capacity_unit__per_unit__FR__2016             177 rows (na_share=0.00) -> installed_capacity_unit/per_unit/FR/2016.parquet
+18:43:41 | INFO    | [45/195] OK  installed_capacity_unit__per_unit__FR__2017             175 rows (na_share=0.00) -> installed_capacity_unit/per_unit/FR/2017.parquet
+18:43:43 | INFO    | [46/195] OK  installed_capacity_unit__per_unit__FR__2018             332 rows (na_share=0.00) -> installed_capacity_unit/per_unit/FR/2018.parquet
+18:43:44 | INFO    | [47/195] OK  installed_capacity_unit__per_unit__FR__2019             167 rows (na_share=0.00) -> installed_capacity_unit/per_unit/FR/2019.parquet
+18:43:45 | INFO    | [48/195] OK  installed_capacity_unit__per_unit__FR__2020             167 rows (na_share=0.00) -> installed_capacity_unit/per_unit/FR/2020.parquet
+18:43:46 | INFO    | [49/195] OK  installed_capacity_unit__per_unit__IT_NORD__2015        342 rows (na_share=0.00) -> installed_capacity_unit/per_unit/IT_NORD/2015.parquet
+18:43:48 | INFO    | [50/195] OK  installed_capacity_unit__per_unit__IT_NORD__2016        323 rows (na_share=0.00) -> installed_capacity_unit/per_unit/IT_NORD/2016.parquet
+18:43:49 | INFO    | [51/195] OK  installed_capacity_unit__per_unit__IT_NORD__2017        321 rows (na_share=0.00) -> installed_capacity_unit/per_unit/IT_NORD/2017.parquet
+18:43:52 | INFO    | [52/195] OK  installed_capacity_unit__per_unit__IT_NORD__2018        648 rows (na_share=0.00) -> installed_capacity_unit/per_unit/IT_NORD/2018.parquet
+18:43:54 | INFO    | [53/195] OK  installed_capacity_unit__per_unit__IT_NORD__2019        334 rows (na_share=0.00) -> installed_capacity_unit/per_unit/IT_NORD/2019.parquet
+18:43:55 | INFO    | [54/195] OK  installed_capacity_unit__per_unit__IT_NORD__2020        331 rows (na_share=0.00) -> installed_capacity_unit/per_unit/IT_NORD/2020.parquet
+18:43:56 | INFO    | [55/195] OK  installed_capacity_unit__per_unit__AT__2015              37 rows (na_share=0.00) -> installed_capacity_unit/per_unit/AT/2015.parquet
+18:43:56 | INFO    | [56/195] OK  installed_capacity_unit__per_unit__AT__2016              35 rows (na_share=0.00) -> installed_capacity_unit/per_unit/AT/2016.parquet
+18:43:56 | INFO    | [57/195] OK  installed_capacity_unit__per_unit__AT__2017              36 rows (na_share=0.00) -> installed_capacity_unit/per_unit/AT/2017.parquet
+18:43:58 | INFO    | [58/195] OK  installed_capacity_unit__per_unit__AT__2018              74 rows (na_share=0.00) -> installed_capacity_unit/per_unit/AT/2018.parquet
+18:43:58 | INFO    | [59/195] OK  installed_capacity_unit__per_unit__AT__2019              38 rows (na_share=0.00) -> installed_capacity_unit/per_unit/AT/2019.parquet
+18:43:58 | INFO    | [60/195] OK  installed_capacity_unit__per_unit__AT__2020              38 rows (na_share=0.00) -> installed_capacity_unit/per_unit/AT/2020.parquet
+18:44:03 | INFO    | [61/195] OK  generation_forecast__day_ahead__CH__2015               4417 rows (na_share=0.00) -> generation_forecast/day_ahead/CH/2015.parquet
+18:44:10 | INFO    | [62/195] OK  generation_forecast__day_ahead__CH__2016               8784 rows (na_share=0.00) -> generation_forecast/day_ahead/CH/2016.parquet
+18:44:16 | INFO    | [63/195] OK  generation_forecast__day_ahead__CH__2017               8760 rows (na_share=0.00) -> generation_forecast/day_ahead/CH/2017.parquet
+18:44:21 | INFO    | [64/195] OK  generation_forecast__day_ahead__CH__2018               8760 rows (na_share=0.00) -> generation_forecast/day_ahead/CH/2018.parquet
+18:44:26 | INFO    | [65/195] OK  generation_forecast__day_ahead__CH__2019               8760 rows (na_share=0.00) -> generation_forecast/day_ahead/CH/2019.parquet
+18:44:30 | INFO    | [66/195] OK  generation_forecast__day_ahead__CH__2020               8784 rows (na_share=0.00) -> generation_forecast/day_ahead/CH/2020.parquet
+18:44:33 | INFO    | [67/195] OK  generation_forecast__day_ahead__DE_LU__2015            8760 rows (na_share=0.03) -> generation_forecast/day_ahead/DE_LU/2015.parquet
+18:44:37 | INFO    | [68/195] OK  generation_forecast__day_ahead__DE_LU__2016            8784 rows (na_share=0.00) -> generation_forecast/day_ahead/DE_LU/2016.parquet
+18:44:40 | INFO    | [69/195] OK  generation_forecast__day_ahead__DE_LU__2017            8760 rows (na_share=0.61) -> generation_forecast/day_ahead/DE_LU/2017.parquet
+18:44:45 | INFO    | [70/195] OK  generation_forecast__day_ahead__DE_LU__2018            8760 rows (na_share=0.00) -> generation_forecast/day_ahead/DE_LU/2018.parquet
+18:44:49 | INFO    | [71/195] OK  generation_forecast__day_ahead__DE_LU__2019            8760 rows (na_share=0.00) -> generation_forecast/day_ahead/DE_LU/2019.parquet
+18:44:52 | INFO    | [72/195] OK  generation_forecast__day_ahead__DE_LU__2020            8784 rows (na_share=0.00) -> generation_forecast/day_ahead/DE_LU/2020.parquet
+18:44:55 | INFO    | [73/195] OK  generation_forecast__day_ahead__FR__2015               8760 rows (na_share=0.00) -> generation_forecast/day_ahead/FR/2015.parquet
+18:45:02 | INFO    | [74/195] OK  generation_forecast__day_ahead__FR__2016               8760 rows (na_share=0.00) -> generation_forecast/day_ahead/FR/2016.parquet
+18:45:34 | INFO    | [75/195] OK  generation_forecast__day_ahead__FR__2017               8760 rows (na_share=0.00) -> generation_forecast/day_ahead/FR/2017.parquet
+18:45:55 | INFO    | [76/195] OK  generation_forecast__day_ahead__FR__2018               8760 rows (na_share=0.00) -> generation_forecast/day_ahead/FR/2018.parquet
+18:46:10 | INFO    | [77/195] OK  generation_forecast__day_ahead__FR__2019               8736 rows (na_share=0.00) -> generation_forecast/day_ahead/FR/2019.parquet
+18:46:24 | INFO    | [78/195] OK  generation_forecast__day_ahead__FR__2020               8784 rows (na_share=0.00) -> generation_forecast/day_ahead/FR/2020.parquet
+18:46:36 | INFO    | [79/195] OK  generation_forecast__day_ahead__IT_NORD__2015          8760 rows (na_share=0.00) -> generation_forecast/day_ahead/IT_NORD/2015.parquet
+18:46:49 | INFO    | [80/195] OK  generation_forecast__day_ahead__IT_NORD__2016          8784 rows (na_share=0.00) -> generation_forecast/day_ahead/IT_NORD/2016.parquet
+18:46:58 | INFO    | [81/195] OK  generation_forecast__day_ahead__IT_NORD__2017          8760 rows (na_share=0.00) -> generation_forecast/day_ahead/IT_NORD/2017.parquet
+18:47:05 | INFO    | [82/195] OK  generation_forecast__day_ahead__IT_NORD__2018          8760 rows (na_share=0.00) -> generation_forecast/day_ahead/IT_NORD/2018.parquet
+18:47:11 | INFO    | [83/195] OK  generation_forecast__day_ahead__IT_NORD__2019          8760 rows (na_share=0.00) -> generation_forecast/day_ahead/IT_NORD/2019.parquet
+18:47:21 | INFO    | [84/195] OK  generation_forecast__day_ahead__IT_NORD__2020          8784 rows (na_share=0.00) -> generation_forecast/day_ahead/IT_NORD/2020.parquet
+18:47:30 | INFO    | [85/195] OK  generation_forecast__day_ahead__AT__2015               8760 rows (na_share=0.00) -> generation_forecast/day_ahead/AT/2015.parquet
+18:47:35 | INFO    | [86/195] OK  generation_forecast__day_ahead__AT__2016               8784 rows (na_share=0.00) -> generation_forecast/day_ahead/AT/2016.parquet
+18:47:40 | INFO    | [87/195] OK  generation_forecast__day_ahead__AT__2017               8760 rows (na_share=0.00) -> generation_forecast/day_ahead/AT/2017.parquet
+18:47:44 | INFO    | [88/195] OK  generation_forecast__day_ahead__AT__2018               8760 rows (na_share=0.00) -> generation_forecast/day_ahead/AT/2018.parquet
+18:47:48 | INFO    | [89/195] OK  generation_forecast__day_ahead__AT__2019               8760 rows (na_share=0.00) -> generation_forecast/day_ahead/AT/2019.parquet
+18:47:50 | INFO    | [90/195] OK  generation_forecast__day_ahead__AT__2020               8784 rows (na_share=0.00) -> generation_forecast/day_ahead/AT/2020.parquet
+18:47:55 | INFO    | [91/195] OK  wind_solar_forecast__day_ahead__CH__2015               8712 rows (na_share=0.00) -> wind_solar_forecast/day_ahead/CH/2015.parquet
+18:48:04 | INFO    | [92/195] OK  wind_solar_forecast__day_ahead__CH__2016               8784 rows (na_share=0.00) -> wind_solar_forecast/day_ahead/CH/2016.parquet
+18:48:09 | INFO    | [93/195] OK  wind_solar_forecast__day_ahead__CH__2017               8760 rows (na_share=0.00) -> wind_solar_forecast/day_ahead/CH/2017.parquet
+18:48:18 | INFO    | [94/195] OK  wind_solar_forecast__day_ahead__CH__2018               8760 rows (na_share=0.00) -> wind_solar_forecast/day_ahead/CH/2018.parquet
+18:48:22 | INFO    | [95/195] OK  wind_solar_forecast__day_ahead__CH__2019               8760 rows (na_share=0.00) -> wind_solar_forecast/day_ahead/CH/2019.parquet
+18:48:26 | INFO    | [96/195] OK  wind_solar_forecast__day_ahead__CH__2020               8784 rows (na_share=0.00) -> wind_solar_forecast/day_ahead/CH/2020.parquet
+18:48:38 | INFO    | [97/195] OK  wind_solar_forecast__day_ahead__DE_LU__2015           35040 rows (na_share=0.00) -> wind_solar_forecast/day_ahead/DE_LU/2015.parquet
+18:48:50 | INFO    | [98/195] OK  wind_solar_forecast__day_ahead__DE_LU__2016           35136 rows (na_share=0.00) -> wind_solar_forecast/day_ahead/DE_LU/2016.parquet
+18:49:05 | INFO    | [99/195] OK  wind_solar_forecast__day_ahead__DE_LU__2017           35040 rows (na_share=0.00) -> wind_solar_forecast/day_ahead/DE_LU/2017.parquet
+18:49:23 | INFO    | [100/195] OK  wind_solar_forecast__day_ahead__DE_LU__2018           35040 rows (na_share=0.00) -> wind_solar_forecast/day_ahead/DE_LU/2018.parquet
+18:49:35 | INFO    | [101/195] OK  wind_solar_forecast__day_ahead__DE_LU__2019           35040 rows (na_share=0.00) -> wind_solar_forecast/day_ahead/DE_LU/2019.parquet
+18:49:47 | INFO    | [102/195] OK  wind_solar_forecast__day_ahead__DE_LU__2020           35136 rows (na_share=0.00) -> wind_solar_forecast/day_ahead/DE_LU/2020.parquet
+18:49:52 | INFO    | [103/195] OK  wind_solar_forecast__day_ahead__FR__2015               8726 rows (na_share=0.00) -> wind_solar_forecast/day_ahead/FR/2015.parquet
+18:49:55 | INFO    | [104/195] OK  wind_solar_forecast__day_ahead__FR__2016               8713 rows (na_share=0.01) -> wind_solar_forecast/day_ahead/FR/2016.parquet
+18:50:01 | INFO    | [105/195] OK  wind_solar_forecast__day_ahead__FR__2017               8753 rows (na_share=0.00) -> wind_solar_forecast/day_ahead/FR/2017.parquet
+18:50:13 | INFO    | [106/195] OK  wind_solar_forecast__day_ahead__FR__2018               8736 rows (na_share=0.00) -> wind_solar_forecast/day_ahead/FR/2018.parquet
+18:50:25 | INFO    | [107/195] OK  wind_solar_forecast__day_ahead__FR__2019               8738 rows (na_share=0.00) -> wind_solar_forecast/day_ahead/FR/2019.parquet
+18:50:36 | INFO    | [108/195] OK  wind_solar_forecast__day_ahead__FR__2020               8666 rows (na_share=0.00) -> wind_solar_forecast/day_ahead/FR/2020.parquet
+18:50:42 | INFO    | [109/195] OK  wind_solar_forecast__day_ahead__IT_NORD__2015          8760 rows (na_share=0.01) -> wind_solar_forecast/day_ahead/IT_NORD/2015.parquet
+18:50:47 | INFO    | [110/195] OK  wind_solar_forecast__day_ahead__IT_NORD__2016          8784 rows (na_share=0.00) -> wind_solar_forecast/day_ahead/IT_NORD/2016.parquet
+18:50:53 | INFO    | [111/195] OK  wind_solar_forecast__day_ahead__IT_NORD__2017          8760 rows (na_share=0.00) -> wind_solar_forecast/day_ahead/IT_NORD/2017.parquet
+18:51:00 | INFO    | [112/195] OK  wind_solar_forecast__day_ahead__IT_NORD__2018          8760 rows (na_share=0.03) -> wind_solar_forecast/day_ahead/IT_NORD/2018.parquet
+18:51:06 | INFO    | [113/195] OK  wind_solar_forecast__day_ahead__IT_NORD__2019          8760 rows (na_share=0.03) -> wind_solar_forecast/day_ahead/IT_NORD/2019.parquet
+18:51:13 | INFO    | [114/195] OK  wind_solar_forecast__day_ahead__IT_NORD__2020          8784 rows (na_share=0.04) -> wind_solar_forecast/day_ahead/IT_NORD/2020.parquet
+18:51:31 | INFO    | [115/195] OK  wind_solar_forecast__day_ahead__AT__2015              35040 rows (na_share=0.00) -> wind_solar_forecast/day_ahead/AT/2015.parquet
+18:51:45 | INFO    | [116/195] OK  wind_solar_forecast__day_ahead__AT__2016              35136 rows (na_share=0.00) -> wind_solar_forecast/day_ahead/AT/2016.parquet
+18:51:54 | INFO    | [117/195] OK  wind_solar_forecast__day_ahead__AT__2017              35040 rows (na_share=0.00) -> wind_solar_forecast/day_ahead/AT/2017.parquet
+18:52:06 | INFO    | [118/195] OK  wind_solar_forecast__day_ahead__AT__2018              35040 rows (na_share=0.00) -> wind_solar_forecast/day_ahead/AT/2018.parquet
+18:52:14 | INFO    | [119/195] OK  wind_solar_forecast__day_ahead__AT__2019              35040 rows (na_share=0.00) -> wind_solar_forecast/day_ahead/AT/2019.parquet
+18:52:23 | INFO    | [120/195] OK  wind_solar_forecast__day_ahead__AT__2020              35136 rows (na_share=0.00) -> wind_solar_forecast/day_ahead/AT/2020.parquet
+18:52:35 | INFO    | [121/195] OK  wind_solar_forecast__intraday__DE_LU__2015            35040 rows (na_share=0.00) -> wind_solar_forecast/intraday/DE_LU/2015.parquet
+18:52:48 | INFO    | [122/195] OK  wind_solar_forecast__intraday__DE_LU__2016            35136 rows (na_share=0.00) -> wind_solar_forecast/intraday/DE_LU/2016.parquet
+18:53:00 | INFO    | [123/195] OK  wind_solar_forecast__intraday__DE_LU__2017            35040 rows (na_share=0.00) -> wind_solar_forecast/intraday/DE_LU/2017.parquet
+18:53:18 | INFO    | [124/195] OK  wind_solar_forecast__intraday__DE_LU__2018            35040 rows (na_share=0.00) -> wind_solar_forecast/intraday/DE_LU/2018.parquet
+18:53:31 | INFO    | [125/195] OK  wind_solar_forecast__intraday__DE_LU__2019            35040 rows (na_share=0.00) -> wind_solar_forecast/intraday/DE_LU/2019.parquet
+18:53:44 | INFO    | [126/195] OK  wind_solar_forecast__intraday__DE_LU__2020            35136 rows (na_share=0.00) -> wind_solar_forecast/intraday/DE_LU/2020.parquet
+18:53:45 | INFO    | [127/195] OK  wind_solar_forecast__intraday__FR__2018                1572 rows (na_share=0.01) -> wind_solar_forecast/intraday/FR/2018.parquet
+18:53:48 | INFO    | [128/195] OK  wind_solar_forecast__intraday__FR__2019                6205 rows (na_share=0.00) -> wind_solar_forecast/intraday/FR/2019.parquet
+18:53:53 | INFO    | [129/195] OK  wind_solar_forecast__intraday__FR__2020                6137 rows (na_share=0.00) -> wind_solar_forecast/intraday/FR/2020.parquet
+18:53:53 | INFO    | [130/195] OK  wind_solar_forecast__intraday__IT_NORD__2018           2209 rows (na_share=0.00) -> wind_solar_forecast/intraday/IT_NORD/2018.parquet
+18:53:56 | INFO    | [131/195] OK  wind_solar_forecast__intraday__IT_NORD__2019           8736 rows (na_share=0.00) -> wind_solar_forecast/intraday/IT_NORD/2019.parquet
+18:54:02 | INFO    | [132/195] OK  wind_solar_forecast__intraday__IT_NORD__2020           8736 rows (na_share=0.00) -> wind_solar_forecast/intraday/IT_NORD/2020.parquet
+18:54:05 | INFO    | [133/195] OK  wind_solar_forecast__intraday__AT__2018                8836 rows (na_share=0.00) -> wind_solar_forecast/intraday/AT/2018.parquet
+18:54:17 | INFO    | [134/195] OK  wind_solar_forecast__intraday__AT__2019               35040 rows (na_share=0.00) -> wind_solar_forecast/intraday/AT/2019.parquet
+18:54:26 | INFO    | [135/195] OK  wind_solar_forecast__intraday__AT__2020               35136 rows (na_share=0.00) -> wind_solar_forecast/intraday/AT/2020.parquet
+18:54:33 | INFO    | [136/195] OK  actual_generation__per_type__CH__2015                  8760 rows (na_share=0.36) -> actual_generation/per_type/CH/2015.parquet
+18:54:44 | INFO    | [137/195] OK  actual_generation__per_type__CH__2016                  8784 rows (na_share=0.01) -> actual_generation/per_type/CH/2016.parquet
+18:54:55 | INFO    | [138/195] OK  actual_generation__per_type__CH__2017                  8760 rows (na_share=0.00) -> actual_generation/per_type/CH/2017.parquet
+18:55:11 | INFO    | [139/195] OK  actual_generation__per_type__CH__2018                  8760 rows (na_share=0.00) -> actual_generation/per_type/CH/2018.parquet
+18:55:24 | INFO    | [140/195] OK  actual_generation__per_type__CH__2019                  8760 rows (na_share=0.00) -> actual_generation/per_type/CH/2019.parquet
+18:55:35 | INFO    | [141/195] OK  actual_generation__per_type__CH__2020                  8784 rows (na_share=0.00) -> actual_generation/per_type/CH/2020.parquet
+18:56:54 | INFO    | [142/195] OK  actual_generation__per_type__DE_LU__2015             595680 rows (na_share=0.24) -> actual_generation/per_type/DE_LU/2015.parquet
+18:58:13 | INFO    | [143/195] OK  actual_generation__per_type__DE_LU__2016             597312 rows (na_share=0.24) -> actual_generation/per_type/DE_LU/2016.parquet
+18:59:27 | INFO    | [144/195] OK  actual_generation__per_type__DE_LU__2017             595680 rows (na_share=0.24) -> actual_generation/per_type/DE_LU/2017.parquet
+19:01:49 | INFO    | [145/195] OK  actual_generation__per_type__DE_LU__2018             595680 rows (na_share=0.43) -> actual_generation/per_type/DE_LU/2018.parquet
+19:04:14 | INFO    | [146/195] OK  actual_generation__per_type__DE_LU__2019             595680 rows (na_share=0.44) -> actual_generation/per_type/DE_LU/2019.parquet
+19:06:03 | INFO    | [147/195] OK  actual_generation__per_type__DE_LU__2020             562176 rows (na_share=0.44) -> actual_generation/per_type/DE_LU/2020.parquet
+19:06:41 | INFO    | [148/195] OK  actual_generation__per_type__FR__2015                 96349 rows (na_share=0.50) -> actual_generation/per_type/FR/2015.parquet
+19:07:08 | INFO    | [149/195] OK  actual_generation__per_type__FR__2016                 96503 rows (na_share=0.50) -> actual_generation/per_type/FR/2016.parquet
+19:07:41 | INFO    | [150/195] OK  actual_generation__per_type__FR__2017                 96360 rows (na_share=0.50) -> actual_generation/per_type/FR/2017.parquet
+19:08:10 | INFO    | [151/195] OK  actual_generation__per_type__FR__2018                 96349 rows (na_share=0.50) -> actual_generation/per_type/FR/2018.parquet
+19:08:34 | INFO    | [152/195] OK  actual_generation__per_type__FR__2019                 96338 rows (na_share=0.50) -> actual_generation/per_type/FR/2019.parquet
+19:08:56 | INFO    | [153/195] OK  actual_generation__per_type__FR__2020                 96624 rows (na_share=0.50) -> actual_generation/per_type/FR/2020.parquet
+19:09:22 | INFO    | [154/195] OK  actual_generation__per_type__IT_NORD__2015            87360 rows (na_share=0.50) -> actual_generation/per_type/IT_NORD/2015.parquet
+19:09:43 | INFO    | [155/195] OK  actual_generation__per_type__IT_NORD__2016            87840 rows (na_share=0.50) -> actual_generation/per_type/IT_NORD/2016.parquet
+19:10:05 | INFO    | [156/195] OK  actual_generation__per_type__IT_NORD__2017            96360 rows (na_share=0.52) -> actual_generation/per_type/IT_NORD/2017.parquet
+19:10:45 | INFO    | [157/195] OK  actual_generation__per_type__IT_NORD__2018            98569 rows (na_share=0.51) -> actual_generation/per_type/IT_NORD/2018.parquet
+19:11:17 | INFO    | [158/195] OK  actual_generation__per_type__IT_NORD__2019           105120 rows (na_share=0.50) -> actual_generation/per_type/IT_NORD/2019.parquet
+19:11:46 | INFO    | [159/195] OK  actual_generation__per_type__IT_NORD__2020           105408 rows (na_share=0.50) -> actual_generation/per_type/IT_NORD/2020.parquet
+19:12:35 | INFO    | [160/195] OK  actual_generation__per_type__AT__2015                455520 rows (na_share=0.00) -> actual_generation/per_type/AT/2015.parquet
+19:13:10 | INFO    | [161/195] OK  actual_generation__per_type__AT__2016                456768 rows (na_share=0.00) -> actual_generation/per_type/AT/2016.parquet
+19:13:43 | INFO    | [162/195] OK  actual_generation__per_type__AT__2017                455520 rows (na_share=0.00) -> actual_generation/per_type/AT/2017.parquet
+19:14:18 | INFO    | [163/195] OK  actual_generation__per_type__AT__2018                455520 rows (na_share=0.00) -> actual_generation/per_type/AT/2018.parquet
+19:14:53 | INFO    | [164/195] OK  actual_generation__per_type__AT__2019                455520 rows (na_share=0.00) -> actual_generation/per_type/AT/2019.parquet
+19:15:51 | INFO    | [165/195] OK  actual_generation__per_type__AT__2020                456768 rows (na_share=0.00) -> actual_generation/per_type/AT/2020.parquet
+19:19:12 | INFO    | year-wide call failed (HTTPError) — falling back to per-day loop for actual_generation_unit per_unit area=CH (2015-01-01→2016-01-01)
+19:22:57 | INFO    | [166/195] OK  actual_generation_unit__per_unit__CH__2015           109440 rows (na_share=0.19) -> actual_generation_unit/per_unit/CH/2015.parquet
+19:25:00 | INFO    | year-wide call failed (HTTPError) — falling back to per-day loop for actual_generation_unit per_unit area=CH (2016-01-01→2017-01-01)
+19:28:33 | INFO    | [167/195] OK  actual_generation_unit__per_unit__CH__2016           219600 rows (na_share=0.03) -> actual_generation_unit/per_unit/CH/2016.parquet
+19:31:29 | INFO    | year-wide call failed (HTTPError) — falling back to per-day loop for actual_generation_unit per_unit area=CH (2017-01-01→2018-01-01)
+19:35:55 | INFO    | [168/195] OK  actual_generation_unit__per_unit__CH__2017           245280 rows (na_share=0.10) -> actual_generation_unit/per_unit/CH/2017.parquet
+19:38:28 | INFO    | year-wide call failed (HTTPError) — falling back to per-day loop for actual_generation_unit per_unit area=CH (2018-10-01→2019-01-01)
+19:39:04 | INFO    | [169/195] OK  actual_generation_unit__per_unit__CH__2018           343849 rows (na_share=0.09) -> actual_generation_unit/per_unit/CH/2018.parquet
+19:41:36 | INFO    | year-wide call failed (HTTPError) — falling back to per-day loop for actual_generation_unit per_unit area=CH (2019-01-01→2020-01-01)
+19:44:25 | INFO    | [170/195] OK  actual_generation_unit__per_unit__CH__2019           385440 rows (na_share=0.05) -> actual_generation_unit/per_unit/CH/2019.parquet
+19:49:26 | INFO    | year-wide call failed (HTTPError) — falling back to per-day loop for actual_generation_unit per_unit area=CH (2020-01-01→2021-01-01)
+19:53:37 | INFO    | [171/195] OK  actual_generation_unit__per_unit__CH__2020           377712 rows (na_share=0.00) -> actual_generation_unit/per_unit/CH/2020.parquet
+19:53:37 | INFO    | [172/195] OK  water_reservoirs__weekly__CH__2015                       42 rows (na_share=0.00) -> water_reservoirs/weekly/CH/2015.parquet
+19:53:38 | INFO    | [173/195] OK  water_reservoirs__weekly__CH__2016                       53 rows (na_share=0.00) -> water_reservoirs/weekly/CH/2016.parquet
+19:53:38 | INFO    | [174/195] OK  water_reservoirs__weekly__CH__2017                       53 rows (na_share=0.00) -> water_reservoirs/weekly/CH/2017.parquet
+19:53:39 | INFO    | [175/195] OK  water_reservoirs__weekly__CH__2018                       52 rows (na_share=0.00) -> water_reservoirs/weekly/CH/2018.parquet
+19:53:39 | INFO    | [176/195] OK  water_reservoirs__weekly__CH__2019                       53 rows (na_share=0.00) -> water_reservoirs/weekly/CH/2019.parquet
+19:53:39 | INFO    | [177/195] OK  water_reservoirs__weekly__CH__2020                       53 rows (na_share=0.00) -> water_reservoirs/weekly/CH/2020.parquet
+19:53:40 | INFO    | [178/195] OK  water_reservoirs__weekly__FR__2015                       53 rows (na_share=0.00) -> water_reservoirs/weekly/FR/2015.parquet
+19:53:40 | INFO    | [179/195] OK  water_reservoirs__weekly__FR__2016                       53 rows (na_share=0.00) -> water_reservoirs/weekly/FR/2016.parquet
+19:53:40 | INFO    | [180/195] OK  water_reservoirs__weekly__FR__2017                       53 rows (na_share=0.00) -> water_reservoirs/weekly/FR/2017.parquet
+19:53:41 | INFO    | [181/195] OK  water_reservoirs__weekly__FR__2018                       52 rows (na_share=0.00) -> water_reservoirs/weekly/FR/2018.parquet
+19:53:41 | INFO    | [182/195] OK  water_reservoirs__weekly__FR__2019                       51 rows (na_share=0.00) -> water_reservoirs/weekly/FR/2019.parquet
+19:53:41 | INFO    | [183/195] OK  water_reservoirs__weekly__FR__2020                       53 rows (na_share=0.00) -> water_reservoirs/weekly/FR/2020.parquet
+19:53:42 | INFO    | [184/195] OK  water_reservoirs__weekly__IT_NORD__2015                  52 rows (na_share=0.00) -> water_reservoirs/weekly/IT_NORD/2015.parquet
+19:53:42 | INFO    | [185/195] OK  water_reservoirs__weekly__IT_NORD__2016                  53 rows (na_share=0.00) -> water_reservoirs/weekly/IT_NORD/2016.parquet
+19:53:42 | INFO    | [186/195] OK  water_reservoirs__weekly__IT_NORD__2017                  53 rows (na_share=0.00) -> water_reservoirs/weekly/IT_NORD/2017.parquet
+19:53:43 | INFO    | [187/195] OK  water_reservoirs__weekly__IT_NORD__2018                  52 rows (na_share=0.00) -> water_reservoirs/weekly/IT_NORD/2018.parquet
+19:53:43 | INFO    | [188/195] OK  water_reservoirs__weekly__IT_NORD__2019                  53 rows (na_share=0.00) -> water_reservoirs/weekly/IT_NORD/2019.parquet
+19:53:44 | INFO    | [189/195] OK  water_reservoirs__weekly__IT_NORD__2020                  53 rows (na_share=0.00) -> water_reservoirs/weekly/IT_NORD/2020.parquet
+19:53:44 | INFO    | [190/195] OK  water_reservoirs__weekly__AT__2015                       52 rows (na_share=0.00) -> water_reservoirs/weekly/AT/2015.parquet
+19:53:44 | INFO    | [191/195] OK  water_reservoirs__weekly__AT__2016                       53 rows (na_share=0.00) -> water_reservoirs/weekly/AT/2016.parquet
+19:53:44 | INFO    | [192/195] OK  water_reservoirs__weekly__AT__2017                       53 rows (na_share=0.00) -> water_reservoirs/weekly/AT/2017.parquet
+19:53:45 | INFO    | [193/195] OK  water_reservoirs__weekly__AT__2018                       52 rows (na_share=0.00) -> water_reservoirs/weekly/AT/2018.parquet
+19:53:45 | INFO    | [194/195] OK  water_reservoirs__weekly__AT__2019                       53 rows (na_share=0.00) -> water_reservoirs/weekly/AT/2019.parquet
+19:53:46 | INFO    | [195/195] OK  water_reservoirs__weekly__AT__2020                       53 rows (na_share=0.00) -> water_reservoirs/weekly/AT/2020.parquet
+19:53:46 | INFO    | wrote 195 series-years (195 non-empty) | manifest: /Users/johan/Master_Thesis/Entsoe/Generation/Data/production_pre2021/_pull_manifest.csv
+
+parquet written under: /Users/johan/Master_Thesis/Entsoe/Generation/Data/production_pre2021
+
+===== Outages  19:53
+19:53:46 | INFO    | coverage: _coverage_post_split.csv | 100 series x 6 years = 600 series-years | 2015-01-01 -> 2021-01-01
+19:53:46 | INFO    | using ENTSOE_API_KEY from /Users/johan/Master_Thesis/.env
+19:53:51 | INFO    | [1/600] OK  gen_unit_outages__planned_A53__CH__2015                       1120 rows  1120 docs
+19:54:10 | INFO    | [2/600] OK  gen_unit_outages__planned_A53__CH__2016                       8400 rows  8400 docs
+19:54:26 | INFO    | [3/600] OK  gen_unit_outages__planned_A53__CH__2017                       2970 rows  2970 docs
+19:54:39 | INFO    | [4/600] OK  gen_unit_outages__planned_A53__CH__2018                       3789 rows  3774 docs
+19:54:45 | INFO    | [5/600] OK  gen_unit_outages__planned_A53__CH__2019                       2412 rows  1986 docs
+19:54:50 | INFO    | [6/600] OK  gen_unit_outages__planned_A53__CH__2020                       1503 rows   883 docs
+19:56:04 | INFO    | [7/600] OK  gen_unit_outages__planned_A53__DE_LU__2015                   16999 rows 16995 docs
+19:57:37 | INFO    | [8/600] OK  gen_unit_outages__planned_A53__DE_LU__2016                   22768 rows 22742 docs
+19:59:11 | INFO    |     window 2017-10-01 00:00:00+02:00..2017-11-01 00:00:00+01:00 too dense — halving
+19:59:43 | INFO    | [9/600] OK  gen_unit_outages__planned_A53__DE_LU__2017                   28270 rows 28226 docs
+20:06:56 | WARNING | Connection Error, retrying in 10 seconds
+20:07:36 | INFO    | [10/600] OK  gen_unit_outages__planned_A53__DE_LU__2018                   20600 rows 20579 docs
+20:10:25 | INFO    | [11/600] OK  gen_unit_outages__planned_A53__DE_LU__2019                   19899 rows  9495 docs
+20:13:24 | INFO    | [12/600] OK  gen_unit_outages__planned_A53__DE_LU__2020                   34294 rows  7936 docs
+20:14:01 | INFO    | [13/600] OK  gen_unit_outages__planned_A53__FR__2015                       2402 rows  2201 docs
+20:14:29 | INFO    | [14/600] OK  gen_unit_outages__planned_A53__FR__2016                       1893 rows  1893 docs
+20:15:48 | INFO    | [15/600] OK  gen_unit_outages__planned_A53__FR__2017                       3607 rows  3607 docs
+20:17:35 | INFO    | [16/600] OK  gen_unit_outages__planned_A53__FR__2018                       4223 rows  4123 docs
+20:18:12 | INFO    | [17/600] OK  gen_unit_outages__planned_A53__FR__2019                       3083 rows  2968 docs
+20:19:01 | INFO    | [18/600] OK  gen_unit_outages__planned_A53__FR__2020                       3246 rows  3205 docs
+20:19:13 | INFO    | [19/600] OK  gen_unit_outages__planned_A53__IT_NORD__2015                   204 rows   204 docs
+20:19:18 | INFO    | [20/600] OK  gen_unit_outages__planned_A53__IT_NORD__2016                   191 rows   191 docs
+20:19:31 | INFO    | [21/600] OK  gen_unit_outages__planned_A53__IT_NORD__2017                   790 rows   790 docs
+20:19:41 | INFO    | [22/600] OK  gen_unit_outages__planned_A53__IT_NORD__2018                   562 rows   552 docs
+20:19:49 | INFO    | [23/600] OK  gen_unit_outages__planned_A53__IT_NORD__2019                   595 rows   595 docs
+20:19:53 | INFO    | [24/600] OK  gen_unit_outages__planned_A53__IT_NORD__2020                   658 rows   658 docs
+20:19:58 | INFO    | [25/600] OK  gen_unit_outages__planned_A53__AT__2015                        261 rows   261 docs
+20:20:27 | INFO    | [26/600] OK  gen_unit_outages__planned_A53__AT__2016                        417 rows   416 docs
+20:21:04 | INFO    | [27/600] OK  gen_unit_outages__planned_A53__AT__2017                        554 rows   554 docs
+20:21:28 | INFO    | [28/600] OK  gen_unit_outages__planned_A53__AT__2018                        631 rows   600 docs
+20:21:49 | INFO    | [29/600] OK  gen_unit_outages__planned_A53__AT__2019                        453 rows   431 docs
+20:22:09 | INFO    | [30/600] OK  gen_unit_outages__planned_A53__AT__2020                        432 rows   365 docs
+20:22:21 | INFO    | [31/600] OK  gen_unit_outages__forced_A54__CH__2015                          86 rows    86 docs
+20:22:31 | INFO    | [32/600] OK  gen_unit_outages__forced_A54__CH__2016                          48 rows    48 docs
+20:22:50 | INFO    | [33/600] OK  gen_unit_outages__forced_A54__CH__2017                         103 rows   103 docs
+20:23:22 | INFO    | [34/600] OK  gen_unit_outages__forced_A54__CH__2018                         150 rows   149 docs
+20:23:42 | INFO    | [35/600] OK  gen_unit_outages__forced_A54__CH__2019                         148 rows   145 docs
+20:23:49 | INFO    | [36/600] OK  gen_unit_outages__forced_A54__CH__2020                         149 rows   149 docs
+20:24:13 | INFO    | [37/600] OK  gen_unit_outages__forced_A54__DE_LU__2015                     1956 rows  1956 docs
+20:24:42 | INFO    | [38/600] OK  gen_unit_outages__forced_A54__DE_LU__2016                     2671 rows  2665 docs
+20:24:55 | INFO    | [39/600] OK  gen_unit_outages__forced_A54__DE_LU__2017                     2534 rows  2518 docs
+20:25:17 | INFO    | [40/600] OK  gen_unit_outages__forced_A54__DE_LU__2018                     2393 rows  2385 docs
+20:25:32 | INFO    | [41/600] OK  gen_unit_outages__forced_A54__DE_LU__2019                     2324 rows  1879 docs
+20:25:45 | INFO    | [42/600] OK  gen_unit_outages__forced_A54__DE_LU__2020                     2104 rows  1547 docs
+20:25:51 | INFO    | [43/600] OK  gen_unit_outages__forced_A54__FR__2015                        1070 rows  1070 docs
+20:26:01 | INFO    | [44/600] OK  gen_unit_outages__forced_A54__FR__2016                        1201 rows  1201 docs
+20:26:16 | INFO    | [45/600] OK  gen_unit_outages__forced_A54__FR__2017                        1279 rows  1279 docs
+20:26:26 | INFO    | [46/600] OK  gen_unit_outages__forced_A54__FR__2018                        1319 rows  1318 docs
+20:26:32 | INFO    | [47/600] OK  gen_unit_outages__forced_A54__FR__2019                        1190 rows  1189 docs
+20:26:41 | INFO    | [48/600] OK  gen_unit_outages__forced_A54__FR__2020                        1417 rows  1417 docs
+20:26:49 | INFO    | [49/600] OK  gen_unit_outages__forced_A54__AT__2015                          49 rows    49 docs
+20:26:55 | INFO    | [50/600] OK  gen_unit_outages__forced_A54__AT__2016                          55 rows    55 docs
+20:27:03 | INFO    | [51/600] OK  gen_unit_outages__forced_A54__AT__2017                          82 rows    82 docs
+20:27:08 | INFO    | [52/600] OK  gen_unit_outages__forced_A54__AT__2018                         101 rows   101 docs
+20:27:15 | INFO    | [53/600] OK  gen_unit_outages__forced_A54__AT__2019                         223 rows   189 docs
+20:27:23 | INFO    | [54/600] OK  gen_unit_outages__forced_A54__AT__2020                         418 rows   341 docs
+20:27:28 | INFO    | [55/600] OK  prod_unit_outages__planned_A53__CH__2015                        83 rows    83 docs
+20:27:41 | INFO    | [56/600] OK  prod_unit_outages__planned_A53__CH__2016                      1186 rows  1186 docs
+20:27:49 | INFO    | [57/600] OK  prod_unit_outages__planned_A53__CH__2017                       471 rows   471 docs
+20:28:43 | INFO    | [58/600] OK  prod_unit_outages__planned_A53__CH__2018                       919 rows   919 docs
+20:28:53 | INFO    | [59/600] OK  prod_unit_outages__planned_A53__CH__2019                       241 rows   179 docs
+20:29:02 | INFO    | [60/600] OK  prod_unit_outages__planned_A53__CH__2020                       243 rows   181 docs
+20:29:26 | INFO    | [61/600] OK  prod_unit_outages__planned_A53__DE_LU__2015                    380 rows   380 docs
+20:33:30 | INFO    | [62/600] OK  prod_unit_outages__planned_A53__DE_LU__2016                  14370 rows 14370 docs
+20:36:46 | INFO    |     window 2017-06-01 00:00:00+02:00..2017-07-01 00:00:00+02:00 too dense — halving
+20:38:58 | INFO    |     window 2017-07-01 00:00:00+02:00..2017-08-01 00:00:00+02:00 too dense — halving
+20:40:14 | INFO    |     window 2017-07-16 12:00:00+02:00..2017-08-01 00:00:00+02:00 too dense — halving
+20:41:48 | INFO    |     window 2017-08-01 00:00:00+02:00..2017-09-01 00:00:00+02:00 too dense — halving
+20:44:17 | INFO    | [63/600] OK  prod_unit_outages__planned_A53__DE_LU__2017                  41131 rows 41128 docs
+20:46:13 | INFO    |     window 2018-05-01 00:00:00+02:00..2018-06-01 00:00:00+02:00 too dense — halving
+20:48:13 | INFO    |     window 2018-06-01 00:00:00+02:00..2018-07-01 00:00:00+02:00 too dense — halving
+20:49:09 | INFO    |     window 2018-06-01 00:00:00+02:00..2018-06-16 00:00:00+02:00 too dense — halving
+20:51:56 | INFO    |     window 2018-07-01 00:00:00+02:00..2018-08-01 00:00:00+02:00 too dense — halving
+20:52:58 | INFO    |     window 2018-07-01 00:00:00+02:00..2018-07-16 12:00:00+02:00 too dense — halving
+20:55:11 | INFO    |     window 2018-07-16 12:00:00+02:00..2018-08-01 00:00:00+02:00 too dense — halving
+20:58:04 | INFO    |     window 2018-08-01 00:00:00+02:00..2018-09-01 00:00:00+02:00 too dense — halving
+20:58:48 | INFO    |     window 2018-08-01 00:00:00+02:00..2018-08-16 12:00:00+02:00 too dense — halving
+21:00:48 | INFO    |     window 2018-08-16 12:00:00+02:00..2018-09-01 00:00:00+02:00 too dense — halving
+21:05:00 | INFO    |     window 2018-09-01 00:00:00+02:00..2018-10-01 00:00:00+02:00 too dense — halving
+21:09:37 | INFO    |     window 2018-10-01 00:00:00+02:00..2018-11-01 00:00:00+01:00 too dense — halving
+21:12:00 | INFO    |     window 2018-10-01 00:00:00+02:00..2018-10-16 12:30:00+02:00 too dense — halving
+21:14:05 | INFO    |     window 2018-10-08 18:15:00+02:00..2018-10-16 12:30:00+02:00 too dense — halving
+21:15:52 | INFO    |     window 2018-10-08 18:15:00+02:00..2018-10-12 15:22:30+02:00 too dense — halving
+21:20:46 | INFO    |     window 2018-11-01 00:00:00+01:00..2018-12-01 00:00:00+01:00 too dense — halving
+21:22:09 | INFO    |     window 2018-11-01 00:00:00+01:00..2018-11-16 00:00:00+01:00 too dense — halving
+21:23:52 | INFO    |     window 2018-11-16 00:00:00+01:00..2018-12-01 00:00:00+01:00 too dense — halving
+21:25:29 | INFO    |     window 2018-12-01 00:00:00+01:00..2019-01-01 00:00:00+01:00 too dense — halving
+21:26:12 | INFO    |     window 2018-12-01 00:00:00+01:00..2018-12-16 12:00:00+01:00 too dense — halving
+21:27:49 | INFO    |     window 2018-12-16 12:00:00+01:00..2019-01-01 00:00:00+01:00 too dense — halving
+21:28:49 | INFO    | [64/600] OK  prod_unit_outages__planned_A53__DE_LU__2018                  94019 rows 94015 docs
+21:29:20 | INFO    |     window 2019-01-01 00:00:00+01:00..2019-02-01 00:00:00+01:00 too dense — halving
+21:31:38 | INFO    |     window 2019-02-01 00:00:00+01:00..2019-03-01 00:00:00+01:00 too dense — halving
+21:33:57 | INFO    |     window 2019-04-01 00:00:00+02:00..2019-05-01 00:00:00+02:00 too dense — halving
+21:35:27 | INFO    |     window 2019-04-16 00:00:00+02:00..2019-05-01 00:00:00+02:00 too dense — halving
+21:37:19 | INFO    |     window 2019-05-01 00:00:00+02:00..2019-06-01 00:00:00+02:00 too dense — halving
+21:38:22 | INFO    |     window 2019-05-01 00:00:00+02:00..2019-05-16 12:00:00+02:00 too dense — halving
+21:41:21 | INFO    |     window 2019-06-01 00:00:00+02:00..2019-07-01 00:00:00+02:00 too dense — halving
+21:42:28 | INFO    |     window 2019-06-01 00:00:00+02:00..2019-06-16 00:00:00+02:00 too dense — halving
+21:44:44 | INFO    |     window 2019-06-16 00:00:00+02:00..2019-07-01 00:00:00+02:00 too dense — halving
+21:48:15 | INFO    |     window 2019-08-01 00:00:00+02:00..2019-09-01 00:00:00+02:00 too dense — halving
+21:50:03 | INFO    | [65/600] OK  prod_unit_outages__planned_A53__DE_LU__2019                  64329 rows 64253 docs
+21:51:40 | INFO    | [66/600] OK  prod_unit_outages__planned_A53__DE_LU__2020                   7824 rows  7583 docs
+21:51:46 | INFO    | [67/600] OK  prod_unit_outages__planned_A53__FR__2015                       466 rows   463 docs
+21:51:51 | INFO    | [68/600] OK  prod_unit_outages__planned_A53__FR__2016                       350 rows   350 docs
+21:51:57 | INFO    | [69/600] OK  prod_unit_outages__planned_A53__FR__2017                       524 rows   524 docs
+21:52:16 | INFO    | [70/600] OK  prod_unit_outages__planned_A53__FR__2018                       535 rows   502 docs
+21:52:24 | INFO    | [71/600] OK  prod_unit_outages__planned_A53__FR__2019                       600 rows   600 docs
+21:52:30 | INFO    | [72/600] OK  prod_unit_outages__planned_A53__FR__2020                       716 rows   716 docs
+21:52:43 | INFO    | [73/600] OK  prod_unit_outages__planned_A53__IT_NORD__2015                  244 rows   244 docs
+21:52:48 | INFO    | [74/600] OK  prod_unit_outages__planned_A53__IT_NORD__2016                   83 rows    83 docs
+21:52:51 | INFO    | [75/600] OK  prod_unit_outages__planned_A53__IT_NORD__2017                    7 rows     7 docs
+21:52:55 | INFO    | [76/600] empty     prod_unit_outages__planned_A53__IT_NORD__2018
+21:53:00 | INFO    | [77/600] empty     prod_unit_outages__planned_A53__IT_NORD__2019
+21:53:07 | INFO    | [78/600] empty     prod_unit_outages__planned_A53__IT_NORD__2020
+21:53:08 | INFO    | [82/600] OK  prod_unit_outages__planned_A53__AT__2018                        12 rows    12 docs
+21:53:11 | INFO    | [83/600] OK  prod_unit_outages__planned_A53__AT__2019                        88 rows    73 docs
+21:53:17 | INFO    | [84/600] OK  prod_unit_outages__planned_A53__AT__2020                        86 rows    70 docs
+21:53:21 | INFO    | [85/600] OK  prod_unit_outages__forced_A54__CH__2015                         15 rows    15 docs
+21:53:25 | INFO    | [86/600] OK  prod_unit_outages__forced_A54__CH__2016                         29 rows    29 docs
+21:53:29 | INFO    | [87/600] OK  prod_unit_outages__forced_A54__CH__2017                         21 rows    21 docs
+21:53:33 | INFO    | [88/600] OK  prod_unit_outages__forced_A54__CH__2018                         17 rows    17 docs
+21:53:37 | INFO    | [89/600] OK  prod_unit_outages__forced_A54__CH__2019                         20 rows    15 docs
+21:53:41 | INFO    | [90/600] OK  prod_unit_outages__forced_A54__CH__2020                         19 rows    12 docs
+21:53:45 | INFO    | [91/600] OK  prod_unit_outages__forced_A54__DE_LU__2015                      93 rows    93 docs
+21:53:49 | INFO    | [92/600] OK  prod_unit_outages__forced_A54__DE_LU__2016                     141 rows   141 docs
+21:53:53 | INFO    | [93/600] OK  prod_unit_outages__forced_A54__DE_LU__2017                     182 rows   182 docs
+21:53:57 | INFO    | [94/600] OK  prod_unit_outages__forced_A54__DE_LU__2018                     151 rows   151 docs
+21:54:02 | INFO    | [95/600] OK  prod_unit_outages__forced_A54__DE_LU__2019                     169 rows   155 docs
+21:54:06 | INFO    | [96/600] OK  prod_unit_outages__forced_A54__DE_LU__2020                      98 rows    82 docs
+21:54:11 | INFO    | [97/600] OK  prod_unit_outages__forced_A54__FR__2015                          6 rows     6 docs
+21:54:15 | INFO    | [98/600] OK  prod_unit_outages__forced_A54__FR__2016                         27 rows    27 docs
+21:54:22 | INFO    | [99/600] OK  prod_unit_outages__forced_A54__FR__2017                         40 rows    40 docs
+21:54:27 | INFO    | [100/600] OK  prod_unit_outages__forced_A54__FR__2018                         25 rows    25 docs
+21:54:38 | INFO    | [101/600] OK  prod_unit_outages__forced_A54__FR__2019                         57 rows    57 docs
+21:54:44 | INFO    | [102/600] OK  prod_unit_outages__forced_A54__FR__2020                         57 rows    57 docs
+21:54:45 | INFO    | [106/600] empty     prod_unit_outages__forced_A54__AT__2018
+21:54:49 | INFO    | [107/600] OK  prod_unit_outages__forced_A54__AT__2019                         15 rows    14 docs
+21:54:53 | INFO    | [108/600] OK  prod_unit_outages__forced_A54__AT__2020                          9 rows     5 docs
+21:54:57 | INFO    | [109/600] empty     transmission_outages__planned_A53__CH_to_CH__2015
+21:55:14 | INFO    | [110/600] empty     transmission_outages__planned_A53__CH_to_CH__2016
+21:55:26 | INFO    | [111/600] empty     transmission_outages__planned_A53__CH_to_CH__2017
+21:55:36 | INFO    | [112/600] empty     transmission_outages__planned_A53__CH_to_CH__2018
+21:55:46 | INFO    | [113/600] empty     transmission_outages__planned_A53__CH_to_CH__2019
+21:55:50 | INFO    | [114/600] empty     transmission_outages__planned_A53__CH_to_CH__2020
+21:55:54 | INFO    | [115/600] OK  transmission_outages__planned_A53__CH_to_DE_LU__2015           301 rows   144 docs
+21:55:58 | INFO    | [116/600] OK  transmission_outages__planned_A53__CH_to_DE_LU__2016           698 rows   337 docs
+21:56:02 | INFO    | [117/600] OK  transmission_outages__planned_A53__CH_to_DE_LU__2017           907 rows   342 docs
+21:56:07 | INFO    | [118/600] OK  transmission_outages__planned_A53__CH_to_DE_LU__2018           569 rows   167 docs
+21:56:13 | INFO    | [119/600] empty     transmission_outages__planned_A53__CH_to_DE_LU__2019
+21:56:17 | INFO    | [120/600] OK  transmission_outages__planned_A53__CH_to_DE_LU__2020             3 rows     3 docs
+21:56:22 | INFO    | [121/600] OK  transmission_outages__planned_A53__DE_LU_to_CH__2015          1487 rows   447 docs
+21:56:26 | INFO    | [122/600] OK  transmission_outages__planned_A53__DE_LU_to_CH__2016          1685 rows   436 docs
+21:56:30 | INFO    | [123/600] OK  transmission_outages__planned_A53__DE_LU_to_CH__2017          2412 rows   466 docs
+21:56:34 | INFO    | [124/600] OK  transmission_outages__planned_A53__DE_LU_to_CH__2018          1785 rows   319 docs
+21:56:38 | INFO    | [125/600] empty     transmission_outages__planned_A53__DE_LU_to_CH__2019
+21:56:42 | INFO    | [126/600] OK  transmission_outages__planned_A53__DE_LU_to_CH__2020             3 rows     3 docs
+21:56:46 | INFO    | [127/600] OK  transmission_outages__planned_A53__CH_to_FR__2015                7 rows     7 docs
+21:56:50 | INFO    | [128/600] OK  transmission_outages__planned_A53__CH_to_FR__2016               24 rows    20 docs
+21:56:54 | INFO    | [129/600] OK  transmission_outages__planned_A53__CH_to_FR__2017               34 rows    22 docs
+21:56:58 | INFO    | [130/600] OK  transmission_outages__planned_A53__CH_to_FR__2018                7 rows     7 docs
+21:57:03 | INFO    | [131/600] OK  transmission_outages__planned_A53__CH_to_FR__2019               70 rows    19 docs
+21:57:09 | INFO    | [132/600] OK  transmission_outages__planned_A53__CH_to_FR__2020              145 rows    38 docs
+21:57:17 | INFO    | [133/600] OK  transmission_outages__planned_A53__FR_to_CH__2015                8 rows     7 docs
+21:57:21 | INFO    | [134/600] OK  transmission_outages__planned_A53__FR_to_CH__2016               27 rows    20 docs
+21:57:24 | INFO    | [135/600] OK  transmission_outages__planned_A53__FR_to_CH__2017               25 rows    22 docs
+21:57:29 | INFO    | [136/600] OK  transmission_outages__planned_A53__FR_to_CH__2018               25 rows     7 docs
+21:57:36 | INFO    | [137/600] OK  transmission_outages__planned_A53__FR_to_CH__2019               31 rows    19 docs
+21:57:43 | INFO    | [138/600] OK  transmission_outages__planned_A53__FR_to_CH__2020              162 rows    38 docs
+21:57:47 | INFO    | [139/600] OK  transmission_outages__planned_A53__CH_to_IT_NORD__2015          82 rows    82 docs
+21:57:54 | INFO    | [140/600] OK  transmission_outages__planned_A53__CH_to_IT_NORD__2016        2102 rows  2102 docs
+21:58:02 | INFO    | [141/600] OK  transmission_outages__planned_A53__CH_to_IT_NORD__2017        2198 rows  2198 docs
+21:58:18 | INFO    | [142/600] OK  transmission_outages__planned_A53__CH_to_IT_NORD__2018        5825 rows  5825 docs
+21:58:36 | INFO    | [143/600] OK  transmission_outages__planned_A53__CH_to_IT_NORD__2019        5915 rows  5915 docs
+21:58:45 | INFO    | [144/600] OK  transmission_outages__planned_A53__CH_to_IT_NORD__2020        1753 rows  1753 docs
+21:58:48 | INFO    | [145/600] empty     transmission_outages__planned_A53__IT_NORD_to_CH__2015
+21:58:52 | INFO    | [146/600] empty     transmission_outages__planned_A53__IT_NORD_to_CH__2016
+21:58:56 | INFO    | [147/600] OK  transmission_outages__planned_A53__IT_NORD_to_CH__2017           1 rows     1 docs
+21:59:00 | INFO    | [148/600] OK  transmission_outages__planned_A53__IT_NORD_to_CH__2018           5 rows     5 docs
+21:59:04 | INFO    | [149/600] OK  transmission_outages__planned_A53__IT_NORD_to_CH__2019          10 rows    10 docs
+21:59:07 | INFO    | [150/600] OK  transmission_outages__planned_A53__IT_NORD_to_CH__2020           4 rows     4 docs
+21:59:12 | INFO    | [151/600] OK  transmission_outages__planned_A53__CH_to_AT__2015              301 rows   144 docs
+21:59:15 | INFO    | [152/600] OK  transmission_outages__planned_A53__CH_to_AT__2016              696 rows   336 docs
+21:59:21 | INFO    | [153/600] OK  transmission_outages__planned_A53__CH_to_AT__2017              907 rows   342 docs
+21:59:26 | INFO    | [154/600] OK  transmission_outages__planned_A53__CH_to_AT__2018              573 rows   169 docs
+21:59:30 | INFO    | [155/600] OK  transmission_outages__planned_A53__CH_to_AT__2019               75 rows    20 docs
+21:59:34 | INFO    | [156/600] OK  transmission_outages__planned_A53__CH_to_AT__2020              173 rows    20 docs
+21:59:38 | INFO    | [157/600] OK  transmission_outages__planned_A53__AT_to_CH__2015             1487 rows   447 docs
+21:59:42 | INFO    | [158/600] OK  transmission_outages__planned_A53__AT_to_CH__2016             1682 rows   435 docs
+21:59:46 | INFO    | [159/600] OK  transmission_outages__planned_A53__AT_to_CH__2017             2412 rows   466 docs
+21:59:49 | INFO    | [160/600] OK  transmission_outages__planned_A53__AT_to_CH__2018             1790 rows   322 docs
+21:59:53 | INFO    | [161/600] OK  transmission_outages__planned_A53__AT_to_CH__2019               48 rows    24 docs
+21:59:57 | INFO    | [162/600] OK  transmission_outages__planned_A53__AT_to_CH__2020              212 rows    30 docs
+22:00:45 | INFO    | [163/600] empty     transmission_outages__forced_A54__CH_to_CH__2015
+22:02:03 | INFO    | [164/600] empty     transmission_outages__forced_A54__CH_to_CH__2016
+22:03:36 | INFO    | [165/600] empty     transmission_outages__forced_A54__CH_to_CH__2017
+22:04:55 | INFO    | [166/600] empty     transmission_outages__forced_A54__CH_to_CH__2018
+22:05:51 | INFO    | [167/600] empty     transmission_outages__forced_A54__CH_to_CH__2019
+22:06:36 | INFO    | [168/600] empty     transmission_outages__forced_A54__CH_to_CH__2020
+22:07:06 | INFO    | [169/600] OK  transmission_outages__forced_A54__CH_to_DE_LU__2015              1 rows     1 docs
+22:07:24 | INFO    | [170/600] OK  transmission_outages__forced_A54__CH_to_DE_LU__2016              5 rows     5 docs
+22:07:36 | INFO    | [171/600] empty     transmission_outages__forced_A54__CH_to_DE_LU__2017
+22:07:48 | INFO    | [172/600] empty     transmission_outages__forced_A54__CH_to_DE_LU__2018
+22:08:08 | INFO    | [173/600] empty     transmission_outages__forced_A54__CH_to_DE_LU__2019
+22:08:23 | INFO    | [174/600] empty     transmission_outages__forced_A54__CH_to_DE_LU__2020
+22:08:35 | INFO    | [175/600] OK  transmission_outages__forced_A54__DE_LU_to_CH__2015              1 rows     1 docs
+22:08:51 | INFO    | [176/600] OK  transmission_outages__forced_A54__DE_LU_to_CH__2016             10 rows     5 docs
+22:08:57 | INFO    | [177/600] empty     transmission_outages__forced_A54__DE_LU_to_CH__2017
+22:09:13 | INFO    | [178/600] empty     transmission_outages__forced_A54__DE_LU_to_CH__2018
+22:09:21 | INFO    | [179/600] empty     transmission_outages__forced_A54__DE_LU_to_CH__2019
+22:09:31 | INFO    | [180/600] empty     transmission_outages__forced_A54__DE_LU_to_CH__2020
+22:09:44 | INFO    | [181/600] OK  transmission_outages__forced_A54__CH_to_FR__2015                12 rows    12 docs
+22:09:54 | INFO    | [182/600] OK  transmission_outages__forced_A54__CH_to_FR__2016                 1 rows     1 docs
+22:10:12 | INFO    | [183/600] empty     transmission_outages__forced_A54__CH_to_FR__2017
+22:10:34 | INFO    | [184/600] OK  transmission_outages__forced_A54__CH_to_FR__2018                 2 rows     2 docs
+22:10:51 | INFO    | [185/600] empty     transmission_outages__forced_A54__CH_to_FR__2019
+22:11:10 | INFO    | [186/600] OK  transmission_outages__forced_A54__CH_to_FR__2020                 1 rows     1 docs
+22:11:25 | INFO    | [187/600] OK  transmission_outages__forced_A54__FR_to_CH__2015                14 rows    12 docs
+22:11:30 | INFO    | [188/600] OK  transmission_outages__forced_A54__FR_to_CH__2016                 1 rows     1 docs
+22:11:39 | INFO    | [189/600] empty     transmission_outages__forced_A54__FR_to_CH__2017
+22:11:52 | INFO    | [190/600] OK  transmission_outages__forced_A54__FR_to_CH__2018                 6 rows     2 docs
+22:12:05 | INFO    | [191/600] empty     transmission_outages__forced_A54__FR_to_CH__2019
+22:12:18 | INFO    | [192/600] OK  transmission_outages__forced_A54__FR_to_CH__2020                 1 rows     1 docs
+22:12:29 | INFO    | [193/600] empty     transmission_outages__forced_A54__CH_to_IT_NORD__2015
+22:12:40 | INFO    | [194/600] OK  transmission_outages__forced_A54__CH_to_IT_NORD__2016           11 rows    11 docs
+22:12:48 | INFO    | [195/600] OK  transmission_outages__forced_A54__CH_to_IT_NORD__2017            5 rows     5 docs
+22:12:59 | INFO    | [196/600] OK  transmission_outages__forced_A54__CH_to_IT_NORD__2018            1 rows     1 docs
+22:13:16 | INFO    | [197/600] empty     transmission_outages__forced_A54__CH_to_IT_NORD__2019
+22:13:28 | INFO    | [198/600] OK  transmission_outages__forced_A54__CH_to_IT_NORD__2020            6 rows     6 docs
+22:13:37 | INFO    | [199/600] empty     transmission_outages__forced_A54__IT_NORD_to_CH__2015
+22:13:42 | INFO    | [200/600] empty     transmission_outages__forced_A54__IT_NORD_to_CH__2016
+22:13:47 | INFO    | [201/600] empty     transmission_outages__forced_A54__IT_NORD_to_CH__2017
+22:13:52 | INFO    | [202/600] empty     transmission_outages__forced_A54__IT_NORD_to_CH__2018
+22:13:56 | INFO    | [203/600] empty     transmission_outages__forced_A54__IT_NORD_to_CH__2019
+22:14:09 | INFO    | [204/600] empty     transmission_outages__forced_A54__IT_NORD_to_CH__2020
+22:14:14 | INFO    | [205/600] OK  transmission_outages__forced_A54__CH_to_AT__2015                 1 rows     1 docs
+22:14:31 | INFO    | [206/600] OK  transmission_outages__forced_A54__CH_to_AT__2016                 5 rows     5 docs
+22:14:40 | INFO    | [207/600] empty     transmission_outages__forced_A54__CH_to_AT__2017
+22:14:45 | INFO    | [208/600] empty     transmission_outages__forced_A54__CH_to_AT__2018
+22:14:49 | INFO    | [209/600] empty     transmission_outages__forced_A54__CH_to_AT__2019
+22:14:53 | INFO    | [210/600] empty     transmission_outages__forced_A54__CH_to_AT__2020
+22:14:57 | INFO    | [211/600] OK  transmission_outages__forced_A54__AT_to_CH__2015                 1 rows     1 docs
+22:15:09 | INFO    | [212/600] OK  transmission_outages__forced_A54__AT_to_CH__2016                10 rows     5 docs
+22:15:41 | INFO    | [213/600] empty     transmission_outages__forced_A54__AT_to_CH__2017
+22:16:00 | INFO    | [214/600] empty     transmission_outages__forced_A54__AT_to_CH__2018
+22:16:19 | INFO    | [215/600] empty     transmission_outages__forced_A54__AT_to_CH__2019
+22:16:32 | INFO    | [216/600] empty     transmission_outages__forced_A54__AT_to_CH__2020
+22:16:54 | INFO    | [217/600] empty     offshore_grid_outages__all__DE_LU__2015
+22:17:11 | INFO    | [218/600] empty     offshore_grid_outages__all__DE_LU__2016
+22:17:23 | INFO    | [219/600] empty     offshore_grid_outages__all__DE_LU__2017
+22:17:31 | INFO    | [220/600] OK  offshore_grid_outages__all__DE_LU__2018                         15 rows    15 docs
+22:17:39 | INFO    | [221/600] OK  offshore_grid_outages__all__DE_LU__2019                         27 rows    27 docs
+22:17:43 | INFO    | [222/600] OK  offshore_grid_outages__all__DE_LU__2020                        137 rows   135 docs
+22:17:48 | INFO    | [223/600] OK  offshore_grid_outages__all__DE_TENNET__2015                      3 rows     3 docs
+22:17:53 | INFO    | [224/600] OK  offshore_grid_outages__all__DE_TENNET__2016                     17 rows    17 docs
+22:17:57 | INFO    | [225/600] empty     offshore_grid_outages__all__DE_TENNET__2017
+22:18:07 | INFO    | [226/600] OK  offshore_grid_outages__all__DE_TENNET__2018                     27 rows    27 docs
+22:18:16 | INFO    | [227/600] OK  offshore_grid_outages__all__DE_TENNET__2019                     15 rows    15 docs
+22:18:24 | INFO    | [228/600] OK  offshore_grid_outages__all__DE_TENNET__2020                    127 rows   127 docs
+22:18:29 | INFO    | [229/600] empty     offshore_grid_outages__all__DE_50HZ__2015
+22:18:34 | INFO    | [230/600] empty     offshore_grid_outages__all__DE_50HZ__2016
+22:18:39 | INFO    | [231/600] empty     offshore_grid_outages__all__DE_50HZ__2017
+22:18:45 | INFO    | [232/600] empty     offshore_grid_outages__all__DE_50HZ__2018
+22:18:49 | INFO    | [233/600] empty     offshore_grid_outages__all__DE_50HZ__2019
+22:18:53 | INFO    | [234/600] empty     offshore_grid_outages__all__DE_50HZ__2020
+22:18:57 | INFO    | [235/600] empty     offshore_grid_outages__all__DE_AMPRION__2015
+22:19:03 | INFO    | [236/600] empty     offshore_grid_outages__all__DE_AMPRION__2016
+22:19:08 | INFO    | [237/600] empty     offshore_grid_outages__all__DE_AMPRION__2017
+22:19:14 | INFO    | [238/600] empty     offshore_grid_outages__all__DE_AMPRION__2018
+22:19:23 | INFO    | [239/600] empty     offshore_grid_outages__all__DE_AMPRION__2019
+22:19:28 | INFO    | [240/600] empty     offshore_grid_outages__all__DE_AMPRION__2020
+22:19:32 | INFO    | [241/600] empty     fallback_afrr__disconnection_C47__CH__2015
+22:19:35 | INFO    | [242/600] empty     fallback_afrr__disconnection_C47__CH__2016
+22:19:39 | INFO    | [243/600] empty     fallback_afrr__disconnection_C47__CH__2017
+22:19:44 | INFO    | [244/600] empty     fallback_afrr__disconnection_C47__CH__2018
+22:19:47 | INFO    | [245/600] empty     fallback_afrr__disconnection_C47__CH__2019
+22:19:51 | INFO    | [246/600] empty     fallback_afrr__disconnection_C47__CH__2020
+22:19:55 | INFO    | [247/600] empty     fallback_afrr__disconnection_C47__DE_LU__2015
+22:20:04 | INFO    | [248/600] empty     fallback_afrr__disconnection_C47__DE_LU__2016
+22:20:19 | INFO    | [249/600] empty     fallback_afrr__disconnection_C47__DE_LU__2017
+22:20:43 | INFO    | [250/600] empty     fallback_afrr__disconnection_C47__DE_LU__2018
+22:20:56 | INFO    | [251/600] empty     fallback_afrr__disconnection_C47__DE_LU__2019
+22:21:09 | INFO    | [252/600] empty     fallback_afrr__disconnection_C47__DE_LU__2020
+22:21:19 | INFO    | [253/600] empty     fallback_afrr__disconnection_C47__FR__2015
+22:21:28 | INFO    | [254/600] empty     fallback_afrr__disconnection_C47__FR__2016
+22:21:36 | INFO    | [255/600] empty     fallback_afrr__disconnection_C47__FR__2017
+22:21:41 | INFO    | [256/600] empty     fallback_afrr__disconnection_C47__FR__2018
+22:21:46 | INFO    | [257/600] empty     fallback_afrr__disconnection_C47__FR__2019
+22:21:54 | INFO    | [258/600] empty     fallback_afrr__disconnection_C47__FR__2020
+22:21:58 | INFO    | [259/600] empty     fallback_afrr__disconnection_C47__IT_NORD__2015
+22:22:04 | INFO    | [260/600] empty     fallback_afrr__disconnection_C47__IT_NORD__2016
+22:22:12 | INFO    | [261/600] empty     fallback_afrr__disconnection_C47__IT_NORD__2017
+22:22:21 | INFO    | [262/600] empty     fallback_afrr__disconnection_C47__IT_NORD__2018
+22:22:27 | INFO    | [263/600] empty     fallback_afrr__disconnection_C47__IT_NORD__2019
+22:22:33 | INFO    | [264/600] empty     fallback_afrr__disconnection_C47__IT_NORD__2020
+22:22:37 | INFO    | [265/600] empty     fallback_afrr__disconnection_C47__AT__2015
+22:22:41 | INFO    | [266/600] empty     fallback_afrr__disconnection_C47__AT__2016
+22:22:47 | INFO    | [267/600] empty     fallback_afrr__disconnection_C47__AT__2017
+22:22:51 | INFO    | [268/600] empty     fallback_afrr__disconnection_C47__AT__2018
+22:22:54 | INFO    | [269/600] empty     fallback_afrr__disconnection_C47__AT__2019
+22:23:01 | INFO    | [270/600] empty     fallback_afrr__disconnection_C47__AT__2020
+22:23:10 | INFO    | [271/600] empty     fallback_afrr__planned_A53__CH__2015
+22:23:15 | INFO    | [272/600] empty     fallback_afrr__planned_A53__CH__2016
+22:23:19 | INFO    | [273/600] empty     fallback_afrr__planned_A53__CH__2017
+22:23:28 | INFO    | [274/600] empty     fallback_afrr__planned_A53__CH__2018
+22:23:34 | INFO    | [275/600] empty     fallback_afrr__planned_A53__CH__2019
+22:23:37 | INFO    | [276/600] empty     fallback_afrr__planned_A53__CH__2020
+22:23:42 | INFO    | [277/600] empty     fallback_afrr__planned_A53__DE_LU__2015
+22:23:47 | INFO    | [278/600] empty     fallback_afrr__planned_A53__DE_LU__2016
+22:23:51 | INFO    | [279/600] empty     fallback_afrr__planned_A53__DE_LU__2017
+22:23:54 | INFO    | [280/600] empty     fallback_afrr__planned_A53__DE_LU__2018
+22:23:58 | INFO    | [281/600] empty     fallback_afrr__planned_A53__DE_LU__2019
+22:24:04 | INFO    | [282/600] empty     fallback_afrr__planned_A53__DE_LU__2020
+22:24:10 | INFO    | [283/600] empty     fallback_afrr__planned_A53__FR__2015
+22:24:14 | INFO    | [284/600] empty     fallback_afrr__planned_A53__FR__2016
+22:24:19 | INFO    | [285/600] empty     fallback_afrr__planned_A53__FR__2017
+22:24:27 | INFO    | [286/600] empty     fallback_afrr__planned_A53__FR__2018
+22:24:35 | INFO    | [287/600] empty     fallback_afrr__planned_A53__FR__2019
+22:24:38 | INFO    | [288/600] empty     fallback_afrr__planned_A53__FR__2020
+22:24:45 | INFO    | [289/600] empty     fallback_afrr__planned_A53__IT_NORD__2015
+22:24:49 | INFO    | [290/600] empty     fallback_afrr__planned_A53__IT_NORD__2016
+22:24:53 | INFO    | [291/600] empty     fallback_afrr__planned_A53__IT_NORD__2017
+22:24:57 | INFO    | [292/600] empty     fallback_afrr__planned_A53__IT_NORD__2018
+22:25:06 | INFO    | [293/600] empty     fallback_afrr__planned_A53__IT_NORD__2019
+22:25:18 | INFO    | [294/600] empty     fallback_afrr__planned_A53__IT_NORD__2020
+22:25:26 | INFO    | [295/600] empty     fallback_afrr__planned_A53__AT__2015
+22:25:35 | INFO    | [296/600] empty     fallback_afrr__planned_A53__AT__2016
+22:25:39 | INFO    | [297/600] empty     fallback_afrr__planned_A53__AT__2017
+22:25:43 | INFO    | [298/600] empty     fallback_afrr__planned_A53__AT__2018
+22:25:47 | INFO    | [299/600] empty     fallback_afrr__planned_A53__AT__2019
+22:25:51 | INFO    | [300/600] empty     fallback_afrr__planned_A53__AT__2020
+22:25:54 | INFO    | [301/600] empty     fallback_afrr__unplanned_A54__CH__2015
+22:26:00 | INFO    | [302/600] empty     fallback_afrr__unplanned_A54__CH__2016
+22:26:06 | INFO    | [303/600] empty     fallback_afrr__unplanned_A54__CH__2017
+22:26:12 | INFO    | [304/600] empty     fallback_afrr__unplanned_A54__CH__2018
+22:26:17 | INFO    | [305/600] empty     fallback_afrr__unplanned_A54__CH__2019
+22:26:27 | INFO    | [306/600] empty     fallback_afrr__unplanned_A54__CH__2020
+22:26:32 | INFO    | [307/600] empty     fallback_afrr__unplanned_A54__DE_LU__2015
+22:26:39 | INFO    | [308/600] empty     fallback_afrr__unplanned_A54__DE_LU__2016
+22:26:49 | INFO    | [309/600] empty     fallback_afrr__unplanned_A54__DE_LU__2017
+22:26:54 | INFO    | [310/600] empty     fallback_afrr__unplanned_A54__DE_LU__2018
+22:26:58 | INFO    | [311/600] empty     fallback_afrr__unplanned_A54__DE_LU__2019
+22:27:06 | INFO    | [312/600] empty     fallback_afrr__unplanned_A54__DE_LU__2020
+22:27:15 | INFO    | [313/600] empty     fallback_afrr__unplanned_A54__FR__2015
+22:27:24 | INFO    | [314/600] empty     fallback_afrr__unplanned_A54__FR__2016
+22:27:31 | INFO    | [315/600] empty     fallback_afrr__unplanned_A54__FR__2017
+22:27:44 | INFO    | [316/600] empty     fallback_afrr__unplanned_A54__FR__2018
+22:28:04 | INFO    | [317/600] empty     fallback_afrr__unplanned_A54__FR__2019
+22:28:18 | INFO    | [318/600] empty     fallback_afrr__unplanned_A54__FR__2020
+22:28:25 | INFO    | [319/600] empty     fallback_afrr__unplanned_A54__IT_NORD__2015
+22:28:30 | INFO    | [320/600] empty     fallback_afrr__unplanned_A54__IT_NORD__2016
+22:28:35 | INFO    | [321/600] empty     fallback_afrr__unplanned_A54__IT_NORD__2017
+22:28:41 | INFO    | [322/600] empty     fallback_afrr__unplanned_A54__IT_NORD__2018
+22:28:45 | INFO    | [323/600] empty     fallback_afrr__unplanned_A54__IT_NORD__2019
+22:28:49 | INFO    | [324/600] empty     fallback_afrr__unplanned_A54__IT_NORD__2020
+22:28:53 | INFO    | [325/600] empty     fallback_afrr__unplanned_A54__AT__2015
+22:29:00 | INFO    | [326/600] empty     fallback_afrr__unplanned_A54__AT__2016
+22:29:10 | INFO    | [327/600] empty     fallback_afrr__unplanned_A54__AT__2017
+22:29:15 | INFO    | [328/600] empty     fallback_afrr__unplanned_A54__AT__2018
+22:29:23 | INFO    | [329/600] empty     fallback_afrr__unplanned_A54__AT__2019
+22:29:27 | INFO    | [330/600] empty     fallback_afrr__unplanned_A54__AT__2020
+22:29:33 | INFO    | [331/600] empty     fallback_afrr__auction_cancel_A83__CH__2015
+22:29:38 | INFO    | [332/600] empty     fallback_afrr__auction_cancel_A83__CH__2016
+22:29:43 | INFO    | [333/600] empty     fallback_afrr__auction_cancel_A83__CH__2017
+22:29:52 | INFO    | [334/600] empty     fallback_afrr__auction_cancel_A83__CH__2018
+22:29:56 | INFO    | [335/600] empty     fallback_afrr__auction_cancel_A83__CH__2019
+22:30:28 | INFO    | [336/600] empty     fallback_afrr__auction_cancel_A83__CH__2020
+22:31:06 | INFO    | [337/600] empty     fallback_afrr__auction_cancel_A83__DE_LU__2015
+22:31:25 | INFO    | [338/600] empty     fallback_afrr__auction_cancel_A83__DE_LU__2016
+22:31:41 | INFO    | [339/600] empty     fallback_afrr__auction_cancel_A83__DE_LU__2017
+22:32:05 | INFO    | [340/600] empty     fallback_afrr__auction_cancel_A83__DE_LU__2018
+22:32:22 | INFO    | [341/600] empty     fallback_afrr__auction_cancel_A83__DE_LU__2019
+22:32:35 | INFO    | [342/600] empty     fallback_afrr__auction_cancel_A83__DE_LU__2020
+22:32:45 | INFO    | [343/600] empty     fallback_afrr__auction_cancel_A83__FR__2015
+22:32:49 | INFO    | [344/600] empty     fallback_afrr__auction_cancel_A83__FR__2016
+22:32:53 | INFO    | [345/600] empty     fallback_afrr__auction_cancel_A83__FR__2017
+22:32:57 | INFO    | [346/600] empty     fallback_afrr__auction_cancel_A83__FR__2018
+22:33:06 | INFO    | [347/600] empty     fallback_afrr__auction_cancel_A83__FR__2019
+22:33:14 | INFO    | [348/600] empty     fallback_afrr__auction_cancel_A83__FR__2020
+22:33:20 | INFO    | [349/600] empty     fallback_afrr__auction_cancel_A83__IT_NORD__2015
+22:33:31 | INFO    | [350/600] empty     fallback_afrr__auction_cancel_A83__IT_NORD__2016
+22:33:40 | INFO    | [351/600] empty     fallback_afrr__auction_cancel_A83__IT_NORD__2017
+22:33:46 | INFO    | [352/600] empty     fallback_afrr__auction_cancel_A83__IT_NORD__2018
+22:33:50 | INFO    | [353/600] empty     fallback_afrr__auction_cancel_A83__IT_NORD__2019
+22:33:56 | INFO    | [354/600] empty     fallback_afrr__auction_cancel_A83__IT_NORD__2020
+22:34:01 | INFO    | [355/600] empty     fallback_afrr__auction_cancel_A83__AT__2015
+22:34:06 | INFO    | [356/600] empty     fallback_afrr__auction_cancel_A83__AT__2016
+22:34:11 | INFO    | [357/600] empty     fallback_afrr__auction_cancel_A83__AT__2017
+22:34:18 | INFO    | [358/600] empty     fallback_afrr__auction_cancel_A83__AT__2018
+22:34:31 | INFO    | [359/600] empty     fallback_afrr__auction_cancel_A83__AT__2019
+22:34:39 | INFO    | [360/600] empty     fallback_afrr__auction_cancel_A83__AT__2020
+22:34:43 | INFO    | [361/600] empty     fallback_mfrr__disconnection_C47__CH__2015
+22:34:47 | INFO    | [362/600] empty     fallback_mfrr__disconnection_C47__CH__2016
+22:34:51 | INFO    | [363/600] empty     fallback_mfrr__disconnection_C47__CH__2017
+22:34:55 | INFO    | [364/600] empty     fallback_mfrr__disconnection_C47__CH__2018
+22:35:03 | INFO    | [365/600] empty     fallback_mfrr__disconnection_C47__CH__2019
+22:35:12 | INFO    | [366/600] empty     fallback_mfrr__disconnection_C47__CH__2020
+22:35:21 | INFO    | [367/600] empty     fallback_mfrr__disconnection_C47__DE_LU__2015
+22:35:31 | INFO    | [368/600] empty     fallback_mfrr__disconnection_C47__DE_LU__2016
+22:35:40 | INFO    | [369/600] empty     fallback_mfrr__disconnection_C47__DE_LU__2017
+22:35:46 | INFO    | [370/600] empty     fallback_mfrr__disconnection_C47__DE_LU__2018
+22:35:54 | INFO    | [371/600] empty     fallback_mfrr__disconnection_C47__DE_LU__2019
+22:35:57 | INFO    | [372/600] empty     fallback_mfrr__disconnection_C47__DE_LU__2020
+22:36:03 | INFO    | [373/600] empty     fallback_mfrr__disconnection_C47__FR__2015
+22:36:10 | INFO    | [374/600] empty     fallback_mfrr__disconnection_C47__FR__2016
+22:36:15 | INFO    | [375/600] empty     fallback_mfrr__disconnection_C47__FR__2017
+22:36:30 | INFO    | [376/600] empty     fallback_mfrr__disconnection_C47__FR__2018
+22:36:34 | INFO    | [377/600] empty     fallback_mfrr__disconnection_C47__FR__2019
+22:36:42 | INFO    | [378/600] empty     fallback_mfrr__disconnection_C47__FR__2020
+22:36:47 | INFO    | [379/600] empty     fallback_mfrr__disconnection_C47__IT_NORD__2015
+22:36:55 | INFO    | [380/600] empty     fallback_mfrr__disconnection_C47__IT_NORD__2016
+22:36:59 | INFO    | [381/600] empty     fallback_mfrr__disconnection_C47__IT_NORD__2017
+22:37:07 | INFO    | [382/600] empty     fallback_mfrr__disconnection_C47__IT_NORD__2018
+22:37:12 | INFO    | [383/600] empty     fallback_mfrr__disconnection_C47__IT_NORD__2019
+22:37:21 | INFO    | [384/600] empty     fallback_mfrr__disconnection_C47__IT_NORD__2020
+22:37:28 | INFO    | [385/600] empty     fallback_mfrr__disconnection_C47__AT__2015
+22:37:33 | INFO    | [386/600] empty     fallback_mfrr__disconnection_C47__AT__2016
+22:37:38 | INFO    | [387/600] empty     fallback_mfrr__disconnection_C47__AT__2017
+22:37:44 | INFO    | [388/600] empty     fallback_mfrr__disconnection_C47__AT__2018
+22:37:48 | INFO    | [389/600] empty     fallback_mfrr__disconnection_C47__AT__2019
+22:37:52 | INFO    | [390/600] empty     fallback_mfrr__disconnection_C47__AT__2020
+22:37:59 | INFO    | [391/600] empty     fallback_mfrr__planned_A53__CH__2015
+22:38:11 | INFO    | [392/600] empty     fallback_mfrr__planned_A53__CH__2016
+22:38:17 | INFO    | [393/600] empty     fallback_mfrr__planned_A53__CH__2017
+22:38:21 | INFO    | [394/600] empty     fallback_mfrr__planned_A53__CH__2018
+22:38:25 | INFO    | [395/600] empty     fallback_mfrr__planned_A53__CH__2019
+22:38:29 | INFO    | [396/600] empty     fallback_mfrr__planned_A53__CH__2020
+22:38:32 | INFO    | [397/600] empty     fallback_mfrr__planned_A53__DE_LU__2015
+22:38:37 | INFO    | [398/600] empty     fallback_mfrr__planned_A53__DE_LU__2016
+22:38:40 | INFO    | [399/600] empty     fallback_mfrr__planned_A53__DE_LU__2017
+22:38:44 | INFO    | [400/600] empty     fallback_mfrr__planned_A53__DE_LU__2018
+22:38:48 | INFO    | [401/600] empty     fallback_mfrr__planned_A53__DE_LU__2019
+22:38:52 | INFO    | [402/600] empty     fallback_mfrr__planned_A53__DE_LU__2020
+22:38:56 | INFO    | [403/600] empty     fallback_mfrr__planned_A53__FR__2015
+22:39:00 | INFO    | [404/600] empty     fallback_mfrr__planned_A53__FR__2016
+22:39:04 | INFO    | [405/600] empty     fallback_mfrr__planned_A53__FR__2017
+22:39:08 | INFO    | [406/600] empty     fallback_mfrr__planned_A53__FR__2018
+22:39:13 | INFO    | [407/600] empty     fallback_mfrr__planned_A53__FR__2019
+22:39:18 | INFO    | [408/600] empty     fallback_mfrr__planned_A53__FR__2020
+22:39:26 | INFO    | [409/600] empty     fallback_mfrr__planned_A53__IT_NORD__2015
+22:39:39 | INFO    | [410/600] empty     fallback_mfrr__planned_A53__IT_NORD__2016
+22:39:44 | INFO    | [411/600] empty     fallback_mfrr__planned_A53__IT_NORD__2017
+22:39:49 | INFO    | [412/600] empty     fallback_mfrr__planned_A53__IT_NORD__2018
+22:39:53 | INFO    | [413/600] empty     fallback_mfrr__planned_A53__IT_NORD__2019
+22:39:56 | INFO    | [414/600] empty     fallback_mfrr__planned_A53__IT_NORD__2020
+22:40:05 | INFO    | [415/600] empty     fallback_mfrr__planned_A53__AT__2015
+22:40:16 | INFO    | [416/600] empty     fallback_mfrr__planned_A53__AT__2016
+22:40:32 | INFO    | [417/600] empty     fallback_mfrr__planned_A53__AT__2017
+22:40:42 | INFO    | [418/600] empty     fallback_mfrr__planned_A53__AT__2018
+22:40:49 | INFO    | [419/600] empty     fallback_mfrr__planned_A53__AT__2019
+22:40:55 | INFO    | [420/600] empty     fallback_mfrr__planned_A53__AT__2020
+22:41:03 | INFO    | [421/600] empty     fallback_mfrr__unplanned_A54__CH__2015
+22:41:13 | INFO    | [422/600] empty     fallback_mfrr__unplanned_A54__CH__2016
+22:41:20 | INFO    | [423/600] empty     fallback_mfrr__unplanned_A54__CH__2017
+22:41:26 | INFO    | [424/600] empty     fallback_mfrr__unplanned_A54__CH__2018
+22:41:31 | INFO    | [425/600] empty     fallback_mfrr__unplanned_A54__CH__2019
+22:41:35 | INFO    | [426/600] empty     fallback_mfrr__unplanned_A54__CH__2020
+22:41:39 | INFO    | [427/600] empty     fallback_mfrr__unplanned_A54__DE_LU__2015
+22:41:45 | INFO    | [428/600] empty     fallback_mfrr__unplanned_A54__DE_LU__2016
+22:41:49 | INFO    | [429/600] empty     fallback_mfrr__unplanned_A54__DE_LU__2017
+22:41:53 | INFO    | [430/600] empty     fallback_mfrr__unplanned_A54__DE_LU__2018
+22:41:57 | INFO    | [431/600] empty     fallback_mfrr__unplanned_A54__DE_LU__2019
+22:42:04 | INFO    | [432/600] empty     fallback_mfrr__unplanned_A54__DE_LU__2020
+22:42:09 | INFO    | [433/600] empty     fallback_mfrr__unplanned_A54__FR__2015
+22:42:17 | INFO    | [434/600] empty     fallback_mfrr__unplanned_A54__FR__2016
+22:42:21 | INFO    | [435/600] empty     fallback_mfrr__unplanned_A54__FR__2017
+22:42:26 | INFO    | [436/600] empty     fallback_mfrr__unplanned_A54__FR__2018
+22:42:33 | INFO    | [437/600] empty     fallback_mfrr__unplanned_A54__FR__2019
+22:42:39 | INFO    | [438/600] empty     fallback_mfrr__unplanned_A54__FR__2020
+22:42:46 | INFO    | [439/600] empty     fallback_mfrr__unplanned_A54__IT_NORD__2015
+22:42:49 | INFO    | [440/600] empty     fallback_mfrr__unplanned_A54__IT_NORD__2016
+22:42:53 | INFO    | [441/600] empty     fallback_mfrr__unplanned_A54__IT_NORD__2017
+22:42:57 | INFO    | [442/600] empty     fallback_mfrr__unplanned_A54__IT_NORD__2018
+22:43:04 | INFO    | [443/600] empty     fallback_mfrr__unplanned_A54__IT_NORD__2019
+22:43:10 | INFO    | [444/600] empty     fallback_mfrr__unplanned_A54__IT_NORD__2020
+22:43:14 | INFO    | [445/600] empty     fallback_mfrr__unplanned_A54__AT__2015
+22:43:20 | INFO    | [446/600] empty     fallback_mfrr__unplanned_A54__AT__2016
+22:43:24 | INFO    | [447/600] empty     fallback_mfrr__unplanned_A54__AT__2017
+22:43:28 | INFO    | [448/600] empty     fallback_mfrr__unplanned_A54__AT__2018
+22:43:32 | INFO    | [449/600] empty     fallback_mfrr__unplanned_A54__AT__2019
+22:43:35 | INFO    | [450/600] empty     fallback_mfrr__unplanned_A54__AT__2020
+22:43:40 | INFO    | [451/600] empty     fallback_mfrr__auction_cancel_A83__CH__2015
+22:43:45 | INFO    | [452/600] empty     fallback_mfrr__auction_cancel_A83__CH__2016
+22:43:49 | INFO    | [453/600] empty     fallback_mfrr__auction_cancel_A83__CH__2017
+22:43:53 | INFO    | [454/600] empty     fallback_mfrr__auction_cancel_A83__CH__2018
+22:43:57 | INFO    | [455/600] empty     fallback_mfrr__auction_cancel_A83__CH__2019
+22:44:04 | INFO    | [456/600] empty     fallback_mfrr__auction_cancel_A83__CH__2020
+22:44:11 | INFO    | [457/600] empty     fallback_mfrr__auction_cancel_A83__DE_LU__2015
+22:44:17 | INFO    | [458/600] empty     fallback_mfrr__auction_cancel_A83__DE_LU__2016
+22:44:25 | INFO    | [459/600] empty     fallback_mfrr__auction_cancel_A83__DE_LU__2017
+22:44:30 | INFO    | [460/600] empty     fallback_mfrr__auction_cancel_A83__DE_LU__2018
+22:44:34 | INFO    | [461/600] empty     fallback_mfrr__auction_cancel_A83__DE_LU__2019
+22:44:40 | INFO    | [462/600] empty     fallback_mfrr__auction_cancel_A83__DE_LU__2020
+22:44:43 | INFO    | [463/600] empty     fallback_mfrr__auction_cancel_A83__FR__2015
+22:44:48 | INFO    | [464/600] empty     fallback_mfrr__auction_cancel_A83__FR__2016
+22:44:54 | INFO    | [465/600] empty     fallback_mfrr__auction_cancel_A83__FR__2017
+22:44:57 | INFO    | [466/600] empty     fallback_mfrr__auction_cancel_A83__FR__2018
+22:45:11 | INFO    | [467/600] empty     fallback_mfrr__auction_cancel_A83__FR__2019
+22:45:29 | INFO    | [468/600] empty     fallback_mfrr__auction_cancel_A83__FR__2020
+22:45:42 | INFO    | [469/600] empty     fallback_mfrr__auction_cancel_A83__IT_NORD__2015
+22:45:56 | INFO    | [470/600] empty     fallback_mfrr__auction_cancel_A83__IT_NORD__2016
+22:46:14 | INFO    | [471/600] empty     fallback_mfrr__auction_cancel_A83__IT_NORD__2017
+22:46:23 | INFO    | [472/600] empty     fallback_mfrr__auction_cancel_A83__IT_NORD__2018
+22:46:28 | INFO    | [473/600] empty     fallback_mfrr__auction_cancel_A83__IT_NORD__2019
+22:46:44 | INFO    | [474/600] empty     fallback_mfrr__auction_cancel_A83__IT_NORD__2020
+22:46:58 | INFO    | [475/600] empty     fallback_mfrr__auction_cancel_A83__AT__2015
+22:47:12 | INFO    | [476/600] empty     fallback_mfrr__auction_cancel_A83__AT__2016
+22:47:20 | INFO    | [477/600] empty     fallback_mfrr__auction_cancel_A83__AT__2017
+22:47:26 | INFO    | [478/600] empty     fallback_mfrr__auction_cancel_A83__AT__2018
+22:47:31 | INFO    | [479/600] empty     fallback_mfrr__auction_cancel_A83__AT__2019
+22:47:35 | INFO    | [480/600] empty     fallback_mfrr__auction_cancel_A83__AT__2020
+22:47:39 | INFO    | [481/600] empty     fallback_in__disconnection_C47__CH__2015
+22:47:43 | INFO    | [482/600] empty     fallback_in__disconnection_C47__CH__2016
+22:47:48 | INFO    | [483/600] empty     fallback_in__disconnection_C47__CH__2017
+22:47:52 | INFO    | [484/600] empty     fallback_in__disconnection_C47__CH__2018
+22:47:56 | INFO    | [485/600] empty     fallback_in__disconnection_C47__CH__2019
+22:48:00 | INFO    | [486/600] empty     fallback_in__disconnection_C47__CH__2020
+22:48:05 | INFO    | [487/600] empty     fallback_in__disconnection_C47__DE_LU__2015
+22:48:09 | INFO    | [488/600] empty     fallback_in__disconnection_C47__DE_LU__2016
+22:48:15 | INFO    | [489/600] empty     fallback_in__disconnection_C47__DE_LU__2017
+22:48:20 | INFO    | [490/600] empty     fallback_in__disconnection_C47__DE_LU__2018
+22:48:25 | INFO    | [491/600] empty     fallback_in__disconnection_C47__DE_LU__2019
+22:48:29 | INFO    | [492/600] empty     fallback_in__disconnection_C47__DE_LU__2020
+22:48:34 | INFO    | [493/600] empty     fallback_in__disconnection_C47__FR__2015
+22:48:39 | INFO    | [494/600] empty     fallback_in__disconnection_C47__FR__2016
+22:48:43 | INFO    | [495/600] empty     fallback_in__disconnection_C47__FR__2017
+22:48:47 | INFO    | [496/600] empty     fallback_in__disconnection_C47__FR__2018
+22:48:51 | INFO    | [497/600] empty     fallback_in__disconnection_C47__FR__2019
+22:48:54 | INFO    | [498/600] empty     fallback_in__disconnection_C47__FR__2020
+22:48:58 | INFO    | [499/600] empty     fallback_in__disconnection_C47__IT_NORD__2015
+22:49:03 | INFO    | [500/600] empty     fallback_in__disconnection_C47__IT_NORD__2016
+22:49:07 | INFO    | [501/600] empty     fallback_in__disconnection_C47__IT_NORD__2017
+22:49:11 | INFO    | [502/600] empty     fallback_in__disconnection_C47__IT_NORD__2018
+22:49:15 | INFO    | [503/600] empty     fallback_in__disconnection_C47__IT_NORD__2019
+22:49:24 | INFO    | [504/600] empty     fallback_in__disconnection_C47__IT_NORD__2020
+22:49:29 | INFO    | [505/600] empty     fallback_in__disconnection_C47__AT__2015
+22:49:33 | INFO    | [506/600] empty     fallback_in__disconnection_C47__AT__2016
+22:49:37 | INFO    | [507/600] empty     fallback_in__disconnection_C47__AT__2017
+22:49:41 | INFO    | [508/600] empty     fallback_in__disconnection_C47__AT__2018
+22:49:56 | INFO    | [509/600] empty     fallback_in__disconnection_C47__AT__2019
+22:50:08 | INFO    | [510/600] empty     fallback_in__disconnection_C47__AT__2020
+22:50:28 | INFO    | [511/600] empty     fallback_in__planned_A53__CH__2015
+22:50:43 | INFO    | [512/600] empty     fallback_in__planned_A53__CH__2016
+22:50:48 | INFO    | [513/600] empty     fallback_in__planned_A53__CH__2017
+22:50:57 | INFO    | [514/600] empty     fallback_in__planned_A53__CH__2018
+22:51:02 | INFO    | [515/600] empty     fallback_in__planned_A53__CH__2019
+22:51:11 | INFO    | [516/600] empty     fallback_in__planned_A53__CH__2020
+22:51:17 | INFO    | [517/600] empty     fallback_in__planned_A53__DE_LU__2015
+22:51:22 | INFO    | [518/600] empty     fallback_in__planned_A53__DE_LU__2016
+22:51:27 | INFO    | [519/600] empty     fallback_in__planned_A53__DE_LU__2017
+22:51:34 | INFO    | [520/600] empty     fallback_in__planned_A53__DE_LU__2018
+22:51:39 | INFO    | [521/600] empty     fallback_in__planned_A53__DE_LU__2019
+22:51:44 | INFO    | [522/600] empty     fallback_in__planned_A53__DE_LU__2020
+22:51:48 | INFO    | [523/600] empty     fallback_in__planned_A53__FR__2015
+22:51:55 | INFO    | [524/600] empty     fallback_in__planned_A53__FR__2016
+22:51:59 | INFO    | [525/600] empty     fallback_in__planned_A53__FR__2017
+22:52:07 | INFO    | [526/600] empty     fallback_in__planned_A53__FR__2018
+22:52:15 | INFO    | [527/600] empty     fallback_in__planned_A53__FR__2019
+22:52:20 | INFO    | [528/600] empty     fallback_in__planned_A53__FR__2020
+22:52:24 | INFO    | [529/600] empty     fallback_in__planned_A53__IT_NORD__2015
+22:52:29 | INFO    | [530/600] empty     fallback_in__planned_A53__IT_NORD__2016
+22:52:34 | INFO    | [531/600] empty     fallback_in__planned_A53__IT_NORD__2017
+22:52:38 | INFO    | [532/600] empty     fallback_in__planned_A53__IT_NORD__2018
+22:52:42 | INFO    | [533/600] empty     fallback_in__planned_A53__IT_NORD__2019
+22:52:47 | INFO    | [534/600] empty     fallback_in__planned_A53__IT_NORD__2020
+22:52:51 | INFO    | [535/600] empty     fallback_in__planned_A53__AT__2015
+22:52:55 | INFO    | [536/600] empty     fallback_in__planned_A53__AT__2016
+22:53:01 | INFO    | [537/600] empty     fallback_in__planned_A53__AT__2017
+22:53:06 | INFO    | [538/600] empty     fallback_in__planned_A53__AT__2018
+22:53:11 | INFO    | [539/600] empty     fallback_in__planned_A53__AT__2019
+22:53:16 | INFO    | [540/600] empty     fallback_in__planned_A53__AT__2020
+22:53:21 | INFO    | [541/600] empty     fallback_in__unplanned_A54__CH__2015
+22:53:27 | INFO    | [542/600] empty     fallback_in__unplanned_A54__CH__2016
+22:53:30 | INFO    | [543/600] empty     fallback_in__unplanned_A54__CH__2017
+22:53:34 | INFO    | [544/600] empty     fallback_in__unplanned_A54__CH__2018
+22:53:38 | INFO    | [545/600] empty     fallback_in__unplanned_A54__CH__2019
+22:53:44 | INFO    | [546/600] empty     fallback_in__unplanned_A54__CH__2020
+22:53:48 | INFO    | [547/600] empty     fallback_in__unplanned_A54__DE_LU__2015
+22:53:52 | INFO    | [548/600] empty     fallback_in__unplanned_A54__DE_LU__2016
+22:53:56 | INFO    | [549/600] empty     fallback_in__unplanned_A54__DE_LU__2017
+22:54:03 | INFO    | [550/600] empty     fallback_in__unplanned_A54__DE_LU__2018
+22:54:07 | INFO    | [551/600] empty     fallback_in__unplanned_A54__DE_LU__2019
+22:54:10 | INFO    | [552/600] empty     fallback_in__unplanned_A54__DE_LU__2020
+22:54:15 | INFO    | [553/600] empty     fallback_in__unplanned_A54__FR__2015
+22:54:23 | INFO    | [554/600] empty     fallback_in__unplanned_A54__FR__2016
+22:54:27 | INFO    | [555/600] empty     fallback_in__unplanned_A54__FR__2017
+22:54:35 | INFO    | [556/600] empty     fallback_in__unplanned_A54__FR__2018
+22:54:40 | INFO    | [557/600] empty     fallback_in__unplanned_A54__FR__2019
+22:54:44 | INFO    | [558/600] empty     fallback_in__unplanned_A54__FR__2020
+22:54:49 | INFO    | [559/600] empty     fallback_in__unplanned_A54__IT_NORD__2015
+22:54:52 | INFO    | [560/600] empty     fallback_in__unplanned_A54__IT_NORD__2016
+22:54:56 | INFO    | [561/600] empty     fallback_in__unplanned_A54__IT_NORD__2017
+22:55:02 | INFO    | [562/600] empty     fallback_in__unplanned_A54__IT_NORD__2018
+22:55:11 | INFO    | [563/600] empty     fallback_in__unplanned_A54__IT_NORD__2019
+22:55:19 | INFO    | [564/600] empty     fallback_in__unplanned_A54__IT_NORD__2020
+22:55:25 | INFO    | [565/600] empty     fallback_in__unplanned_A54__AT__2015
+22:55:29 | INFO    | [566/600] empty     fallback_in__unplanned_A54__AT__2016
+22:55:33 | INFO    | [567/600] empty     fallback_in__unplanned_A54__AT__2017
+22:55:38 | INFO    | [568/600] empty     fallback_in__unplanned_A54__AT__2018
+22:55:43 | INFO    | [569/600] empty     fallback_in__unplanned_A54__AT__2019
+22:55:47 | INFO    | [570/600] empty     fallback_in__unplanned_A54__AT__2020
+22:55:50 | INFO    | [571/600] empty     fallback_in__auction_cancel_A83__CH__2015
+22:55:54 | INFO    | [572/600] empty     fallback_in__auction_cancel_A83__CH__2016
+22:55:58 | INFO    | [573/600] empty     fallback_in__auction_cancel_A83__CH__2017
+22:56:03 | INFO    | [574/600] empty     fallback_in__auction_cancel_A83__CH__2018
+22:56:07 | INFO    | [575/600] empty     fallback_in__auction_cancel_A83__CH__2019
+22:56:12 | INFO    | [576/600] empty     fallback_in__auction_cancel_A83__CH__2020
+22:56:16 | INFO    | [577/600] empty     fallback_in__auction_cancel_A83__DE_LU__2015
+22:56:21 | INFO    | [578/600] empty     fallback_in__auction_cancel_A83__DE_LU__2016
+22:56:24 | INFO    | [579/600] empty     fallback_in__auction_cancel_A83__DE_LU__2017
+22:56:28 | INFO    | [580/600] empty     fallback_in__auction_cancel_A83__DE_LU__2018
+22:56:32 | INFO    | [581/600] empty     fallback_in__auction_cancel_A83__DE_LU__2019
+22:56:36 | INFO    | [582/600] empty     fallback_in__auction_cancel_A83__DE_LU__2020
+22:56:40 | INFO    | [583/600] empty     fallback_in__auction_cancel_A83__FR__2015
+22:56:45 | INFO    | [584/600] empty     fallback_in__auction_cancel_A83__FR__2016
+22:56:49 | INFO    | [585/600] empty     fallback_in__auction_cancel_A83__FR__2017
+22:56:56 | INFO    | [586/600] empty     fallback_in__auction_cancel_A83__FR__2018
+22:57:00 | INFO    | [587/600] empty     fallback_in__auction_cancel_A83__FR__2019
+22:57:04 | INFO    | [588/600] empty     fallback_in__auction_cancel_A83__FR__2020
+22:57:09 | INFO    | [589/600] empty     fallback_in__auction_cancel_A83__IT_NORD__2015
+22:57:12 | INFO    | [590/600] empty     fallback_in__auction_cancel_A83__IT_NORD__2016
+22:57:16 | INFO    | [591/600] empty     fallback_in__auction_cancel_A83__IT_NORD__2017
+22:57:19 | INFO    | [592/600] empty     fallback_in__auction_cancel_A83__IT_NORD__2018
+22:57:24 | INFO    | [593/600] empty     fallback_in__auction_cancel_A83__IT_NORD__2019
+22:57:28 | INFO    | [594/600] empty     fallback_in__auction_cancel_A83__IT_NORD__2020
+22:57:32 | INFO    | [595/600] empty     fallback_in__auction_cancel_A83__AT__2015
+22:57:36 | INFO    | [596/600] empty     fallback_in__auction_cancel_A83__AT__2016
+22:57:39 | INFO    | [597/600] empty     fallback_in__auction_cancel_A83__AT__2017
+22:57:43 | INFO    | [598/600] empty     fallback_in__auction_cancel_A83__AT__2018
+22:57:47 | INFO    | [599/600] empty     fallback_in__auction_cancel_A83__AT__2019
+22:57:51 | INFO    | [600/600] empty     fallback_in__auction_cancel_A83__AT__2020
+22:57:51 | INFO    | manifest: 170 ok, 424 empty, 0 error | /Users/johan/Master_Thesis/Entsoe/Outages/Data/production_pre2021/_pull_manifest.csv
+
+parquet written under: /Users/johan/Master_Thesis/Entsoe/Outages/Data/production_pre2021
+
+===== ALL DONE  22:57
