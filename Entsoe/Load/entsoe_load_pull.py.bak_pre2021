@@ -52,8 +52,6 @@ import pandas as pd
 # defines the request machinery we reuse verbatim.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import entsoe_load_probe as probe  # noqa: E402
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-import pre_split  # noqa: E402  (DE bidding-zone split, added 2026-09-28)
 from entsoe import EntsoePandasClient  # noqa: E402
 
 log = logging.getLogger("load-pull")
@@ -129,12 +127,6 @@ def main() -> int:
     ap.add_argument("--coverage", default=None,
                     help="coverage CSV to drive the pull "
                          "(default: newest _coverage_*.csv under --data)")
-    ap.add_argument("--coverage-pre", default=None,
-                    help="coverage CSV for the part of each year BEFORE --split "
-                         "(German bidding-zone split). Without it, one code per "
-                         "series for all years (unchanged behaviour)")
-    ap.add_argument("--split", default=pre_split.DE_LU_SPLIT,
-                    help="split date used with --coverage-pre (default %(default)s)")
     ap.add_argument("--data", default=str(here / "Data"),
                     help="folder holding the probe's coverage CSV")
     ap.add_argument("--out", default=str(here / "Data" / "production"),
@@ -165,13 +157,9 @@ def main() -> int:
         return 1
 
     ok = load_ok_series(coverage)
-    ok_pre = (load_ok_series(Path(args.coverage_pre).expanduser().resolve())
-              if args.coverage_pre else None)
     if args.only:
         ok = ok[ok["dataset"].str.contains(args.only, case=False)]
-        if ok_pre is not None:
-            ok_pre = ok_pre[ok_pre["dataset"].str.contains(args.only, case=False)]
-    if ok.empty and (ok_pre is None or ok_pre.empty):
+    if ok.empty:
         log.error("no status=ok series to pull (after --only filter)")
         return 1
 
@@ -179,35 +167,20 @@ def main() -> int:
     years = year_windows(start, end)
     out_root = Path(args.out).expanduser().resolve()
 
-    # (dataset, variant, area) -> code, per side of the split. Without
-    # --coverage-pre every year uses the single --coverage code (as before).
-    split = pre_split.split_ts(args.split, TZ)
-    post_codes = {(r.dataset, r.variant, r.area): r.area_code_used
-                  for r in ok.itertuples()}
-    pre_codes = ({(r.dataset, r.variant, r.area): r.area_code_used
-                  for r in ok_pre.itertuples()} if ok_pre is not None else None)
-    keys = list(post_codes) + [k for k in (pre_codes or {}) if k not in post_codes]
-
     plan: list[dict[str, Any]] = []
-    for key in keys:
-        dataset, variant, area = key
-        task = tasks.get((dataset, variant))
+    for _, row in ok.iterrows():
+        key = (row["dataset"], row["variant"])
+        task = tasks.get(key)
         if task is None:
             log.warning("coverage names %s but build_tasks has no such task — "
-                        "skipping (probe/pull version mismatch?)", key[:2])
+                        "skipping (probe/pull version mismatch?)", key)
             continue
+        code = row["area_code_used"]
         for year, y_start, y_end in years:
-            if pre_codes is None:
-                segs = [(y_start, y_end, post_codes[key])]
-            else:
-                segs = pre_split.segments(y_start, y_end, split,
-                                          pre_codes.get(key), post_codes.get(key))
-            if not segs:
-                continue
             plan.append({
-                "dataset": dataset, "variant": variant, "area": area,
-                "area_code": pre_split.codes_label(segs), "segs": segs,
-                "task": task, "year": year, "y_start": y_start, "y_end": y_end,
+                "dataset": row["dataset"], "variant": row["variant"],
+                "area": row["area"], "area_code": code, "task": task,
+                "year": year, "y_start": y_start, "y_end": y_end,
             })
 
     log.info("coverage: %s | %d ok series x %d years = %d series-years | %s -> %s",
@@ -216,20 +189,15 @@ def main() -> int:
 
     if args.plan:
         print("\nPULL PLAN (series-years):")
-        by_series: dict[tuple, list] = {}
+        seen = set()
         for p in plan:
-            k = (p["dataset"], p["variant"], p["area"])
-            by_series.setdefault(k, [set(), []])
-            for _, _, c in p["segs"]:
-                by_series[k][0].add(c)
-            by_series[k][1].append(p["year"])
-        for (d, v, a), (codes, yrs) in by_series.items():
-            print(f"  {d:24s} {v:16s} {a:7s} <- {'|'.join(sorted(codes)):16s} "
-                  f"{min(yrs)}-{max(yrs)}")
-        print(f"\n{len(by_series)} distinct series, {len(plan)} series-years "
-              f"({years[0][0]}..{years[-1][0]}), split at {args.split} "
-              f"{'ON' if pre_codes is not None else 'off'}. "
-              f"No API calls made (--plan).")
+            k = (p["dataset"], p["variant"], p["area"], p["area_code"])
+            if k not in seen:
+                seen.add(k)
+                print(f"  {p['dataset']:16s} {p['variant']:16s} "
+                      f"{p['area']:7s} <- {p['area_code']:10s}")
+        print(f"\n{len(seen)} distinct series x {len(years)} years "
+              f"({years[0][0]}..{years[-1][0]}). No API calls made (--plan).")
         return 0
 
     api_key = probe.load_api_key()
@@ -252,10 +220,8 @@ def main() -> int:
             log.info("[%d/%d] skip (on disk) %s", i, len(plan), tag)
             continue
 
-        # one request per segment (two only in a year that spans the split)
-        df = pre_split.join_parts([
-            pull_series_year(client, p["task"], code, s_start, s_end, throttle)
-            for s_start, s_end, code in p["segs"]])
+        df = pull_series_year(client, p["task"], p["area_code"],
+                              p["y_start"], p["y_end"], throttle)
 
         if df is None or df.empty:
             log.info("[%d/%d] empty     %s", i, len(plan), tag)

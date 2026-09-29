@@ -156,7 +156,11 @@ TZ = "Europe/Zurich"
 #   the national IT market area as a fallback.
 AREAS: dict[str, list[str]] = {
     "CH": ["CH"],
-    "DE_LU": ["DE_LU", "DE_AMPRION", "DE_TENNET", "DE_50HZ", "DE_TRANSNET"],
+    # 2026-09-28 (pre-2021 extension): the DE_LU bidding zone only exists from
+    # 1 Oct 2018 (before: joint DE_AT_LU zone). Germany-wide codes are tried
+    # BEFORE the control areas, so a pre-2018 window never silently falls
+    # back to one TSO (e.g. Amprion = ~1/4 of Germany).
+    "DE_LU": ["DE_LU", "DE", "DE_AT_LU", "DE_AMPRION", "DE_TENNET", "DE_50HZ", "DE_TRANSNET"],
     "FR": ["FR"],
     "IT_NORD": ["IT_NORD", "IT"],
     "AT": ["AT"],
@@ -406,9 +410,10 @@ def call_with_retry(fn: Callable[..., Any], throttle: Throttle,
             if _is_client_error(exc) or _is_parser_error(exc):
                 raise  # 4xx or parser crash — don't retry, let caller handle
             msg = str(exc)
-            transient = any(t in msg for t in ("429", "500", "502", "503",
-                                               "504", "timeout", "Timeout",
-                                               "Connection"))
+            status = getattr(getattr(exc, "response", None), "status_code", None)
+            transient = (status == 429 or (status is not None and status >= 500)
+                         or (status is None and any(t in msg for t in (
+                             "timeout", "Timeout", "Connection"))))
             if not transient or i == attempts - 1:
                 raise
             backoff = 5 * (2 ** i)

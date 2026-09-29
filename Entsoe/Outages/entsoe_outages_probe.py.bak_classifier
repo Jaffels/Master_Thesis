@@ -128,11 +128,7 @@ TZ = "Europe/Zurich"
 # only if the previous returned nothing.
 AREAS: dict[str, list[str]] = {
     "CH": ["CH"],
-    # 2026-09-28 (pre-2021 extension): the DE_LU bidding zone only exists from
-    # 1 Oct 2018 (before: joint DE_AT_LU zone). Germany-wide codes are tried
-    # BEFORE the control areas, so a pre-2018 window never silently falls
-    # back to one TSO (e.g. Amprion = ~1/4 of Germany).
-    "DE_LU": ["DE_LU", "DE", "DE_AT_LU", "DE_AMPRION", "DE_TENNET", "DE_50HZ", "DE_TRANSNET"],
+    "DE_LU": ["DE_LU", "DE_AMPRION", "DE_TENNET", "DE_50HZ", "DE_TRANSNET"],
     "FR": ["FR"],
     "IT_NORD": ["IT_NORD", "IT"],
     "AT": ["AT"],
@@ -142,7 +138,7 @@ AREAS: dict[str, list[str]] = {
 # control-area level is tried first where it differs from the bidding zone.
 FALLBACK_AREAS: dict[str, list[str]] = {
     "CH": ["CH"],
-    "DE_LU": ["DE_LU", "DE", "DE_AT_LU", "DE_AMPRION", "DE_TENNET", "DE_50HZ", "DE_TRANSNET"],
+    "DE_LU": ["DE_LU", "DE", "DE_AMPRION", "DE_TENNET", "DE_50HZ", "DE_TRANSNET"],
     "FR": ["FR"],
     "IT_NORD": ["IT", "IT_NORD"],
     "AT": ["AT"],
@@ -162,8 +158,7 @@ OFFSHORE_AREAS: dict[str, list[str]] = {
 # 10.1.A&B: directed borders "out>in" + CH internal grid. Label is filesystem-
 # safe; the code string is what the method receives.
 def _border_grid() -> dict[str, list[str]]:
-    neighbours = {"DE_LU": ["DE_LU", "DE", "DE_AT_LU"],  # DE_AT_LU: pre-Oct-2018
-                  "FR": ["FR"],
+    neighbours = {"DE_LU": ["DE_LU", "DE"], "FR": ["FR"],
                   "IT_NORD": ["IT_NORD", "IT"], "AT": ["AT"]}
     grid: dict[str, list[str]] = {"CH_to_CH": ["CH>CH"]}
     for nb, codes in neighbours.items():
@@ -246,14 +241,9 @@ def describe_error(exc: Exception) -> str:
     return redact(msg)[:400]
 
 
-def _is_transient(exc: Exception) -> bool:
-    """Classify from HTTP status, not message text: URLs contain dates like
-    202502... that would match '502' (same fix as Transmission D-T5)."""
-    status = getattr(getattr(exc, "response", None), "status_code", None)
-    if status is not None:
-        return status == 429 or status >= 500
-    msg = f"{type(exc).__name__}: {exc}"
-    return any(t in msg for t in ("timeout", "Timeout", "Connection"))
+def _is_transient(msg: str) -> bool:
+    return any(t in msg for t in ("429", "500", "502", "503", "504",
+                                  "timeout", "Timeout", "Connection"))
 
 
 def load_api_key() -> str:
@@ -317,7 +307,7 @@ def _raw_get(client: EntsoePandasClient, params: dict[str, Any],
         except (*NO_DATA_ERRORS, PaginationError):
             raise
         except Exception as exc:
-            if not _is_transient(exc) or i == attempts - 1:
+            if not _is_transient(str(exc)) or i == attempts - 1:
                 raise
             backoff = 5 * (2 ** i)
             log.warning("transient error (%s) — retrying in %ss",

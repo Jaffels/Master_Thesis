@@ -76,8 +76,6 @@ import pandas as pd
 # the request machinery, borders and tasks we reuse verbatim.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import entsoe_transmission_probe as probe  # noqa: E402
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-import pre_split  # noqa: E402  (DE bidding-zone split, added 2026-09-28)
 from entsoe import EntsoePandasClient  # noqa: E402
 
 logging.basicConfig(
@@ -123,15 +121,11 @@ def year_windows(start: pd.Timestamp, end: pd.Timestamp
 
 
 def resolve_codes(task: probe.Task, border: probe.Border,
-                  cov: dict, seg_end: pd.Timestamp | None = None
-                  ) -> tuple[str, str]:
+                  cov: dict) -> tuple[str, str]:
     """Which (from_code, to_code) to use for a border. Priority:
     PINNED_BORDER_CODE > the probe's resolved ok codes > the border's primary
     candidates. A single pair — no per-year fallback scanning in the pull."""
-    # 2026-09-28: pins are date-aware (CH-DE NTC is DE_AT_LU before the split)
-    pinned = (probe.pinned_border_code(task.dataset, border.label, seg_end)
-              if seg_end is not None
-              else probe.PINNED_BORDER_CODE.get((task.dataset, border.label)))
+    pinned = probe.PINNED_BORDER_CODE.get((task.dataset, border.label))
     if pinned:
         return pinned
     row = cov.get((task.dataset, task.variant, border.label))
@@ -190,12 +184,6 @@ def main() -> int:
     ap.add_argument("--coverage", default=None,
                     help="probe coverage CSV for code hints / error-skipping "
                          "(default: newest _coverage_*.csv under --data)")
-    ap.add_argument("--coverage-pre", default=None,
-                    help="coverage CSV for the part of each year BEFORE --split "
-                         "(German bidding-zone split). Without it, one code pair "
-                         "per series for all years (unchanged behaviour)")
-    ap.add_argument("--split", default=pre_split.DE_LU_SPLIT,
-                    help="split date used with --coverage-pre (default %(default)s)")
     ap.add_argument("--data", default=str(here / "Data"),
                     help="folder holding the probe's coverage CSV")
     ap.add_argument("--out", default=str(here / "Data" / "production"),
@@ -216,9 +204,6 @@ def main() -> int:
     coverage = (Path(args.coverage).expanduser().resolve()
                 if args.coverage else latest_coverage(data_dir))
     cov = coverage_lookup(coverage)
-    cov_pre = (coverage_lookup(Path(args.coverage_pre).expanduser().resolve())
-               if args.coverage_pre else None)
-    split = pre_split.split_ts(args.split, TZ)
 
     start = pd.Timestamp(args.start, tz=TZ)
     end = (pd.Timestamp(args.end, tz=TZ) if args.end
@@ -257,13 +242,9 @@ def main() -> int:
     if args.plan:
         print("\nPULL PLAN (series):")
         for task, border in grid:
-            fc, tc = resolve_codes(task, border, cov, end)
-            line = (f"  {task.dataset:20s} {task.variant:14s} "
-                    f"{border.label:9s} <- {fc}>{tc}")
-            if cov_pre is not None:
-                pfc, ptc = resolve_codes(task, border, cov_pre, split)
-                line += f"   (before {args.split}: {pfc}>{ptc})"
-            print(line)
+            fc, tc = resolve_codes(task, border, cov)
+            print(f"  {task.dataset:20s} {task.variant:14s} "
+                  f"{border.label:9s} <- {fc}>{tc}")
         print(f"\n{len(grid)} series x {len(years)} years "
               f"({years[0][0]}..{years[-1][0]}). No API calls made (--plan).")
         return 0
@@ -280,7 +261,7 @@ def main() -> int:
     manifest: list[dict[str, Any]] = []
 
     for i, (task, border) in enumerate(grid, 1):
-        fc, tc = resolve_codes(task, border, cov, end)
+        fc, tc = resolve_codes(task, border, cov)
         series_dir = out_root / task.dataset / task.variant / border.label
         tag = f"{task.dataset}/{task.variant}/{border.label}"
 
@@ -297,25 +278,8 @@ def main() -> int:
                 data_years += 1  # treat an existing file as a data year
                 continue
 
-            # one request per segment (two only in a year spanning the split)
-            if cov_pre is None:
-                segs = [(y_start, y_end, (fc, tc))]
-            else:
-                segs = []
-                if y_start < split:
-                    e = min(y_end, split)
-                    segs.append((y_start, e, resolve_codes(task, border, cov_pre, e)))
-                if y_end > split:
-                    segs.append((max(y_start, split), y_end,
-                                 resolve_codes(task, border, cov, y_end)))
-            results = [pull_series_year(client, task, sf, st, a, b, throttle)
-                       for a, b, (sf, st) in segs]
-            if any(r[0] == "error" for r in results):
-                status, df = "error", None
-                err = next(r[2] for r in results if r[0] == "error")
-            else:
-                df = pre_split.join_parts([r[1] for r in results])
-                status, err = ("ok" if df is not None else "empty"), ""
+            status, df, err = pull_series_year(
+                client, task, fc, tc, y_start, y_end, throttle)
 
             if status == "ok" and df is not None:
                 fname.parent.mkdir(parents=True, exist_ok=True)

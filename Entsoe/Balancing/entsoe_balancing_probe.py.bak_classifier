@@ -202,7 +202,7 @@ def _snap_down(td: pd.Timedelta) -> str:
 #   Italy: publishes partly at control-area level ("IT"), partly per zone.
 AREAS: dict[str, list[str]] = {
     "CH": ["CH"],
-    "DE": ["DE_LU", "DE", "DE_AT_LU", "DE_AMPRION", "DE_TENNET", "DE_50HZ", "DE_TRANSNET"],  # DE_AT_LU: pre-Oct-2018 zone
+    "DE": ["DE_LU", "DE", "DE_AMPRION", "DE_TENNET", "DE_50HZ", "DE_TRANSNET"],
     "FR": ["FR"],
     "IT": ["IT", "IT_NORD"],
 }
@@ -481,10 +481,9 @@ def call_with_retry(fn: Callable[..., Any], throttle: Throttle,
             raise
         except Exception as exc:  # network / HTTP / parse
             msg = str(exc)
-            status = getattr(getattr(exc, "response", None), "status_code", None)
-            transient = (status == 429 or (status is not None and status >= 500)
-                         or (status is None and any(t in msg for t in (
-                             "timeout", "Timeout", "Connection"))))
+            transient = any(t in msg for t in ("429", "500", "502", "503",
+                                               "504", "timeout", "Timeout",
+                                               "Connection"))
             if not transient or i == attempts - 1:
                 raise
             backoff = 5 * (2 ** i)
