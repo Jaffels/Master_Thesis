@@ -12,7 +12,7 @@ What it checks
                 - resolution and history (2015 / 2018 / 2021 / recent test days)
                 - largest range one call can return (1 day -> 7 days -> 31 days)
                 - estimated full-pull time and raw size for 2021-01 -> 2026-09
-                  and 2015-01 -> 2026-09
+                  and 2015-01 -> 2026-09. 
 
 Rate limits (API docs): 2 req/min per endpoint and client IP, burst 4; /price 2/min.
 The probe waits 31 s between calls to the same endpoint and honours HTTP 429
