@@ -1,0 +1,41 @@
+MeteoSwiss build — 2026-09-29 16:46
+Stations used: 43; missing raw files: none
+Rows: 102,936; 2015-01-01 00:00:00+01:00 .. 2026-09-29 00:00:00+02:00
+
+Missing share per column:
+t_lw_degc              0.0
+coverage_lw            0.0
+tmin_lw_degc           0.0
+tmax_lw_degc           0.0
+ghi_lw_wm2             0.0
+rh_lw_pct              0.0
+wind_lw_ms             0.0
+t_hydro_degc           0.0
+precip_hydro_mm        0.0
+coverage_hydro         0.0
+snow_hydro_cm          0.0
+hdh_lw                 0.0
+cdh_lw                 0.0
+ghi_ramp_lw_wm2        0.0
+melt_dh_hydro          0.0
+precip_hydro_7d_mm     0.0
+precip_hydro_30d_mm    0.0
+melt_dh_hydro_7d       0.0
+
+Hours with coverage < 0.8:
+  load: 0, hydro: 0
+
+Annual mean load-weighted temperature (°C):
+timestamp
+2015    10.91
+2016    10.29
+2017    10.55
+2018    11.47
+2019    10.90
+2020    11.15
+2021     9.93
+2022    11.76
+2023    11.71
+2024    11.35
+2025    11.08
+2026    13.94

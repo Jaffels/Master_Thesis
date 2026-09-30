@@ -1,0 +1,54 @@
+MeteoSwiss probe — 2026-09-29 16:42
+Stations in metadata: 158; snow parameter: htoauths
+Eligible (not crest, required params since 2014-11-01, still active):
+  load: 103 stations have ['tre200h0', 'gre000h0']
+  hydro: 107 stations have ['tre200h0', 'rre150h0']
+Groups without a station: none
+Load stations > 40 km from their anchor: none
+
+ role    group station_abbr          anchor  distance_km  weight_in_group  far_flag            station_name canton  height_m       lat       lon
+hydro       gl          ELM              GL          NaN         1.000000     False                     Elm     GL     958.0 46.923742  9.175347
+hydro       gr          BEH              GR          NaN         0.083333     False       Passo del Bernina     GR    2260.0 46.409158 10.019567
+hydro       gr          BUF              GR          NaN         0.083333     False               Buffalora     GR    1971.0 46.648408 10.267200
+hydro       gr          DAV              GR          NaN         0.083333     False                   Davos     GR    1594.0 46.812969  9.843558
+hydro       gr          DIS              GR          NaN         0.083333     False                Disentis     GR    1197.0 46.706569  8.853478
+hydro       gr          ROB              GR          NaN         0.083333     False      Poschiavo / Robbia     GR    1078.0 46.347217 10.063031
+hydro       gr          SAM              GR          NaN         0.083333     False                 Samedan     GR    1709.0 46.526247  9.879469
+hydro       gr          SBE              GR          NaN         0.083333     False           S. Bernardino     GR    1639.0 46.463542  9.184700
+hydro       gr          SCU              GR          NaN         0.083333     False                   Scuol     GR    1304.0 46.793275 10.283267
+hydro       gr          SIA              GR          NaN         0.083333     False              Segl-Maria     GR    1804.0 46.432331  9.762325
+hydro       gr          SMM              GR          NaN         0.083333     False Sta. Maria, Val Müstair     GR    1386.0 46.602256 10.426314
+hydro       gr          VAB              GR          NaN         0.083333     False                Valbella     GR    1568.0 46.755039  9.554433
+hydro       gr          VIO              GR          NaN         0.083333     False             Vicosoprano     GR    1089.0 46.353019  9.627800
+hydro ow_nw_ur          ANT        OW/NW/UR          NaN         0.333333     False               Andermatt     UR    1435.0 46.630914  8.580553
+hydro ow_nw_ur          ENG        OW/NW/UR          NaN         0.333333     False               Engelberg     OW    1036.0 46.821639  8.410514
+hydro ow_nw_ur          GUE        OW/NW/UR          NaN         0.333333     False       Gütsch, Andermatt     UR    2286.0 46.652475  8.615531
+hydro       ti          PIO              TI          NaN         0.500000     False                  Piotta     TI     990.0 46.514811  8.688039
+hydro       ti          ROE              TI          NaN         0.500000     False                  Robièi     TI    1898.0 46.443067  8.513389
+hydro       vs          BIN              VS          NaN         0.125000     False                    Binn     VS    1479.0 46.367661  8.192306
+hydro       vs          BLA              VS          NaN         0.125000     False    Blatten, Lötschental     VS    1548.0 46.422261  7.825914
+hydro       vs          EVO              VS          NaN         0.125000     False         Evolène / Villa     VS    1825.0 46.112211  7.508631
+hydro       vs          GRC              VS          NaN         0.125000     False                 Grächen     VS    1605.0 46.195314  7.836822
+hydro       vs          GSB              VS          NaN         0.125000     False Col du Grand St-Bernard     VS    2472.0 45.869092  7.170683
+hydro       vs          MVE              VS          NaN         0.125000     False                 Montana     VS    1423.0 46.298806  7.460814
+hydro       vs          ULR              VS          NaN         0.125000     False                Ulrichen     VS    1346.0 46.504881  8.308236
+hydro       vs          ZER              VS          NaN         0.125000     False                 Zermatt     VS    1638.0 46.029272  7.752433
+ load       ag          BUS     Aarau/Baden          8.1         1.000000     False           Buchs / Aarau     AG     387.0 47.384381  8.079550
+ load    ai_ar          STG         Herisau         10.0         1.000000     False              St. Gallen     SG     776.0 47.425475  9.398528
+ load    be_ju          BER            Bern          4.9         1.000000     False       Bern / Zollikofen     BE     553.0 46.990744  7.464061
+ load    bl_bs          BAS           Basel          2.1         1.000000     False       Basel / Binningen     BL     316.0 47.541142  7.583525
+ load       fr          GRA        Fribourg          5.4         1.000000     False  Fribourg / Grangeneuve     FR     651.0 46.771400  7.113736
+ load    ge_vd          GVE          Geneva          4.9         0.500000     False       Genève / Cointrin     GE     411.0 46.247519  6.127742
+ load    ge_vd          PUY        Lausanne          2.8         0.500000     False                   Pully     VD     456.0 46.512283  6.667517
+ load       gl          GLA          Glarus          0.7         1.000000     False                  Glarus     GL     517.0 47.034586  9.066961
+ load       gr          CHU            Chur          2.3         1.000000     False                    Chur     GR     556.0 46.870572  9.530761
+ load       lu          LUZ          Luzern          1.7         1.000000     False                  Luzern     LU     454.0 47.036439  8.301022
+ load       ne          NEU       Neuchatel          2.1         1.000000     False               Neuchâtel     NE     485.0 47.000067  6.953297
+ load ow_nw_ur          LUZ    Stans/Sarnen         12.0         1.000000     False                  Luzern     LU     454.0 47.036439  8.301022
+ load       sg          STG      St. Gallen          1.6         1.000000     False              St. Gallen     SG     776.0 47.425475  9.398528
+ load    sh_zh          SMA          Zurich          2.0         1.000000     False       Zürich / Fluntern     ZH     604.0 47.381003  8.567194
+ load       so          WYN Solothurn/Olten          6.6         1.000000     False                   Wynau     BE     422.0 47.255025  7.787475
+ load    sz_zg          CHZ             Zug          4.6         1.000000     False                    Cham     ZG     443.0 47.188278  8.464642
+ load       tg          TAE      Frauenfeld          8.2         1.000000     False        Aadorf / Tänikon     TG     539.0 47.479892  8.904928
+ load       ti          LUG          Lugano          0.7         1.000000     False                  Lugano     TI     273.0 46.004217  8.960322
+ load       vs          SIO            Sion          2.8         1.000000     False                    Sion     VS     482.0 46.218650  7.330203

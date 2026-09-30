@@ -33,6 +33,7 @@ env/
 # snapshots + NAS/cloud backup instead). Track code, docs and configs
 # only. Force-add a specific small file with `git add -f` if ever needed.
 /data/
+/Claude outputs/
 
 # Data file formats, wherever they live in the tree
 *.csv
@@ -60,3 +61,4 @@ SwissGrid/Manual Download/
 Tenders/
 JAO/jao_data/
 MeteoSwiss/__pycache__/
+

@@ -1,0 +1,67 @@
+Energy-Charts probe — 2026-09-29 10:46
+==============================================================================
+0. API SCHEMA
+==============================================================================
+  API version: 2.0
+  37 endpoints: /cbet, /cbpf, /frequency, /installed_power, /price, /public_power, /public_power_forecast, /ren_share_daily_avg, /ren_share_forecast, /signal, /solar_share, /solar_share_daily_avg, /total_power, /v2, /v2/cbet, /v2/cbpf, /v2/frequency, /v2/installed_power, /v2/price, /v2/price_current, /v2/price_next_day, /v2/public_power, /v2/public_power_forecast, /v2/ren_share_daily_avg, /v2/ren_share_forecast, /v2/signal, /v2/solar_share, /v2/solar_share_daily_avg, /v2/total_power, /v2/wind_offshore_share, /v2/wind_offshore_share_daily_avg, /v2/wind_onshore_share, /v2/wind_onshore_share_daily_avg, /wind_offshore_share, /wind_offshore_share_daily_avg, /wind_onshore_share, /wind_onshore_share_daily_avg
+  /public_power parameters:
+    - country (optional) default='de'
+    - start (optional) default=''
+    - end (optional) default=''
+    - subtype (optional) default=''
+    description: Returns the public net electricity production in Megawatt (MW) for a given country for each production type. Subtype can be "solarlog" for Switzerland (ch).
+  /frequency parameters:
+    - region (optional) default='DE-Freiburg'
+    - start (optional) default=''
+    - end (optional) default=''
+    description: Returns the frequency measured at Fraunhofer ISE in Freiburg, Germany. Currently only the frequency in RG Continental Europe (formerly UCTE) is available. The data is available in 1 second timesteps from 1st of May 2022 onwards.
+
+==============================================================================
+1. CH SOLAR — /public_power?country=ch&subtype=solarlog
+==============================================================================
+ a) One day and one full year
+  [solar_1day] GET /public_power {'country': 'ch', 'subtype': 'solarlog', 'start': '2024-06-15', 'end': '2024-06-15'}
+    -> 200, 0.01 MB, 0.5 s, 288 points, resolution 300 s, 2024-06-14T22:00:00+00:00 -> 2024-06-15T21:55:00+00:00
+       series (4): Solar (Solarlog): 0.0%, Solar (additional extrapolation): 0.0%, Installed power of Solarlog plants: 0.0%, Number of Solarlog plants: 0.0%
+  [solar_1year] GET /public_power {'country': 'ch', 'subtype': 'solarlog', 'start': '2023-01-01', 'end': '2023-12-31'}
+    -> 200, 4.98 MB, 2.7 s, 105,120 points, resolution 300 s, 2022-12-31T23:00:00+00:00 -> 2023-12-31T22:55:00+00:00
+       series (4): Solar (Solarlog): 0.0%, Solar (additional extrapolation): 0.0%, Installed power of Solarlog plants: 0.0%, Number of Solarlog plants: 0.0%
+ b) History (single test days)
+  [solar_hist_2015] GET /public_power {'country': 'ch', 'subtype': 'solarlog', 'start': '2015-06-15', 'end': '2015-06-15'}
+    -> HTTP 404 after 0.1 s: no content available
+  [solar_hist_2018] GET /public_power {'country': 'ch', 'subtype': 'solarlog', 'start': '2018-06-15', 'end': '2018-06-15'}
+    -> HTTP 404 after 0.3 s: no content available
+  [solar_hist_2021] GET /public_power {'country': 'ch', 'subtype': 'solarlog', 'start': '2021-06-15', 'end': '2021-06-15'}
+    -> HTTP 404 after 0.1 s: no content available
+ c) Comparison baseline without subtype (to see what 'solarlog' changes)
+  [public_power_ch_default] GET /public_power {'country': 'ch', 'start': '2024-06-15', 'end': '2024-06-15'}
+    -> 200, 0.00 MB, 0.2 s, 24 points, resolution 3600 s, 2024-06-14T22:00:00+00:00 -> 2024-06-15T21:00:00+00:00
+       series (12): Cross border electricity trading: 0.0%, Nuclear: 0.0%, Hydro Run-of-River: 0.0%, Hydro water reservoir: 0.0%, Hydro pumped storage: 0.0%, Others: 0.0%, Wind onshore: 0.0%, Solar: 0.0%, Load: 0.0%, Residual load: 0.0%, Renewable share of load: 0.0%, Renewable share of generation: 0.0%
+
+  -> A full year works in one call: full 2015-2026 solar pull is ~12 calls, ~6 min.
+
+==============================================================================
+2. GRID FREQUENCY — /frequency (default region)
+==============================================================================
+ a) History (single test days)
+  [freq_hist_2015] GET /frequency {'start': '2015-06-15', 'end': '2015-06-15'}
+    -> HTTP 404 after 0.1 s: no content available
+  [freq_hist_2018] GET /frequency {'start': '2018-06-15', 'end': '2018-06-15'}
+    -> HTTP 404 after 1.6 s: no content available
+  [freq_hist_2021] GET /frequency {'start': '2021-01-04', 'end': '2021-01-04'}
+    -> HTTP 404 after 0.1 s: no content available
+  [freq_hist_2026] GET /frequency {'start': '2026-09-01', 'end': '2026-09-01'}
+    -> 200, 1.63 MB, 1.1 s, 86,333 points, resolution 1 s, 2026-09-01T00:00:00+00:00 -> 2026-09-01T23:58:52+00:00
+       series (1): data: 0.0%
+ b) Largest range per call (stops at the first failure)
+  [freq_range_1d] GET /frequency {'start': '2026-08-01', 'end': '2026-08-01'}
+    -> 200, 1.63 MB, 1.2 s, 86,341 points, resolution 1 s, 2026-08-01T00:00:00+00:00 -> 2026-08-01T23:59:00+00:00
+       series (1): data: 0.0%
+  [freq_range_7d] GET /frequency {'start': '2026-08-01', 'end': '2026-08-07'}
+    -> HTTP 400 after 0.2 s: Requested interval too long: maximum allowed timespan is 3 days.
+
+ c) Full-pull estimate
+  Resolution 1 s, ~86,341 points/day, ~1.6 MB JSON/day, max tested range per call: 1 days (larger ranges untested).
+  2021-01 -> 2026-09: 2069 days -> 2,069 calls -> ~17.8 h, ~3.4 GB raw JSON, ~2.1 GB as parquet (upper bound)
+  2015-01 -> 2026-09: 4261 days -> 4,261 calls -> ~36.7 h, ~6.9 GB raw JSON, ~4.4 GB as parquet (upper bound)
+  History: data returned for test days ['2026-09-01']; earliest confirmed 2026-09-01.
