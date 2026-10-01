@@ -176,7 +176,10 @@ class Fmt:
     split_datetime: bool      # date and time in separate columns
     date_format: str | None   # strftime format of the combined "date time" string
     n_cols: int
+    value_col: int = 0        # position of the frequency among the fields after date/time
 
+
+NUM_RX = re.compile(r"^[+-]?\d+([.,]\d+)?$")
 
 DATE_PATTERNS = [
     (re.compile(r"^\d{2}\.\d{2}\.\d{4}$"), "%d.%m.%Y"),
@@ -243,8 +246,18 @@ def sniff(data: bytes) -> Fmt:
         decimal = ","
     elif sep == "," and len(rest) == 2 and all(x.isdigit() for x in rest):
         decimal = ","     # value split across two fields -> rejoined in parse_member
+    # value column: the LAST numeric field after date/time — skips text columns such as
+    # the "Frequ" label in the 2021 archive ("2021-01-04,00:00:01,Frequ,49.9800")
+    value_col = 0
+    if decimal == "," and sep == ",":
+        value_col = 0                 # two-field value starts right after date/time
+    else:
+        numeric = [i for i, x in enumerate(rest) if NUM_RX.match(x)]
+        if not numeric:
+            raise ValueError(f"no numeric value field in first data line: {first!r}")
+        value_col = numeric[-1]
     n_cols = len(parts)
-    return Fmt(enc, sep, decimal, skip, split_dt, date_format, n_cols)
+    return Fmt(enc, sep, decimal, skip, split_dt, date_format, n_cols, value_col)
 
 
 def head_bytes(opener, n: int = 20000) -> bytes:
@@ -267,6 +280,8 @@ def parse_member(opener, fmt: Fmt | None = None) -> tuple[pd.DataFrame, Fmt]:
         for df in reader:
             parts.append(_parse_chunk(df, fmt))
     out = pd.concat(parts, ignore_index=True) if parts else pd.DataFrame(columns=["ts_naive", "f"])
+    if len(out) and out["f"].isna().mean() > 0.5:
+        raise ValueError(f"{out['f'].isna().mean():.0%} of values not numeric — check the format ({fmt})")
     return out, fmt
 
 
@@ -277,10 +292,11 @@ def _parse_chunk(df: pd.DataFrame, fmt: Fmt) -> pd.DataFrame:
     else:
         ts_str = df.iloc[:, 0].str.strip().str.replace("T", " ", regex=False)
         vals = df.iloc[:, 1:]
-    if fmt.sep == "," and fmt.decimal == "," and vals.shape[1] >= 2:
-        v = vals.iloc[:, 0].str.strip() + "." + vals.iloc[:, 1].str.strip()
+    c = fmt.value_col
+    if fmt.sep == "," and fmt.decimal == "," and vals.shape[1] >= c + 2:
+        v = vals.iloc[:, c].str.strip() + "." + vals.iloc[:, c + 1].str.strip()
     else:
-        v = vals.iloc[:, 0].str.strip()
+        v = vals.iloc[:, c].str.strip()
         if fmt.decimal == ",":
             v = v.str.replace(",", ".", regex=False)
     ts = None

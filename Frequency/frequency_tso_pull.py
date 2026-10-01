@@ -133,6 +133,11 @@ def stage_build(man: dict, years: list[int], tz_mode: str, force: bool) -> None:
         months = loc.strftime("%Y-%m")
         for m in sorted(set(months)):
             part = s[months == m]
+            if not m.startswith(str(y)):
+                # e.g. the single 00:00:00 second of 1 Jan of the next year: belongs to
+                # the next year's zip — writing it would overwrite that month
+                log(f"  {m}: {len(part)} s outside {y} — skipped")
+                continue
             a = pd.Timestamp(m + "-01").tz_localize(LOCAL_TZ)
             b = a + pd.offsets.MonthBegin(1)
             cov = len(part) / (b - a).total_seconds()
@@ -143,10 +148,24 @@ def stage_build(man: dict, years: list[int], tz_mode: str, force: bool) -> None:
             agg_path = PROD / "agg" / f"freq_tso_agg_{m}.parquet"
             atomic_parquet(pd.concat([q, h]), agg_path)
             pl = part.index.tz_convert(LOCAL_TZ)
+            days = pd.date_range(a.tz_localize(None), b.tz_localize(None), freq="D", inclusive="left")
+            per_day = pd.Series(1, index=pl).groupby(pl.strftime("%Y-%m-%d")).size()
+            per_day = per_day.reindex(days.strftime("%Y-%m-%d"), fill_value=0)
+            # files run 00:00:01 -> 24:00:00, so a missing day still gets the 00:00:00
+            # second of the day before -> < 60 s counts as missing
+            missing = list(per_day[per_day < 60].index)
+            partial = [f"{d} ({n / 864:.0f}%)" for d, n in per_day.items() if 60 <= n < 82800]
+            note = f"source {path.name}"
+            if missing:
+                note += f"; missing days: {', '.join(missing)}"
+            if partial:
+                note += f"; partial days (<23 h): {', '.join(partial)}"
             record(man, "month", m, status="ok", rows=len(part), coverage=f"{cov:.4f}",
                    first_local=pl.min().isoformat(), last_local=pl.max().isoformat(),
-                   file=str(agg_path), message=f"source {path.name}")
-            log(f"  {m}: {len(part):>10,} s  coverage {cov:.2%}")
+                   file=str(agg_path), message=note)
+            extra = (f"  missing: {', '.join(missing)}" if missing else "") + \
+                    (f"  partial: {', '.join(partial)}" if partial else "")
+            log(f"  {m}: {len(part):>10,} s  coverage {cov:.2%}{extra}")
         record(man, "build", str(y), status="ok", rows=info["seconds_after_fill"],
                seconds=round(time.time() - t0), first_local=loc.min().isoformat(),
                last_local=loc.max().isoformat(), file=str(path),

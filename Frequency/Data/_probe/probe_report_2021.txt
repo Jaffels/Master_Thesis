@@ -1,0 +1,86 @@
+==============================================================================
+TSO frequency archive probe — year 2021 — 2026-10-01 13:14
+==============================================================================
+1. Download: using existing Frequency/Data/raw/2021_Frequenz.zip
+   size 115.1 MB
+
+2. Content: 24 files
+         8.9 MB  202101_Frequenz.zip
+        82.3 MB  202101_Frequenz.zip!202101_Frequenz.csv
+         9.0 MB  202102_Frequenz.zip
+        82.3 MB  202102_Frequenz.zip!202102_Frequenz.csv
+        10.0 MB  202103_Frequenz.zip
+        90.9 MB  202103_Frequenz.zip!202103_Frequenz.csv
+         9.7 MB  202104_Frequenz.zip
+        88.1 MB  202104_Frequenz.zip!202104_Frequenz.csv
+         9.8 MB  202105_Frequenz.zip
+        88.1 MB  202105_Frequenz.zip!202105_Frequenz.csv
+         9.7 MB  202106_Frequenz.zip
+        88.1 MB  202106_Frequenz.zip!202106_Frequenz.csv
+         9.7 MB  202107_Frequenz.zip
+        88.1 MB  202107_Frequenz.zip!Frequenz.csv
+        10.0 MB  202108_Frequenz.zip
+        91.1 MB  202108_Frequenz.zip!202108_Frequenz.csv
+         9.8 MB  202109_Frequenz.zip
+        88.1 MB  202109_Frequenz.zip!202109_Frequenz.csv
+        10.1 MB  202110_Frequenz.zip
+        91.2 MB  202110_Frequenz.zip!202110_Frequenz.csv
+         9.3 MB  202111_Frequenz.zip
+        85.2 MB  202111_Frequenz.zip!202111_Frequenz.csv
+         9.2 MB  202112_Frequenz.zip
+        85.2 MB  202112_Frequenz.zip!202112_Frequenz.csv
+
+   First lines of 202101_Frequenz.zip!202101_Frequenz.csv (encoding utf-8-sig):
+   | 2021-01-04,00:00:01,Frequ,49.9800
+   | 2021-01-04,00:00:02,Frequ,49.9780
+   | 2021-01-04,00:00:03,Frequ,49.9760
+   | 2021-01-04,00:00:04,Frequ,49.9730
+   | 2021-01-04,00:00:05,Frequ,49.9710
+   | 2021-01-04,00:00:06,Frequ,49.9700
+   | 2021-01-04,00:00:07,Frequ,49.9700
+   | 2021-01-04,00:00:08,Frequ,49.9690
+
+3. Format: Fmt(encoding='utf-8-sig', sep=',', decimal='.', skiprows=0, split_datetime=True, date_format='%Y-%m-%d %H:%M:%S', n_cols=4, value_col=1)
+   sample file: 2,419,200 rows, 2021-01-04 00:00:01 -> 2021-02-01 00:00:00, unit Hz
+   time step (s): 1: 100.00%
+   value range 49.7500 – 50.1410 Hz, NaN 0.000%
+
+4. Full-year parse (all files, DST check, 1-s grid) ...
+    202101_Frequenz.zip!202101_Frequenz.csv: 2,419,200 rows, sep=',', decimal='.', date_format='%Y-%m-%d %H:%M:%S'
+    202102_Frequenz.zip!202102_Frequenz.csv: 2,419,200 rows, sep=',', decimal='.', date_format='%Y-%m-%d %H:%M:%S'
+    202103_Frequenz.zip!202103_Frequenz.csv: 2,674,800 rows, sep=',', decimal='.', date_format='%Y-%m-%d %H:%M:%S'
+    202104_Frequenz.zip!202104_Frequenz.csv: 2,592,000 rows, sep=',', decimal='.', date_format='%Y-%m-%d %H:%M:%S'
+    202105_Frequenz.zip!202105_Frequenz.csv: 2,592,000 rows, sep=',', decimal='.', date_format='%Y-%m-%d %H:%M:%S'
+    202106_Frequenz.zip!202106_Frequenz.csv: 2,592,000 rows, sep=',', decimal='.', date_format='%Y-%m-%d %H:%M:%S'
+    202107_Frequenz.zip!Frequenz.csv: 2,592,000 rows, sep=',', decimal='.', date_format='%Y-%m-%d %H:%M:%S'
+    202108_Frequenz.zip!202108_Frequenz.csv: 2,678,400 rows, sep=',', decimal='.', date_format='%Y-%m-%d %H:%M:%S'
+    202109_Frequenz.zip!202109_Frequenz.csv: 2,592,000 rows, sep=',', decimal='.', date_format='%Y-%m-%d %H:%M:%S'
+    202110_Frequenz.zip!202110_Frequenz.csv: 2,682,000 rows, sep=',', decimal='.', date_format='%Y-%m-%d %H:%M:%S'
+    202111_Frequenz.zip!202111_Frequenz.csv: 2,505,600 rows, sep=',', decimal='.', date_format='%Y-%m-%d %H:%M:%S'
+    202112_Frequenz.zip!202112_Frequenz.csv: 2,505,600 rows, sep=',', decimal='.', date_format='%Y-%m-%d %H:%M:%S'
+   parsed in 31 s
+   files: 12
+   unit: Hz
+   tz_detected: local
+   tz_used: local
+   tz_note: 2021-03-28: 0 values in 02:00-02:59 (0 = local time); 2021-10-31: 3600 repeated seconds in 02:00-02:59 (>0 = local time)
+   rows_raw: 30844800
+   rows_nonexistent_dropped: 0
+   rows_out_of_range_dropped: 0
+   seconds_with_value: 30844800
+   seconds_after_fill: 30844800
+   span (local): 2021-01-04 00:00:01+01:00 -> 2022-01-01 00:00:00+01:00
+   seconds per month (coverage vs. calendar):
+     2021-01:  2,419,199  (90.32%)
+     2021-02:  2,419,200  (100.00%)
+     2021-03:  2,674,800  (100.00%)
+     2021-04:  2,592,000  (100.00%)
+     2021-05:  2,592,001  (96.77%)
+     2021-06:  2,591,999  (100.00%)
+     2021-07:  2,592,000  (96.77%)
+     2021-08:  2,678,400  (100.00%)
+     2021-09:  2,592,000  (100.00%)
+     2021-10:  2,682,000  (100.00%)
+     2021-11:  2,505,601  (96.67%)
+     2021-12:  2,505,599  (93.55%)
+     2022-01:          1  (0.00%)

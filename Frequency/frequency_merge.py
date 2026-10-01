@@ -53,6 +53,7 @@ def read_1s(files: list[Path]) -> pd.Series:
     if not files:
         return pd.Series(dtype="float64")
     s = pd.concat([pd.read_parquet(p).iloc[:, 0] for p in files]).astype("float64")
+    s = s.dropna()                                   # Energy-Charts has NaN seconds
     s = s[~s.index.duplicated(keep="first")].sort_index()
     return s
 
@@ -91,6 +92,8 @@ def compare() -> None:
     rows = []
     for dd in sorted(set(day)):
         m = day == dd
+        if m.sum() < 3600:            # e.g. the lone 00:00:00 second of the day after the archive ends
+            continue
         tt, ee = t[m], e[m]
         # clock lag: correlation of 1-s changes (insensitive to a constant offset)
         dt = tt.diff()
@@ -101,12 +104,15 @@ def compare() -> None:
             if ok.sum() > 1000:
                 lags[lag] = float(np.corrcoef(dt.values[ok], de[ok])[0, 1])
         best = max(lags, key=lags.get) if lags else np.nan
+        sh = ec.reindex(tt.index + pd.Timedelta(seconds=int(best))).values if lags else np.full(len(tt), np.nan)
+        ok = ~np.isnan(sh)
+        mae_best = float(np.mean(np.abs(sh[ok] - tt.values[ok])) * 1000) if ok.any() else np.nan
         rows.append(dict(
             day=dd, common_s=int(m.sum()),
             corr=float(np.corrcoef(tt, ee)[0, 1]) if m.sum() > 2 else np.nan,
             mean_diff_mhz=float(d_mhz[m].mean()), mae_mhz=float(d_mhz[m].abs().mean()),
             p99_abs_diff_mhz=float(d_mhz[m].abs().quantile(0.99)),
-            best_lag_s=best, diff_corr_at_best_lag=lags.get(best, np.nan),
+            best_lag_s=best, mae_at_best_lag_mhz=mae_best, diff_corr_at_best_lag=lags.get(best, np.nan),
             diff_corr_at_lag0=lags.get(0, np.nan)))
     daily = pd.DataFrame(rows)
     daily.to_csv(CMP / "compare_daily.csv", index=False)
@@ -116,7 +122,9 @@ def compare() -> None:
     log(f"  mean difference      {d_mhz.mean():+.3f} mHz", buf)
     log(f"  MAE                  {d_mhz.abs().mean():.3f} mHz", buf)
     log(f"  99th pct |diff|      {d_mhz.abs().quantile(0.99):.3f} mHz", buf)
-    log(f"  best lag per day     {daily['best_lag_s'].value_counts().to_dict()}  (s, positive = EC later)", buf)
+    log(f"  best lag per day     {daily['best_lag_s'].value_counts().to_dict()}  "
+        f"(s; negative = TSO timestamps trail Energy-Charts)", buf)
+    log(f"  MAE at best lag      {daily['mae_at_best_lag_mhz'].mean():.3f} mHz (mean of days)", buf)
     log(f"  days compared        {len(daily)}  ({daily['day'].min()} -> {daily['day'].max()})", buf)
     worst = daily.sort_values("mae_mhz", ascending=False).head(5)
     log("  worst days by MAE:", buf)
