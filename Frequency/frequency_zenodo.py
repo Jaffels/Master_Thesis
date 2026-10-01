@@ -202,25 +202,31 @@ def build(years: list[int] | None, tz_mode: str) -> None:
             # it does not have (2022 has three overlapping files with misleading names)
             files = sorted(by_year[year], key=lambda x: _file_rank(x[0], year))
             log(f"BUILD {year}: {', '.join(n for n, _ in files)}")
-            frames, seen = [], None
+            # each file gets its own timestamp convention: the Zenodo files are not all
+            # in the same one (verify showed whole days 1 h off), so it is calibrated per
+            # file against the TSO archive / Energy-Charts unless --tz is given
+            series = []
             for name, opener in files:
                 d, fmt = parse_allow_nan(opener)
                 d = d.dropna(subset=["f"])
-                n_all = len(d)
-                if seen is not None:
-                    d = d[~d["ts_naive"].isin(seen)]
-                seen = d["ts_naive"] if seen is None else pd.concat([seen, d["ts_naive"]], ignore_index=True)
-                span = f"{d['ts_naive'].min()} -> {d['ts_naive'].max()}" if len(d) else "-"
-                log(f"  {name}: {n_all:,} valid rows, {len(d):,} new ({span}), sep={fmt.sep!r}, "
-                    f"value_col={fmt.value_col}")
-                frames.append(d)
-            df = pd.concat(frames, ignore_index=True)
-            df["f"], unit = P.unit_to_hz(df["f"])
-            detected, note = P.detect_tz_mode(df["ts_naive"])
-            mode = tz_mode if tz_mode != "auto" else (detected if detected != "unknown" else "fixed")
-            log(f"  unit {unit}; tz detected {detected} ({note}); used {mode}")
-            s, stats = P.to_utc_1s(df, mode)
-            log(f"  {stats}")
+                if d.empty:
+                    log(f"  {name}: no valid values")
+                    continue
+                d["f"], unit = P.unit_to_hz(d["f"])
+                if tz_mode != "auto":
+                    mode, why = tz_mode, "forced with --tz"
+                else:
+                    mode, why = calibrate_tz(d)
+                f_s, stats = P.to_utc_1s(d, mode)
+                log(f"  {name}: {len(d):,} valid rows ({d['ts_naive'].min()} -> {d['ts_naive'].max()}), "
+                    f"unit {unit}, tz {mode} [{why}], {stats['seconds_after_fill']:,} s")
+                series.append(f_s)
+            if not series:
+                continue
+            s = pd.concat(series)
+            n_before = len(s)
+            s = s[~s.index.duplicated(keep="first")].sort_index()     # main file wins
+            log(f"  combined: {len(s):,} s ({n_before - len(s):,} duplicate seconds from later files dropped)")
             loc = s.index.tz_convert(LOCAL_TZ)
             months = loc.strftime("%Y-%m")
             for m in sorted(set(months)):
@@ -237,6 +243,65 @@ def build(years: list[int] | None, tz_mode: str) -> None:
                 log(f"  {m}: {len(part):>10,} s  coverage {cov:.2%}")
             log(f"BUILD {year}: done in {time.time() - t0:.0f} s")
     combine()
+
+
+CAL_DAYS = 8
+
+
+def _reference_day(day: pd.Timestamp) -> pd.Series:
+    """TSO archive (preferred) or Energy-Charts 1-s values around one local day."""
+    m = day.strftime("%Y-%m")
+    tso = sorted(TSO_RAW.glob(f"*/freq_tso_{m}.parquet"))
+    files = tso if tso else _ec_files_for(day)
+    if not files:
+        return pd.Series(dtype="float64")
+    parts = [_one_day(files, day + pd.Timedelta(hours=h)) for h in (-2, 0, 2)]
+    r = pd.concat(parts)
+    return r[~r.index.duplicated(keep="first")].sort_index()
+
+
+def calibrate_tz(d: pd.DataFrame) -> tuple[str, str]:
+    """Pick local / fixed (CET) / utc by matching sample days against the reference.
+    Score = median over days of the MAE at the best lag in -5..+5 s."""
+    ts = pd.DatetimeIndex(d["ts_naive"])
+    dates = pd.Series(1, index=ts).groupby(ts.normalize()).size()
+    dates = dates[dates > 80000].index
+    if len(dates) == 0:
+        return "fixed", "no full day to calibrate; default fixed CET"
+    pick = [dates[i] for i in np.linspace(0, len(dates) - 1, min(len(dates), 3 * CAL_DAYS)).astype(int)]
+    scores: dict[str, list[float]] = {"local": [], "fixed": [], "utc": []}
+    used = 0
+    for day in pick:
+        if used >= CAL_DAYS:
+            break
+        dl = day.tz_localize(LOCAL_TZ, ambiguous=True, nonexistent="shift_forward")
+        ref = _reference_day(dl)
+        if len(ref) < 20000:
+            continue
+        sub = d[(d["ts_naive"] >= day - pd.Timedelta(hours=3)) & (d["ts_naive"] < day + pd.Timedelta(hours=27))]
+        day_scores = {}
+        for mode in scores:
+            z, _ = P.to_utc_1s(sub, mode)
+            z = z[(z.index >= dl.tz_convert("UTC")) & (z.index < (dl + pd.Timedelta(days=1)).tz_convert("UTC"))]
+            best = np.inf
+            for lag in range(-5, 6):
+                r = ref.reindex(z.index + pd.Timedelta(seconds=lag)).values
+                ok = ~np.isnan(r)
+                if ok.sum() > 10000:
+                    best = min(best, float(np.mean(np.abs(r[ok] - z.values[ok])) * 1000))
+            day_scores[mode] = best
+        if all(np.isfinite(v) for v in day_scores.values()):
+            for mode, v in day_scores.items():
+                scores[mode].append(v)
+            used += 1
+    if used == 0:
+        detected, _ = P.detect_tz_mode(d["ts_naive"])
+        mode = detected if detected != "unknown" else "fixed"
+        return mode, "no reference overlap; DST check"
+    med = {m: float(np.median(v)) for m, v in scores.items()}
+    mode = min(med, key=med.get)
+    txt = ", ".join(f"{m} {v:.2f}" for m, v in sorted(med.items(), key=lambda x: x[1]))
+    return mode, f"calibrated on {used} days, median MAE mHz: {txt}"
 
 
 def _file_rank(name: str, year: int) -> tuple:
@@ -307,8 +372,8 @@ def _ec_files_for(day: pd.Timestamp) -> list[Path]:
 
 
 def verify() -> None:
-    """Clock check on sampled days (15th of up to 10 overlapping months; month files
-    only, so memory stays small)."""
+    """Clock check per sampled day (best-covered day of up to 10 overlapping months;
+    month files only, so memory stays small). Shifts tested: -2 h..+2 h and -5..+5 s."""
     buf: list[str] = []
     zfiles = {p.stem.split("_")[-1]: p for p in (OUT / "raw_1s").glob("*/freq_zenodo_*.parquet")}
     if not zfiles:
@@ -330,29 +395,30 @@ def verify() -> None:
             continue
         pick = [months[i] for i in np.linspace(0, len(months) - 1, min(10, len(months))).astype(int)]
         log(f"\n{label}: {len(months)} overlapping months, one full day sampled from {', '.join(pick)}", buf)
-        zz_parts, ref_parts = [], []
+        n_ok = 0
         for m in pick:
             day = _best_day(zfiles[m])
-            zz_parts.append(_one_day([zfiles[m]], day))
+            zz = _one_day([zfiles[m]], day)
             rfiles = [tso_files[m]] if label == "TSO archive" else _ec_files_for(day)
             # wider window so that +-1 h shifts still find reference values
-            ref_parts.append(_one_day(rfiles, day - pd.Timedelta(hours=2)))
-            ref_parts.append(_one_day(rfiles, day + pd.Timedelta(hours=2)))
-        zz = pd.concat(zz_parts)
-        ref = pd.concat(ref_parts)
-        ref = ref[~ref.index.duplicated(keep="first")].sort_index()
-        res = {}
-        for shift in [-3600, 0, 3600] + [x for x in range(-5, 6) if x != 0]:
-            r = ref.reindex(zz.index + pd.Timedelta(seconds=shift))
-            ok = r.notna().values
-            if ok.sum() > 1000:
-                res[shift] = (float(np.mean(np.abs(r.values[ok] - zz.values[ok])) * 1000), int(ok.sum()))
-        for shift, (mae, n) in sorted(res.items()):
-            log(f"  shift {shift:+6d} s: MAE {mae:7.3f} mHz  ({n:,} s)", buf)
-        if res:
-            best = min(res, key=lambda k: res[k][0])
-            verdict = "OK" if abs(best) <= 5 else "CHECK TIMEZONE (re-run with --tz)"
-            log(f"  best shift {best:+d} s -> {verdict}", buf)
+            ref = pd.concat([_one_day(rfiles, day + pd.Timedelta(hours=h)) for h in (-2, 0, 2)])
+            ref = ref[~ref.index.duplicated(keep="first")].sort_index()
+            res = {}
+            for shift in [-7200, -3600, 3600, 7200] + list(range(-5, 6)):
+                r = ref.reindex(zz.index + pd.Timedelta(seconds=shift))
+                ok = r.notna().values
+                if ok.sum() > 1000:
+                    res[shift] = float(np.mean(np.abs(r.values[ok] - zz.values[ok])) * 1000)
+            if not res:
+                log(f"  {day:%Y-%m-%d}: no reference values", buf)
+                continue
+            best = min(res, key=res.get)
+            n_ok += abs(best) <= 5
+            flag = "" if abs(best) <= 5 else "   <-- CLOCK OFF"
+            log(f"  {day:%Y-%m-%d}: best shift {best:+6d} s, MAE {res[best]:6.3f} mHz "
+                f"(at 0 s: {res.get(0, float('nan')):6.3f}){flag}", buf)
+        log(f"  -> {n_ok}/{len(pick)} sampled days within +-5 s"
+            + ("" if n_ok == len(pick) else "  — CHECK: rebuild the affected years with --tz"), buf)
     p = P.DATA / "compare" / "zenodo_verify.txt"
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text("\n".join(buf) + "\n", encoding="utf-8")
