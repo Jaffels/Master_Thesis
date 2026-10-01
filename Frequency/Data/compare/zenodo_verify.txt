@@ -1,36 +1,60 @@
 ======================================================================
-Zenodo vs TSO archive / Energy-Charts — 2026-10-01 15:25
+Zenodo vs TSO archive / Energy-Charts — 2026-10-01 16:00
 ======================================================================
 Zenodo months: 2020-01 -> 2024-04 (52 files)
 
 TSO archive: 30 overlapping months, one full day sampled from 2020-01, 2020-04, 2020-07, 2020-10, 2021-01, 2021-05, 2021-08, 2021-11, 2022-02, 2022-06
-  shift  -3600 s: MAE  11.465 mHz  (864,000 s)
-  shift     -5 s: MAE   6.865 mHz  (864,000 s)
-  shift     -4 s: MAE   6.500 mHz  (864,000 s)
-  shift     -3 s: MAE   6.109 mHz  (864,000 s)
-  shift     -2 s: MAE   5.654 mHz  (864,000 s)
-  shift     -1 s: MAE   5.104 mHz  (864,000 s)
-  shift     +0 s: MAE   4.448 mHz  (864,000 s)
-  shift     +1 s: MAE   5.103 mHz  (864,000 s)
-  shift     +2 s: MAE   5.653 mHz  (864,000 s)
-  shift     +3 s: MAE   6.107 mHz  (864,000 s)
-  shift     +4 s: MAE   6.497 mHz  (864,000 s)
-  shift     +5 s: MAE   6.860 mHz  (864,000 s)
-  shift  +3600 s: MAE  16.658 mHz  (864,000 s)
-  best shift +0 s -> OK
+  2020-01-15: best shift     +0 s, MAE  0.000 mHz (at 0 s:  0.000)
+  2020-04-17: best shift     +0 s, MAE  0.000 mHz (at 0 s:  0.000)
+  2020-07-15: best shift     +0 s, MAE  0.000 mHz (at 0 s:  0.000)
+  2020-10-15: best shift     +0 s, MAE  0.000 mHz (at 0 s:  0.000)
+  2021-01-15: best shift     +0 s, MAE  0.000 mHz (at 0 s:  0.000)
+  2021-05-15: best shift     +0 s, MAE  0.000 mHz (at 0 s:  0.000)
+  2021-08-15: best shift     +0 s, MAE  0.000 mHz (at 0 s:  0.000)
+  2021-11-15: best shift     +0 s, MAE  0.000 mHz (at 0 s:  0.000)
+  2022-02-15: best shift     +0 s, MAE  0.000 mHz (at 0 s:  0.000)
+  2022-06-15: best shift     +0 s, MAE  0.000 mHz (at 0 s:  0.000)
+  -> 10/10 sampled days within +-5 s
 
 Energy-Charts: 24 overlapping months, one full day sampled from 2022-05, 2022-07, 2022-10, 2022-12, 2023-03, 2023-05, 2023-08, 2023-10, 2024-01, 2024-04
-  shift  -3600 s: MAE  18.728 mHz  (863,646 s)
-  shift     -5 s: MAE   4.512 mHz  (863,646 s)
-  shift     -4 s: MAE   4.217 mHz  (863,646 s)
-  shift     -3 s: MAE   4.041 mHz  (863,646 s)
-  shift     -2 s: MAE   4.079 mHz  (863,646 s)
-  shift     -1 s: MAE   4.344 mHz  (863,646 s)
-  shift     +0 s: MAE   4.709 mHz  (863,646 s)
-  shift     +1 s: MAE   5.109 mHz  (863,646 s)
-  shift     +2 s: MAE   5.524 mHz  (863,646 s)
-  shift     +3 s: MAE   5.937 mHz  (863,646 s)
-  shift     +4 s: MAE   6.331 mHz  (863,646 s)
-  shift     +5 s: MAE   6.691 mHz  (863,646 s)
-  shift  +3600 s: MAE  18.715 mHz  (862,923 s)
-  best shift -3 s -> OK
+  2022-05-15: best shift     -2 s, MAE  0.804 mHz (at 0 s:  2.294)
+  2022-07-15: best shift     -3 s, MAE  4.616 mHz (at 0 s:  5.011)
+  2022-10-30: best shift     -4 s, MAE  4.629 mHz (at 0 s:  5.583)
+  2022-12-15: best shift     -4 s, MAE  5.144 mHz (at 0 s:  5.590)
+  2023-03-15: best shift     -3 s, MAE  5.182 mHz (at 0 s:  5.702)
+  2023-05-15: best shift     -3 s, MAE  5.233 mHz (at 0 s:  5.818)
+  2023-08-15: best shift     -3 s, MAE  4.309 mHz (at 0 s:  5.034)
+  2023-10-29: best shift     -3 s, MAE  3.570 mHz (at 0 s:  4.382)
+  2024-01-15: best shift     -2 s, MAE  3.438 mHz (at 0 s:  3.763)
+  2024-04-15: best shift     -3 s, MAE  3.047 mHz (at 0 s:  3.914)
+  -> 10/10 sampled days within +-5 s
+
+15-min features (Zenodo vs reference, intervals with > 800 s in both):
+  TSO archive, until Jun 2022 (77,270 intervals):
+    mean_df_mhz            corr 1.0000   mean Zenodo    0.0068  ref    0.0003  (+2596.9%)
+    std_df_mhz             corr 0.9995   mean Zenodo   13.1808  ref   13.1660  (+0.1%)
+    mean_abs_df_mhz        corr 0.9999   mean Zenodo   15.7492  ref   15.7413  (+0.1%)
+    max_abs_df_mhz         corr 0.9938   mean Zenodo   40.3418  ref   40.2145  (+0.3%)
+    share_outside_10mhz    corr 0.9998   mean Zenodo    0.6023  ref    0.6022  (+0.0%)
+    share_outside_50mhz    corr 0.9999   mean Zenodo    0.0206  ref    0.0206  (+0.1%)
+    fcr_up_equiv_h         corr 1.0000   mean Zenodo    0.0098  ref    0.0098  (+0.0%)
+    fcr_down_equiv_h       corr 0.9999   mean Zenodo    0.0098  ref    0.0098  (+0.1%)
+  Energy-Charts, until Jun 2022 (5,528 intervals):
+    mean_df_mhz            corr 0.9998   mean Zenodo   -0.2365  ref   -0.4706  (-49.8%)
+    std_df_mhz             corr 0.9899   mean Zenodo   13.6978  ref   13.3936  (+2.3%)
+    mean_abs_df_mhz        corr 0.9986   mean Zenodo   15.9450  ref   15.7865  (+1.0%)
+    max_abs_df_mhz         corr 0.8947   mean Zenodo   43.2773  ref   40.6610  (+6.4%)
+    share_outside_10mhz    corr 0.9943   mean Zenodo    0.6104  ref    0.6245  (-2.3%)
+    share_outside_50mhz    corr 0.9988   mean Zenodo    0.0193  ref    0.0195  (-1.4%)
+    fcr_up_equiv_h         corr 0.9998   mean Zenodo    0.0101  ref    0.0102  (-0.5%)
+    fcr_down_equiv_h       corr 0.9991   mean Zenodo    0.0098  ref    0.0096  (+2.6%)
+  Energy-Charts, from Jul 2022 (62,382 intervals):
+    mean_df_mhz            corr 0.9977   mean Zenodo    1.2104  ref   -0.1082  (-1219.0%)
+    std_df_mhz             corr 0.9816   mean Zenodo   15.2910  ref   13.9703  (+9.5%)
+    mean_abs_df_mhz        corr 0.9913   mean Zenodo   17.7375  ref   17.0648  (+3.9%)
+    max_abs_df_mhz         corr 0.6970   mean Zenodo   53.9115  ref   42.8398  (+25.8%)
+    share_outside_10mhz    corr 0.9697   mean Zenodo    0.6424  ref    0.6489  (-1.0%)
+    share_outside_50mhz    corr 0.9891   mean Zenodo    0.0304  ref    0.0278  (+9.3%)
+    fcr_up_equiv_h         corr 0.9965   mean Zenodo    0.0103  ref    0.0107  (-3.8%)
+    fcr_down_equiv_h       corr 0.9971   mean Zenodo    0.0118  ref    0.0106  (+11.8%)
+  Rule of thumb for gap filling: corr > 0.99 and level difference within a few %.

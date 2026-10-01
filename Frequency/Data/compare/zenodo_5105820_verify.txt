@@ -1,0 +1,31 @@
+======================================================================
+Zenodo vs TSO archive / Energy-Charts — 2026-10-01 16:41
+======================================================================
+Zenodo months: 2016-01 -> 2020-12 (48 files)
+
+TSO archive: 46 overlapping months, one full day sampled from 2016-01, 2016-06, 2016-11, 2017-05, 2017-11, 2019-04, 2019-09, 2020-02, 2020-07, 2020-12
+  2016-01-15: best shift     +0 s, MAE  0.000 mHz (at 0 s:  0.000)
+  2016-06-15: best shift     +0 s, MAE  0.000 mHz (at 0 s:  0.000)
+  2016-11-15: best shift     +0 s, MAE  0.000 mHz (at 0 s:  0.000)
+  2017-05-15: best shift     +0 s, MAE  0.000 mHz (at 0 s:  0.000)
+  2017-11-15: best shift     +0 s, MAE  0.000 mHz (at 0 s:  0.000)
+  2019-04-15: best shift     +0 s, MAE  0.000 mHz (at 0 s:  0.000)
+  2019-09-15: best shift     +0 s, MAE  0.000 mHz (at 0 s:  0.000)
+  2020-02-16: best shift     +0 s, MAE  0.000 mHz (at 0 s:  0.000)
+  2020-07-15: best shift     +0 s, MAE  0.000 mHz (at 0 s:  0.000)
+  2020-12-15: best shift     +0 s, MAE  0.000 mHz (at 0 s:  0.000)
+  -> 10/10 sampled days within +-5 s
+
+Energy-Charts: no overlapping months
+
+15-min features (Zenodo vs reference, intervals with > 800 s in both):
+  TSO archive, until Jun 2022 (123,675 intervals):
+    mean_df_mhz            corr 0.9992   mean Zenodo   -0.0317  ref   -0.0337  (-5.7%)
+    std_df_mhz             corr 0.9289   mean Zenodo   12.8591  ref   12.8762  (-0.1%)
+    mean_abs_df_mhz        corr 0.9973   mean Zenodo   15.7566  ref   15.7601  (-0.0%)
+    max_abs_df_mhz         corr 0.7117   mean Zenodo   40.2392  ref   40.6778  (-1.1%)
+    share_outside_10mhz    corr 1.0000   mean Zenodo    0.5956  ref    0.5956  (-0.0%)
+    share_outside_50mhz    corr 1.0000   mean Zenodo    0.0211  ref    0.0211  (-0.1%)
+    fcr_up_equiv_h         corr 1.0000   mean Zenodo    0.0099  ref    0.0099  (-0.0%)
+    fcr_down_equiv_h       corr 1.0000   mean Zenodo    0.0098  ref    0.0098  (-0.0%)
+  Rule of thumb for gap filling: corr > 0.99 and level difference within a few %.

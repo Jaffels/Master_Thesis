@@ -13,7 +13,7 @@ Step 1  compare  per overlap day at 1 s: common seconds, correlation, mean diffe
                  lag in -10..+10 s; at 15 min: correlation of mean/std deviation.
                  -> Frequency/Data/compare/compare_daily.csv, compare_report.txt
 Step 2  merge    one row per interval from the sources in --sources priority order
-                 (default tso,energycharts,zenodo — Zenodo only fills gaps); a source
+                 (default tso,energycharts,zenodo,zenodo2021 — Zenodo only fills gaps); a source
                  whose interval is < 90 % covered loses to one with >= 90 %. Adds
                  `source` and `coverage` (= n_seconds / interval length; DST blocks are
                  3 h / 5 h). Trimmed to --start/--end (default end 2026-08-31 = cut-off).
@@ -173,10 +173,12 @@ SOURCES = {
     "tso": lambda res: TSO / f"frequency_tso_{res}.parquet",
     "energycharts": lambda res: EC / f"frequency_{res}.parquet",
     "zenodo": lambda res: TSO / "zenodo" / f"frequency_zenodo_{res}.parquet",
+    "zenodo2021": lambda res: TSO / "zenodo_5105820" / f"frequency_zenodo_{res}.parquet",
 }
 
 
-def merge(order: list[str], start: str | None, end: str | None) -> None:
+def merge(order: list[str], start: str | None, end: str | None,
+          zenodo_until: str | None = "2022-06-30") -> None:
     """Priority = position in `order`; a source whose interval is < 90 % covered loses
     to any source with >= 90 % coverage. Trimmed to [start, end] (local dates, inclusive).
     Also writes the missing 15-min intervals and a per-day gap summary."""
@@ -184,6 +186,11 @@ def merge(order: list[str], start: str | None, end: str | None) -> None:
         parts = []
         for name in order:
             df = _read_agg(SOURCES[name](res))
+            if df is not None and name.startswith("zenodo") and zenodo_until:
+                # after Jun 2022 Zenodo comes from other files (SG HoBA / TransnetBW website)
+                # whose 15-min features deviate from Energy-Charts (std +10 %, max |df| +26 %,
+                # share > 50 mHz +9 %; zenodo_verify.txt 2026-10-01) -> not used as filler
+                df = df[df.index < (pd.Timestamp(zenodo_until) + pd.Timedelta(days=1)).tz_localize(LOCAL_TZ)]
             if df is not None:
                 parts.append(df.assign(source=name))
         if not parts:
@@ -235,10 +242,13 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--compare-only", action="store_true")
     ap.add_argument("--merge-only", action="store_true")
-    ap.add_argument("--sources", default="tso,energycharts,zenodo",
+    ap.add_argument("--sources", default="tso,energycharts,zenodo,zenodo2021",
                     help="priority order, comma-separated (missing inputs are skipped)")
     ap.add_argument("--start", default=None, help="first local date kept (default: first data)")
     ap.add_argument("--end", default="2026-08-31", help="last local date kept (data cut-off)")
+    ap.add_argument("--zenodo-until", default="2022-06-30",
+                    help="last local date Zenodo may fill (its later data fails the 15-min check); "
+                         "'' = no limit")
     args = ap.parse_args()
     if not args.merge_only:
         compare()
@@ -247,7 +257,7 @@ def main() -> None:
         bad = [x for x in order if x not in SOURCES]
         if bad:
             ap.error(f"unknown source(s): {bad}; choose from {list(SOURCES)}")
-        merge(order, args.start, args.end)
+        merge(order, args.start, args.end, args.zenodo_until or None)
 
 
 if __name__ == "__main__":

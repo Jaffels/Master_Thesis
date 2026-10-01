@@ -54,14 +54,31 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "EnergyCharts"))
 import frequency_tso_probe as P                                    # noqa: E402
 from energycharts_pull import frequency_features                   # noqa: E402
 
-RECORD = "https://zenodo.org/records/15784548/files/{name}?download=1"
-FILES = ["Data_cleansed.zip", "DESCRIPTION.md", "LICENSE.md", "scripts.zip"]
+# Two records: 15784548 (2020-2024, one Data_cleansed.zip; default) and the older
+# 5105820 (Kruse et al. 2020, v3 2021: 2012-2021, one <YYYY>_cleansed.zip per year,
+# CE + GB + Nordic) — the older one is used for the pre-2021 gaps in the TSO archive.
+RECORDS = {
+    "15784548": dict(raw="zenodo", out="zenodo", data=lambda years: ["Data_cleansed.zip"]),
+    "5105820": dict(raw="zenodo_5105820", out="zenodo_5105820",
+                    data=lambda years: [f"{y}_cleansed.zip" for y in (years or range(2015, 2022))]),
+}
+EXTRA_FILES = ["DESCRIPTION.md", "LICENSE.md", "scripts.zip"]
+REC_ID = "15784548"
+RECORD = "https://zenodo.org/records/{rec}/files/{name}?download=1"
 RAW = P.DATA / "raw" / "zenodo"
 OUT = P.DATA / "production" / "zenodo"
+
+
+def set_record(rec: str) -> None:
+    global REC_ID, RAW, OUT
+    REC_ID = rec
+    RAW = P.DATA / "raw" / RECORDS[rec]["raw"]
+    OUT = P.DATA / "production" / RECORDS[rec]["out"]
 TSO_RAW = P.DATA / "production" / "raw_1s"
 EC_RAW = Path("EnergyCharts") / "Data" / "frequency" / "raw"
 LOCAL_TZ = P.LOCAL_TZ
 NORDIC_RX = re.compile(r"nordic|fingrid|finland|helsinki|(^|[^a-z])fi([^a-z]|$)", re.I)
+GB_RX = re.compile(r"national.?grid|nationalgrid|(^|[^a-z])(gb|uk)([^a-z]|$)", re.I)
 SKIP_EXT = (".md", ".py", ".json", ".ipynb", ".pdf", ".png", ".txt.md", ".yml", ".yaml")
 YEAR_RX = re.compile(r"(20[12]\d)")
 
@@ -89,7 +106,7 @@ def download(name: str) -> Path:
         if not name.endswith(".zip") or zipfile.is_zipfile(target):
             return target
     part = target.with_suffix(target.suffix + ".part")
-    url = RECORD.format(name=name)
+    url = RECORD.format(rec=REC_ID, name=name)
     for attempt in range(6):
         have = part.stat().st_size if part.exists() else 0
         headers = {"User-Agent": P.USER_AGENT}
@@ -133,39 +150,43 @@ def ce_members(zf: zipfile.ZipFile) -> list[tuple[str, int, object]]:
         fname = name.split("!")[-1].split("/")[-1].lower()
         if fname.endswith(SKIP_EXT):
             continue
-        if NORDIC_RX.search(name):
+        if NORDIC_RX.search(name) or GB_RX.search(name):
             continue
         ym = YEAR_RX.findall(name)
         if not ym:
             continue
         out.append((name, int(ym[-1]), opener))
-    return out
+    # if the archive names the TSO, keep only TransnetBW / SG HoBA files
+    tso = [m for m in out if re.search(r"transnet|hoba", m[0], re.I)]
+    return tso or out
 
 
 # ------------------------------------------------------------------------- list
 
-def do_list() -> None:
+def do_list(years: list[int] | None) -> None:
     buf: list[str] = []
-    for f in FILES:
+    data_zips = RECORDS[REC_ID]["data"](years)
+    for f in EXTRA_FILES + data_zips:
         download(f)
     log("=" * 70, buf)
-    log(f"Zenodo 15784548 — content — {datetime.now():%Y-%m-%d %H:%M}", buf)
+    log(f"Zenodo {REC_ID} — content — {datetime.now():%Y-%m-%d %H:%M}", buf)
     log("=" * 70, buf)
     for f in ("DESCRIPTION.md", "LICENSE.md"):
         log(f"\n--- {f} ---", buf)
         for line in (RAW / f).read_text(encoding="utf-8", errors="replace").splitlines()[:80]:
             log(f"  {line}", buf)
-    with zipfile.ZipFile(RAW / "Data_cleansed.zip") as zf:
-        log("\n--- Data_cleansed.zip ---", buf)
-        for n, sz in P.list_members(zf):
-            log(f"  {sz / 1e6:9.1f} MB  {n}", buf)
-        log("\n--- Continental Europe files (selected) ---", buf)
-        for name, year, opener in ce_members(zf):
-            head = P.head_bytes(opener, 600)
-            text, _ = P.decode(head)
-            log(f"  {year}  {name}", buf)
-            for line in text.splitlines()[:4]:
-                log(f"      | {line}", buf)
+    for dz in data_zips:
+        with zipfile.ZipFile(RAW / dz) as zf:
+            log(f"\n--- {dz} ---", buf)
+            for n, sz in P.list_members(zf):
+                log(f"  {sz / 1e6:9.1f} MB  {n}", buf)
+            log("\n--- Continental Europe files (selected) ---", buf)
+            for name, year, opener in ce_members(zf):
+                head = P.head_bytes(opener, 600)
+                text, _ = P.decode(head)
+                log(f"  {year}  {name}", buf)
+                for line in text.splitlines()[:4]:
+                    log(f"      | {line}", buf)
     with zipfile.ZipFile(RAW / "scripts.zip") as zf:
         log("\n--- URLs in scripts.zip ---", buf)
         urls = set()
@@ -176,7 +197,7 @@ def do_list() -> None:
                 urls.add((name, u))
         for name, u in sorted(urls):
             log(f"  {name}: {u}", buf)
-    p = P.PROBE_DIR / "zenodo_list.txt"
+    p = P.PROBE_DIR / f"zenodo_{REC_ID}_list.txt"
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text("\n".join(buf) + "\n", encoding="utf-8")
     print(f"\nWritten: {p}")
@@ -185,63 +206,64 @@ def do_list() -> None:
 # ------------------------------------------------------------------------ build
 
 def build(years: list[int] | None, tz_mode: str) -> None:
-    zpath = download("Data_cleansed.zip")
-    with zipfile.ZipFile(zpath) as zf:
-        members = ce_members(zf)
-        if years:
-            members = [m for m in members if m[1] in years]
-        if not members:
-            log("No Continental Europe files selected — run --list and check the names.")
-            return
-        by_year: dict[int, list] = {}
-        for name, year, opener in members:
-            by_year.setdefault(year, []).append((name, opener))
-        for year in sorted(by_year):
-            t0 = time.time()
-            # main file first (TransnetBW/<year>.zip), then the others only for timestamps
-            # it does not have (2022 has three overlapping files with misleading names)
-            files = sorted(by_year[year], key=lambda x: _file_rank(x[0], year))
-            log(f"BUILD {year}: {', '.join(n for n, _ in files)}")
-            # each file gets its own timestamp convention: the Zenodo files are not all
-            # in the same one (verify showed whole days 1 h off), so it is calibrated per
-            # file against the TSO archive / Energy-Charts unless --tz is given
-            series = []
-            for name, opener in files:
-                d, fmt = parse_allow_nan(opener)
-                d = d.dropna(subset=["f"])
-                if d.empty:
-                    log(f"  {name}: no valid values")
-                    continue
-                d["f"], unit = P.unit_to_hz(d["f"])
-                if tz_mode != "auto":
-                    mode, why = tz_mode, "forced with --tz"
-                else:
-                    mode, why = calibrate_tz(d)
-                f_s, stats = P.to_utc_1s(d, mode)
-                log(f"  {name}: {len(d):,} valid rows ({d['ts_naive'].min()} -> {d['ts_naive'].max()}), "
-                    f"unit {unit}, tz {mode} [{why}], {stats['seconds_after_fill']:,} s")
-                series.append(f_s)
-            if not series:
+    for dz in RECORDS[REC_ID]["data"](years):
+        zpath = download(dz)
+        with zipfile.ZipFile(zpath) as zf:
+            members = ce_members(zf)
+            if years:
+                members = [m for m in members if m[1] in years]
+            if not members:
+                log(f"{dz}: no Continental Europe files selected — run --list and check the names.")
                 continue
-            s = pd.concat(series)
-            n_before = len(s)
-            s = s[~s.index.duplicated(keep="first")].sort_index()     # main file wins
-            log(f"  combined: {len(s):,} s ({n_before - len(s):,} duplicate seconds from later files dropped)")
-            loc = s.index.tz_convert(LOCAL_TZ)
-            months = loc.strftime("%Y-%m")
-            for m in sorted(set(months)):
-                if not m.startswith(str(year)):
+            by_year: dict[int, list] = {}
+            for name, year, opener in members:
+                by_year.setdefault(year, []).append((name, opener))
+            for year in sorted(by_year):
+                t0 = time.time()
+                # main file first (TransnetBW/<year>.zip), then the others only for timestamps
+                # it does not have (2022 has three overlapping files with misleading names)
+                files = sorted(by_year[year], key=lambda x: _file_rank(x[0], year))
+                log(f"BUILD {year}: {', '.join(n for n, _ in files)}")
+                # each file gets its own timestamp convention: the Zenodo files are not all
+                # in the same one (verify showed whole days 1 h off), so it is calibrated per
+                # file against the TSO archive / Energy-Charts unless --tz is given
+                series = []
+                for name, opener in files:
+                    d, fmt = parse_allow_nan(opener)
+                    d = d.dropna(subset=["f"])
+                    if d.empty:
+                        log(f"  {name}: no valid values")
+                        continue
+                    d["f"], unit = P.unit_to_hz(d["f"])
+                    if tz_mode != "auto":
+                        mode, why = tz_mode, "forced with --tz"
+                    else:
+                        mode, why = calibrate_tz(d)
+                    f_s, stats = P.to_utc_1s(d, mode)
+                    log(f"  {name}: {len(d):,} valid rows ({d['ts_naive'].min()} -> {d['ts_naive'].max()}), "
+                        f"unit {unit}, tz {mode} [{why}], {stats['seconds_after_fill']:,} s")
+                    series.append(f_s)
+                if not series:
                     continue
-                part = s[months == m]
-                a = pd.Timestamp(m + "-01").tz_localize(LOCAL_TZ)
-                cov = len(part) / ((a + pd.offsets.MonthBegin(1)) - a).total_seconds()
-                atomic_parquet(part.astype("float32").to_frame(),
-                               OUT / "raw_1s" / m[:4] / f"freq_zenodo_{m}.parquet")
-                q = frequency_features(part, "15min").assign(resolution="15min")
-                h = frequency_features(part, "4h").assign(resolution="4h")
-                atomic_parquet(pd.concat([q, h]), OUT / "agg" / f"freq_zenodo_agg_{m}.parquet")
-                log(f"  {m}: {len(part):>10,} s  coverage {cov:.2%}")
-            log(f"BUILD {year}: done in {time.time() - t0:.0f} s")
+                s = pd.concat(series)
+                n_before = len(s)
+                s = s[~s.index.duplicated(keep="first")].sort_index()     # main file wins
+                log(f"  combined: {len(s):,} s ({n_before - len(s):,} duplicate seconds from later files dropped)")
+                loc = s.index.tz_convert(LOCAL_TZ)
+                months = loc.strftime("%Y-%m")
+                for m in sorted(set(months)):
+                    if not m.startswith(str(year)):
+                        continue
+                    part = s[months == m]
+                    a = pd.Timestamp(m + "-01").tz_localize(LOCAL_TZ)
+                    cov = len(part) / ((a + pd.offsets.MonthBegin(1)) - a).total_seconds()
+                    atomic_parquet(part.astype("float32").to_frame(),
+                                   OUT / "raw_1s" / m[:4] / f"freq_zenodo_{m}.parquet")
+                    q = frequency_features(part, "15min").assign(resolution="15min")
+                    h = frequency_features(part, "4h").assign(resolution="4h")
+                    atomic_parquet(pd.concat([q, h]), OUT / "agg" / f"freq_zenodo_agg_{m}.parquet")
+                    log(f"  {m}: {len(part):>10,} s  coverage {cov:.2%}")
+                log(f"BUILD {year}: done in {time.time() - t0:.0f} s")
     combine()
 
 
@@ -419,10 +441,48 @@ def verify() -> None:
                 f"(at 0 s: {res.get(0, float('nan')):6.3f}){flag}", buf)
         log(f"  -> {n_ok}/{len(pick)} sampled days within +-5 s"
             + ("" if n_ok == len(pick) else "  — CHECK: rebuild the affected years with --tz"), buf)
-    p = P.DATA / "compare" / "zenodo_verify.txt"
+    compare_15min(buf)
+    p = P.DATA / "compare" / f"zenodo_{REC_ID}_verify.txt"
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text("\n".join(buf) + "\n", encoding="utf-8")
     print(f"\nWritten: {p}")
+
+
+FEATS = ("mean_df_mhz", "std_df_mhz", "mean_abs_df_mhz", "max_abs_df_mhz",
+         "share_outside_10mhz", "share_outside_50mhz", "fcr_up_equiv_h", "fcr_down_equiv_h")
+
+
+def compare_15min(buf: list[str]) -> None:
+    """Is Zenodo good enough as a 15-min gap filler? Feature agreement with Energy-Charts
+    (and the TSO archive), split at the source change in Zenodo (Jul 2022)."""
+    zp = OUT / "frequency_zenodo_15min.parquet"
+    refs = {"TSO archive": P.DATA / "production" / "frequency_tso_15min.parquet",
+            "Energy-Charts": Path("EnergyCharts") / "Data" / "frequency" / "frequency_15min.parquet"}
+    if not zp.exists():
+        return
+    z = pd.read_parquet(zp)
+    z = z[~z.index.duplicated(keep="first")]
+    cut = pd.Timestamp("2022-07-01").tz_localize(LOCAL_TZ)
+    log("\n15-min features (Zenodo vs reference, intervals with > 800 s in both):", buf)
+    for label, rp in refs.items():
+        if not rp.exists():
+            continue
+        r = pd.read_parquet(rp)
+        r = r[~r.index.duplicated(keep="first")]
+        idx = z.index.intersection(r.index)
+        idx = idx[(z.loc[idx, "n_seconds"] > 800).values & (r.loc[idx, "n_seconds"] > 800).values]
+        for period, sel in (("until Jun 2022", idx < cut), ("from Jul 2022", idx >= cut)):
+            ii = idx[sel]
+            if len(ii) < 100:
+                continue
+            log(f"  {label}, {period} ({len(ii):,} intervals):", buf)
+            for c in FEATS:
+                if c in z and c in r:
+                    a, b = z.loc[ii, c], r.loc[ii, c]
+                    rel = float((a.mean() - b.mean()) / b.mean()) if b.mean() else float("nan")
+                    log(f"    {c:<22} corr {np.corrcoef(a, b)[0, 1]:.4f}   mean Zenodo {a.mean():9.4f}  "
+                        f"ref {b.mean():9.4f}  ({rel:+.1%})", buf)
+    log("  Rule of thumb for gap filling: corr > 0.99 and level difference within a few %.", buf)
 
 
 def main() -> None:
@@ -431,9 +491,12 @@ def main() -> None:
     ap.add_argument("--years", type=int, nargs="+", help="CE years to build (default: all found)")
     ap.add_argument("--tz", choices=["auto", "local", "fixed", "utc"], default="auto")
     ap.add_argument("--verify-only", action="store_true")
+    ap.add_argument("--record", choices=list(RECORDS), default="15784548",
+                    help="15784548 = 2020-2024 (default); 5105820 = 2012-2021 (pre-2021 gaps)")
     args = ap.parse_args()
+    set_record(args.record)
     if args.list:
-        do_list()
+        do_list(args.years)
         return
     if not args.verify_only:
         build(args.years, args.tz)
