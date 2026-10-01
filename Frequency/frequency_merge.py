@@ -12,17 +12,19 @@ Step 1  compare  per overlap day at 1 s: common seconds, correlation, mean diffe
                  (Energy-Charts minus TSO, mHz), MAE, 99th percentile |diff|, best clock
                  lag in -10..+10 s; at 15 min: correlation of mean/std deviation.
                  -> Frequency/Data/compare/compare_daily.csv, compare_report.txt
-Step 2  merge    one row per interval; where both sources exist the --prefer source is
-                 used (default tso: official TSO measurement) unless that interval is
-                 < 90 % covered and the other source is not. Adds `source` and
-                 `coverage` (= n_seconds / interval length; DST blocks are 3 h / 5 h).
+Step 2  merge    one row per interval from the sources in --sources priority order
+                 (default tso,energycharts,zenodo — Zenodo only fills gaps); a source
+                 whose interval is < 90 % covered loses to one with >= 90 %. Adds
+                 `source` and `coverage` (= n_seconds / interval length; DST blocks are
+                 3 h / 5 h). Trimmed to --start/--end (default end 2026-08-31 = cut-off).
+                 Missing intervals -> frequency_missing_15min.csv, frequency_missing_days.csv
                  -> Frequency/Data/production/frequency_merged_15min.parquet
                     Frequency/Data/production/frequency_merged_4h.parquet
 
 Run from the thesis root (venv active):
     python Frequency/frequency_merge.py                    # compare + merge
     python Frequency/frequency_merge.py --compare-only
-    python Frequency/frequency_merge.py --merge-only --prefer energycharts
+    python Frequency/frequency_merge.py --merge-only --sources energycharts,tso,zenodo
 
 Writes only below Frequency/Data/ (never deletes).
 """
@@ -167,22 +169,34 @@ def expected_seconds(idx: pd.DatetimeIndex, res: str) -> np.ndarray:
     return np.where(np.isnan(sec), hours * 3600, sec)
 
 
-def merge(prefer: str) -> None:
+SOURCES = {
+    "tso": lambda res: TSO / f"frequency_tso_{res}.parquet",
+    "energycharts": lambda res: EC / f"frequency_{res}.parquet",
+    "zenodo": lambda res: TSO / "zenodo" / f"frequency_zenodo_{res}.parquet",
+}
+
+
+def merge(order: list[str], start: str | None, end: str | None) -> None:
+    """Priority = position in `order`; a source whose interval is < 90 % covered loses
+    to any source with >= 90 % coverage. Trimmed to [start, end] (local dates, inclusive).
+    Also writes the missing 15-min intervals and a per-day gap summary."""
     for res in ("15min", "4h"):
-        t = _read_agg(TSO / f"frequency_tso_{res}.parquet")
-        e = _read_agg(EC / f"frequency_{res}.parquet")
         parts = []
-        if t is not None:
-            parts.append(t.assign(source="tso"))
-        if e is not None:
-            parts.append(e.assign(source="energycharts"))
+        for name in order:
+            df = _read_agg(SOURCES[name](res))
+            if df is not None:
+                parts.append(df.assign(source=name))
         if not parts:
             log(f"MERGE {res}: no input")
             continue
         both = pd.concat(parts)
+        if start:
+            both = both[both.index >= pd.Timestamp(start).tz_localize(LOCAL_TZ)]
+        if end:
+            both = both[both.index < (pd.Timestamp(end) + pd.Timedelta(days=1)).tz_localize(LOCAL_TZ)]
         both["coverage"] = both["n_seconds"] / expected_seconds(both.index, res)
-        # preferred source first, unless its interval is < 90 % covered and the other is not
-        both["_rank"] = 2 * (both["coverage"] < 0.9).astype(int) + (both["source"] != prefer).astype(int)
+        prio = both["source"].map({n: i for i, n in enumerate(order)})
+        both["_rank"] = 10 * (both["coverage"] < 0.9).astype(int) + prio
         both = both.sort_values("_rank", kind="stable")
         merged = both[~both.index.duplicated(keep="first")].drop(columns="_rank").sort_index()
         out = TSO / f"frequency_merged_{res}.parquet"
@@ -193,28 +207,47 @@ def merge(prefer: str) -> None:
         log(f"MERGE {res}: {len(merged):,} rows, {merged.index.min()} -> {merged.index.max()}  -> {out}")
         src = merged.groupby(merged.index.strftime("%Y"))["source"].value_counts().unstack(fill_value=0)
         log(f"  rows per year and source:\n{src.to_string()}")
-        if res == "15min":
-            low = merged[merged["coverage"] < 0.9]
-            log(f"  intervals with coverage < 90 %: {len(low):,} ({len(low) / len(merged):.2%})")
-            # missing intervals within the span
-            full = pd.date_range(merged.index.min(), merged.index.max(), freq="15min")
-            miss = full.difference(merged.index)
-            log(f"  missing 15-min intervals inside the span: {len(miss):,}")
-            if len(miss):
-                m = pd.Series(1, index=miss).groupby(miss.strftime("%Y-%m")).sum()
-                log("  missing per month (top 10): " + ", ".join(f"{k}: {v}" for k, v in m.sort_values(ascending=False).head(10).items()))
+        if res != "15min":
+            continue
+        low = merged[merged["coverage"] < 0.9]
+        log(f"  intervals with coverage < 90 %: {len(low):,} ({len(low) / len(merged):.2%})")
+        lo = pd.Timestamp(start).tz_localize(LOCAL_TZ) if start else merged.index.min()
+        hi = ((pd.Timestamp(end) + pd.Timedelta(days=1)).tz_localize(LOCAL_TZ) - pd.Timedelta(minutes=15)
+              if end else merged.index.max())
+        full = pd.date_range(lo, hi, freq="15min")
+        miss = full.difference(merged.index)
+        log(f"  missing 15-min intervals in {lo:%Y-%m-%d} -> {hi:%Y-%m-%d}: {len(miss):,} "
+            f"({len(miss) / len(full):.2%})")
+        gaps = pd.DataFrame({"interval_start_local": miss})
+        gaps.to_csv(TSO / "frequency_missing_15min.csv", index=False)
+        if len(miss):
+            day = miss.strftime("%Y-%m-%d")
+            per_day = pd.Series(1, index=miss).groupby(day).sum().rename("missing_15min")
+            per_day.index.name = "date_local"
+            per_day.to_csv(TSO / "frequency_missing_days.csv")
+            m = per_day.groupby(per_day.index.str[:7]).sum()
+            log("  missing per month (top 12): " + ", ".join(
+                f"{k}: {v}" for k, v in m.sort_values(ascending=False).head(12).items()))
+            log(f"  -> {TSO / 'frequency_missing_15min.csv'}, {TSO / 'frequency_missing_days.csv'}")
 
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--compare-only", action="store_true")
     ap.add_argument("--merge-only", action="store_true")
-    ap.add_argument("--prefer", choices=["tso", "energycharts"], default="tso")
+    ap.add_argument("--sources", default="tso,energycharts,zenodo",
+                    help="priority order, comma-separated (missing inputs are skipped)")
+    ap.add_argument("--start", default=None, help="first local date kept (default: first data)")
+    ap.add_argument("--end", default="2026-08-31", help="last local date kept (data cut-off)")
     args = ap.parse_args()
     if not args.merge_only:
         compare()
     if not args.compare_only:
-        merge(args.prefer)
+        order = [x.strip() for x in args.sources.split(",") if x.strip()]
+        bad = [x for x in order if x not in SOURCES]
+        if bad:
+            ap.error(f"unknown source(s): {bad}; choose from {list(SOURCES)}")
+        merge(order, args.start, args.end)
 
 
 if __name__ == "__main__":

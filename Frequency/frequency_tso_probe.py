@@ -214,8 +214,15 @@ def sniff(data: bytes) -> Fmt:
         skip += 1
     if skip >= len(lines):
         raise ValueError("no data line starting with a digit in the first 20 kB")
-    sample = [l for l in lines[skip:skip + 50] if l.strip()]
+    sample = [l for l in lines[skip:skip + 200] if l.strip()]
+    # reference line = first line with a real number after the timestamp (Zenodo files
+    # can start with "2020-01-01 00:00:00,NaN")
     first = sample[0].strip()
+    for line in sample:
+        toks = re.split(r"[;,\t ]", line.strip().replace('"', ""))
+        if any(NUM_RX.match(t) for t in toks[2:]) or (len(toks) == 3 and NUM_RX.match(toks[2])):
+            first = line.strip()
+            break
     if first.startswith('"'):
         first = first.replace('"', "")
 
@@ -253,6 +260,8 @@ def sniff(data: bytes) -> Fmt:
         value_col = 0                 # two-field value starts right after date/time
     else:
         numeric = [i for i, x in enumerate(rest) if NUM_RX.match(x)]
+        if not numeric:     # only NaN rows in the sniffed block -> the NaN field is the value
+            numeric = [i for i, x in enumerate(rest) if x.lower() == "nan"]
         if not numeric:
             raise ValueError(f"no numeric value field in first data line: {first!r}")
         value_col = numeric[-1]

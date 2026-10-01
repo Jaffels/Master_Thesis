@@ -1,0 +1,36 @@
+======================================================================
+Zenodo vs TSO archive / Energy-Charts — 2026-10-01 15:25
+======================================================================
+Zenodo months: 2020-01 -> 2024-04 (52 files)
+
+TSO archive: 30 overlapping months, one full day sampled from 2020-01, 2020-04, 2020-07, 2020-10, 2021-01, 2021-05, 2021-08, 2021-11, 2022-02, 2022-06
+  shift  -3600 s: MAE  11.465 mHz  (864,000 s)
+  shift     -5 s: MAE   6.865 mHz  (864,000 s)
+  shift     -4 s: MAE   6.500 mHz  (864,000 s)
+  shift     -3 s: MAE   6.109 mHz  (864,000 s)
+  shift     -2 s: MAE   5.654 mHz  (864,000 s)
+  shift     -1 s: MAE   5.104 mHz  (864,000 s)
+  shift     +0 s: MAE   4.448 mHz  (864,000 s)
+  shift     +1 s: MAE   5.103 mHz  (864,000 s)
+  shift     +2 s: MAE   5.653 mHz  (864,000 s)
+  shift     +3 s: MAE   6.107 mHz  (864,000 s)
+  shift     +4 s: MAE   6.497 mHz  (864,000 s)
+  shift     +5 s: MAE   6.860 mHz  (864,000 s)
+  shift  +3600 s: MAE  16.658 mHz  (864,000 s)
+  best shift +0 s -> OK
+
+Energy-Charts: 24 overlapping months, one full day sampled from 2022-05, 2022-07, 2022-10, 2022-12, 2023-03, 2023-05, 2023-08, 2023-10, 2024-01, 2024-04
+  shift  -3600 s: MAE  18.728 mHz  (863,646 s)
+  shift     -5 s: MAE   4.512 mHz  (863,646 s)
+  shift     -4 s: MAE   4.217 mHz  (863,646 s)
+  shift     -3 s: MAE   4.041 mHz  (863,646 s)
+  shift     -2 s: MAE   4.079 mHz  (863,646 s)
+  shift     -1 s: MAE   4.344 mHz  (863,646 s)
+  shift     +0 s: MAE   4.709 mHz  (863,646 s)
+  shift     +1 s: MAE   5.109 mHz  (863,646 s)
+  shift     +2 s: MAE   5.524 mHz  (863,646 s)
+  shift     +3 s: MAE   5.937 mHz  (863,646 s)
+  shift     +4 s: MAE   6.331 mHz  (863,646 s)
+  shift     +5 s: MAE   6.691 mHz  (863,646 s)
+  shift  +3600 s: MAE  18.715 mHz  (862,923 s)
+  best shift -3 s -> OK
