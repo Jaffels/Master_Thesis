@@ -1,0 +1,31 @@
+==============================================================================
+TSO archive vs Energy-Charts — 2026-10-01 13:44
+==============================================================================
+TSO 1-s span:  2021-01-03 23:00:01+00:00 -> 2022-06-29 22:00:00+00:00 (43,631,999 s)
+Energy-Charts files in window: 21, 5,154,053 s
+Common seconds: 4,887,772
+
+1-s level (Energy-Charts minus TSO):
+  correlation          0.99129
+  mean difference      -0.131 mHz
+  MAE                  2.099 mHz
+  99th pct |diff|      6.901 mHz
+  best lag per day     {-2: 54, -3: 4}  (s; negative = TSO timestamps trail Energy-Charts)
+  MAE at best lag      0.776 mHz (mean of days)
+  days compared        58  (2022-05-01 -> 2022-06-29)
+  worst days by MAE:
+    2022-06-06: MAE 2.47 mHz, corr 0.9874, 86,341 s, best lag -3
+    2022-06-05: MAE 2.34 mHz, corr 0.9860, 86,400 s, best lag -3
+    2022-05-16: MAE 2.34 mHz, corr 0.9893, 86,341 s, best lag -2
+    2022-05-08: MAE 2.30 mHz, corr 0.9903, 86,400 s, best lag -2
+    2022-05-01: MAE 2.30 mHz, corr 0.9893, 79,200 s, best lag -3
+
+15-min level (5,432 intervals with > 800 s in both):
+  mean_df_mhz            corr 1.0000   mean diff -0.13087
+  std_df_mhz             corr 0.9998   mean diff -0.07169
+  mean_abs_df_mhz        corr 0.9999   mean diff -0.03820
+  share_outside_50mhz    corr 0.9997   mean diff +0.00064
+  fcr_up_equiv_h         corr 1.0000   mean diff +0.00006
+  fcr_down_equiv_h       corr 0.9999   mean diff -0.00011
+
+Rule of thumb: corr > 0.99 and |mean diff| < 1 mHz -> the two series can be spliced.
