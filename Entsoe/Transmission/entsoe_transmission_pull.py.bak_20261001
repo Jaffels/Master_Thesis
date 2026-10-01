@@ -228,8 +228,7 @@ def main() -> int:
         return 1
 
     tasks = [t for t in probe.build_tasks()
-             if t.enabled and t.pull  # pull=False: probe-only tasks
-             and args.only.lower() in t.dataset.lower()]
+             if t.enabled and args.only.lower() in t.dataset.lower()]
     years = year_windows(start, end)
     out_root = Path(args.out).expanduser().resolve()
 

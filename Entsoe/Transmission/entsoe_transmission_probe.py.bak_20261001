@@ -16,20 +16,12 @@ Covers the Transmission-domain articles requested:
     12.1.G  Physical Flows                       -> query_crossborder_flows (A11)
     13.1.B  Countertrading                       -> query_countertrading (A91)*
     13.1.C  Costs of Congestion Management        -> query_congestion_costs (A92)*
-    11.1.A  Explicit offered capacity            -> query_explicit_offered_capacity (A31/A02)**
-    12.1.A  Explicit allocations (cap. / revenue) -> query_explicit_allocation (A25 B05/B07)**
-              daily A01 / monthly A03 / yearly A04 / intraday A07
 
     * 13.1.B and 13.1.C have no entsoe-py method; thin wrappers are added below
       (documentType A91 / A92), the same monkeypatch approach the load probe uses
       for its 8.1 forecast-margin wrapper. They lean on the library's own
       _base_request (so "No matching data found" -> NoMatchingDataError, i.e. a
       clean *empty*, never a fake error) and its generic timeseries parser.
-    ** Explicit-auction results (the JAO auctions on the Swiss borders), added
-      2026-10-01. Daily offered + daily allocated are pulled; the rest stay
-      PROBE-ONLY (Task.pull=False). Run just these with
-      --only explicit. Their parser keeps every numeric Point field
-      (quantity, price.amount, ...) so the coverage shows what is published.
 
 Everything here is a CROSS-BORDER product: each endpoint takes a
 country_code_from / country_code_to pair, not a single area. So the probe
@@ -255,154 +247,9 @@ def _add_congestion_methods() -> None:
 
     EntsoePandasClient.query_countertrading = _make_query("A91")     # 13.1.B
     EntsoePandasClient.query_congestion_costs = _make_query("A92")   # 13.1.C
-    return window_on_overflow  # reused by the explicit-allocation wrappers
 
 
-
-def _add_explicit_allocation_methods(window_on_overflow: Callable) -> None:
-    """Add wrappers for the EXPLICIT-auction results on the Swiss borders
-    (added 2026-10-01). Switzerland is outside EU market coupling, so capacity on
-    CH<->DE/FR/IT/AT is sold in explicit yearly / monthly / daily auctions run by
-    JAO; the results are also published on the Transparency Platform:
-
-        11.1.A  Offered capacity (explicit)  documentType A31, Auction.Type A02
-        12.1.A  Use of transfer capacity     documentType A25, businessType B05
-                  (allocated capacity; the auction price may ride along)
-        12.1.A  Auction revenue               documentType A25, businessType B07
-
-    entsoe-py's query_offered_capacity(implicit=False) only reaches A25/B05 and
-    its parser keeps 'quantity' alone, dropping any price. These wrappers instead
-    keep EVERY numeric field of each Point (quantity, price.amount, ...) in its
-    own column, labelled by businessType / auction category / classification
-    position, so the probe shows exactly what the API carries before the pull
-    commits to a schema.
-
-    curveType A03 (variable-sized blocks, confirmed on these documents
-    2026-10-01): a Point holds its value until the next published position, so
-    omitted positions are forward-filled up to the Period's end. Under A01
-    (fixed blocks) an omitted position stays missing.
-    """
-    import requests  # noqa: F401  (kept for parity with the A91/A92 block)
-    from entsoe.decorators import month_limited
-    from entsoe.parsers import _extract_timeseries
-    from entsoe.mappings import lookup_area
-
-    def _step(res: str):
-        m = re.fullmatch(r"PT(\d+)M", res)
-        if m:
-            return pd.Timedelta(minutes=int(m.group(1)))
-        m = re.fullmatch(r"PT(\d+)H", res)
-        if m:
-            return pd.Timedelta(hours=int(m.group(1)))
-        m = re.fullmatch(r"P(\d+)D", res)
-        if m:
-            return pd.Timedelta(days=int(m.group(1)))
-        m = re.fullmatch(r"P(\d+)M", res)
-        if m:
-            return pd.DateOffset(months=int(m.group(1)))
-        m = re.fullmatch(r"P(\d+)Y", res)
-        if m:
-            return pd.DateOffset(years=int(m.group(1)))
-        raise ValueError(f"unknown resolution {res!r}")
-
-    def _mul(step, n: int):
-        if isinstance(step, pd.DateOffset):
-            kw = {k: v * n for k, v in step.kwds.items()}
-            return pd.DateOffset(**kw)
-        return step * n
-
-    def _txt(node, tag):
-        t = node.find(tag)
-        return t.text.strip() if t is not None and t.text else None
-
-    def _parse_explicit(text: str, start, end) -> pd.DataFrame:
-        """One row per timestamp, one column per <series label>__<field>.
-        Keeps points whose [ts, ts+step) overlaps [start, end), so a monthly or
-        yearly product that began before the window is not thrown away."""
-        rows = []
-        for ts in _extract_timeseries(text):
-            parts = [_txt(ts, "businesstype"),
-                     _txt(ts, "auction.category"),
-                     _txt(ts, "contract_marketagreement.type")]
-            pos_tag = ts.find("classificationsequence_attributeinstancecomponent.position")
-            if pos_tag is not None and pos_tag.text:
-                parts.append(f"seq{pos_tag.text.strip()}")
-            label = "_".join(p for p in parts if p) or "series"
-            compressed = (_txt(ts, "curvetype") or "A01") == "A03"
-            for period in ts.find_all("period"):
-                ti = period.find("timeinterval")
-                p_start = pd.Timestamp(_txt(ti, "start"))
-                p_end_txt = _txt(ti, "end")
-                step = _step(_txt(period, "resolution"))
-                # position -> {field: value} as published
-                pts: dict[int, dict[str, float]] = {}
-                for pt in period.find_all("point"):
-                    pos = int(_txt(pt, "position"))
-                    vals = {}
-                    for child in pt.find_all(recursive=False):
-                        if child.name == "position":
-                            continue
-                        try:
-                            vals[child.name] = float(child.text)
-                        except (TypeError, ValueError):
-                            continue
-                    pts[pos] = vals
-                if not pts:
-                    continue
-                positions = sorted(pts)
-                if (compressed and p_end_txt
-                        and isinstance(step, pd.Timedelta)):
-                    n = int((pd.Timestamp(p_end_txt) - p_start) / step)
-                    filled, last = {}, None
-                    for pos in range(1, n + 1):
-                        if pos in pts:
-                            last = pts[pos]
-                        if last is not None:
-                            filled[pos] = last
-                    pts, positions = filled, sorted(filled)
-                for pos in positions:
-                    t0 = p_start + _mul(step, pos - 1)
-                    t1 = t0 + step
-                    if not (t0 < end and t1 > start):
-                        continue
-                    for name, val in pts[pos].items():
-                        rows.append((t0, f"{label}__{name}", val))
-        if not rows:
-            raise NoMatchingDataError
-        long = pd.DataFrame(rows, columns=["timestamp", "col", "value"])
-        # revisions / overlapping documents: keep the last value per (ts, col)
-        long = long.drop_duplicates(["timestamp", "col"], keep="last")
-        return long.pivot(index="timestamp", columns="col", values="value").sort_index()
-
-    def _make(doctype: str, fixed: dict[str, str]):
-        def _core(self, country_code_from, country_code_to, start, end,
-                  contract: str, business_type: str | None = None,
-                  **kwargs) -> pd.DataFrame:
-            area_in = lookup_area(country_code_to)     # in_Domain
-            area_out = lookup_area(country_code_from)  # out_Domain
-            params = {"documentType": doctype,
-                      "in_Domain": area_in.code,
-                      "out_Domain": area_out.code,
-                      "contract_MarketAgreement.Type": contract,
-                      **fixed}
-            if business_type:
-                params["businessType"] = business_type
-            text = self._base_request(params=params, start=start, end=end).text
-            df = _parse_explicit(text, start, end)
-            return df.tz_convert(area_out.tz)
-
-        def _dedup(*args, start, end, **kwargs):
-            df = month_limited(window_on_overflow(_core))(
-                *args, start=start, end=end, **kwargs)
-            return df[~df.index.duplicated(keep="last")].sort_index()
-        return _dedup
-
-    EntsoePandasClient.query_explicit_offered_capacity = _make(
-        "A31", {"Auction.Type": "A02"})                                   # 11.1.A
-    EntsoePandasClient.query_explicit_allocation = _make("A25", {})       # 12.1.A
-
-
-_add_explicit_allocation_methods(_add_congestion_methods())
+_add_congestion_methods()
 
 logging.basicConfig(
     level=logging.INFO,
@@ -514,13 +361,6 @@ PINNED_BORDER_CODE: dict[tuple[str, str], tuple[str, str]] = {
     #   Countertrading on the Italian border resolved to national IT (probe).
     ("countertrading", "CH-IT_NORD"): ("CH", "IT"),
     ("countertrading", "IT_NORD-CH"): ("IT", "CH"),
-    # 2026-10-01: explicit-auction results (probe Aug 2026 + Jan 2016). Daily
-    # products sit on the DE_LU bidding-zone border and on national IT.
-    **{(ds, b): (f, t)
-       for ds in ("explicit_offered", "explicit_allocated", "explicit_revenue")
-       for b, (f, t) in {"CH-DE": ("CH", "DE_LU"), "DE-CH": ("DE_LU", "CH"),
-                         "CH-IT_NORD": ("CH", "IT"),
-                         "IT_NORD-CH": ("IT", "CH")}.items()},
 }
 
 # 2026-09-28 (pre-2021 extension): before 1 Oct 2018 the German bidding zone was
@@ -531,11 +371,6 @@ DE_LU_SPLIT = "2018-10-01"
 PINNED_BORDER_CODE_PRE_SPLIT: dict[tuple[str, str], tuple[str, str]] = {
     ("ntc", "CH-DE"): ("CH", "DE_AT_LU"),
     ("ntc", "DE-CH"): ("DE_AT_LU", "CH"),
-    # 2026-10-01: explicit-auction results resolved to DE_AT_LU in Jan 2016
-    **{(ds, b): (f, t)
-       for ds in ("explicit_offered", "explicit_allocated", "explicit_revenue")
-       for b, (f, t) in {"CH-DE": ("CH", "DE_AT_LU"),
-                         "DE-CH": ("DE_AT_LU", "CH")}.items()},
 }
 
 
@@ -578,8 +413,6 @@ class Task:
     # "border": iterate directed CH borders (from != to). "area": iterate single
     # areas with in == out (required by 13.1.C congestion costs).
     scope: str = "border"
-    # False = probe-only; the pull skips it (explicit-auction tasks, 2026-10-01)
-    pull: bool = True
 
     @property
     def key(self) -> str:
@@ -629,35 +462,6 @@ def build_tasks() -> list[Task]:
         "13.1.C costs of congestion management (per area) — A92 wrapper",
         scope="area",
     ))
-
-    # --- 11.1.A / 12.1.A : explicit auctions on the Swiss borders (JAO) ----
-    # Probe-only for now (pull=False). Contract types not served for a border
-    # come back empty or as a 400 with the reason in the coverage CSV.
-    # 2026-10-01: daily offered + daily allocated (MW + auction price EUR/MWh)
-    # are pulled; monthly/yearly/intraday and revenue stay probe-only.
-    for contract, horizon in (("A01", "daily"), ("A03", "monthly"),
-                              ("A04", "yearly"), ("A07", "intraday")):
-        tasks.append(Task(
-            "explicit_offered", f"{horizon}_{contract}",
-            "query_explicit_offered_capacity", {"contract": contract},
-            f"11.1.A explicit offered capacity, {horizon} (MW)",
-            pull=(contract == "A01"),
-        ))
-        tasks.append(Task(
-            "explicit_allocated", f"{horizon}_{contract}",
-            "query_explicit_allocation",
-            {"contract": contract, "business_type": "B05"},
-            f"12.1.A explicit allocated capacity (MW) + auction price (EUR/MWh), {horizon}",
-            pull=(contract == "A01"),
-        ))
-    for contract, horizon in (("A01", "daily"), ("A03", "monthly"),
-                              ("A04", "yearly")):
-        tasks.append(Task(
-            "explicit_revenue", f"{horizon}_{contract}",
-            "query_explicit_allocation",
-            {"contract": contract, "business_type": "B07"},
-            f"12.1.A explicit auction revenue, {horizon} (EUR)", pull=False,
-        ))
 
     return tasks
 
