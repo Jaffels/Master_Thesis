@@ -34,6 +34,7 @@ env/
 # only. Force-add a specific small file with `git add -f` if ever needed.
 /data/
 /Claude outputs/
+/Thesis_Working_Files/
 
 # Data file formats, wherever they live in the tree
 *.csv
