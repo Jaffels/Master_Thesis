@@ -505,19 +505,12 @@ PINNED_BORDER_CODE: dict[tuple[str, str], tuple[str, str]] = {
     **{("ntc", b): (f, t)
        for b, (f, t) in {"CH-DE": ("CH", "DE_LU"),
                          "DE-CH": ("DE_LU", "CH")}.items()},
-    #   Physical flows and countertrading were pulled on the
+    #   Physical flows, schedules and countertrading were pulled on the
     #   TransnetBW control area; pinned so a re-pull never drifts levels.
     **{(ds, b): (f, t)
-       for ds in ("physical_flows", "countertrading")
+       for ds in ("physical_flows", "scheduled_exchanges", "countertrading")
        for b, (f, t) in {"CH-DE": ("CH", "DE_TRANSNET"),
                          "DE-CH": ("DE_TRANSNET", "CH")}.items()},
-    #   2026-10-02: commercial schedules (12.1.F) live on the DE_LU bidding-zone
-    #   border. On DE_TRANSNET they cover only part of the exchange (Jan-Aug 2026
-    #   median net -20 MW vs Swissgrid comm_flow_net_de -795 MW; corr 0.61).
-    #   On DE_LU: corr 1.0, 99.6 % identical to Swissgrid (Jan 2026 test).
-    **{("scheduled_exchanges", b): (f, t)
-       for b, (f, t) in {"CH-DE": ("CH", "DE_LU"),
-                         "DE-CH": ("DE_LU", "CH")}.items()},
     #   Countertrading on the Italian border resolved to national IT (probe).
     ("countertrading", "CH-IT_NORD"): ("CH", "IT"),
     ("countertrading", "IT_NORD-CH"): ("IT", "CH"),
@@ -538,9 +531,6 @@ DE_LU_SPLIT = "2018-10-01"
 PINNED_BORDER_CODE_PRE_SPLIT: dict[tuple[str, str], tuple[str, str]] = {
     ("ntc", "CH-DE"): ("CH", "DE_AT_LU"),
     ("ntc", "DE-CH"): ("DE_AT_LU", "CH"),
-    # 2026-10-02: commercial schedules on the pre-split bidding-zone border
-    ("scheduled_exchanges", "CH-DE"): ("CH", "DE_AT_LU"),
-    ("scheduled_exchanges", "DE-CH"): ("DE_AT_LU", "CH"),
     # 2026-10-01: explicit-auction results resolved to DE_AT_LU in Jan 2016
     **{(ds, b): (f, t)
        for ds in ("explicit_offered", "explicit_allocated", "explicit_revenue")

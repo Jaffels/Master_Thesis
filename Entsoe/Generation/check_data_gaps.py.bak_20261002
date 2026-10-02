@@ -6,15 +6,9 @@
               business-type folders, fall-back hours per year, publication lag.
 
 Run from Master_Thesis with .venv active:
-  python Entsoe/Generation/check_data_gaps.py generation
-  python Entsoe/Generation/check_data_gaps.py fallback
-  python Entsoe/Generation/check_data_gaps.py all --write     # also save CSVs to Entsoe/_checks/
-  python Entsoe/Generation/check_data_gaps.py generation --tree pre2021   # 2015-2020 only
-
-Trees (2026-10-02): `production/` (2021+) and `production_pre2021/` (2015-2020)
-are both checked by default (--tree both). Per-unit generation before 2021 exists
-for CH only (from 29 Mar 2015); fall-back documents only exist from 2022, so the
-pre-2021 fall-back folders hold empty markers only (reported, not analysed).
+  python Entsoe/check_data_gaps.py generation
+  python Entsoe/check_data_gaps.py fallback
+  python Entsoe/check_data_gaps.py all --write     # also save CSVs to Entsoe/_checks/
 
 Notes
 - Generation is checked at hourly resolution (UTC hour buckets): an hour counts
@@ -22,9 +16,7 @@ Notes
   hour are not reported.
 - The expected grid runs from 1 Jan 00:00 local to the last timestamp in the
   file, so a file that ends early (e.g. IT_NORD 2026) shows up in `last_ts`,
-  not as missing hours. In the FIRST year of a series the grid starts at the
-  series' first timestamp instead (e.g. CH per-unit 29 Mar 2015), shown in
-  `first_ts`; hours before a series exists are not gaps.
+  not as missing hours.
 - Nothing is modified. --write only creates/overwrites CSVs in Entsoe/_checks/.
 """
 from __future__ import annotations
@@ -35,11 +27,8 @@ from pathlib import Path
 
 import pandas as pd
 
-TREES = {"pre2021": "production_pre2021", "production": "production"}
-GEN_ROOT = Path("Entsoe/Generation/Data")
-GEN_SUB = Path("actual_generation_unit/per_unit")
-FB_ROOT = Path("Entsoe/Outages/Data")
-FB_DIR = FB_ROOT / "production" / "fallback_afrr"
+GEN_DIR = Path("Entsoe/Generation/Data/production/actual_generation_unit/per_unit")
+FB_DIR = Path("Entsoe/Outages/Data/production/fallback_afrr")
 OUT_DIR = Path("Entsoe/_checks")
 AREAS = ["CH", "AT", "DE_LU", "FR", "IT_NORD"]
 TZ = "Europe/Zurich"
@@ -50,21 +39,15 @@ def last_sunday(year: int, month: int) -> pd.Timestamp:
     return d - pd.Timedelta(days=(d.weekday() + 1) % 7)
 
 
-def check_generation(write: bool, trees: list[str]) -> None:
+def check_generation(write: bool) -> None:
     summary, detail = [], []
     for area in AREAS:
-        files = [(tree, f) for tree in trees
-                 for f in sorted((GEN_ROOT / TREES[tree] / GEN_SUB / area).glob("[0-9]*.parquet"))]
-        files.sort(key=lambda tf: int(tf[1].stem))
-        first_year = int(files[0][1].stem) if files else None
-        for tree, f in files:
+        for f in sorted((GEN_DIR / area).glob("*.parquet")):
             year = int(f.stem)
             df = pd.read_parquet(f)
             ts = pd.DatetimeIndex(df.index).tz_convert(TZ)
             hours = pd.DatetimeIndex(ts.tz_convert("UTC").floor("h").unique())
             start = pd.Timestamp(year, 1, 1, tz=TZ).tz_convert("UTC")
-            if year == first_year and "pre2021" in trees:
-                start = max(start, hours.min())   # series start, not a gap
             grid = pd.date_range(start, hours.max(), freq="h")
             miss = grid.difference(hours)
             miss_local = pd.Series(miss.tz_convert(TZ).date, dtype="object")
@@ -83,8 +66,7 @@ def check_generation(write: bool, trees: list[str]) -> None:
                     full_days.append(str(day))
 
             summary.append(dict(
-                tree=tree, area=area, year=year,
-                first_ts=ts.min().strftime("%Y-%m-%d %H:%M"),
+                area=area, year=year,
                 last_ts=ts.max().strftime("%Y-%m-%d %H:%M"),
                 missing_hours=len(miss),
                 missing_full_days=len(full_days),
@@ -93,7 +75,7 @@ def check_generation(write: bool, trees: list[str]) -> None:
                 else f"{', '.join(full_days[:6])}, ... (+{len(full_days) - 6})",
             ))
             for day, n in per_day.items():
-                detail.append(dict(tree=tree, area=area, year=year, date=str(day),
+                detail.append(dict(area=area, year=year, date=str(day),
                                    missing_hours=int(n),
                                    dst_day=day in dst_days,
                                    full_day=str(day) in full_days))
@@ -112,16 +94,8 @@ def check_generation(write: bool, trees: list[str]) -> None:
               f"{OUT_DIR}/generation_per_unit_missing_hours.csv")
 
 
-def check_fallback(write: bool, trees: list[str]) -> None:
-    if "pre2021" in trees:
-        pre = FB_ROOT / TREES["pre2021"] / "fallback_afrr"
-        n_data = len([f for f in pre.glob("*/CH/[0-9]*.parquet")])
-        n_empty = len(list(pre.glob("*/CH/*.empty")))
-        print(f"\n=== CH aFRR fall-backs, pre-2021 tree: {n_data} data files, "
-              f"{n_empty} empty-year markers (expected 0 data files) ===")
-    if "production" not in trees:
-        return
-    files = sorted(FB_DIR.glob("*/CH/[0-9]*.parquet"))
+def check_fallback(write: bool) -> None:
+    files = sorted(FB_DIR.glob("*/CH/*.parquet"))
     if not files:
         print(f"no files under {FB_DIR}/*/CH/")
         return
@@ -181,17 +155,14 @@ def main() -> None:
     ap.add_argument("check", choices=["generation", "fallback", "all"])
     ap.add_argument("--write", action="store_true",
                     help="save CSVs to Entsoe/_checks/")
-    ap.add_argument("--tree", choices=["both", "production", "pre2021"],
-                    default="both", help="data tree(s) to check (default both)")
     a = ap.parse_args()
-    trees = ["pre2021", "production"] if a.tree == "both" else [a.tree]
     if not Path("Entsoe").is_dir():
         sys.exit("run from the Master_Thesis folder")
     pd.set_option("display.width", 200)
     if a.check in ("generation", "all"):
-        check_generation(a.write, trees)
+        check_generation(a.write)
     if a.check in ("fallback", "all"):
-        check_fallback(a.write, trees)
+        check_fallback(a.write)
 
 
 if __name__ == "__main__":

@@ -33,7 +33,8 @@ env/
 # snapshots + NAS/cloud backup instead). Track code, docs and configs
 # only. Force-add a specific small file with `git add -f` if ever needed.
 /data/
-/Claude outputs/
+/notes/
+/Thesis_Working_Files/
 
 # Data file formats, wherever they live in the tree
 *.csv
