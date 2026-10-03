@@ -71,14 +71,28 @@ def year_windows(start: pd.Timestamp, end: pd.Timestamp):
 
 
 def fetch(client, code: str, s: pd.Timestamp, e: pd.Timestamp, throttle) -> pd.DataFrame | None:
-    """One A44 request (entsoe-py splits by year), tidied, end-trimmed to [s, e)."""
-    try:
-        raw = probe.call_with_retry(client.query_day_ahead_prices, throttle,
-                                    country_code=code, start=s, end=e)
-    except probe.NO_DATA_ERRORS:
+    """A44 requests in calendar-quarter chunks, tidied, trimmed to [s, e).
+
+    Quarter chunks (fixed 3 Oct 2026): a single full-year request lost the hour
+    31 Dec 00:00 local in every year, an artefact of entsoe-py's year splitting with
+    its +/- 1 day padding. Chunks overlap by one day; duplicates are dropped."""
+    parts = []
+    for cs in pd.date_range(s.normalize(), e, freq="QS", tz=TZ).union([s]):
+        cs = max(cs, s)
+        ce = min(cs + pd.offsets.QuarterBegin(1, startingMonth=1), e)
+        if cs >= ce:
+            continue
+        try:
+            raw = probe.call_with_retry(client.query_day_ahead_prices, throttle, country_code=code,
+                                        start=cs - pd.Timedelta(days=1), end=ce + pd.Timedelta(days=1))
+        except probe.NO_DATA_ERRORS:
+            continue
+        if raw is not None and len(raw):
+            parts.append(raw)
+    if not parts:
         return None
-    if raw is None or len(raw) == 0:
-        return None
+    raw = pd.concat(parts)
+    raw = raw[~raw.index.duplicated(keep="last")].sort_index()
     df = probe.tidy(raw, VALUE_COL)
     df.index = df.index.tz_convert("UTC")
     df = df[(df.index >= s.tz_convert("UTC")) & (df.index < e.tz_convert("UTC"))]

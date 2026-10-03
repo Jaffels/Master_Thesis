@@ -1,4 +1,4 @@
-build_master.py  2026-10-03 18:39  sample 2015-01-01 00:00 -> 2026-08-31 23:45 (Europe/Zurich)
+build_master.py  2026-10-03 18:58  sample 2015-01-01 00:00 -> 2026-08-31 23:45 (Europe/Zurich)
   ok    gap list newer than build_gap_list.py and every clean table (else rerun build_gap_list.py --write)
   info  not in the master: {'balancing/contracted_reserves_ch': 'block products: cross-check columns in auction_blocks', 'generation/installed_capacity': 'long table (zone x year), stays in Clean/Data/generation/', 'outages/outage_events': 'long table (events with created_utc), stays in Clean/Data/outages/'}
 Reading clean grid tables
