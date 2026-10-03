@@ -91,6 +91,12 @@ GRID_TABLES = [
     ("weather", "weather", None),
     ("frequency", "frequency", "TSO/Energy-Charts/Zenodo"),
 ]
+# Tables joined only once their clean file exists (3 Oct 2026: ENTSO-E day-ahead prices,
+# Clean/clean_prices.py). Without the file the master builds exactly as before.
+OPTIONAL_TABLES = [
+    ("prices", "day_ahead", "ENTSO-E"),
+]
+GRID_TABLES += [t for t in OPTIONAL_TABLES if (C.DATA_DIR / t[0] / f"{t[1]}.parquet").exists()]
 NOT_IN_MASTER = {
     "balancing/contracted_reserves_ch": "block products: cross-check columns in auction_blocks",
     "generation/installed_capacity": "long table (zone x year), stays in Clean/Data/generation/",

@@ -63,3 +63,6 @@ Tenders/
 JAO/jao_data/
 MeteoSwiss/__pycache__/
 
+
+# EDA outputs (regenerated)
+EDA/Output/

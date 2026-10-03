@@ -42,6 +42,7 @@ BREAKS = pd.DataFrame([
     ("de_zone_split", "2018-10-01", "market",    "DE-AT-LU -> DE-LU + AT bidding zones"),
     ("fcr_daily",     "2019-07-01", "market",    "FCR weekly pay-as-bid -> daily marginal"),
     ("fcr_4h",        "2020-07-01", "market",    "FCR daily -> 4h blocks"),
+    ("imb_hourly",    "2018-06-11", "market",    "CH imbalance price mostly constant within the hour"),
     ("imb_qh",        "2022-06-01", "market",    "CH imbalance price per quarter-hour"),
     ("afrr_fallback", "2024-02-09", "market",    "CH aFRR platform fall-back (first full day)"),
     ("mfrr_merged",   "2025-09-29", "market",    "TRL+/TRL- merged (mFRR)"),

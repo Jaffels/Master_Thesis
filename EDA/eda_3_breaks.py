@@ -183,7 +183,7 @@ mon2 = im.groupby(im["t"].dt.tz_localize(None).dt.to_period("M")).agg(
     short_mean=("ch_imb_price_short_eur_mwh", "mean"), short_std=("ch_imb_price_short_eur_mwh", "std"))
 mon = mon.join(mon2, how="outer")
 out.table(mon.round(3), "3c_imbalance_monthly", show=None)
-for k in ("imb_qh", "imb_single"):
+for k in ("imb_hourly", "imb_qh", "imb_single"):
     t0 = bts[k].tz_localize(None).to_period("M")
     pre = mon[(mon.index < t0) & (mon.index >= t0 - 6)]
     post = mon[(mon.index >= t0) & (mon.index < t0 + 6)]
@@ -198,7 +198,7 @@ axes[1].set_ylabel("mean intra-hour\nrange [EUR/MWh]")
 axes[2].plot(x, mon["spread_mean"], color=SERIES_COLORS[6])
 axes[2].set_ylabel("mean short - long\n[EUR/MWh]")
 for ax in axes:
-    mark_breaks(ax, keys=["imb_qh", "imb_single"], label=ax is axes[0])
+    mark_breaks(ax, keys=["imb_hourly", "imb_qh", "imb_single"], label=ax is axes[0])
 date_axis(axes[-1])
 axes[0].set_title("CH imbalance price (short): resolution and dual / single pricing, monthly")
 out.fig(fig, "3c_imbalance_price_regimes")
