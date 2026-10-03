@@ -157,6 +157,8 @@ REGIME_FIRST = ["regime_afrr_dir", "regime_fcr", "regime_afrr_daily", "regime_mf
 FLAG_LINKS = {
     **{f"flag_{z}_load_actual_suspect": rf"^{z}_load_actual_mw$" for z in ("ch", "de_lu", "fr", "it_nord", "at")},
     "flag_de_lu_load_da_fc_q4_2018_patch": r"^de_lu_load_da_fc_mw$",
+    **{f"flag_{z}_price_da_suspect": rf"^{z}_price_da_eur_mwh$" for z in ("ch", "de_lu", "fr", "it_nord", "at")},
+    "flag_at_price_da_from_de_at_lu": r"^at_price_da_eur_mwh$",
     "flag_ch_gen_partial_2015h1": r"^ch_gen_.*(?<!_xchk_swissgrid)$",
     "flag_at_gen_wind_on_id_fc_placeholder": r"^at_gen_wind_on_id_fc_mw$",
     "flag_ntc_placeholder": r"_ntc_(da|wa|ma|ya)_mw$",
