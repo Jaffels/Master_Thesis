@@ -1,0 +1,160 @@
+
+==========================================================================================
+1. Availability classes
+==========================================================================================
+avail_class  avail_param  
+fallback     NaN                1
+fc           D-1 10:00         34
+             D-1 12:00          5
+             D-1 13:00         12
+             D-1 18:00         17
+             M-1 -7D           20
+             W-1 Fri 18:00     18
+             Y-1 15 Dec        20
+obs          0h                18
+             1D                50
+             1h               148
+             8D                16
+obs_pf       1h                18
+outage       NaN               19
+
+==========================================================================================
+2. Gate closure
+==========================================================================================
+year                                                 2014  2015  2016  2017  2018  2019  2020  2021  2022  2023  2024  2025  2026
+product procurement gc_rule           gc_confidence                                                                              
+FCR     4h          fcr_4h_d-1_0800   calendar          0     0     0     0     0     0  1105  2190  2190  2190  2196  2190  1457
+        day         fcr_day_d-2_1500  assumed           0     0     0     0     0   185   181     0     0     0     0     0     0
+        week        week_tue_1300_w-1 assumed           1    52    52    53    52    25     0     0     0     0     0     0     0
+  fcr: lead time block start - gate closure [h]: min 16.0, median 28.0, max 132.0
+year                                                 2014  2015  2016  2017  2018  2019  2020  2021  2022  2023  2024  2025  2026
+product procurement gc_rule           gc_confidence                                                                              
+aFRR    4h          frr_daily_table   calendar          0     0     0     0     0     0     0     0     0     0     0  1118  2893
+        week        week_tue_1300_w-1 assumed           1    52    52    53    82   104   104   104   104   106   104     0     0
+                                      calendar          0     0     0     0     0     0     0     0     0     0     0   104    70
+  afrr: lead time block start - gate closure [h]: min 33.5, median 60.5, max 132.0
+year                                                 2014  2015  2016  2017  2018  2019  2020  2021  2022  2023  2024  2025  2026
+product procurement gc_rule           gc_confidence                                                                              
+mFRR    4h          frr_daily_table   assumed           1   924  4370  4380  4380  4380  4392  4380  4380  4380  4012     0     0
+                                      calendar          0     0     0     0     0     0     0     0     0     0     2  4380  2914
+        week        week_tue_1300_w-1 assumed           2   104   104   106   104   104   104   104   104   106   104     0     0
+                                      calendar          0     0     0     0     0     0     0     0     0     0     0   104    70
+  mfrr: lead time block start - gate closure [h]: min 33.5, median 53.5, max 132.0
+
+==========================================================================================
+3. Master, masks, lookbacks
+==========================================================================================
+masked values (5.4):
+  ch_tre_sa_up_act_mw <- flag_tre_extra_activation_up                             976
+  ch_tre_sa_up_act_price_marginal_eur_mwh <- flag_tre_extra_activation_up         972
+  ch_tre_sa_up_act_price_vwap_eur_mwh <- flag_tre_extra_activation_up             972
+  ch_tre_sa_down_act_mw <- flag_tre_extra_activation_down                         298
+  ch_tre_sa_down_act_price_marginal_eur_mwh <- flag_tre_extra_activation_down     262
+  ch_tre_sa_down_act_price_vwap_eur_mwh <- flag_tre_extra_activation_down         262
+  ch_tre_da_up_act_mw <- flag_tre_extra_activation_up                             976
+  ch_tre_da_up_act_price_marginal_eur_mwh <- flag_tre_extra_activation_up         911
+  ch_tre_da_up_act_price_vwap_eur_mwh <- flag_tre_extra_activation_up             911
+  ch_tre_da_down_act_mw <- flag_tre_extra_activation_down                         298
+  ch_tre_da_down_act_price_marginal_eur_mwh <- flag_tre_extra_activation_down     287
+  ch_tre_da_down_act_price_vwap_eur_mwh <- flag_tre_extra_activation_down         287
+  ch_pvtre_sa_down_act_mw <- flag_tre_extra_activation_down                       272
+  ch_pvtre_sa_down_act_price_marginal_eur_mwh <- flag_tre_extra_activation_down     222
+  ch_pvtre_sa_down_act_price_vwap_eur_mwh <- flag_tre_extra_activation_down       222
+distinct forecast origins: 7,247
+lookback features: 319 columns x 2 windows = 638; distinct publication rules 6
+  spot check lookbacks (all): 5 origins x 5 cols, mismatches=0
+
+==========================================================================================
+4. Outages announced by gate closure
+==========================================================================================
+validation vs master (t0 = 2100): 238 of 55,202 block-columns differ by > 1 MW + 2 %
+windows 38,597; with announced outages 20,702
+months with median outage publication lag > 30 d (-> __exante NaN):
+zone     kind
+at       gen     69 months, 2015-01 .. 2025-09
+         prod    46 months, 2019-01 .. 2025-08
+ch       gen     76 months, 2015-01 .. 2025-09
+         prod    63 months, 2015-10 .. 2025-08
+de_lu    gen     67 months, 2014-09 .. 2025-08
+         prod    66 months, 2015-01 .. 2025-08
+fr       gen     64 months, 2011-11 .. 2025-08
+         prod    56 months, 2021-01 .. 2025-08
+it_nord  gen     56 months, 2021-01 .. 2025-08
+
+==========================================================================================
+5. Views
+==========================================================================================
+
+fcr_exante: 14,119 blocks x 872 cols; dropped all-NaN: 74
+lookback                 634
+forecast __dw             56
+perfect forecast __pf    104
+outage __exante           19
+lagged target             12
+calendar                   8
+  forecasts available at gate closure (share of blocks): D-1 10:00=0.00, D-1 12:00=0.00, D-1 13:00=0.00, D-1 18:00=0.00, M-1 -7D=1.00, W-1 Fri 18:00=0.98, Y-1 15 Dec=1.00
+  outages: ex-ante > ex-post in 626 block-columns (announced, later reduced); CH announced share by year (ex-ante / ex-post, mean over CH columns):
+   block_start_utc
+   2014    0.00
+   2015    0.25
+   2016    0.13
+   2017    0.20
+   2018    0.58
+   2019    0.49
+   2020    0.49
+   2021     NaN
+   2022     NaN
+   2023     NaN
+   2024     NaN
+   2025    0.15
+   2026    0.09
+
+afrr_exante: 5,051 blocks x 871 cols; dropped all-NaN: 75
+lookback                 633
+forecast __dw             56
+perfect forecast __pf    104
+outage __exante           19
+lagged target             12
+calendar                   8
+  forecasts available at gate closure (share of blocks): D-1 10:00=0.00, D-1 12:00=0.00, D-1 13:00=0.00, D-1 18:00=0.00, M-1 -7D=1.00, W-1 Fri 18:00=0.57, Y-1 15 Dec=1.00
+  outages: ex-ante > ex-post in 395 block-columns (announced, later reduced); CH announced share by year (ex-ante / ex-post, mean over CH columns):
+   block_start_utc
+   2014    0.00
+   2015    0.25
+   2016    0.13
+   2017    0.20
+   2018    0.56
+   2019    0.34
+   2020    0.31
+   2021     NaN
+   2022     NaN
+   2023     NaN
+   2024     NaN
+   2025    0.16
+   2026    0.08
+
+mfrr_exante: 48,495 blocks x 873 cols; dropped all-NaN: 73
+lookback                 633
+forecast __dw             58
+perfect forecast __pf    104
+outage __exante           19
+lagged target             12
+calendar                   8
+  forecasts available at gate closure (share of blocks): D-1 10:00=0.00, D-1 12:00=0.00, D-1 13:00=0.00, D-1 18:00=0.00, M-1 -7D=1.00, W-1 Fri 18:00=0.70, Y-1 15 Dec=1.00
+  outages: ex-ante > ex-post in 5826 block-columns (announced, later reduced); CH announced share by year (ex-ante / ex-post, mean over CH columns):
+   block_start_utc
+   2014    0.00
+   2015    0.25
+   2016    0.17
+   2017    0.24
+   2018    0.62
+   2019    0.41
+   2020    0.36
+   2021     NaN
+   2022     NaN
+   2023     NaN
+   2024     NaN
+   2025    0.14
+   2026    0.08
+
+Written to Clean/Data/views
