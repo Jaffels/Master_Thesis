@@ -1,0 +1,106 @@
+
+==========================================================================================
+1. Targets
+==========================================================================================
+auction_blocks 153,792 -> combine_tenders 152,895; ch_swissgrid: 67,665
+year                 2014  2015  2016  2017  2018  2019  2020  2021  2022  2023  2024  2025  2026
+product procurement                                                                              
+FCR     4h              0     0     0     0     0     0  1105  2190  2190  2190  2196  2190  1457
+        day             0     0     0     0     0   185   181     0     0     0     0     0     0
+        week            1    52    52    53    52    25     0     0     0     0     0     0     0
+aFRR    4h              0     0     0     0     0     0     0     0     0     0     0  1118  2893
+        week            1    52    52    53    82   104   104   104   104   106   104   104    70
+mFRR    4h              1   924  4370  4380  4380  4380  4392  4380  4380  4380  4014  4380  2914
+        week            2   104   104   106   104   104   104   104   104   106   104   104    70
+
+==========================================================================================
+2. Aggregation plan
+==========================================================================================
+mean      358
+any        20
+sum        14
+max        12
+min         9
+mode        4
+vwmean      4
+
+volume weights: {'ch_afrr_up_act_price_eur_mwh': 'ch_afrr_up_act_mw', 'ch_afrr_down_act_price_eur_mwh': 'ch_afrr_down_act_mw', 'ch_mfrr_up_act_all_price_eur_mwh': 'ch_mfrr_up_act_all_mw', 'ch_mfrr_down_act_all_price_eur_mwh': 'ch_mfrr_down_act_all_mw'}
+
+TRE masks (5.4): 15 columns -> NULL where flagged: ['flag_tre_extra_activation_down', 'flag_tre_extra_activation_up']
+
+excluded (30):
+  regime_afrr_dir                               regime taken from auction_blocks
+  regime_fcr                                    regime taken from auction_blocks
+  regime_afrr_daily                             regime taken from auction_blocks
+  regime_mfrr_merged                            regime taken from auction_blocks
+  regime_de_zone                                regime taken from auction_blocks
+  regime_imb_resolution                         regime taken from auction_blocks
+  regime_imb_pricing                            regime taken from auction_blocks
+  ch_gen_total_mw_xchk_entsoe                   cross-check column (5.7)
+  at_gen_oil_mw                                 zero information (always 0)
+  de_ch_countertrade_mw                         zero information (always 0)
+  at_ch_countertrade_mw                         zero information (always 0)
+  it_nord_outage_prod_forced_mw                 zero information (always 0)
+  ch_imb_price_long_eur_mwh_xchk_entsoe         cross-check column (5.7)
+  ch_imb_price_short_eur_mwh_xchk_entsoe        cross-check column (5.7)
+  ch_afrr_up_act_price_eur_mwh_xchk_entsoe      cross-check column (5.7)
+  ch_afrr_down_act_price_eur_mwh_xchk_entsoe    cross-check column (5.7)
+  ch_at_flow_phys_mw_xchk_swissgrid             cross-check column (5.7)
+  at_ch_flow_phys_mw_xchk_swissgrid             cross-check column (5.7)
+  ch_de_flow_phys_mw_xchk_swissgrid             cross-check column (5.7)
+  de_ch_flow_phys_mw_xchk_swissgrid             cross-check column (5.7)
+  ch_fr_flow_phys_mw_xchk_swissgrid             cross-check column (5.7)
+  fr_ch_flow_phys_mw_xchk_swissgrid             cross-check column (5.7)
+  ch_it_nord_flow_phys_mw_xchk_swissgrid        cross-check column (5.7)
+  it_nord_ch_flow_phys_mw_xchk_swissgrid        cross-check column (5.7)
+  ch_at_sched_net_mw_xchk_swissgrid             cross-check column (5.7)
+  ch_de_sched_net_mw_xchk_swissgrid             cross-check column (5.7)
+  ch_fr_sched_net_mw_xchk_swissgrid             cross-check column (5.7)
+  ch_it_nord_sched_net_mw_xchk_swissgrid        cross-check column (5.7)
+
+weather rules (check against 5.2: mean for levels, sum for amounts / degree-hours):
+                    column       unit aggregation_rule
+           ch_temp_lw_degc         °C             mean
+       ch_temp_min_lw_degc         °C              min
+       ch_temp_max_lw_degc         °C              max
+             ch_ghi_lw_wm2       W/m²             mean
+        ch_ghi_ramp_lw_wm2 W/m² per h             mean
+              ch_rh_lw_pct          %             mean
+             ch_wind_lw_ms        m/s             mean
+              ch_hdh_lw_kh        K·h              sum
+              ch_cdh_lw_kh        K·h              sum
+   ch_wx_coverage_lw_share      share              min
+        ch_temp_hydro_degc         °C             mean
+        ch_precip_hydro_mm         mm              sum
+     ch_precip_7d_hydro_mm         mm             mean
+    ch_precip_30d_hydro_mm         mm             mean
+          ch_snow_hydro_cm         cm             mean
+       ch_melt_dh_hydro_kh        K·h              sum
+    ch_melt_dh_7d_hydro_kh        K·h             mean
+ch_wx_coverage_hydro_share      share              min
+
+==========================================================================================
+3. Aggregate
+==========================================================================================
+distinct delivery windows: 25,265; with master rows: 25,265
+
+==========================================================================================
+4. Views
+==========================================================================================
+
+fcr_expost: 14,119 blocks x 455 cols (2014-12-28 -> 2026-08-31); currency ['EUR']; partial blocks 1
+  dropped all-NaN auction_blocks columns: ['product_name', 'price_settle_coop', 'price_settle_at', 'demand_at_mw', 'net_export_at_mw', 'price_settle_be', 'demand_be_mw', 'net_export_be_mw', 'demand_ch_mw', 'net_export_ch_mw', 'price_settle_de', 'demand_de_mw', 'net_export_de_mw', 'price_settle_fr', 'demand_fr_mw', 'net_export_fr_mw', 'price_settle_nl', 'demand_nl_mw', 'net_export_nl_mw', 'price_settle_si', 'demand_si_mw', 'net_export_si_mw', 'price_settle_dk', 'demand_dk_mw', 'net_export_dk_mw', 'price_settle_cz', 'demand_cz_mw', 'net_export_cz_mw', 'flag_second_auction', 'flag_fcr_ch_balance_mismatch', 'price_min_total', 'price_average_total', 'price_marginal_total', 'price_min_de', 'price_average_de', 'price_marginal_de', 'price_min_at', 'price_average_at', 'price_marginal_at', 'offered_de_mw', 'allocated_de_mw']
+  feature coverage (mean share of non-NaN qh): median 0.998, features with 0 coverage: 0
+  spot check fcr_expost: 5 blocks x 4 cols, mismatches=0
+
+afrr_expost: 5,051 blocks x 455 cols (2014-12-28 -> 2026-08-31); currency ['CHF']; partial blocks 3
+  dropped all-NaN auction_blocks columns: ['product_name', 'price_settle_coop', 'price_settle_at', 'demand_at_mw', 'net_export_at_mw', 'price_settle_be', 'demand_be_mw', 'net_export_be_mw', 'demand_ch_mw', 'net_export_ch_mw', 'price_settle_de', 'demand_de_mw', 'net_export_de_mw', 'price_settle_fr', 'demand_fr_mw', 'net_export_fr_mw', 'price_settle_nl', 'demand_nl_mw', 'net_export_nl_mw', 'price_settle_si', 'demand_si_mw', 'net_export_si_mw', 'price_settle_dk', 'demand_dk_mw', 'net_export_dk_mw', 'price_settle_cz', 'demand_cz_mw', 'net_export_cz_mw', 'flag_second_auction', 'flag_fcr_ch_balance_mismatch', 'price_min_total', 'price_average_total', 'price_marginal_total', 'price_min_de', 'price_average_de', 'price_marginal_de', 'price_min_at', 'price_average_at', 'price_marginal_at', 'offered_de_mw', 'allocated_de_mw']
+  feature coverage (mean share of non-NaN qh): median 0.997, features with 0 coverage: 0
+  spot check afrr_expost: 5 blocks x 4 cols, mismatches=0
+
+mfrr_expost: 48,495 blocks x 455 cols (2014-12-28 -> 2026-08-31); currency ['CHF']; partial blocks 4
+  dropped all-NaN auction_blocks columns: ['product_name', 'price_settle_coop', 'price_settle_at', 'demand_at_mw', 'net_export_at_mw', 'price_settle_be', 'demand_be_mw', 'net_export_be_mw', 'demand_ch_mw', 'net_export_ch_mw', 'price_settle_de', 'demand_de_mw', 'net_export_de_mw', 'price_settle_fr', 'demand_fr_mw', 'net_export_fr_mw', 'price_settle_nl', 'demand_nl_mw', 'net_export_nl_mw', 'price_settle_si', 'demand_si_mw', 'net_export_si_mw', 'price_settle_dk', 'demand_dk_mw', 'net_export_dk_mw', 'price_settle_cz', 'demand_cz_mw', 'net_export_cz_mw', 'flag_second_auction', 'flag_fcr_ch_balance_mismatch', 'price_min_total', 'price_average_total', 'price_marginal_total', 'price_min_de', 'price_average_de', 'price_marginal_de', 'price_min_at', 'price_average_at', 'price_marginal_at', 'offered_de_mw', 'allocated_de_mw']
+  feature coverage (mean share of non-NaN qh): median 0.991, features with 0 coverage: 0
+  spot check mfrr_expost: 5 blocks x 4 cols, mismatches=0
+
+Written to Clean/Data/views

@@ -1,0 +1,81 @@
+build_master.py  2026-10-02 16:43  sample 2015-01-01 00:00 -> 2026-08-31 23:45 (Europe/Zurich)
+  ok    gap list newer than build_gap_list.py and every clean table (else rerun build_gap_list.py --write)
+  info  not in the master: {'balancing/contracted_reserves_ch': 'block products: cross-check columns in auction_blocks', 'generation/installed_capacity': 'long table (zone x year), stays in Clean/Data/generation/', 'outages/outage_events': 'long table (events with created_utc), stays in Clean/Data/outages/'}
+Reading clean grid tables
+  ok    load/load: on the grid (409,052 rows, 16 cols)
+  ok    load/load: rename sources present
+  ok    load/load_fc_long: on the grid (409,052 rows, 30 cols)
+  ok    load/load_fc_long: rename sources present
+  ok    generation/generation: on the grid (409,052 rows, 94 cols)
+  ok    generation/generation: rename sources present
+  ok    transmission/transmission: on the grid (409,052 rows, 104 cols)
+  ok    transmission/transmission: rename sources present
+  ok    outages/outages: on the grid (409,052 rows, 39 cols)
+  ok    outages/outages: rename sources present
+  ok    balancing/balancing: on the grid (409,052 rows, 24 cols)
+  ok    balancing/balancing: rename sources present
+  ok    swissgrid/energy_overview: on the grid (409,052 rows, 25 cols)
+  ok    swissgrid/energy_overview: rename sources present
+  ok    swissgrid/imbalance: on the grid (409,052 rows, 4 cols)
+  ok    swissgrid/imbalance: rename sources present
+  ok    swissgrid/system_balance: on the grid (409,052 rows, 41 cols)
+  ok    swissgrid/system_balance: rename sources present
+  ok    swissgrid/tre: on the grid (409,052 rows, 37 cols)
+  ok    swissgrid/tre: rename sources present
+  ok    weather/weather: on the grid (409,052 rows, 18 cols)
+  ok    weather/weather: rename sources present
+  ok    frequency/frequency: on the grid (409,052 rows, 12 cols)
+  ok    frequency/frequency: rename sources present
+  ok    duplicate names only where a source rule exists (6 combined columns)
+
+Validation: master_15min
+  ok    rows per local year match the DST-aware grid (409,052 rows)
+  ok    total rows = 409,052
+  ok    ts_utc equals common.grid() (sorted, complete)
+  ok    no duplicate ts_utc
+  ok    no rows outside [SAMPLE_START, CUTOFF]
+  ok    all column names follow the grammar
+  ok    every column in the data dictionary
+  ok    every dictionary row has a source
+  ok    all regime columns present
+  ok    regime columns without NaN
+  ok    flag columns are boolean
+  ok    NaN share of 430 copied columns = clean layer
+  info  flags without a FLAG_LINKS entry (dictionary `flags` stays empty): none
+  info  columns by class: {'data': 400, 'flag': 20, 'xchk': 17, 'regime': 9, 'source': 3, 'key': 2}; in memory 0.71 GB
+
+NaN runs >= 96 QH inside a column's own span: 5,228 runs in 193 columns; 351 without a gap-list match (area-token heuristic)
+  largest unexplained (runs, days):
+    it_nord_gen_hydro_ps_cons_mw                             236 runs     437.0 days
+    fr_gen_coal_mw                                            29 runs      76.5 days
+    it_nord_gen_solar_da_fc_mw                                54 runs      59.0 days
+    it_nord_ch_countertrade_mw                                 3 runs      28.6 days
+    it_nord_gen_coal_mw                                        2 runs      13.2 days
+    it_nord_gen_hydro_ps_mw                                    9 runs      11.8 days
+    de_at_lu_ch_ntc_wa_mw                                      1 runs       8.0 days
+    fr_ch_countertrade_mw                                      1 runs       5.0 days
+    fr_gen_hydro_ps_mw                                         2 runs       2.6 days
+    at_gen_wind_on_id_fc_mw                                    2 runs       2.4 days
+    it_nord_gen_wind_on_da_fc_mw                               1 runs       1.0 days
+    it_nord_gen_other_mw                                       1 runs       1.0 days
+    it_nord_gen_oil_mw                                         1 runs       1.0 days
+    it_nord_gen_hydro_ror_mw                                   1 runs       1.0 days
+    it_nord_gen_hydro_res_mw                                   1 runs       1.0 days
+
+Building auction_blocks
+  ok    balancing/contracted_reserves_ch: on the grid
+  ENTSO-E contracted-reserve cross-check mapped for: 24 column links
+
+Validation: auction_blocks
+  ok    keys complete (153,792 blocks)
+  ok    no duplicate blocks (key incl. tender_series)
+  ok    block_end > block_start
+  ok    no overlapping blocks per (market, product, direction, procurement, tender_series)
+  ok    every block overlaps the sample (covered by the grid)
+  ok    blocks cut by the sample edges marked partial_in_sample (8)
+  ok    7 regime columns without NaN
+  info  blocks per market: {'de_regelleistung': 71352, 'ch_swissgrid': 68562, 'fcr_coop': 13878}; partial_in_sample: 8
+  info  ENTSO-E price cross-check present for 32,079 Swissgrid blocks; within 5 % of price_bid_vwap: 46.7% (units as published; see dictionary)
+
+master_15min: 409,052 rows x 451 columns (incl. ts_utc); auction_blocks: 153,792 x 74; 11 s
+Written to /Users/johan/Master_Thesis/Clean/Data/master: master_15min.parquet, auction_blocks.parquet, data_dictionary.csv, nan_share_by_year.csv, nan_runs_unexplained.csv, build_master_report.txt
