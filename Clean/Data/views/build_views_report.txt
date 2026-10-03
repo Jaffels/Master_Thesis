@@ -17,11 +17,11 @@ mFRR    4h              1   924  4370  4380  4380  4380  4392  4380  4380  4380 
 2. Aggregation plan
 ==========================================================================================
 mean      358
-any        20
+any        21
 sum        14
 max        12
 min         9
-mode        4
+mode        5
 vwmean      4
 
 volume weights: {'ch_afrr_up_act_price_eur_mwh': 'ch_afrr_up_act_mw', 'ch_afrr_down_act_price_eur_mwh': 'ch_afrr_down_act_mw', 'ch_mfrr_up_act_all_price_eur_mwh': 'ch_mfrr_up_act_all_mw', 'ch_mfrr_down_act_all_price_eur_mwh': 'ch_mfrr_down_act_all_mw'}
@@ -88,19 +88,19 @@ distinct delivery windows: 25,265; with master rows: 25,265
 4. Views
 ==========================================================================================
 
-fcr_expost: 14,119 blocks x 455 cols (2014-12-28 -> 2026-08-31); currency ['EUR']; partial blocks 1
+fcr_expost: 14,119 blocks x 457 cols (2014-12-28 -> 2026-08-31); currency ['EUR']; partial blocks 1
   dropped all-NaN auction_blocks columns: ['product_name', 'price_settle_coop', 'price_settle_at', 'demand_at_mw', 'net_export_at_mw', 'price_settle_be', 'demand_be_mw', 'net_export_be_mw', 'demand_ch_mw', 'net_export_ch_mw', 'price_settle_de', 'demand_de_mw', 'net_export_de_mw', 'price_settle_fr', 'demand_fr_mw', 'net_export_fr_mw', 'price_settle_nl', 'demand_nl_mw', 'net_export_nl_mw', 'price_settle_si', 'demand_si_mw', 'net_export_si_mw', 'price_settle_dk', 'demand_dk_mw', 'net_export_dk_mw', 'price_settle_cz', 'demand_cz_mw', 'net_export_cz_mw', 'flag_second_auction', 'flag_fcr_ch_balance_mismatch', 'price_min_total', 'price_average_total', 'price_marginal_total', 'price_min_de', 'price_average_de', 'price_marginal_de', 'price_min_at', 'price_average_at', 'price_marginal_at', 'offered_de_mw', 'allocated_de_mw']
   feature coverage (mean share of non-NaN qh): median 0.998, features with 0 coverage: 0
   spot check fcr_expost: 5 blocks x 4 cols, mismatches=0
 
-afrr_expost: 5,051 blocks x 455 cols (2014-12-28 -> 2026-08-31); currency ['CHF']; partial blocks 3
+afrr_expost: 5,051 blocks x 457 cols (2014-12-28 -> 2026-08-31); currency ['CHF']; partial blocks 3
   dropped all-NaN auction_blocks columns: ['product_name', 'price_settle_coop', 'price_settle_at', 'demand_at_mw', 'net_export_at_mw', 'price_settle_be', 'demand_be_mw', 'net_export_be_mw', 'demand_ch_mw', 'net_export_ch_mw', 'price_settle_de', 'demand_de_mw', 'net_export_de_mw', 'price_settle_fr', 'demand_fr_mw', 'net_export_fr_mw', 'price_settle_nl', 'demand_nl_mw', 'net_export_nl_mw', 'price_settle_si', 'demand_si_mw', 'net_export_si_mw', 'price_settle_dk', 'demand_dk_mw', 'net_export_dk_mw', 'price_settle_cz', 'demand_cz_mw', 'net_export_cz_mw', 'flag_second_auction', 'flag_fcr_ch_balance_mismatch', 'price_min_total', 'price_average_total', 'price_marginal_total', 'price_min_de', 'price_average_de', 'price_marginal_de', 'price_min_at', 'price_average_at', 'price_marginal_at', 'offered_de_mw', 'allocated_de_mw']
   feature coverage (mean share of non-NaN qh): median 0.997, features with 0 coverage: 0
   spot check afrr_expost: 5 blocks x 4 cols, mismatches=0
 
-mfrr_expost: 48,495 blocks x 455 cols (2014-12-28 -> 2026-08-31); currency ['CHF']; partial blocks 4
+mfrr_expost: 48,495 blocks x 457 cols (2014-12-28 -> 2026-08-31); currency ['CHF']; partial blocks 4
   dropped all-NaN auction_blocks columns: ['product_name', 'price_settle_coop', 'price_settle_at', 'demand_at_mw', 'net_export_at_mw', 'price_settle_be', 'demand_be_mw', 'net_export_be_mw', 'demand_ch_mw', 'net_export_ch_mw', 'price_settle_de', 'demand_de_mw', 'net_export_de_mw', 'price_settle_fr', 'demand_fr_mw', 'net_export_fr_mw', 'price_settle_nl', 'demand_nl_mw', 'net_export_nl_mw', 'price_settle_si', 'demand_si_mw', 'net_export_si_mw', 'price_settle_dk', 'demand_dk_mw', 'net_export_dk_mw', 'price_settle_cz', 'demand_cz_mw', 'net_export_cz_mw', 'flag_second_auction', 'flag_fcr_ch_balance_mismatch', 'price_min_total', 'price_average_total', 'price_marginal_total', 'price_min_de', 'price_average_de', 'price_marginal_de', 'price_min_at', 'price_average_at', 'price_marginal_at', 'offered_de_mw', 'allocated_de_mw']
-  feature coverage (mean share of non-NaN qh): median 0.991, features with 0 coverage: 0
+  feature coverage (mean share of non-NaN qh): median 0.992, features with 0 coverage: 0
   spot check mfrr_expost: 5 blocks x 4 cols, mismatches=0
 
 Written to Clean/Data/views

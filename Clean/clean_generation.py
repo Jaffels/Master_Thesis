@@ -31,6 +31,9 @@ Rules
   DA forecast = 0 in 2020-23 (not reported) -> NaN. For the CH total use Swissgrid
   ch_prod_mw (ENTSO-E covers ~60-70 % until 2024, ~90 % from 2025).
 - AT intraday wind forecast = 10000 MW placeholder -> NaN + flag.
+- Pumped storage net reporting (3 Oct 2026): FR (until 19 Dec 2024) and IT_NORD report per
+  quarter-hour either PS generation or PS consumption; the other side NaN -> 0 (both NaN
+  stays a gap). FR reports gross from 20 Dec 2024.
 - Per-unit generation (16.1.A) is not carried into the clean layer (only needed if
   unit-level features are built later; gaps are in the gap list).
 """
@@ -143,6 +146,23 @@ def build():
         dic.append(entry(col, f"16.1.D aggregated filling of water reservoirs, {code}", "MWh", "1 value per week",
                          "mean (step function per week)", "published the following week",
                          "stored energy; weekly value repeated over its local week"))
+    # ---- pumped storage reported net (found 3 Oct 2026, EDA) ----
+    # FR (until 19 Dec 2024) and IT_NORD (whole sample) publish per quarter-hour either
+    # generation or pumping consumption, never both: the missing side means 0, not a gap.
+    # Rule: where exactly one side is NaN, set it to 0; both NaN stays a gap. FR reports
+    # both sides (gross) from 20 Dec 2024 -> reporting break, noted in the dictionary.
+    for a in AREAS.values():
+        g, c = f"{a}_gen_hydro_ps_mw", f"{a}_gen_hydro_ps_cons_mw"
+        if g in out and c in out:
+            one = out[g].isna() ^ out[c].isna()
+            out.loc[one & out[g].isna(), g] = 0.0
+            out.loc[one & out[c].isna(), c] = 0.0
+            for d in dic:
+                if d["column"] in (g, c):
+                    d["notes"] = (d["notes"] + "; " if d["notes"] else "") + (
+                        "NaN set to 0 where only the other pumped-storage side is reported (net reporting)"
+                        + ("; FR reports gross (both sides) from 20 Dec 2024" if a == "fr" else ""))
+    # (gen_total is unchanged: sum(min_count=1) already treated the NaN side as missing)
     # ---- CH reporting breaks and placeholders (found 2 Oct 2026) ----
     loc_ts = lambda d: pd.Timestamp(d, tz=K.TZ).tz_convert("UTC")
     ch_act = [c for c in out.columns if c.startswith("ch_gen_") and not c.endswith(("_da_fc_mw", "_id_fc_mw"))]

@@ -33,6 +33,10 @@ Rules (table design Sections 4-5, 8-9)
                                        commercial net flows -> *_xchk_swissgrid. Note: the Swissgrid
                                        flows are defined differently (both directions non-zero in 94 %
                                        of QH; net corr. 0.98 with ENTSO-E) -> cross-check only.
+    CH actual load                     ENTSO-E 6.1.A; in months where ENTSO-E published the day-ahead
+                                       forecast as actual (> 90 % of QH identical: Sep-Nov 2021, 2022)
+                                       -> Swissgrid consumption ch_cons_mw (same level, r 0.94-0.96);
+                                       flag_ch_load_actual_is_forecast, src_ch_load_actual (3 Oct 2026, EDA 6).
   Swissgrid "it" border columns are renamed to "it_nord" (same CH-IT border as ENTSO-E).
 - Secondary series (plan step 3, decided here):
     load_fc_long            IN the master (daily / weekly steps like the NTC horizons; known ex ante)
@@ -135,6 +139,10 @@ COMBINED = {
     "ch_afrr_down_act_mw": {"swissgrid/energy_overview", "swissgrid/system_balance"},
 }
 
+# single-source columns that combine() replaces (source switch per month)
+PATCHED = {"ch_load_actual_mw"}
+LOAD_COPY_SHARE = 0.9          # month counts as "actual = forecast" above this share of identical QH
+
 REGIME_FIRST = ["regime_afrr_dir", "regime_fcr", "regime_afrr_daily", "regime_mfrr_merged", "regime_de_zone",
                 "regime_imb_resolution", "regime_imb_pricing", "regime_ch_gen_reporting",
                 "ch_afrr_platform_fallback"]
@@ -157,6 +165,7 @@ FLAG_LINKS = {
     "flag_ce_freq_suspect": r"^ce_",
     "flag_ce_freq_low_coverage": r"^ce_",
     "flag_ch_afrr_fallback_published_late": r"^ch_afrr_(fallback_share|platform_fallback)$",
+    "flag_ch_load_actual_is_forecast": r"^ch_load_actual_mw$",
 }
 
 DICT_COLS = ["table", "column", "class", "area", "variable", "unit", "source", "source_series",
@@ -279,6 +288,32 @@ def combine(tables: dict, g: pd.DatetimeIndex, dicts: dict) -> tuple[dict, list[
                      resolution_native="15min", aggregation_rule="mode", availability_rule="-",
                      notes="source of ch_afrr_{up,down}_act_mw / _act_price_eur_mwh per row (from the up volume)",
                      clean_table="-"))
+
+    # CH actual load: ENTSO-E, Swissgrid consumption in months where ENTSO-E 'actual' = DA forecast
+    ld = tables["load/load"]
+    a, f, cons = as_float(ld["ch_load_actual_mw"]), as_float(ld["ch_load_da_fc_mw"]), as_float(eo["ch_cons_mw"])
+    same = pd.Series(np.isclose(a, f, rtol=0, atol=0.5) & a.notna().to_numpy(), index=idx)
+    month = pd.Index(idx.tz_convert(TZ).strftime("%Y-%m"))
+    share = same.groupby(month.to_numpy()).mean()
+    bad = np.asarray(month.isin(share[share > LOAD_COPY_SHARE].index))
+    out["ch_load_actual_mw"] = a.where(~bad, cons)
+    out["flag_ch_load_actual_is_forecast"] = pd.Series(bad, index=idx)
+    lab = np.where(bad & cons.notna().to_numpy(), "swissgrid_cons", np.where(a.notna(), "entsoe", None))
+    out["src_ch_load_actual"] = pd.Series(pd.Categorical(lab, categories=["entsoe", "swissgrid_cons"]), index=idx)
+    months = ", ".join(sorted(share[share > LOAD_COPY_SHARE].index))
+    r = dict(dicts["load/load"]["ch_load_actual_mw"])
+    r.update(source="ENTSO-E / Swissgrid", clean_table="load/load + swissgrid/energy_overview",
+             notes=(r["notes"] + "; " if isinstance(r.get("notes"), str) and r["notes"] else "") +
+             f"months where ENTSO-E published the DA forecast as actual replaced by Swissgrid ch_cons_mw ({months}); "
+             "source per row in src_ch_load_actual")
+    rows.append(r)
+    rows.append(dict(column="flag_ch_load_actual_is_forecast", source="derived", source_series="build_master.py",
+                     unit="bool", resolution_native="15min", aggregation_rule="any", availability_rule="-",
+                     notes=f"month in which ENTSO-E CH actual load = DA forecast in > {LOAD_COPY_SHARE:.0%} of QH "
+                           f"({months}); ch_load_actual_mw = Swissgrid ch_cons_mw there", clean_table="-"))
+    rows.append(dict(column="src_ch_load_actual", source="derived", source_series="build_master.py", unit="category",
+                     resolution_native="15min", aggregation_rule="mode", availability_rule="-",
+                     notes="source of ch_load_actual_mw per row", clean_table="-"))
     return out, rows
 
 
@@ -346,6 +381,9 @@ def build_master(rep: Report) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
     for domain, name, _ in GRID_TABLES:
         key = f"{domain}/{name}"
         for c in tables[key].columns:
+            if c in PATCHED:
+                cols[c] = comb[c].astype("float32")
+                continue
             if c in COMBINED:
                 if c not in cols:
                     for cc in [k for k in comb if k == c or k.startswith(c + "_xchk") ]:
@@ -362,7 +400,7 @@ def build_master(rep: Report) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
                     "; definition differs (both directions non-zero in 94 % of QH; net corr. 0.98)" if "_flow_phys_" in c else "")
             rows.append(r)
             unchanged.append(c)
-    for c in ("src_ch_imb_price", "src_ch_afrr_act"):
+    for c in ("src_ch_imb_price", "src_ch_afrr_act", "src_ch_load_actual", "flag_ch_load_actual_is_forecast"):
         cols[c] = comb[c]
     rows += comb_rows
     for k in tables:

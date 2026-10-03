@@ -13,8 +13,9 @@ fc           D-1 10:00         34
              Y-1 15 Dec        20
 obs          0h                18
              1D                50
-             1h               148
+             1h               138
              8D                16
+obs_monthly  NaN               10
 obs_pf       1h                18
 outage       NaN               19
 
@@ -61,7 +62,7 @@ masked values (5.4):
   ch_pvtre_sa_down_act_price_marginal_eur_mwh <- flag_tre_extra_activation_down     222
   ch_pvtre_sa_down_act_price_vwap_eur_mwh <- flag_tre_extra_activation_down       222
 distinct forecast origins: 7,247
-lookback features: 319 columns x 2 windows = 638; distinct publication rules 6
+lookback features: 319 columns x 2 windows = 638; distinct publication rules 7
   spot check lookbacks (all): 5 origins x 5 cols, mismatches=0
 
 ==========================================================================================
@@ -85,12 +86,13 @@ it_nord  gen     56 months, 2021-01 .. 2025-08
 5. Views
 ==========================================================================================
 
-fcr_exante: 14,119 blocks x 872 cols; dropped all-NaN: 74
-lookback                 634
+fcr_exante: 14,119 blocks x 920 cols; dropped all-NaN: 74
+lookback                 643
 forecast __dw             56
-perfect forecast __pf    104
+perfect forecast __pf    124
 outage __exante           19
 lagged target             12
+cross-market              27
 calendar                   8
   forecasts available at gate closure (share of blocks): D-1 10:00=0.00, D-1 12:00=0.00, D-1 13:00=0.00, D-1 18:00=0.00, M-1 -7D=1.00, W-1 Fri 18:00=0.98, Y-1 15 Dec=1.00
   outages: ex-ante > ex-post in 626 block-columns (announced, later reduced); CH announced share by year (ex-ante / ex-post, mean over CH columns):
@@ -109,14 +111,15 @@ calendar                   8
    2025    0.15
    2026    0.09
 
-afrr_exante: 5,051 blocks x 871 cols; dropped all-NaN: 75
-lookback                 633
+afrr_exante: 5,051 blocks x 919 cols; dropped all-NaN: 75
+lookback                 642
 forecast __dw             56
-perfect forecast __pf    104
+perfect forecast __pf    124
 outage __exante           19
 lagged target             12
+cross-market              27
 calendar                   8
-  forecasts available at gate closure (share of blocks): D-1 10:00=0.00, D-1 12:00=0.00, D-1 13:00=0.00, D-1 18:00=0.00, M-1 -7D=1.00, W-1 Fri 18:00=0.57, Y-1 15 Dec=1.00
+  forecasts available at gate closure (share of blocks): D-1 10:00=0.00, D-1 12:00=0.00, D-1 13:00=0.00, D-1 18:00=0.00, M-1 -7D=0.97, W-1 Fri 18:00=0.57, Y-1 15 Dec=1.00
   outages: ex-ante > ex-post in 395 block-columns (announced, later reduced); CH announced share by year (ex-ante / ex-post, mean over CH columns):
    block_start_utc
    2014    0.00
@@ -133,12 +136,13 @@ calendar                   8
    2025    0.16
    2026    0.08
 
-mfrr_exante: 48,495 blocks x 873 cols; dropped all-NaN: 73
-lookback                 633
+mfrr_exante: 48,495 blocks x 921 cols; dropped all-NaN: 73
+lookback                 642
 forecast __dw             58
-perfect forecast __pf    104
+perfect forecast __pf    124
 outage __exante           19
 lagged target             12
+cross-market              27
 calendar                   8
   forecasts available at gate closure (share of blocks): D-1 10:00=0.00, D-1 12:00=0.00, D-1 13:00=0.00, D-1 18:00=0.00, M-1 -7D=1.00, W-1 Fri 18:00=0.70, Y-1 15 Dec=1.00
   outages: ex-ante > ex-post in 5826 block-columns (announced, later reduced); CH announced share by year (ex-ante / ex-post, mean over CH columns):
