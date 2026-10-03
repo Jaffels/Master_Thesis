@@ -6,7 +6,7 @@ avail_class  avail_param
 fallback     NaN                1
 fc           D-1 10:00         34
              D-1 12:00          5
-             D-1 13:00         12
+             D-1 13:00         17
              D-1 18:00         17
              M-1 -7D           20
              W-1 Fri 18:00     18
@@ -62,7 +62,7 @@ masked values (5.4):
   ch_pvtre_sa_down_act_price_marginal_eur_mwh <- flag_tre_extra_activation_down     222
   ch_pvtre_sa_down_act_price_vwap_eur_mwh <- flag_tre_extra_activation_down       222
 distinct forecast origins: 7,247
-lookback features: 319 columns x 2 windows = 638; distinct publication rules 7
+lookback features: 324 columns x 2 windows = 648; distinct publication rules 7
   spot check lookbacks (all): 5 origins x 5 cols, mismatches=0
 
 ==========================================================================================
@@ -86,10 +86,10 @@ it_nord  gen     56 months, 2021-01 .. 2025-08
 5. Views
 ==========================================================================================
 
-fcr_exante: 14,119 blocks x 920 cols; dropped all-NaN: 74
-lookback                 643
+fcr_exante: 14,119 blocks x 935 cols; dropped all-NaN: 79
+lookback                 653
 forecast __dw             56
-perfect forecast __pf    124
+perfect forecast __pf    129
 outage __exante           19
 lagged target             12
 cross-market              27
@@ -111,10 +111,10 @@ calendar                   8
    2025    0.15
    2026    0.09
 
-afrr_exante: 5,051 blocks x 919 cols; dropped all-NaN: 75
-lookback                 642
+afrr_exante: 5,051 blocks x 934 cols; dropped all-NaN: 80
+lookback                 652
 forecast __dw             56
-perfect forecast __pf    124
+perfect forecast __pf    129
 outage __exante           19
 lagged target             12
 cross-market              27
@@ -136,10 +136,10 @@ calendar                   8
    2025    0.16
    2026    0.08
 
-mfrr_exante: 48,495 blocks x 921 cols; dropped all-NaN: 73
-lookback                 642
+mfrr_exante: 48,495 blocks x 936 cols; dropped all-NaN: 78
+lookback                 652
 forecast __dw             58
-perfect forecast __pf    124
+perfect forecast __pf    129
 outage __exante           19
 lagged target             12
 cross-market              27

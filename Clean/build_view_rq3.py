@@ -9,12 +9,17 @@ Decided 3 Oct 2026:
     thr_short_q{975,990,995}   upper quantile of the SHORT price over the previous 365 days
     thr_long_q{025,010,005}    lower quantile of the LONG price over the previous 365 days
                                (computed per local day from data up to the end of D-1;
-                               >= MIN_THR_DAYS days of prices, else NaN)
+                               >= MIN_THR_DAYS x 48 quarter-hour prices, i.e. 60 full days,
+                               else NaN -> first threshold 31 May 2016)
     spike_short_q*             short price > threshold   (undersupply, BG-short)
     spike_long_q*              long price  < threshold   (oversupply, BG-long)
                                2026 (single price): direction from ch_system_imbalance_mw
                                (< 0 short, > 0 long), as in thesis 3.74
     episode_{short,long}_id / _len_qh   consecutive spike quarter-hours (q990 / q010)
+    thr_short_med30 / _mad30, spike_short_z30   robustness target (decided 3 Oct 2026):
+                               (short price - median of the previous 30 days) /
+                               max(1.4826 x MAD, 1 EUR) > 4; same 2026 direction rule.
+                               RQ3c uses fixed pre-cap thresholds in the analysis, not here.
   Values are 1.0 / 0.0 / NaN (NaN where the price or the threshold is missing).
 - Two forecast origins; every feature carries its origin in the suffix:
     __d1  t0 = D-1 18:00 local for all quarter-hours of day D (day-ahead risk model, all
@@ -73,9 +78,12 @@ QH = pd.Timedelta("15min").value
 D1_HOUR = 18                               # __d1 origin: D-1 18:00 local
 H1_LEAD = pd.Timedelta("1h")               # __h1 origin: quarter-hour start - 1 h
 THR_DAYS = 365
-MIN_THR_DAYS = 120                         # days with prices needed before a threshold exists
+MIN_THR_DAYS = 120                         # threshold needs >= MIN_THR_DAYS * 48 prices (= 60 full days)
 Q_SHORT = {"q975": 0.975, "q990": 0.990, "q995": 0.995}
 Q_LONG = {"q025": 0.025, "q010": 0.010, "q005": 0.005}
+Z30_DAYS = 30                              # robustness spike: robust z vs the previous 30 days
+Z30_K = 4.0                                # (price - median) / (1.4826 * MAD) > Z30_K
+Z30_MAD_FLOOR = 1.0                        # EUR/MWh, avoids division by ~0 in flat months
 MIN_COVER = 0.5                            # lookback needs >= 50 % non-NaN quarter-hours
 ZONES = ["ch", "de_lu", "fr", "it_nord", "at"]
 BORDERS = ["ch_de", "de_ch", "ch_fr", "fr_ch", "ch_it_nord", "it_nord_ch", "ch_at", "at_ch"]
@@ -87,6 +95,9 @@ SYS_IMB = "ch_system_imbalance_mw"
 FC_D1 = ([f"{z}_load_da_fc_mw" for z in ZONES]
          + [f"{z}_gen_{g}_da_fc_mw" for z in ZONES for g in ("solar", "wind_on", "total")]
          + [f"{b}_ntc_da_mw" for b in BORDERS] + [f"{b}_sched_da_mw" for b in BORDERS])
+# ENTSO-E day-ahead prices (D-1 ~13:00, before the 18:00 origin); used only if the master has
+# them (Clean/clean_prices.py, added 3 Oct 2026)
+DA_PRICE = [f"{z}_price_da_eur_mwh" for z in ZONES]
 # observed series for lookbacks: name -> (master column or None for derived, aggregation)
 OBS = {
     PRICE_S: "mean", PRICE_L: "mean",
@@ -182,6 +193,25 @@ def thresholds(ts: np.ndarray, price: np.ndarray, qs: dict, day_of: np.ndarray) 
     return pd.DataFrame(out, index=days)
 
 
+def robust_stats(price: np.ndarray, day_of: np.ndarray, days_n: int) -> pd.DataFrame:
+    """Per local day d: median and scaled MAD (1.4826 x MAD) of the price over [d - days_n, d).
+    Needs >= 25 % of the window's quarter-hours, else NaN (decided 3 Oct 2026, robustness
+    target for RQ3a / RQ3b; the main target stays the 365-day quantile)."""
+    days = np.unique(day_of)
+    first = np.searchsorted(day_of, days)
+    med = np.full(len(days), np.nan)
+    mad = np.full(len(days), np.nan)
+    for j, d in enumerate(days):
+        lo = np.searchsorted(day_of, d - np.timedelta64(days_n, "D"))
+        x = price[lo:first[j]]
+        x = x[~np.isnan(x)]
+        if len(x) < days_n * 96 * 0.25:
+            continue
+        med[j] = np.median(x)
+        mad[j] = 1.4826 * np.median(np.abs(x - med[j]))
+    return pd.DataFrame({"med": med, "mad": mad}, index=days)
+
+
 def episodes(spike: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     s = np.nan_to_num(spike, nan=0.0) > 0.5
     start = s & ~np.concatenate([[False], s[:-1]])
@@ -232,6 +262,8 @@ def main(write: bool) -> None:
                   | set(plan.index[plan["avail_class"] == "outage"]))
     import pyarrow.parquet as pq
     cols_m = set(pq.read_schema(MT).names)
+    fc_d1 = FC_D1 + [c for c in DA_PRICE if c in cols_m]
+    need = sorted(set(need) | set(fc_d1))
     missing = sorted(c for c in need if c not in cols_m)
     if missing:
         raise KeyError(f"master columns missing: {missing}")
@@ -284,9 +316,25 @@ def main(write: bool) -> None:
         eid, ln = episodes(spikes_full[f"{side}_{k}"][rows])
         put(f"episode_{side}_id", eid, "episode", base=f"spike_{side}_{k}")
         put(f"episode_{side}_len_qh", ln, "episode", base=f"spike_{side}_{k}")
+    # robustness target (short side only): robust z against the previous 30 days
+    rs = robust_stats(ps, day_all, Z30_DAYS)
+    med30 = rs["med"].reindex(day_all).to_numpy()
+    mad30 = rs["mad"].reindex(day_all).to_numpy()
+    with np.errstate(invalid="ignore", divide="ignore"):
+        z = (ps - med30) / np.maximum(mad30, Z30_MAD_FLOOR)
+        sp = (z > Z30_K).astype("float64")
+    sp[single & ~(np.sign(sysimb) == -1) & ~np.isnan(ps)] = 0.0
+    sp[np.isnan(ps) | np.isnan(med30) | (single & np.isnan(sysimb))] = np.nan
+    put("thr_short_med30", med30[rows], "threshold", base=PRICE_S,
+        rule=f"median of the previous {Z30_DAYS} days")
+    put("thr_short_mad30", mad30[rows], "threshold", base=PRICE_S,
+        rule=f"1.4826 x MAD of the previous {Z30_DAYS} days")
+    put("spike_short_z30", sp[rows], "spike", base="thr_short_med30",
+        rule=f"(price - med30) / max(mad30, {Z30_MAD_FLOOR}) > {Z30_K}; robustness target")
     yr = loc_all.iloc[rows].dt.year.to_numpy()
     summ = pd.DataFrame({f"{s}_{k}": pd.Series(out[f"spike_{s}_{k}"]).groupby(yr).mean()
                          for s, qs in (("short", Q_SHORT), ("long", Q_LONG)) for k in qs})
+    summ["short_z30"] = pd.Series(out["spike_short_z30"]).groupby(yr).mean()
     log("share of quarter-hours flagged as spike, by year:")
     log(summ.round(4).to_string())
     for side in ("short", "long"):
@@ -317,7 +365,7 @@ def main(write: bool) -> None:
     # ---------------- day-ahead forecasts for the QH itself
     h("3. Day-ahead forecasts (__fc_d1)")
     n_ok = 0
-    for c in FC_D1:
+    for c in fc_d1:
         r = plan.loc[c]
         if r.avail_class != "fc" or not str(r.avail_param).startswith("D-1"):
             raise AssertionError(f"{c}: not a D-1 forecast ({r.avail_class} {r.avail_param})")

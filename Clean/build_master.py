@@ -91,6 +91,12 @@ GRID_TABLES = [
     ("weather", "weather", None),
     ("frequency", "frequency", "TSO/Energy-Charts/Zenodo"),
 ]
+# Tables joined only once their clean file exists (3 Oct 2026: ENTSO-E day-ahead prices,
+# Clean/clean_prices.py). Without the file the master builds exactly as before.
+OPTIONAL_TABLES = [
+    ("prices", "day_ahead", "ENTSO-E"),
+]
+GRID_TABLES += [t for t in OPTIONAL_TABLES if (C.DATA_DIR / t[0] / f"{t[1]}.parquet").exists()]
 NOT_IN_MASTER = {
     "balancing/contracted_reserves_ch": "block products: cross-check columns in auction_blocks",
     "generation/installed_capacity": "long table (zone x year), stays in Clean/Data/generation/",
@@ -151,6 +157,8 @@ REGIME_FIRST = ["regime_afrr_dir", "regime_fcr", "regime_afrr_daily", "regime_mf
 FLAG_LINKS = {
     **{f"flag_{z}_load_actual_suspect": rf"^{z}_load_actual_mw$" for z in ("ch", "de_lu", "fr", "it_nord", "at")},
     "flag_de_lu_load_da_fc_q4_2018_patch": r"^de_lu_load_da_fc_mw$",
+    **{f"flag_{z}_price_da_suspect": rf"^{z}_price_da_eur_mwh$" for z in ("ch", "de_lu", "fr", "it_nord", "at")},
+    "flag_at_price_da_from_de_at_lu": r"^at_price_da_eur_mwh$",
     "flag_ch_gen_partial_2015h1": r"^ch_gen_.*(?<!_xchk_swissgrid)$",
     "flag_at_gen_wind_on_id_fc_placeholder": r"^at_gen_wind_on_id_fc_mw$",
     "flag_ntc_placeholder": r"_ntc_(da|wa|ma|ya)_mw$",

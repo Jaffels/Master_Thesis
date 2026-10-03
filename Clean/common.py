@@ -221,6 +221,7 @@ REGIME_DATES = {
     "de_zone_split": "2018-10-01",   # B1 DE-AT-LU -> DE-LU + AT
     "fcr_daily": "2019-07-01",       # A2 FCR weekly pay-as-bid -> daily marginal
     "fcr_4h": "2020-07-01",          # A3 FCR daily -> 4h blocks
+    "imb_hourly": "2018-06-11",      # C4b CH imbalance price mostly constant within the hour (EDA 3c, 3 Oct 2026)
     "imb_qh": "2022-06-01",          # C4 CH imbalance price per quarter-hour
     "mfrr_merged": "2025-09-29",     # A7 TRL+/TRL- -> TRL (first delivery of merged series)
     "afrr_daily": "2025-09-30",      # A6 daily 4h aFRR auctions added
@@ -244,7 +245,9 @@ def regimes(idx_utc) -> pd.DataFrame:
     out["regime_afrr_daily"] = _after(idx, "afrr_daily").astype("int8")
     out["regime_mfrr_merged"] = _after(idx, "mfrr_merged").astype("int8")
     out["regime_de_zone"] = np.where(_after(idx, "de_zone_split"), "post_split", "pre_split")
-    out["regime_imb_resolution"] = np.where(_after(idx, "imb_qh"), "qh", "hourly_dominant")
+    # mixed (~45 % of hours with 4 equal QH prices) -> hourly_dominant (~78 %) -> qh (~3 %)
+    out["regime_imb_resolution"] = np.select([_after(idx, "imb_qh"), _after(idx, "imb_hourly")],
+                                             ["qh", "hourly_dominant"], "mixed")
     out["regime_imb_pricing"] = np.where(_after(idx, "imb_single"), "single", "dual")
     for c in ("regime_afrr_dir", "regime_fcr", "regime_de_zone", "regime_imb_resolution", "regime_imb_pricing"):
         out[c] = out[c].astype("category")

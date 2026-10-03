@@ -1,4 +1,4 @@
-build_master.py  2026-10-03 15:20  sample 2015-01-01 00:00 -> 2026-08-31 23:45 (Europe/Zurich)
+build_master.py  2026-10-03 18:58  sample 2015-01-01 00:00 -> 2026-08-31 23:45 (Europe/Zurich)
   ok    gap list newer than build_gap_list.py and every clean table (else rerun build_gap_list.py --write)
   info  not in the master: {'balancing/contracted_reserves_ch': 'block products: cross-check columns in auction_blocks', 'generation/installed_capacity': 'long table (zone x year), stays in Clean/Data/generation/', 'outages/outage_events': 'long table (events with created_utc), stays in Clean/Data/outages/'}
 Reading clean grid tables
@@ -26,6 +26,8 @@ Reading clean grid tables
   ok    weather/weather: rename sources present
   ok    frequency/frequency: on the grid (409,052 rows, 12 cols)
   ok    frequency/frequency: rename sources present
+  ok    prices/day_ahead: on the grid (409,052 rows, 11 cols)
+  ok    prices/day_ahead: rename sources present
   ok    duplicate names only where a source rule exists (6 combined columns)
 
 Validation: master_15min
@@ -40,9 +42,9 @@ Validation: master_15min
   ok    all regime columns present
   ok    regime columns without NaN
   ok    flag columns are boolean
-  ok    NaN share of 429 copied columns = clean layer
+  ok    NaN share of 440 copied columns = clean layer
   info  flags without a FLAG_LINKS entry (dictionary `flags` stays empty): none
-  info  columns by class: {'data': 400, 'flag': 21, 'xchk': 17, 'regime': 9, 'source': 4, 'key': 2}; in memory 0.71 GB
+  info  columns by class: {'data': 405, 'flag': 27, 'xchk': 17, 'regime': 9, 'source': 4, 'key': 2}; in memory 0.72 GB
 
 NaN runs >= 96 QH inside a column's own span: 4,913 runs in 193 columns; 106 without a gap-list match (area-token heuristic)
   largest unexplained (runs, days):
@@ -77,5 +79,5 @@ Validation: auction_blocks
   info  blocks per market: {'de_regelleistung': 71352, 'ch_swissgrid': 68562, 'fcr_coop': 13878}; partial_in_sample: 8
   info  ENTSO-E price cross-check present for 32,079 Swissgrid blocks; within 5 % of price_bid_vwap: 46.7% (units as published; see dictionary)
 
-master_15min: 409,052 rows x 453 columns (incl. ts_utc); auction_blocks: 153,792 x 74; 10 s
+master_15min: 409,052 rows x 464 columns (incl. ts_utc); auction_blocks: 153,792 x 74; 10 s
 Written to /Users/johan/Master_Thesis/Clean/Data/master: master_15min.parquet, auction_blocks.parquet, data_dictionary.csv, nan_share_by_year.csv, nan_runs_unexplained.csv, build_master_report.txt
