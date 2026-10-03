@@ -139,7 +139,7 @@ def master_dictionary() -> pd.DataFrame:
 
 def load_expost(view: str, rq: str | None = None, columns: list[str] | None = None) -> pd.DataFrame:
     """Ex-post view, CH Swissgrid blocks, partial blocks dropped, + 'series' and local time."""
-    df = V.load(view, kind="expost", rq=rq, columns=columns)
+    df = V.load(view, kind="expost", rq=rq, columns=columns, procured_only=False)   # EDA sees all blocks
     df = df[df["market"] == "ch_swissgrid"].copy()
     df["series"] = series_name(df)
     df["t"] = df["block_start_utc"].dt.tz_convert(TZ)

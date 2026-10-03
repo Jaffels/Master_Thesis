@@ -15,6 +15,9 @@ Feature families (column suffix after a double underscore):
   {zone}_outage_{kind}_{type}_mw__exante
                               delivery-window mean of outages announced by t0
                               (outage_events.created_utc <= t0)
+  xm_{de_afrr|de_mfrr}_{dir}_{avg|marg}__{prevday|prevday_slot|lb7d}, xm_fcr_coop_settle__*
+                              DE regelleistung.net / FCR cooperation prices of the latest delivery
+                              days known at t0 (results of day D known D-1 12:00 local)
   tgt_prev_slot__{x}          same slot (start hour) of the latest auction known at t0
   tgt_prev_auction__{x}       mean over the blocks of the latest auction known at t0
   cal_*                       calendar of the delivery window (known in advance)
@@ -70,14 +73,17 @@ FALLBACK_PUBLISHED = pd.Timestamp("2025-04-15", tz=TZ)   # 2022-24 fall-back dat
 #   fallback  aFRR platform fall-back: next day, 2022-24 only from 15 Apr 2025 -> lookbacks
 #   outage  rebuilt from outage_events by created_utc                    -> __exante
 #   advance known in advance (regimes)                                   -> copied
-# REVIEW the 'obs' lags marked (*): Energy Overview / Swissgrid monthly files are published
-# late, the 1 h lag assumes the ENTSO-E near-real-time equivalent was public.
+#   obs_monthly  published in Swissgrid's monthly files only: value of month M public on the
+#           15th of M+1, 00:00 local -> lookbacks use the latest published values (decided 3 Oct 2026)
+# Energy Overview columns (*): 1 h only where ENTSO-E published a near-real-time equivalent
+# (NRT_TWIN below), otherwise obs_monthly (decided 3 Oct 2026). Swissgrid imbalance prices:
+# ENTSO-E 17.1.G near real time -> 1 h.
 AVAIL = {
     "ex post (about 1 h after delivery)": ("obs", "1h"),
     "ex post": ("obs", "1h"),
     "ex post (final schedule)": ("obs", "1h"),
     "ex post as final": ("obs", "1h"),
-    "ex post (Energy Overview, published with a delay)": ("obs", "1h"),                 # (*)
+    "ex post (Energy Overview, published with a delay)": ("obs_monthly", None),         # (*) see NRT_TWIN
     "published after delivery (monthly files, mid following month); "
     "ENTSO-E near real time": ("obs", "1h"),                                            # (*)
     "near real time on ENTSO-E (Swissgrid files: monthly, after delivery)": ("obs", "1h"),
@@ -104,6 +110,16 @@ AVAIL = {
     "see share": ("fallback", None),
     "known in advance (market-design date)": ("advance", None),
 }
+
+# Energy Overview columns with an ENTSO-E near-real-time equivalent -> ("obs", "1h")
+NRT_TWIN = {
+    "ch_afrr_up_act_mw": "ENTSO-E 17.1.E activated aFRR", "ch_afrr_down_act_mw": "ENTSO-E 17.1.E activated aFRR",
+    "ch_afrr_up_act_price_eur_mwh": "ENTSO-E 17.1.F aFRR activation price",
+    "ch_afrr_down_act_price_eur_mwh": "ENTSO-E 17.1.F aFRR activation price",
+    "ch_cons_mw": "ENTSO-E 6.1.A actual load (same level, r 0.94-0.96)",
+    "ch_import_mw": "ENTSO-E 12.1.G physical flows", "ch_export_mw": "ENTSO-E 12.1.G physical flows",
+}
+MONTHLY_PUB_DAY = 15
 
 _report: list[str] = []
 
@@ -138,6 +154,8 @@ def column_plan(dd: pd.DataFrame) -> pd.DataFrame:
                        f"(NaN rules: {m.loc[m.availability_rule.isna(), 'column'].tolist()})")
     m["avail_class"] = m["availability_rule"].map(lambda r: AVAIL[r][0])
     m["avail_param"] = m["availability_rule"].map(lambda r: AVAIL[r][1])
+    twin = m["column"].isin(list(NRT_TWIN)) & (m["avail_class"] == "obs_monthly")
+    m.loc[twin, "avail_class"], m.loc[twin, "avail_param"] = "obs", "1h"
     m["kind"] = m["aggregation_rule"].map(agg_kind)
     bad = m[~m["kind"].isin(["mean", "sum", "max", "min", "vwmean"])]
     if len(bad):
@@ -182,6 +200,10 @@ def lb_pub(ts_ns: np.ndarray, cls: str, param) -> np.ndarray:
         return end + pd.Timedelta(param).value
     if cls == "fc":
         return end
+    if cls == "obs_monthly":      # 15th of the following month, 00:00 local
+        loc = naive_local(ts_ns)
+        pub = loc.dt.to_period("M").dt.start_time + pd.offsets.MonthBegin(1) + pd.Timedelta(days=MONTHLY_PUB_DAY - 1)
+        return to_ns(pub)
     if cls == "fallback":         # next day (known at the end of it), never before 15 Apr 2025
         nxt = to_ns(naive_local(ts_ns).dt.normalize() + pd.Timedelta(days=2))
         return np.maximum(nxt, FALLBACK_PUBLISHED.tz_convert("UTC").value)
@@ -240,7 +262,7 @@ def load_master(plan: pd.DataFrame, drop_suspect: bool) -> tuple[np.ndarray, pd.
 
 
 def lookbacks(ts: np.ndarray, m: pd.DataFrame, plan: pd.DataFrame, t0: np.ndarray) -> pd.DataFrame:
-    lb = plan[plan["avail_class"].isin(["obs", "obs_pf", "fallback"])
+    lb = plan[plan["avail_class"].isin(["obs", "obs_pf", "obs_monthly", "fallback"])
               | ((plan["avail_class"] == "fc") & plan["avail_param"].str.startswith("D-1"))]
     out, iend_cache = {}, {}
     for c, r in lb.iterrows():
@@ -412,6 +434,60 @@ def lagged_targets(v: pd.DataFrame) -> pd.DataFrame:
     return out.sort_values("_row").drop(columns="_row").set_index(v.index)
 
 
+# ------------------------------------------------------------------ cross-market drivers
+AB = MASTER / "auction_blocks.parquet"
+XM_KNOWN = pd.Timedelta(hours=12)   # results of delivery day D treated as known at D-1 12:00 local:
+# regelleistung.net daily aFRR / mFRR capacity auctions close D-1 09:00 / 10:00 (4h blocks from
+# 12 Jul 2018), FCR cooperation D-1 08:00 (4h from Jul 2020; Jul 2019 - Jun 2020 daily, closing
+# D-2) -> 12:00 is a conservative publication time. The same-day FCR cooperation result IS the
+# CH FCR price, so only earlier delivery days are used (decided 3 Oct 2026).
+XM_SERIES = {   # name -> (market, product, direction, price column)
+    **{f"xm_de_{p.lower()}_{d}_{k}": ("de_regelleistung", p, d, f"price_{col}_de")
+       for p in ("aFRR", "mFRR") for d in ("up", "down") for k, col in (("avg", "average"), ("marg", "marginal"))},
+    "xm_fcr_coop_settle": ("fcr_coop", "FCR", "sym", "price_settle_coop"),
+}
+
+
+def cross_market(ex: pd.DataFrame) -> pd.DataFrame:
+    """DE regelleistung.net and FCR cooperation prices known at gate closure (EUR/MW/h):
+    {name}__prevday       mean over the latest delivery day known at t0
+    {name}__prevday_slot  same local start hour on that day (CH 4h blocks only)
+    {name}__lb7d          mean over the 7 latest delivery days known at t0 (>= 4 days with data)"""
+    ab = pd.read_parquet(AB, columns=["market", "product", "direction", "block_start_utc",
+                                      *sorted({v[3] for v in XM_SERIES.values()})])
+    loc = naive_local(ab["block_start_utc"].values)
+    ab["day"], ab["slot"] = loc.dt.normalize().values, loc.dt.hour.values
+    t0 = ex["gate_closure_utc"].dt.as_unit("ns")
+    slot = np.where(ex["procurement"] == "4h", naive_local(ex["block_start_utc"].values).dt.hour.to_numpy(), -1)
+    left = pd.DataFrame({"t0": t0.reset_index(drop=True), "slot": slot,
+                         "_row": np.arange(len(ex))}).sort_values("t0")
+    out = {}
+    for name, (mk, prod, d, col) in XM_SERIES.items():
+        x = ab[(ab["market"] == mk) & (ab["product"] == prod) & (ab["direction"] == d)]
+        daily = x.groupby("day")[col].mean().rename("prevday").to_frame()
+        slots = x.pivot_table(index="day", columns="slot", values=col, aggfunc="mean")
+        daily["lb7d"] = daily["prevday"].rolling("7D", min_periods=4).mean()
+        daily["known_at"] = pd.Series(to_ns(pd.Series(daily.index - pd.Timedelta(days=1) + XM_KNOWN)),
+                                      index=daily.index).astype("datetime64[ns]").dt.tz_localize("UTC")
+        r = daily.join(slots).reset_index().sort_values("known_at")
+        j = pd.merge_asof(left, r, left_on="t0", right_on="known_at", direction="backward")
+        if (j["known_at"] > j["t0"]).any():
+            raise AssertionError(f"{name}: value known after gate closure")
+        j = j.sort_values("_row")
+        out[f"{name}__prevday"] = j["prevday"].to_numpy()
+        sv = np.full(len(j), np.nan)
+        for h in slots.columns:
+            sel = (j["slot"] == h).to_numpy()
+            sv[sel] = j.loc[sel, h].to_numpy() if h in j else np.nan
+        out[f"{name}__prevday_slot"] = sv
+        out[f"{name}__lb7d"] = j["lb7d"].to_numpy()
+        # stale: no delivery day within the last 3 days before t0 -> NaN (series not running)
+        age = (j["t0"] - j["known_at"]).dt.total_seconds().to_numpy() / 86400
+        for k in ("prevday", "prevday_slot", "lb7d"):
+            out[f"{name}__{k}"] = np.where(age <= 3, out[f"{name}__{k}"], np.nan).astype("float32")
+    return pd.DataFrame(out, index=ex.index)
+
+
 # ------------------------------------------------------------------ checks
 def spot_check_lookback(ts, m, plan, lbf, name, n=5, seed=1):
     """Recompute a few lookback values with pandas from first principles."""
@@ -512,7 +588,7 @@ def main(write: bool, drop_suspect: bool) -> None:
         keep = [c for c in ex.columns if roles.get(c) in ("key", "meta", "target", "regime")
                 or c.startswith("src_")]
         base = ex[keep + ["gate_closure_utc", "gc_rule", "gc_confidence"]].copy()
-        parts = [base, calendar(ex), lagged_targets(ex)]
+        parts = [base, calendar(ex), lagged_targets(ex), cross_market(ex)]
 
         av = dw_availability(ts, plan, ex)
         fcp = [c for c in fc_cols if c in ex.columns]
@@ -559,6 +635,7 @@ def main(write: bool, drop_suspect: bool) -> None:
             "perfect forecast __pf": sum(c.endswith("__pf") for c in view.columns),
             "outage __exante": len(oc),
             "lagged target": sum(c.startswith("tgt_prev_") for c in view.columns),
+            "cross-market": sum(c.startswith("xm_") for c in view.columns),
             "calendar": sum(c.startswith("cal_") for c in view.columns)})
         log(fam.to_string())
         log(f"  forecasts available at gate closure (share of blocks): "
@@ -575,6 +652,7 @@ def main(write: bool, drop_suspect: bool) -> None:
                  "gate_closure" if c.startswith("g") and c in ("gate_closure_utc", "gc_rule", "gc_confidence") else
                  "calendar" if c.startswith("cal_") else
                  "lagged_target" if c.startswith("tgt_prev_") else
+                 "cross_market" if c.startswith("xm_") else
                  "perfect_forecast" if c.endswith("__pf") else
                  "forecast" if c.endswith("__dw") else
                  "outage_exante" if c.endswith("__exante") else

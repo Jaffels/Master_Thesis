@@ -14,6 +14,10 @@ result files, so the times come from rules:
                         Wed<-Mon 14:30, Thu<-Tue 14:30, Fri<-Wed 14:30,
                         Sat<-Thu 14:30, Sun<-Thu 15:30)
 
+DAILY_FRR checked against the SDL Ausschreibungskalender 2026 on 3 Oct 2026: identical
+(14:30 Mon->Wed, Tue->Thu, Wed->Fri, Thu->Sat, Fri->Mon; 15:30 Thu->Sun, Fri->Tue; the
+14:00 row of the calendar is KompWV, loss compensation, not aFRR / mFRR).
+
 All times are Europe/Zurich wall-clock times. Holiday shifts in the calendar (e.g.
 KW1 2025 closed Mon 23 Dec instead of Tue 24 Dec) are NOT modelled: t0 can be up to
 one day too late around Christmas / New Year. Refine DAILY_FRR and the 'assumed'

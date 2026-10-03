@@ -1,4 +1,4 @@
-build_master.py  2026-10-02 16:43  sample 2015-01-01 00:00 -> 2026-08-31 23:45 (Europe/Zurich)
+build_master.py  2026-10-03 15:20  sample 2015-01-01 00:00 -> 2026-08-31 23:45 (Europe/Zurich)
   ok    gap list newer than build_gap_list.py and every clean table (else rerun build_gap_list.py --write)
   info  not in the master: {'balancing/contracted_reserves_ch': 'block products: cross-check columns in auction_blocks', 'generation/installed_capacity': 'long table (zone x year), stays in Clean/Data/generation/', 'outages/outage_events': 'long table (events with created_utc), stays in Clean/Data/outages/'}
 Reading clean grid tables
@@ -40,27 +40,27 @@ Validation: master_15min
   ok    all regime columns present
   ok    regime columns without NaN
   ok    flag columns are boolean
-  ok    NaN share of 430 copied columns = clean layer
+  ok    NaN share of 429 copied columns = clean layer
   info  flags without a FLAG_LINKS entry (dictionary `flags` stays empty): none
-  info  columns by class: {'data': 400, 'flag': 20, 'xchk': 17, 'regime': 9, 'source': 3, 'key': 2}; in memory 0.71 GB
+  info  columns by class: {'data': 400, 'flag': 21, 'xchk': 17, 'regime': 9, 'source': 4, 'key': 2}; in memory 0.71 GB
 
-NaN runs >= 96 QH inside a column's own span: 5,228 runs in 193 columns; 351 without a gap-list match (area-token heuristic)
+NaN runs >= 96 QH inside a column's own span: 4,913 runs in 193 columns; 106 without a gap-list match (area-token heuristic)
   largest unexplained (runs, days):
-    it_nord_gen_hydro_ps_cons_mw                             236 runs     437.0 days
     fr_gen_coal_mw                                            29 runs      76.5 days
     it_nord_gen_solar_da_fc_mw                                54 runs      59.0 days
     it_nord_ch_countertrade_mw                                 3 runs      28.6 days
     it_nord_gen_coal_mw                                        2 runs      13.2 days
-    it_nord_gen_hydro_ps_mw                                    9 runs      11.8 days
     de_at_lu_ch_ntc_wa_mw                                      1 runs       8.0 days
     fr_ch_countertrade_mw                                      1 runs       5.0 days
-    fr_gen_hydro_ps_mw                                         2 runs       2.6 days
     at_gen_wind_on_id_fc_mw                                    2 runs       2.4 days
     it_nord_gen_wind_on_da_fc_mw                               1 runs       1.0 days
+    it_nord_gen_hydro_ps_mw                                    1 runs       1.0 days
     it_nord_gen_other_mw                                       1 runs       1.0 days
     it_nord_gen_oil_mw                                         1 runs       1.0 days
     it_nord_gen_hydro_ror_mw                                   1 runs       1.0 days
     it_nord_gen_hydro_res_mw                                   1 runs       1.0 days
+    at_ch_countertrade_mw                                      1 runs       1.0 days
+    it_nord_gen_hydro_ps_cons_mw                               1 runs       1.0 days
 
 Building auction_blocks
   ok    balancing/contracted_reserves_ch: on the grid
@@ -77,5 +77,5 @@ Validation: auction_blocks
   info  blocks per market: {'de_regelleistung': 71352, 'ch_swissgrid': 68562, 'fcr_coop': 13878}; partial_in_sample: 8
   info  ENTSO-E price cross-check present for 32,079 Swissgrid blocks; within 5 % of price_bid_vwap: 46.7% (units as published; see dictionary)
 
-master_15min: 409,052 rows x 451 columns (incl. ts_utc); auction_blocks: 153,792 x 74; 11 s
+master_15min: 409,052 rows x 453 columns (incl. ts_utc); auction_blocks: 153,792 x 74; 10 s
 Written to /Users/johan/Master_Thesis/Clean/Data/master: master_15min.parquet, auction_blocks.parquet, data_dictionary.csv, nan_share_by_year.csv, nan_runs_unexplained.csv, build_master_report.txt

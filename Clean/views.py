@@ -16,6 +16,11 @@ Windows (WINDOWS below; on the block's local delivery start, end = data cut-off)
                              RQ3 target definition, relative to a rolling level)
 Blocks cut by the sample edges (`partial_in_sample`) are dropped unless keep_partial=True.
 
+Blocks without procurement (decided 3 Oct 2026): a bool column `procured` (awarded_mw > 0)
+is added on load. Daily mFRR blocks where Swissgrid bought nothing have no price (5,474
+blocks, 83-91 % of the 2024 daily mFRR blocks). procured_only=True (default) drops them for
+price models; procured_only=False keeps them (e.g. for a procured yes / no model).
+
 Gap handling (impute=True, for linear / RQ1b models; tree models: keep the default False):
   - only feature columns (not keys, targets, regimes, calendar, gate closure), and not
     columns whose NaN is structural (activation prices without activation, masked TRE
@@ -147,9 +152,14 @@ def impute_single_days(df: pd.DataFrame, cols: list[str]) -> tuple[pd.DataFrame,
 
 def load(view: str, kind: str = "exante", rq: str | None = None, impute: bool = False,
          columns: list[str] | None = None, keep_partial: bool = False,
-         return_imputation_counts: bool = False):
+         return_imputation_counts: bool = False, procured_only: bool = True):
     """view: 'fcr' | 'afrr' | 'mfrr'; kind: 'exante' | 'expost'."""
-    df = pd.read_parquet(VIEWS_DIR / f"{view}_{kind}.parquet", columns=columns)
+    need = None if columns is None else list(dict.fromkeys(
+        [*columns, "awarded_mw", "block_start_utc", "partial_in_sample"]))
+    df = pd.read_parquet(VIEWS_DIR / f"{view}_{kind}.parquet", columns=need)
+    df["procured"] = df["awarded_mw"].fillna(0) > 0
+    if procured_only:
+        df = df[df["procured"]]
     df = apply_window(df, rq, keep_partial)
     counts = pd.Series(dtype="int64")
     if impute:
@@ -192,7 +202,7 @@ def _check() -> None:
                                                columns=list(cnt.index[:20]) + [
                                                    "block_start_utc", "partial_in_sample"]), "RQ1b")
             for c in cnt.index[:20]:
-                flag = df[f"{c}_imputed"].reindex(raw.index)
+                flag = df[f"{c}_imputed"].reindex(raw.index, fill_value=False)
                 if raw.loc[flag.astype(bool), c].notna().any():
                     raise AssertionError(f"{v}_{kind} {c}: imputed over an existing value")
 
