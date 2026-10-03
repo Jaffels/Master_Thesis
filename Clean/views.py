@@ -171,6 +171,30 @@ def load(view: str, kind: str = "exante", rq: str | None = None, impute: bool = 
     return (df, counts) if return_imputation_counts else df
 
 
+RQ3_FEATURE_ROLES = {"calendar", "regime", "forecast", "lookback", "lag", "outage_exante", "nowcast"}
+
+
+def load_rq3(columns: list[str] | None = None) -> pd.DataFrame:
+    """RQ3 15-min view (build_view_rq3.py): one row per quarter-hour from 31 Mar 2016."""
+    return pd.read_parquet(VIEWS_DIR / "rq3_15min.parquet", columns=columns)
+
+
+def rq3_feature_columns(df: pd.DataFrame, origin: str = "d1", perfect_forecast: bool = False) -> list[str]:
+    """Features known at the origin: 'd1' (D-1 18:00) or 'h1' (start - 1 h; includes all d1
+    features, which are older). perfect_forecast=True adds the observed weather (__pf)."""
+    d = pd.read_csv(VIEWS_DIR / "_rq3_dictionary.csv").set_index("column")
+    origins = {"d1": {"", "d1"}, "h1": {"", "d1", "h1"}}[origin]
+    keep = []
+    for c in df.columns:
+        if c not in d.index:
+            continue
+        r = d.loc[c]
+        o = "" if pd.isna(r["origin"]) else r["origin"]
+        if (r["role"] in RQ3_FEATURE_ROLES and o in origins) or (perfect_forecast and r["role"] == "perfect_forecast"):
+            keep.append(c)
+    return keep
+
+
 def _check() -> None:
     rows = []
     for v in ["fcr", "afrr", "mfrr"]:
