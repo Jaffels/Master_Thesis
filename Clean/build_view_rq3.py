@@ -9,7 +9,8 @@ Decided 3 Oct 2026:
     thr_short_q{975,990,995}   upper quantile of the SHORT price over the previous 365 days
     thr_long_q{025,010,005}    lower quantile of the LONG price over the previous 365 days
                                (computed per local day from data up to the end of D-1;
-                               >= MIN_THR_DAYS days of prices, else NaN)
+                               >= MIN_THR_DAYS x 48 quarter-hour prices, i.e. 60 full days,
+                               else NaN -> first threshold 31 May 2016)
     spike_short_q*             short price > threshold   (undersupply, BG-short)
     spike_long_q*              long price  < threshold   (oversupply, BG-long)
                                2026 (single price): direction from ch_system_imbalance_mw
@@ -73,7 +74,7 @@ QH = pd.Timedelta("15min").value
 D1_HOUR = 18                               # __d1 origin: D-1 18:00 local
 H1_LEAD = pd.Timedelta("1h")               # __h1 origin: quarter-hour start - 1 h
 THR_DAYS = 365
-MIN_THR_DAYS = 120                         # days with prices needed before a threshold exists
+MIN_THR_DAYS = 120                         # threshold needs >= MIN_THR_DAYS * 48 prices (= 60 full days)
 Q_SHORT = {"q975": 0.975, "q990": 0.990, "q995": 0.995}
 Q_LONG = {"q025": 0.025, "q010": 0.010, "q005": 0.005}
 MIN_COVER = 0.5                            # lookback needs >= 50 % non-NaN quarter-hours
