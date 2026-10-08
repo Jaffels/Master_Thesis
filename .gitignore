@@ -66,3 +66,6 @@ MeteoSwiss/__pycache__/
 
 # EDA outputs (regenerated)
 EDA/Output/
+
+# Backups
+*.bak*
