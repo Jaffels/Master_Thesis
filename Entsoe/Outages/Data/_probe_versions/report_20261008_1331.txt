@@ -1,0 +1,8 @@
+Outage version probe 20261008_1331
+
+documents probed: 25
+A (by mRID): 25 returned more than one version; 8 have a version created before 2025-08-01
+B (update window = month before start): 0 windows returned documents created before 2025-08-01; 0 returned the probed document
+
+Verdict:
+  EARLIER VERSIONS EXIST -> worth a targeted re-pull of 2021-2025 outage history (send this report to Claude).

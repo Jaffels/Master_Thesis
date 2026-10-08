@@ -152,11 +152,17 @@ def impute_single_days(df: pd.DataFrame, cols: list[str]) -> tuple[pd.DataFrame,
 
 def load(view: str, kind: str = "exante", rq: str | None = None, impute: bool = False,
          columns: list[str] | None = None, keep_partial: bool = False,
-         return_imputation_counts: bool = False, procured_only: bool = True):
-    """view: 'fcr' | 'afrr' | 'mfrr'; kind: 'exante' | 'expost'."""
+         return_imputation_counts: bool = False, procured_only: bool = True,
+         weather_fc: bool = False):
+    """view: 'fcr' | 'afrr' | 'mfrr'; kind: 'exante' | 'expost'.
+    weather_fc=True joins the archived weather FORECAST features ({x}__wxfc, built by
+    build_weather_fc_features.py; sub-period robustness check, 8 Oct 2026)."""
     need = None if columns is None else list(dict.fromkeys(
-        [*columns, "awarded_mw", "block_start_utc", "partial_in_sample"]))
+        [*columns, "awarded_mw", "block_start_utc", "partial_in_sample",
+         *(WXFC_KEYS if weather_fc else [])]))
     df = pd.read_parquet(VIEWS_DIR / f"{view}_{kind}.parquet", columns=need)
+    if weather_fc:
+        df = _join_wxfc(df, view)
     df["procured"] = df["awarded_mw"].fillna(0) > 0
     if procured_only:
         df = df[df["procured"]]
@@ -174,9 +180,40 @@ def load(view: str, kind: str = "exante", rq: str | None = None, impute: bool = 
 RQ3_FEATURE_ROLES = {"calendar", "regime", "forecast", "lookback", "lag", "outage_exante", "nowcast"}
 
 
-def load_rq3(columns: list[str] | None = None) -> pd.DataFrame:
-    """RQ3 15-min view (build_view_rq3.py): one row per quarter-hour from 31 Mar 2016."""
-    return pd.read_parquet(VIEWS_DIR / "rq3_15min.parquet", columns=columns)
+WXFC_KEYS = ["product", "direction", "procurement", "block_start_utc", "block_end_utc", "auction_id"]
+
+
+def _join_wxfc(df: pd.DataFrame, view: str) -> pd.DataFrame:
+    """Join {view}_wxfc.parquet on the block keys; row count must not change."""
+    wx = pd.read_parquet(VIEWS_DIR / f"{view}_wxfc.parquet")
+    keys = [k for k in WXFC_KEYS if k in df.columns]
+    if len(keys) < 4:
+        raise ValueError(f"weather_fc=True needs the block keys {WXFC_KEYS} in `columns`")
+    out = df.merge(wx[keys + [c for c in wx.columns if c not in WXFC_KEYS]], on=keys,
+                   how="left", validate="many_to_one")
+    assert len(out) == len(df), "weather forecast join changed the row count"
+    out.index = df.index
+    return out
+
+
+def weather_fc_columns(df: pd.DataFrame, origin: str | None = None) -> list[str]:
+    """Forecast weather features in df: block views (origin=None) -> {x}__wxfc;
+    RQ3 -> {x}__wxfc_d1 or {x}__wxfc_h1."""
+    suf = "__wxfc" if origin is None else f"__wxfc_{origin}"
+    return [c for c in df.columns if c.endswith(suf)]
+
+
+def load_rq3(columns: list[str] | None = None, weather_fc: bool = False) -> pd.DataFrame:
+    """RQ3 15-min view (build_view_rq3.py): one row per quarter-hour from 31 Mar 2016.
+    weather_fc=True joins {x}__wxfc_d1 / __wxfc_h1 (build_weather_fc_features.py)."""
+    cols = None if columns is None else list(dict.fromkeys([*columns, "ts_utc"]))
+    df = pd.read_parquet(VIEWS_DIR / "rq3_15min.parquet", columns=cols)
+    if weather_fc:
+        wx = pd.read_parquet(VIEWS_DIR / "rq3_wxfc.parquet")
+        n = len(df)
+        df = df.merge(wx, on="ts_utc", how="left", validate="one_to_one")
+        assert len(df) == n
+    return df
 
 
 def rq3_feature_columns(df: pd.DataFrame, origin: str = "d1", perfect_forecast: bool = False) -> list[str]:
