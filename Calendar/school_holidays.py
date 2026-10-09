@@ -100,19 +100,22 @@ def entries(data: list[dict]) -> pd.DataFrame:
         groups = [g.get("code", "") for g in e.get("groups", []) or []]
         for s in e.get("subdivisions", []) or []:
             code = s.get("code", "")
-            if code.count("-") != 1:          # district / municipality entries: skip
+            if code.count("-") > 2:           # municipality entries: skip
                 continue
             rows.append({"canton": code.split("-")[1], "name": name,
+                         "region": code if code.count("-") == 2 else None,
                          "start": pd.Timestamp(e["startDate"]), "end": pd.Timestamp(e["endDate"]),
                          "vs": any(g.endswith("-VS") for g in groups), "has_group": bool(groups)})
     df = pd.DataFrame(rows)
     if df.empty:
         return df
-    # compulsory school where available, else everything of that canton
+    # canton-wide entries where a canton has them; regional entries only for cantons that
+    # publish by region (e.g. GR) -> a day counts if most regions are on holiday (to_days)
     keep = []
     for c, g in df.groupby("canton"):
+        g = g[g["region"].isna()] if g["region"].isna().any() else g
         keep.append(g[g["vs"] | ~g["has_group"]] if g["vs"].any() else g)
-    return pd.concat(keep).drop_duplicates(["canton", "name", "start", "end"])
+    return pd.concat(keep).drop_duplicates(["canton", "region", "name", "start", "end"])
 
 
 def holiday_year(row) -> int:
@@ -162,8 +165,18 @@ def apply_rules(rules: pd.DataFrame, years) -> pd.DataFrame:
 def to_days(df: pd.DataFrame) -> pd.DataFrame:
     days = pd.date_range(f"{FIRST}-01-01", f"{LAST}-12-31", freq="D")
     m = pd.DataFrame(0, index=days, columns=CANTONS, dtype="int8")
-    for r in df.itertuples():
+    reg = df["region"].notna() if "region" in df else pd.Series(False, index=df.index)
+    for r in df[~reg].itertuples():
         m.loc[r.start:r.end, r.canton] = 1
+    for c, g in df[reg].groupby("canton"):        # regional cantons: majority of regions
+        n = g["region"].nunique()
+        cnt = pd.Series(0, index=days)
+        for reg_code, gr in g.groupby("region"):
+            on = pd.Series(0, index=days)
+            for r in gr.itertuples():
+                on.loc[r.start:r.end] = 1
+            cnt += on
+        m[c] = (cnt / n >= 0.5).astype("int8")
     return m
 
 
@@ -210,7 +223,7 @@ def main() -> int:
     a = ap.parse_args()
 
     api = pd.concat([entries(pull(y, a.force)) for y in range(API_FROM, API_TO + 1)])
-    api = api.drop_duplicates(["canton", "name", "start", "end"])
+    api = api.drop_duplicates(["canton", "region", "name", "start", "end"])
     missing = sorted(set(CANTONS) - set(api["canton"]))
     rules = fit_rules(api)
     back = apply_rules(rules, range(FIRST - 1, API_FROM))
