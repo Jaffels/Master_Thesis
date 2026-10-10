@@ -17,6 +17,14 @@ Design (decisions 3 Oct / 8 Oct 2026, D2):
   * Metrics (pooled test, and pre-/post-cap split at 3 Mar 2025): Brier, Brier skill vs the best baseline,
     log loss, PR-AUC, ROC-AUC; reliability table (deciles); day-block bootstrap CI of the Brier gain over the best baseline.
 
+Variants (decision round 10 Oct 2026, after the first full run):
+    --target fixed          target = hour with any QH beyond FIXED absolute thresholds (default: RQ3c prior12m values,
+                            short q99 = 361.0, long q01 = -228.5 EUR/MWh) instead of the rolling 365-day quantile;
+                            persistence features are rebuilt on the same fixed flag (fixhist_*).
+    --train-from DATE       train only on hours from DATE (e.g. 2022-06-01 = QH-price regime)
+    --test-start DATE       first test day (default 2021-01-01)
+    --tag NAME              output folder suffix: Modelling/Output/rq3b_1<NAME>/
+
 Run from Master_Thesis with .venv active (needs rq3a_1_catalogue.py and rq3a_2_logit.py in Modelling/):
     python Modelling/rq3b_1_riskmodel.py [--fast]       # -> Modelling/Output/rq3b_1/
 --fast: refit every 12 months, fewer trees (smoke test, ~1/3 of the time).
@@ -51,6 +59,8 @@ TARGETS = {"short": "spike_short_q990", "long": "spike_long_q010"}
 TEST_START = pd.Timestamp("2021-01-01")
 CAP = pd.Timestamp("2025-03-03")
 EMBARGO = pd.Timedelta(days=2)
+TRAIN_FROM = pd.Timestamp("1900-01-01")
+FIXED = None            # (thr_short, thr_long) when --target fixed
 PF = ["ch_temp_lw_degc__pf", "ch_ghi_lw_wm2__pf", "ch_ghi_ramp_lw_wm2__pf", "ch_wind_lw_ms__pf",
       "ch_hdh_lw_kh__pf", "ch_cdh_lw_kh__pf", "ch_precip_hydro_mm__pf", "ch_snow_hydro_cm__pf",
       "ch_melt_dh_hydro_kh__pf"]
@@ -64,6 +74,26 @@ def log(s: str = "") -> None:
 
 
 # ------------------------------------------------------------------ data
+def add_fixhist(h: pd.DataFrame) -> None:
+    """Persistence features for the fixed-threshold target, from the hourly flag itself: share of spike hours in the
+    24 h before the d1 origin (D-1 18:00 local) and in the 4 h before the h1 origin (hour start - 1 h)."""
+    idx = pd.DatetimeIndex(h["hk"])
+    full = pd.date_range(idx.min(), idx.max(), freq="h", tz=idx.tz)
+    pos = full.get_indexer(idx)
+    loc = idx.tz_convert(V.TZ).tz_localize(None)
+    o_utc = (loc.normalize() - pd.Timedelta(days=1) + pd.Timedelta(hours=18)).tz_localize(V.TZ).tz_convert(idx.tz)
+    o_pos = full.get_indexer(o_utc.floor("h"), method="pad")
+    for side in ("short", "long"):
+        sr = pd.Series(h[f"spike_{side}_fix"].to_numpy(float), index=idx).reindex(full).fillna(0.0)
+        cs = np.r_[0.0, sr.cumsum().to_numpy()]
+        a = np.clip(o_pos - 24, 0, None)
+        b = np.clip(o_pos, 0, None)
+        h[f"fixhist_{side}__lb24h_d1"] = (cs[b] - cs[a]) / np.maximum(b - a, 1)
+        a4 = np.clip(pos - 5, 0, None)
+        b4 = np.clip(pos - 1, 0, None)
+        h[f"fixhist_{side}__lb4h_h1"] = (cs[b4] - cs[a4]) / np.maximum(b4 - a4, 1)
+
+
 def build_hourly() -> tuple[pd.DataFrame, dict]:
     df = V.load_rq3(school_holidays=True)
     feats = {o: V.rq3_feature_columns(df, origin=o) for o in ("d1", "h1")}
@@ -79,7 +109,7 @@ def build_hourly() -> tuple[pd.DataFrame, dict]:
     df["hk"] = t.dt.floor("h")
     for c in ("regime_imb_resolution", "regime_imb_pricing"):
         df[c] = df[c].astype(str).map(REGIME_MAP).astype("float32")
-    spikes = list(TARGETS.values())
+    spikes = ["spike_short_q990", "spike_long_q010"]      # rolling-threshold flags (always loaded)
     for s in spikes:
         df[s] = df[s].fillna(0).astype("int8")
     num = [c for c in df.columns if c not in ("ts_utc", "ts_local", "hk") and pd.api.types.is_numeric_dtype(df[c])]
@@ -87,6 +117,8 @@ def build_hourly() -> tuple[pd.DataFrame, dict]:
     agg = {c: "first" for c in num}
     agg.update({c: "mean" for c in fc})
     agg.update({s: "max" for s in spikes})
+    agg["tgt_price_short_eur_mwh"] = "max"
+    agg["tgt_price_long_eur_mwh"] = "min"
     g = df.groupby("hk")
     h = g.agg(agg)
     h["nqh"] = g.size()
@@ -103,8 +135,15 @@ def build_hourly() -> tuple[pd.DataFrame, dict]:
     h["daytype"] = np.where((h["cal_holiday"] == 1) | (h["cal_dow"] == 6), 2, np.where(h["cal_dow"] == 5, 1, 0))
     h["cell"] = h["cal_hour"].astype(int) * 3 + h["daytype"]
     h = h.sort_values("hk").reset_index(drop=True)
+    if FIXED is not None:
+        h["spike_short_fix"] = (h["tgt_price_short_eur_mwh"] > FIXED[0]).astype("int8")
+        h["spike_long_fix"] = (h["tgt_price_long_eur_mwh"] < FIXED[1]).astype("int8")
+        add_fixhist(h)
     for k in list(feats):
         feats[k] = [c for c in feats[k] if c in h.columns and c != "cal_year"]
+    if FIXED is not None:
+        feats["d1"] += [f"fixhist_{sd}__lb24h_d1" for sd in ("short", "long")]
+        feats["h1"] += [f"fixhist_{sd}__lb24h_d1" for sd in ("short", "long")] + [f"fixhist_{sd}__lb4h_h1" for sd in ("short", "long")]
     feats["pf"] = [c for c in pf if c in h.columns]
     return h, feats
 
@@ -127,6 +166,9 @@ def blocks(h: pd.DataFrame) -> dict[str, list[str]]:
                 "ch_imb_vol_mwh__lb1h_h1", "ch_imb_vol_mwh__lb4h_h1", "err_ch_load_mw__lb1h_h1",
                 "err_ch_solar_mw__lb1h_h1", "err_de_lu_solar_mw__lb1h_h1", "err_de_lu_wind_on_mw__lb1h_h1"],
     }
+    if FIXED is not None:
+        ren = lambda c: (c.replace("spikehist_short_q990", "fixhist_short").replace("spikehist_long_q010", "fixhist_long"))
+        b = {k: [ren(c) for c in v] for k, v in b.items()}
     return {k: [c for c in v if c in h.columns] for k, v in b.items()}
 
 
@@ -190,7 +232,20 @@ def platt(fn, tr_fit, cal, te, *args):
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--fast", action="store_true")
+    ap.add_argument("--target", choices=["rolling", "fixed"], default="rolling")
+    ap.add_argument("--thr-short", type=float, default=361.0)
+    ap.add_argument("--thr-long", type=float, default=-228.5)
+    ap.add_argument("--train-from", default="1900-01-01")
+    ap.add_argument("--test-start", default="2021-01-01")
+    ap.add_argument("--tag", default="")
     a = ap.parse_args()
+    global OUT, TARGETS, TEST_START, TRAIN_FROM, FIXED
+    OUT = HERE / "Output" / ("rq3b_1" + a.tag)
+    TEST_START = pd.Timestamp(a.test_start)
+    TRAIN_FROM = pd.Timestamp(a.train_from)
+    if a.target == "fixed":
+        FIXED = (a.thr_short, a.thr_long)
+        TARGETS = {"short": "spike_short_fix", "long": "spike_long_fix"}
     OUT.mkdir(parents=True, exist_ok=True)
     t0 = time.time()
     h, feats = build_hourly()
@@ -215,10 +270,13 @@ def main() -> None:
                ["persist_d1", "cal_hist_d1", "lr_d1", "gbm_d1", "gbm_pf_d1",
                 "persist_h1", "lr_h1", "gbm_h1", "gbm_pf_h1"]}
         other = "long" if side == "short" else "short"
-        p24 = f"spikehist_{side}_q{'990' if side == 'short' else '010'}__lb24h_d1"
-        p4 = f"spikehist_{side}_q{'990' if side == 'short' else '010'}__lb4h_h1"
+        if FIXED is not None:
+            p24, p4 = f"fixhist_{side}__lb24h_d1", f"fixhist_{side}__lb4h_h1"
+        else:
+            p24 = f"spikehist_{side}_q{'990' if side == 'short' else '010'}__lb24h_d1"
+            p4 = f"spikehist_{side}_q{'990' if side == 'short' else '010'}__lb4h_h1"
         for (f0, f1) in folds:
-            tr_m = (hk < f0 - EMBARGO).to_numpy()
+            tr_m = ((hk < f0 - EMBARGO) & (hk >= TRAIN_FROM)).to_numpy()
             te_m = ((hk >= f0) & (hk < f1)).to_numpy()
             if te_m.sum() == 0:
                 continue
@@ -229,8 +287,8 @@ def main() -> None:
             out["persist_h1"][te_m] = lr_fit_predict(tr, te, [p24, p4], target)
             out["cal_hist_d1"][te_m] = lr_fit_predict(tr, te, B["cal"] + [p24], target)
             cs = f0 - EMBARGO - pd.DateOffset(months=6)
-            fit_m = (hk < cs - EMBARGO).to_numpy()
-            cal_m = ((hk >= cs) & (hk < f0 - EMBARGO)).to_numpy()
+            fit_m = ((hk < cs - EMBARGO) & (hk >= TRAIN_FROM)).to_numpy()
+            cal_m = ((hk >= cs) & (hk < f0 - EMBARGO) & (hk >= TRAIN_FROM)).to_numpy()
             trf, cal = h[fit_m], h[cal_m]
             if trf[target].sum() < 30:
                 trf, cal = tr, tr.iloc[:0]
