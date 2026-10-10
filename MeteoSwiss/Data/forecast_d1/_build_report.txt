@@ -1,0 +1,45 @@
+Open-Meteo D-1 forecast build
+
+stations: ok 43
+
+              series  year  hours_cov90  corr_vs_obs  mae_vs_obs
+      t_lw_degc_d1fc  2021        0.775        0.980        1.25
+      t_lw_degc_d1fc  2022        1.000        0.986        1.19
+      t_lw_degc_d1fc  2023        0.995        0.986        1.20
+      t_lw_degc_d1fc  2024        0.949        0.992        0.73
+      t_lw_degc_d1fc  2025        1.000        0.993        0.73
+      t_lw_degc_d1fc  2026        1.000        0.994        0.77
+     ghi_lw_wm2_d1fc  2021        0.000          NaN         NaN
+     ghi_lw_wm2_d1fc  2022        0.000          NaN         NaN
+     ghi_lw_wm2_d1fc  2023        0.000          NaN         NaN
+     ghi_lw_wm2_d1fc  2024        0.949        0.979       21.19
+     ghi_lw_wm2_d1fc  2025        1.000        0.986       19.47
+     ghi_lw_wm2_d1fc  2026        1.000        0.991       18.92
+      rh_lw_pct_d1fc  2021        0.000          NaN         NaN
+      rh_lw_pct_d1fc  2022        0.000          NaN         NaN
+      rh_lw_pct_d1fc  2023        0.000          NaN         NaN
+      rh_lw_pct_d1fc  2024        0.949        0.919        4.20
+      rh_lw_pct_d1fc  2025        1.000        0.937        4.17
+      rh_lw_pct_d1fc  2026        1.000        0.957        4.12
+     wind_lw_ms_d1fc  2021        0.000          NaN         NaN
+     wind_lw_ms_d1fc  2022        0.000          NaN         NaN
+     wind_lw_ms_d1fc  2023        0.000          NaN         NaN
+     wind_lw_ms_d1fc  2024        0.949        0.907        0.33
+     wind_lw_ms_d1fc  2025        1.000        0.909        0.32
+     wind_lw_ms_d1fc  2026        1.000        0.909        0.33
+   t_hydro_degc_d1fc  2021        0.775        0.975        1.34
+   t_hydro_degc_d1fc  2022        1.000        0.983        1.33
+   t_hydro_degc_d1fc  2023        0.995        0.986        1.20
+   t_hydro_degc_d1fc  2024        0.949        0.989        0.81
+   t_hydro_degc_d1fc  2025        1.000        0.989        0.85
+   t_hydro_degc_d1fc  2026        1.000        0.993        0.81
+precip_hydro_mm_d1fc  2021        0.000          NaN         NaN
+precip_hydro_mm_d1fc  2022        0.000          NaN         NaN
+precip_hydro_mm_d1fc  2023        0.000          NaN         NaN
+precip_hydro_mm_d1fc  2024        0.949        0.803        0.10
+precip_hydro_mm_d1fc  2025        1.000        0.790        0.09
+precip_hydro_mm_d1fc  2026        1.000        0.671        0.08
+
+hours_cov90 = share of hours with a value from stations holding >= 90 % of the weight.
+Usable for the sub-period check where hours_cov90 >= 0.95 (expected: temperature 2022->, all 2024->).
+Send this report to Claude for the clean / view integration.

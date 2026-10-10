@@ -1,0 +1,43 @@
+Open-Meteo forecast archive check 20261008_1334
+coverage = share of hours with a value; corr / MAE vs MeteoSwiss station
+
+api            variable  year  coverage  corr    mae
+ HF shortwave_radiation  2021     1.000 0.951 33.708
+ HF shortwave_radiation  2022     1.000 0.963 30.366
+ HF shortwave_radiation  2023     1.000 0.969 27.720
+ HF shortwave_radiation  2024     1.000 0.961 29.030
+ HF shortwave_radiation  2025     1.000 0.973 26.388
+ HF shortwave_radiation  2026     1.000 0.981 26.802
+ HF      temperature_2m  2021     1.000 0.979  1.316
+ HF      temperature_2m  2022     1.000 0.981  1.298
+ HF      temperature_2m  2023     1.000 0.991  0.858
+ HF      temperature_2m  2024     1.000 0.991  0.800
+ HF      temperature_2m  2025     1.000 0.991  0.838
+ HF      temperature_2m  2026     1.000 0.992  0.956
+ HF      wind_speed_10m  2021     1.000 0.702  0.866
+ HF      wind_speed_10m  2022     1.000 0.706  0.852
+ HF      wind_speed_10m  2023     1.000 0.809  0.738
+ HF      wind_speed_10m  2024     1.000 0.790  0.682
+ HF      wind_speed_10m  2025     1.000 0.777  0.662
+ HF      wind_speed_10m  2026     1.000 0.804  0.644
+ PR shortwave_radiation  2021     0.000   NaN    NaN
+ PR shortwave_radiation  2022     0.000   NaN    NaN
+ PR shortwave_radiation  2023     0.000   NaN    NaN
+ PR shortwave_radiation  2024     0.950 0.941 36.012
+ PR shortwave_radiation  2025     1.000 0.956 32.652
+ PR shortwave_radiation  2026     1.000 0.968 32.500
+ PR      temperature_2m  2021     0.775 0.966  1.648
+ PR      temperature_2m  2022     1.000 0.973  1.628
+ PR      temperature_2m  2023     0.994 0.970  1.668
+ PR      temperature_2m  2024     0.950 0.981  1.140
+ PR      temperature_2m  2025     1.000 0.984  1.118
+ PR      temperature_2m  2026     1.000 0.986  1.220
+ PR      wind_speed_10m  2021     0.000   NaN    NaN
+ PR      wind_speed_10m  2022     0.000   NaN    NaN
+ PR      wind_speed_10m  2023     0.000   NaN    NaN
+ PR      wind_speed_10m  2024     0.950 0.713  0.762
+ PR      wind_speed_10m  2025     1.000 0.709  0.748
+ PR      wind_speed_10m  2026     1.000 0.735  0.726
+
+Verdict (PR = forecast made one day earlier):
+  D-1 forecasts usable from 2022 only -> ex-ante weather test possible as a sub-period check (2022->), main models keep __pf as upper bound (send this report to Claude).

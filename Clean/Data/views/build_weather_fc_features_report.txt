@@ -1,0 +1,59 @@
+weather forecast features (leads available: [1, 2, 3, 4, 5])
+
+fcr: share of blocks with a forecast value
+                  ch_temp_lw_degc__wxfc  ch_ghi_lw_wm2__wxfc  ch_rh_lw_pct__wxfc  ch_wind_lw_ms__wxfc  ch_temp_hydro_degc__wxfc  ch_precip_hydro_mm__wxfc
+procurement year                                                                                                                                         
+4h          2021                   0.77                 0.00                0.00                 0.00                      0.77                      0.00
+            2022                   1.00                 0.00                0.00                 0.00                      1.00                      0.00
+            2023                   0.99                 0.00                0.00                 0.00                      0.99                      0.00
+            2024                   0.95                 0.95                0.95                 0.95                      0.95                      0.95
+            2025                   1.00                 1.00                1.00                 1.00                      1.00                      1.00
+            2026                   1.00                 1.00                1.00                 1.00                      1.00                      1.00
+lead days used: {0: 2332, 1: 6, 2: 11781}
+
+afrr: share of blocks with a forecast value
+                  ch_temp_lw_degc__wxfc  ch_ghi_lw_wm2__wxfc  ch_rh_lw_pct__wxfc  ch_wind_lw_ms__wxfc  ch_temp_hydro_degc__wxfc  ch_precip_hydro_mm__wxfc
+procurement year                                                                                                                                         
+4h          2025                    1.0                  1.0                 1.0                  1.0                       1.0                       1.0
+            2026                    1.0                  1.0                 1.0                  1.0                       1.0                       1.0
+week        2021                    0.0                  0.0                 0.0                  0.0                       0.0                       0.0
+            2022                    0.0                  0.0                 0.0                  0.0                       0.0                       0.0
+            2023                    0.0                  0.0                 0.0                  0.0                       0.0                       0.0
+            2024                    0.0                  0.0                 0.0                  0.0                       0.0                       0.0
+            2025                    0.0                  0.0                 0.0                  0.0                       0.0                       0.0
+            2026                    0.0                  0.0                 0.0                  0.0                       0.0                       0.0
+lead days used: {0: 1040, 2: 768, 3: 1908, 4: 954, 5: 381}
+
+mfrr: share of blocks with a forecast value
+                  ch_temp_lw_degc__wxfc  ch_ghi_lw_wm2__wxfc  ch_rh_lw_pct__wxfc  ch_wind_lw_ms__wxfc  ch_temp_hydro_degc__wxfc  ch_precip_hydro_mm__wxfc
+procurement year                                                                                                                                         
+4h          2021                   0.77                 0.00                0.00                 0.00                      0.77                      0.00
+            2022                   1.00                 0.00                0.00                 0.00                      1.00                      0.00
+            2023                   0.99                 0.00                0.00                 0.00                      0.99                      0.00
+            2024                   0.94                 0.94                0.94                 0.94                      0.94                      0.94
+            2025                   1.00                 1.00                1.00                 1.00                      1.00                      1.00
+            2026                   1.00                 1.00                1.00                 1.00                      1.00                      1.00
+week        2021                   0.00                 0.00                0.00                 0.00                      0.00                      0.00
+            2022                   0.00                 0.00                0.00                 0.00                      0.00                      0.00
+            2023                   0.00                 0.00                0.00                 0.00                      0.00                      0.00
+            2024                   0.00                 0.00                0.00                 0.00                      0.00                      0.00
+            2025                   0.00                 0.00                0.00                 0.00                      0.00                      0.00
+            2026                   0.00                 0.00                0.00                 0.00                      0.00                      0.00
+lead days used: {0: 25331, 2: 4416, 3: 11032, 4: 5510, 5: 2206}
+
+rq3: share of quarter-hours with a forecast value
+ts_utc                       2021  2022  2023  2024  2025  2026
+ch_temp_lw_degc__wxfc_d1     0.77   1.0  0.99  0.95   1.0   1.0
+ch_ghi_lw_wm2__wxfc_d1       0.00   0.0  0.00  0.95   1.0   1.0
+ch_rh_lw_pct__wxfc_d1        0.00   0.0  0.00  0.95   1.0   1.0
+ch_wind_lw_ms__wxfc_d1       0.00   0.0  0.00  0.95   1.0   1.0
+ch_temp_hydro_degc__wxfc_d1  0.77   1.0  0.99  0.95   1.0   1.0
+ch_precip_hydro_mm__wxfc_d1  0.00   0.0  0.00  0.95   1.0   1.0
+ch_temp_lw_degc__wxfc_h1     0.78   1.0  0.99  0.95   1.0   1.0
+ch_ghi_lw_wm2__wxfc_h1       0.00   0.0  0.00  0.95   1.0   1.0
+ch_rh_lw_pct__wxfc_h1        0.00   0.0  0.00  0.95   1.0   1.0
+ch_wind_lw_ms__wxfc_h1       0.00   0.0  0.00  0.95   1.0   1.0
+ch_temp_hydro_degc__wxfc_h1  0.78   1.0  0.99  0.95   1.0   1.0
+ch_precip_hydro_mm__wxfc_h1  0.00   0.0  0.00  0.95   1.0   1.0
+
+leakage check: by construction (lead K allowed only if hour - K d + 6 h <= t0)

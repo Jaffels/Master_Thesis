@@ -1,0 +1,30 @@
+Swiss school holidays
+
+API entries: 1274 (2019-12-21 -> 2028-01-09), cantons with data: 26/26
+rules fitted (canton x holiday): 127; easter-linked: 27
+back-cast days before 2019-12-21
+
+leave-one-year-out test of the back-cast rules (holiday days, all cantons):
+ year  holiday_days_true  recall  precision
+ 2020               2398   0.905      0.925
+ 2021               2485   0.832      0.942
+ 2022               2403   0.864      0.936
+ 2023               2514   0.859      0.963
+ 2024               2531   0.875      0.964
+ 2025               2551   0.866      0.953
+ 2026               2481   0.882      0.933
+
+load-weighted share of Switzerland on school holiday, mean by month (2016-2026):
+m
+1     0.18
+2     0.22
+3     0.08
+4     0.43
+5     0.06
+6     0.05
+7     0.78
+8     0.49
+9     0.04
+10    0.46
+11    0.01
+12    0.28
