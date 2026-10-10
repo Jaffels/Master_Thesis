@@ -1,0 +1,69 @@
+RQ3a step 2: QH regime 149,088 rows; train 90,724 (to 2025-01-01), test 58,364; lambda 5.0
+  block cal: 19 features
+  block fund: 13 features
+  block hist: 7 features
+  block wx: 7 features
+  block err: 7 features
+
+=== short: spike_short_q990; train positives 2065, test positives 190
+
+=== long: spike_long_q010; train positives 1725, test positives 292
+
+-- short: test metrics
+                    n_features  n_test  test_pos   AUC  PR_AUC  PR_AUC_base  McFadden_R2  Brier_skill
+model                                                                                                
+cumulative to cal           19   58364       190 0.624   0.020        0.003        0.012       -0.174
+cumulative to fund          32   58364       190 0.683   0.020        0.003        0.215       -0.025
+cumulative to hist          39   58364       190 0.716   0.024        0.003        0.268        0.009
+cumulative to wx            46   58364       190 0.787   0.042        0.003        0.255       -0.084
+cumulative to err           53   58364       190 0.794   0.033        0.003        0.272       -0.088
+block alone: cal            19   58364       190 0.624   0.020        0.003        0.012       -0.174
+block alone: fund           13   58364       190 0.675   0.018        0.003        0.202       -0.015
+block alone: hist            7   58364       190 0.429   0.005        0.003        0.216        0.074
+block alone: wx              7   58364       190 0.623   0.010        0.003       -0.012       -0.190
+block alone: err             7   58364       190 0.525   0.004        0.003       -0.036       -0.064
+
+-- long: test metrics
+                    n_features  n_test  test_pos   AUC  PR_AUC  PR_AUC_base  McFadden_R2  Brier_skill
+model                                                                                                
+cumulative to cal           19   58364       292 0.881   0.043        0.005        0.099        0.003
+cumulative to fund          32   58364       292 0.909   0.093        0.005       -0.288       -1.056
+cumulative to hist          39   58364       292 0.903   0.095        0.005       -0.313       -1.083
+cumulative to wx            46   58364       292 0.907   0.084        0.005       -0.155       -0.869
+cumulative to err           53   58364       292 0.907   0.057        0.005       -0.312       -1.332
+block alone: cal            19   58364       292 0.881   0.043        0.005        0.099        0.003
+block alone: fund           13   58364       292 0.906   0.070        0.005       -0.212       -0.815
+block alone: hist            7   58364       292 0.576   0.006        0.005       -0.024       -0.016
+block alone: wx              7   58364       292 0.880   0.027        0.005        0.074       -0.045
+block alone: err             7   58364       292 0.752   0.016        0.005       -0.031       -0.102
+
+-- full model, standardised coefficients (log-odds per 1 sd), sorted by max |z|
+                                       coef_std_short  z_short  coef_std_long  z_long  sign_differs  max_abs_z
+feature                                                                                                       
+da_ch_rel30                                      0.98    25.51          -0.59  -16.78          True      25.51
+spikehist_short_q990__lb24h_d1                   0.41    21.30          -0.16   -2.15          True      21.30
+err_ch_solar_mw__lb24h_d1                       -0.45   -11.91          -0.18   -4.05         False      11.91
+de_lu_resid_load_da_fc_mw__fc_d1                 0.14     2.03          -0.58  -11.39          True      11.39
+hr_sin1                                          0.03     0.68          -0.52  -10.88          True      10.88
+ch_ghi_ramp_lw_wm2__pf                          -0.42    -9.85           0.50   10.55          True      10.55
+ch_gen_solar_da_fc_ramp_mw__fc_d1                0.17     6.75          -0.26   -9.97          True       9.97
+err_de_lu_solar_mw                              -0.11    -4.58           0.20    9.09          True       9.09
+ch_ghi_lw_wm2__pf                               -0.47    -5.11           0.80    9.04          True       9.04
+cal_xmas_period                                 -0.16    -1.26          -0.32   -8.72         False       8.72
+cal_doy_cos                                     -0.19    -2.02           0.62    8.38          True       8.38
+hr_sin2                                         -0.28    -6.91          -0.29   -7.31         False       7.31
+err_de_lu_load_mw                                0.21     4.35          -0.30   -7.30          True       7.30
+de_lu_gen_solar_da_fc_mw__fc_d1                  0.47     5.12          -0.54   -7.17          True       7.17
+hr_cos1                                         -0.54    -7.16           0.26    4.94          True       7.16
+de_lu_resid_load_da_fc_mw_ramp__fc_d1            0.07     1.84           0.27    6.63         False       6.63
+dow4                                            -0.22    -5.91          -0.23   -5.77         False       5.91
+err_ch_solar_mw                                 -0.35    -5.84           0.12    2.28          True       5.84
+ch_precip_hydro_mm__pf                           0.14     5.76           0.02    0.53         False       5.76
+ch_melt_dh_hydro_kh__pf                          0.65     5.43          -0.43   -3.99          True       5.43
+err_ch_load_mw__lb24h_d1                         0.15     3.99           0.20    5.41         False       5.41
+cal_doy_sin                                     -0.35    -5.16           0.03    0.60          True       5.16
+dow5                                            -0.23    -5.09          -0.18   -4.92         False       5.09
+ch_snow_hydro_cm__pf                             0.26     3.26          -0.30   -5.08          True       5.08
+hr_cos2                                          0.19     4.81          -0.03   -0.68          True       4.81
+
+features significant (|z|>3) on both sides with opposite sign: ['da_ch_rel30', 'ch_ghi_ramp_lw_wm2__pf', 'ch_gen_solar_da_fc_ramp_mw__fc_d1', 'err_de_lu_solar_mw', 'ch_ghi_lw_wm2__pf', 'err_de_lu_load_mw', 'de_lu_gen_solar_da_fc_mw__fc_d1', 'hr_cos1', 'ch_melt_dh_hydro_kh__pf', 'ch_snow_hydro_cm__pf']
