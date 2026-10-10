@@ -1,0 +1,142 @@
+
+== fcr|4h|de_zone_split|sym: not testable - data-limited (pre 2, post 1105 blocks, need 150) ==
+
+== fcr|4h|fcr_daily|sym: not testable - data-limited (pre 2, post 2711 blocks, need 150) ==
+
+== fcr|4h|fcr_4h|sym: pre 302 / post 3,270 blocks, R2 pre 0.41 post 0.23, joint test p = 0.0002 (F = 3.8); 3/8 coefficients differ (p<0.05) ==
+                   feature  coef_pre  coef_post   diff  t_diff  p_diff
+         de_lu_gen_coal_mw     0.048     -0.015 -0.062  -1.737   0.082
+      ch_tn_net_outflow_mw     0.129      0.046 -0.083  -2.319   0.020
+  de_ch_expl_price_eur_mwh     0.162      0.048 -0.114  -0.892   0.373
+       fr_gen_hydro_res_mw    -0.044     -0.051 -0.007  -0.235   0.814
+          fr_load_da_fc_mw    -0.078     -0.066  0.012   0.360   0.719
+de_lu_gen_wind_on_da_fc_mw     0.088      0.063 -0.025  -0.707   0.479
+  it_nord_gen_hydro_ror_mw     0.014     -0.039 -0.053  -2.396   0.017
+        at_gen_hydro_ps_mw    -0.036      0.035  0.071   2.287   0.022
+   placebo -12m [sym]: not testable - data-limited (pre 2, post 335 blocks, need 150)
+   placebo -24m [sym]: not testable - data-limited (pre 2, post 367 blocks, need 150)
+
+== fcr|weekly|de_zone_split|sym: not testable - data-limited (pre 102, post 33 blocks, need 60) ==
+
+== fcr|weekly|fcr_daily|sym: not testable - data-limited (pre 102, post 0 blocks, need 60) ==
+
+== fcr|weekly|fcr_4h|sym: not testable - data-limited (pre 51, post 0 blocks, need 60) ==
+
+== afrr|4h|de_zone_split|down: not testable - data-limited (pre 0, post 2 blocks, need 150) ==
+
+== afrr|4h|de_zone_split|sym: not testable - data-limited (pre 2, post 0 blocks, need 150) ==
+
+== afrr|4h|de_zone_split|up: not testable - data-limited (pre 0, post 2 blocks, need 150) ==
+
+== afrr|4h|afrr_split|all: not testable - data-limited (pre 2, post 4 blocks, need 150) ==
+
+== afrr|4h|afrr_fallback|down: not testable - data-limited (pre 2, post 914 blocks, need 150) ==
+
+== afrr|4h|afrr_fallback|up: not testable - data-limited (pre 2, post 914 blocks, need 150) ==
+
+== afrr|4h|afrr_daily|down: not testable - data-limited (pre 2, post 1997 blocks, need 150) ==
+
+== afrr|4h|afrr_daily|up: not testable - data-limited (pre 2, post 2004 blocks, need 150) ==
+
+== afrr|weekly|de_zone_split|down: not testable - data-limited (pre 16, post 102 blocks, need 60) ==
+
+== afrr|weekly|de_zone_split|sym: not testable - data-limited (pre 86, post 0 blocks, need 60) ==
+
+== afrr|weekly|de_zone_split|up: not testable - data-limited (pre 16, post 102 blocks, need 60) ==
+
+== afrr|weekly|afrr_split|all: pre 68 / post 174 blocks, R2 pre 0.70 post 0.35, joint test p = 0.0000 (F = 9.0); 1/4 coefficients differ (p<0.05) ==
+                    feature  coef_pre  coef_post   diff  t_diff  p_diff
+it_nord_hydro_reservoir_mwh    -0.094     -0.073  0.021   0.475   0.635
+       it_nord_ch_ntc_da_mw     0.059      0.082  0.023   0.680   0.496
+        ch_gen_hydro_res_mw    -0.200     -0.013  0.187   5.174   0.000
+  it_nord_load_wa_fc_min_mw    -0.024     -0.055 -0.031  -0.962   0.336
+   placebo -12m [all]: not testable - data-limited (pre 103, post 47 blocks, need 60)
+   placebo -24m [all]: not testable - too few complete rows (pre 58, post 89)
+
+== afrr|weekly|afrr_fallback|down: pre 82 / post 81 blocks, R2 pre 0.64 post 0.68, joint test p = 0.1767 (F = 1.6); 0/4 coefficients differ (p<0.05) ==
+                feature  coef_pre  coef_post  diff  t_diff  p_diff
+ fr_hydro_reservoir_mwh    -0.193     -0.181 0.013   0.128   0.898
+      ch_fr_sched_da_mw    -0.219     -0.077 0.143   1.936   0.053
+ce_freq_out_50mhz_share     0.111      0.179 0.068   1.112   0.266
+   it_nord_ch_ntc_ma_mw     0.115      0.151 0.036   0.521   0.603
+
+== afrr|weekly|afrr_fallback|up: pre 82 / post 81 blocks, R2 pre 0.61 post 0.46, joint test p = 0.0010 (F = 4.9); 2/4 coefficients differ (p<0.05) ==
+                     feature  coef_pre  coef_post   diff  t_diff  p_diff
+      ch_melt_dh_7d_hydro_kh    -0.098     -0.066  0.032   0.793   0.428
+at_ch_outage_trans_planned_n     0.091      0.023 -0.068  -2.041   0.041
+ it_nord_hydro_reservoir_mwh    -0.142     -0.086  0.056   0.769   0.442
+                ch_rh_lw_pct     0.123      0.001 -0.121  -2.615   0.009
+   placebo -12m [down]: not testable - data-limited (pre 103, post 47 blocks, need 60)
+   placebo -12m [up]: not testable - data-limited (pre 103, post 47 blocks, need 60)
+   placebo -24m [down]: pre 91 / post 83, joint p = 0.0026 (F = 4.3) -> placebo is as large or larger
+   placebo -24m [up]: pre 91 / post 83, joint p = 0.0016 (F = 4.6) -> real break EXCEEDS placebo
+
+== afrr|weekly|afrr_daily|down: not testable - data-limited (pre 102, post 46 blocks, need 60) ==
+
+== afrr|weekly|afrr_daily|up: not testable - data-limited (pre 102, post 46 blocks, need 60) ==
+
+== mfrr|4h|de_zone_split|down: pre 3,251 / post 3,403 blocks, R2 pre 0.08 post 0.16, joint test p = 0.0364 (F = 2.1); 2/8 coefficients differ (p<0.05) ==
+                     feature  coef_pre  coef_post   diff  t_diff  p_diff
+   it_nord_load_ya_fc_max_mw    -0.166     -0.038  0.128   2.382   0.017
+         ch_gen_hydro_res_mw    -0.128     -0.076  0.052   1.079   0.280
+   it_nord_load_wa_fc_min_mw    -0.005     -0.049 -0.045  -0.721   0.471
+fr_ch_outage_trans_planned_n    -0.103     -0.062  0.041   0.934   0.350
+        ch_load_wa_fc_max_mw    -0.054     -0.082 -0.029  -0.543   0.587
+   it_nord_load_ya_fc_min_mw    -0.013     -0.196 -0.183  -2.982   0.003
+        it_nord_ch_ntc_da_mw     0.045      0.082  0.037   0.936   0.349
+    it_nord_price_da_eur_mwh     0.059      0.009 -0.050  -0.968   0.333
+
+== mfrr|4h|de_zone_split|up: pre 2,933 / post 3,351 blocks, R2 pre 0.47 post 0.21, joint test p = 0.0000 (F = 5.1); 1/8 coefficients differ (p<0.05) ==
+                 feature  coef_pre  coef_post   diff  t_diff  p_diff
+    de_lu_load_actual_mw     0.419      0.459  0.040   0.342   0.732
+     ch_price_da_eur_mwh     0.231      0.067 -0.163  -1.957   0.050
+    fr_load_wa_fc_max_mw     0.329      0.085 -0.243  -3.411   0.001
+           fr_gen_gas_mw    -0.090     -0.092 -0.002  -0.032   0.974
+      ch_gen_hydro_ps_mw     0.090      0.099  0.009   0.163   0.871
+it_nord_gen_hydro_res_mw     0.082      0.039 -0.043  -0.817   0.414
+     at_price_da_eur_mwh    -0.102     -0.002  0.100   1.357   0.175
+      de_lu_gen_total_mw    -0.088     -0.121 -0.033  -0.399   0.690
+   placebo -12m [down]: pre 2,601 / post 1,634, joint p = 0.0000 (F = 7.7) -> placebo is as large or larger
+   placebo -12m [up]: pre 2,523 / post 1,416, joint p = 0.0000 (F = 6.5) -> placebo is as large or larger
+   placebo -24m [down]: pre 1,503 / post 2,968, joint p = 0.0000 (F = 4.7) -> placebo is as large or larger
+   placebo -24m [up]: pre 1,253 / post 2,580, joint p = 0.0109 (F = 2.5) -> real break EXCEEDS placebo
+
+== mfrr|4h|mfrr_merged|all: pre 3,048 / post 2,935 blocks, R2 pre 0.17 post 0.12, joint test p = 0.0000 (F = 6.5); 4/8 coefficients differ (p<0.05) ==
+                        feature  coef_pre  coef_post   diff  t_diff  p_diff
+       ch_outage_gen_planned_mw     0.138      0.069 -0.069  -1.978   0.048
+         fr_hydro_reservoir_mwh    -0.159     -0.009  0.150   3.951   0.000
+         it_nord_gen_biomass_mw    -0.079     -0.091 -0.011  -0.386   0.700
+           de_lu_gen_biomass_mw    -0.162     -0.037  0.125   4.765   0.000
+ch_de_lu_outage_trans_planned_n     0.140      0.075 -0.065  -2.118   0.034
+   de_lu_outage_prod_planned_mw     0.043      0.065  0.023   0.831   0.406
+             de_lu_gen_other_mw     0.066      0.079  0.013   0.433   0.665
+        fr_outage_gen_forced_mw     0.086      0.031 -0.055  -1.836   0.066
+   placebo -12m [all]: pre 4,337 / post 2,670, joint p = 0.0000 (F = 16.3) -> placebo is as large or larger
+   placebo -24m [all]: pre 5,455 / post 3,380, joint p = 0.0000 (F = 6.0) -> real break EXCEEDS placebo
+
+== mfrr|weekly|de_zone_split|down: pre 77 / post 82 blocks, R2 pre 0.67 post 0.31, joint test p = 0.0000 (F = 11.6); 1/4 coefficients differ (p<0.05) ==
+                      feature  coef_pre  coef_post   diff  t_diff  p_diff
+       ch_melt_dh_7d_hydro_kh    -0.150     -0.105  0.045   0.706   0.480
+it_nord_outage_gen_planned_mw     0.089      0.098  0.009   0.179   0.858
+           ch_gen_hydro_ps_mw    -0.221     -0.005  0.216   5.809   0.000
+     ch_it_nord_expl_offer_mw     0.102      0.083 -0.019  -0.314   0.754
+
+== mfrr|weekly|de_zone_split|up: pre 77 / post 82 blocks, R2 pre 0.50 post 0.15, joint test p = 0.0000 (F = 7.3); 1/4 coefficients differ (p<0.05) ==
+                 feature  coef_pre  coef_post   diff  t_diff  p_diff
+ch_it_nord_expl_alloc_mw     0.111      0.073 -0.037  -0.690   0.490
+ ch_gen_wind_on_da_fc_mw     0.134      0.034 -0.100  -2.119   0.034
+         fr_ch_ntc_ma_mw     0.207      0.039 -0.168  -1.627   0.104
+          at_gen_coal_mw     0.095      0.017 -0.078  -1.688   0.091
+   placebo -12m [down]: not testable - data-limited (pre 102, post 46 blocks, need 60)
+   placebo -12m [up]: not testable - data-limited (pre 102, post 46 blocks, need 60)
+   placebo -24m [down]: pre 64 / post 86, joint p = 0.5699 (F = 0.7) -> real break EXCEEDS placebo
+   placebo -24m [up]: pre 68 / post 86, joint p = 0.2994 (F = 1.2) -> real break EXCEEDS placebo
+
+== mfrr|weekly|mfrr_merged|all: pre 186 / post 70 blocks, R2 pre 0.55 post 0.66, joint test p = 0.0007 (F = 5.0); 1/4 coefficients differ (p<0.05) ==
+                 feature  coef_pre  coef_post  diff  t_diff  p_diff
+  ch_hydro_reservoir_mwh    -0.104     -0.084 0.020   0.570   0.568
+ ce_freq_out_50mhz_share     0.062      0.108 0.046   1.158   0.247
+  ch_melt_dh_7d_hydro_kh    -0.131     -0.071 0.060   1.613   0.107
+fr_outage_gen_planned_mw     0.053      0.136 0.083   2.529   0.011
+   placebo -12m [all]: pre 184 / post 90, joint p = 0.6445 (F = 0.6) -> real break EXCEEDS placebo
+   placebo -24m [all]: pre 160 / post 188, joint p = 0.9687 (F = 0.1) -> real break EXCEEDS placebo

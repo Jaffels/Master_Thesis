@@ -1,0 +1,80 @@
+
+== afrr|down|week: 288 weekly changes, 286 drivers; x->y significant at q<0.05 (lag 2): 21; y->x: 5 ==
+                    feature   n  p_x2y_L1  p_x2y_L2  p_x2y_L4  q_x2y_L2  p_y2x_L2   corr0
+     fr_hydro_reservoir_mwh 277    0.0001    0.0000    0.0000    0.0002    0.1044 -0.1898
+        fr_price_da_eur_mwh 284    0.0384    0.0001    0.0003    0.0095    0.1203 -0.2021
+        ch_price_da_eur_mwh 284    0.4332    0.0001    0.0006    0.0095    0.4858 -0.2625
+         it_nord_gen_gas_mw 284    0.0530    0.0001    0.0004    0.0095    0.1672 -0.2603
+          at_load_actual_mw 284    0.5004    0.0004    0.0027    0.0231    0.0519 -0.3217
+        at_price_da_eur_mwh 284    0.1386    0.0007    0.0014    0.0302    0.2267 -0.2330
+it_nord_hydro_reservoir_mwh 284    0.0024    0.0008    0.0026    0.0302    0.5003 -0.2204
+       de_lu_load_actual_mw 284    0.1152    0.0008    0.0017    0.0302    0.1022 -0.3066
+     it_nord_ch_sched_da_mw 284    0.0781    0.0012    0.0001    0.0348    0.0463 -0.2300
+           at_load_da_fc_mw 284    0.0267    0.0012    0.0065    0.0348    0.0000 -0.2784
+       it_nord_ch_ntc_ma_mw 284    0.0009    0.0015    0.0056    0.0370    0.5931  0.1812
+       it_nord_gen_total_mw 284    0.0246    0.0017    0.0036    0.0370    0.0866 -0.3097
+-- differenced regression afrr|down|week: n=288 R2=0.215
+                    feature   coef    se      t
+      it_nord_load_da_fc_mw -0.056 0.018 -3.086
+it_nord_hydro_reservoir_mwh -0.056 0.016 -3.533
+  ch_imb_price_long_eur_mwh -0.047 0.020 -2.281
+           at_load_da_fc_mw -0.040 0.013 -2.996
+
+== afrr|up|week: 288 weekly changes, 286 drivers; x->y significant at q<0.05 (lag 2): 0; y->x: 0 ==
+                    feature   n  p_x2y_L1  p_x2y_L2  p_x2y_L4  q_x2y_L2  p_y2x_L2   corr0
+         ch_gen_hydro_ps_mw 284    0.7572    0.0026    0.0115    0.2696    0.8443  0.0719
+       at_ch_sched_total_mw 284    0.0032    0.0028    0.0100    0.2696    0.7037 -0.0699
+       it_nord_ch_ntc_da_mw 284    0.0010    0.0036    0.0140    0.2696    0.7724  0.0166
+        at_gen_hydro_res_mw 284    0.0148    0.0038    0.0016    0.2696    0.9857 -0.0215
+           de_lu_gen_oil_mw 284    0.4928    0.0075    0.0269    0.3721    0.0821  0.0414
+     fr_hydro_reservoir_mwh 277    0.0032    0.0098    0.0014    0.3721    0.7213 -0.1641
+          at_ch_sched_da_mw 284    0.0094    0.0114    0.0241    0.3721    0.8555 -0.0456
+it_nord_hydro_reservoir_mwh 284    0.0106    0.0128    0.0223    0.3721    0.5286 -0.1562
+         at_gen_hydro_ps_mw 284    0.3929    0.0137    0.0403    0.3721    0.5100  0.0343
+de_lu_gen_wind_off_da_fc_mw 284    0.0702    0.0153    0.0688    0.3721    0.5661 -0.0895
+           ch_load_da_fc_mw 284    0.0118    0.0177    0.0826    0.3721    0.2577  0.0763
+   ch_at_expl_price_eur_mwh 284    0.5168    0.0192    0.0377    0.3721    0.3701  0.0006
+-- differenced regression afrr|up|week: n=279 R2=0.110
+                    feature   coef    se      t
+     it_nord_gen_wind_on_mw  0.045 0.011  4.266
+it_nord_hydro_reservoir_mwh -0.028 0.010 -2.814
+            at_gen_solar_mw  0.024 0.014  1.751
+
+== mfrr|down|week: 288 weekly changes, 286 drivers; x->y significant at q<0.05 (lag 2): 0; y->x: 3 ==
+                    feature   n  p_x2y_L1  p_x2y_L2  p_x2y_L4  q_x2y_L2  p_y2x_L2   corr0
+    de_lu_load_ya_fc_max_mw 218    0.0027    0.0010    0.0113    0.1760    0.1771 -0.1445
+   it_nord_gen_hydro_res_mw 284    0.0003    0.0012    0.0001    0.1760    0.8242 -0.1088
+     fr_hydro_reservoir_mwh 277    0.0028    0.0024    0.0036    0.1919    0.7112 -0.1442
+              at_gen_gas_mw 284    0.0022    0.0029    0.0204    0.1919    0.0250 -0.1498
+        ch_gen_hydro_res_mw 284    0.0011    0.0034    0.0164    0.1919    0.9931 -0.1827
+it_nord_hydro_reservoir_mwh 284    0.0064    0.0046    0.0108    0.2203    0.5775 -0.1622
+        at_gen_hydro_res_mw 284    0.0048    0.0099    0.0301    0.2881    0.7710 -0.0930
+    de_lu_load_ya_fc_min_mw 218    0.0033    0.0100    0.0339    0.2881    0.4416 -0.0778
+          at_load_actual_mw 284    0.0393    0.0109    0.0437    0.2881    0.0108 -0.1935
+    de_lu_load_ma_fc_max_mw 190    0.0098    0.0123    0.0542    0.2881    0.1180 -0.2042
+         it_nord_gen_gas_mw 284    0.0137    0.0128    0.0254    0.2881    0.4554 -0.2266
+       it_nord_gen_total_mw 284    0.0067    0.0131    0.0753    0.2881    0.8540 -0.2233
+-- differenced regression mfrr|down|week: n=288 R2=0.136
+               feature   coef    se      t
+  fr_load_wa_fc_max_mw -0.045 0.011 -4.194
+  ch_it_nord_ntc_da_mw -0.037 0.013 -2.897
+ch_precip_30d_hydro_mm  0.037 0.011  3.313
+
+== mfrr|up|week: 288 weekly changes, 286 drivers; x->y significant at q<0.05 (lag 2): 0; y->x: 0 ==
+                    feature   n  p_x2y_L1  p_x2y_L2  p_x2y_L4  q_x2y_L2  p_y2x_L2   corr0
+    de_lu_load_ya_fc_max_mw 218    0.0006    0.0009    0.0081    0.2547    0.4371  0.1962
+    de_lu_load_ma_fc_min_mw 190    0.0064    0.0025    0.0046    0.3560    0.0062  0.0699
+       it_nord_gen_other_mw 284    0.0073    0.0060    0.0172    0.5709    0.2373  0.0706
+      ch_de_countertrade_mw 284    0.0156    0.0100    0.0362    0.6049    0.2180  0.1326
+it_nord_hydro_reservoir_mwh 284    0.0049    0.0143    0.0210    0.6049    0.9151 -0.2001
+    de_lu_load_ya_fc_min_mw 218    0.0391    0.0151    0.0150    0.6049    0.0091  0.0594
+     ch_melt_dh_7d_hydro_kh 284    0.0339    0.0196    0.0247    0.6049    0.0169 -0.1212
+        ch_melt_dh_hydro_kh 284    0.1673    0.0200    0.0349    0.6049    0.0454 -0.0903
+     fr_hydro_reservoir_mwh 277    0.0049    0.0204    0.0427    0.6049    0.3999 -0.2104
+       fr_load_ya_fc_min_mw 218    0.0842    0.0241    0.0547    0.6049    0.8977  0.0672
+         de_lu_gen_other_mw 284    0.0089    0.0248    0.0557    0.6049    0.7518  0.0914
+        ch_price_da_eur_mwh 284    0.0086    0.0291    0.0529    0.6049    0.3742 -0.0082
+-- differenced regression mfrr|up|week: n=283 R2=0.098
+               feature   coef    se      t
+at_hydro_reservoir_mwh -0.045 0.012 -3.698
+   de_lu_load_da_fc_mw  0.032 0.011  2.820
