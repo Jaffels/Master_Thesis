@@ -1,0 +1,24 @@
+RQ2 9.2d - ridge benchmark (impute=True), delta target, rolling origin (same folds as LightGBM)
+
+MAE in EUR/MWh on the common rows of the model and all baselines (skill = 1 - MAE_ridge / MAE_naive).
+DM_lgbm_vs_ridge: stat < 0 = LightGBM more accurate than ridge (same rows).
+                               n  MAE_ridge  RMSE_ridge  MAE_naive  skill_vs_naive_%  DM_vs_naive_p  n_common_lgbm  MAE_ridge_common  MAE_lgbm_common  DM_lgbm_vs_ridge_stat  DM_lgbm_vs_ridge_p
+series         set                                                                                                                                                                              
+FCR|sym|4h     ridge_all   12414      4.929       8.217      4.938             0.180          0.871          12414             4.929            4.739                 -3.781               0.000
+aFRR|down|4h   ridge_all    1444      1.538       4.227      1.526            -0.754          0.513           1444             1.538            1.400                 -4.165               0.000
+aFRR|down|week ridge_all     295      4.290       8.875      4.939            13.137          0.031            295             4.290            4.333                  0.213               0.831
+aFRR|up|4h     ridge_all    1451      0.390       0.714      0.274           -42.577          0.000           1451             0.390            0.259                 -4.507               0.000
+aFRR|up|week   ridge_all     295      1.537       3.611      1.477            -4.032          0.239            295             1.537            1.449                 -2.027               0.043
+mFRR|down|4h   ridge_all    9341      4.298      10.435      4.405             2.438          0.106           9226             4.305            4.048                 -4.277               0.000
+mFRR|down|week ridge_all     295      1.767       3.041      1.840             3.972          0.318            295             1.767            1.798                  0.268               0.789
+mFRR|up|4h     ridge_all   10013      1.058       3.048      1.177            10.070          0.000           9958             1.057            0.890                 -7.562               0.000
+mFRR|up|week   ridge_all     295      0.605       1.534      0.592            -2.073          0.434            295             0.605            0.577                 -2.085               0.037
+FCR|sym|4h     ridge_core  12414      4.993       8.431      4.938            -1.131          0.407          12414             4.993            4.739                 -4.560               0.000
+aFRR|down|4h   ridge_core   1444      1.684       4.724      1.526           -10.313          0.021           1444             1.684            1.400                 -3.821               0.000
+aFRR|down|week ridge_core    295      5.117      10.086      4.939            -3.599          0.752            295             5.117            4.333                 -1.474               0.141
+aFRR|up|4h     ridge_core   1451      0.265       0.601      0.274             3.170          0.000           1451             0.265            0.259                 -1.793               0.073
+aFRR|up|week   ridge_core    295      1.566       3.670      1.477            -6.010          0.083            295             1.566            1.449                 -2.321               0.020
+mFRR|down|4h   ridge_core   9341      4.480      10.743      4.405            -1.686          0.432           9226             4.471            4.048                 -5.107               0.000
+mFRR|down|week ridge_core    295      1.742       2.938      1.840             5.310          0.330            295             1.742            1.798                  0.459               0.646
+mFRR|up|4h     ridge_core  10013      1.055       3.205      1.177            10.402          0.001           9958             1.052            0.890                 -5.512               0.000
+mFRR|up|week   ridge_core    295      0.574       1.488      0.592             3.063          0.488            295             0.574            0.577                  0.105               0.916
