@@ -1,0 +1,213 @@
+RQ3a step 1: 365,376 quarter-hours, 2016-03-31 00:00:00+02:00 -> 2026-08-31 23:45:00+02:00
+==========================================================================================
+A. Catalogue (quarter-hours flagged, episodes, severity)
+==========================================================================================
+
+-- by year
+             spike_qh  share  episodes  len_median  len_max        peak  excess_mean
+side  group                                                                         
+short 2016        859  0.032       147       3.000       54     429.700        8.701
+      2017        641  0.018        42      14.000       68   2,288.200       74.104
+      2018        389  0.011        23      10.000       73   5,637.000      496.011
+      2019        160  0.005        15       7.000       48   5,131.400      934.399
+      2020        659  0.019        61       8.000       56   8,170.000      181.008
+      2021       3614  0.103       266       9.000      168   1,051.700       31.475
+      2022       1509  0.043       278       2.000      148   6,332.100      136.965
+      2023         73  0.002        36       1.000        9   7,227.800    1,118.380
+      2024        825  0.023       412       1.000       24  14,864.600      547.349
+      2025         56  0.002        34       1.000        4   5,565.900      685.433
+      2026        134  0.006        85       1.000       11   1,719.300      107.358
+long  2016        187  0.007        18       7.500       32    -221.000       49.247
+      2017        628  0.018        36      14.500       91    -494.900       81.791
+      2018        396  0.011        22      16.000       67    -401.500       68.880
+      2019        130  0.004        11      10.000       32    -420.100       66.438
+      2020        174  0.005        21       8.000       16    -477.600       68.350
+      2021        358  0.010        34       8.000       32    -555.500       66.260
+      2022        607  0.017       325       1.000       24  -3,275.400      222.427
+      2023        476  0.014       247       1.000       23 -16,505.500      451.738
+      2024        688  0.020       295       1.000       26 -16,272.900      855.246
+      2025        130  0.004        47       2.000       12  -6,825.800      640.882
+      2026        162  0.007        82       1.000       11  -6,884.800      274.406
+
+-- by res
+                       spike_qh  share  episodes  len_median  len_max        peak  excess_mean
+side  group                                                                                   
+short hourly_dominant      4797  0.034       365       8.000      168   8,170.000      113.784
+      mixed                1867  0.024       207       4.000       73   3,183.000       50.296
+      qh                   2255  0.015       827       1.000       73  14,864.600      403.341
+long  hourly_dominant       931  0.007        80       8.500       67    -555.500       64.767
+      mixed                 988  0.013        66      12.500       91    -494.900       72.066
+      qh                   2017  0.014       992       1.000       26 -16,505.500      492.556
+
+-- by pricing
+              spike_qh  share  episodes  len_median  len_max        peak  excess_mean
+side  group                                                                          
+short dual        8785  0.026      1314       2.000      168  14,864.600      286.438
+      single       134  0.006        85       1.000       11   1,719.300      107.358
+long  dual        3774  0.011      1056       1.000       91 -16,505.500      450.807
+      single       162  0.007        82       1.000       11  -6,884.800      274.406
+
+-- share of QH flagged, all thresholds (by year)
+      spike_short_q975  spike_short_q990  spike_short_q995  spike_short_z30  spike_long_q025  spike_long_q010  spike_long_q005
+year                                                                                                                          
+2016             0.123             0.032             0.048            0.003            0.021            0.007            0.011
+2017             0.036             0.018             0.012            0.020            0.036            0.018            0.008
+2018             0.022             0.011             0.008            0.014            0.022            0.011            0.006
+2019             0.008             0.005             0.004            0.007            0.016            0.004            0.002
+2020             0.036             0.019             0.008            0.022            0.019            0.005            0.002
+2021             0.238             0.103             0.044            0.012            0.017            0.010            0.005
+2022             0.096             0.043             0.025            0.023            0.043            0.017            0.010
+2023             0.002             0.002             0.002            0.020            0.037            0.014            0.007
+2024             0.054             0.023             0.011            0.063            0.061            0.020            0.008
+2025             0.007             0.002             0.001            0.043            0.013            0.004            0.002
+2026             0.015             0.006             0.003            0.007            0.014            0.007            0.003
+
+Jaccard short q990 vs z30: 0.275
+
+==========================================================================================
+B. Calendar patterns
+==========================================================================================
+
+-- day-level flag tests, window all (share of days with >= 1 spike QH)
+               share  ratio_to_base  n_days_on  share_on  share_off      z     p
+side  level                                                                     
+short weekend    NaN            NaN  1,088.000     0.098      0.194 -7.125 0.000
+      holiday    NaN            NaN     93.000     0.054      0.169 -2.951 0.003
+      bridge     NaN            NaN     27.000     0.037      0.167 -1.810 0.070
+      xmas       NaN            NaN    140.000     0.057      0.170 -3.535 0.000
+      dst        NaN            NaN     20.000     0.050      0.167 -1.401 0.161
+      school     NaN            NaN    887.000     0.170      0.165  0.358 0.720
+long  weekend    NaN            NaN  1,088.000     0.213      0.137  5.794 0.000
+      holiday    NaN            NaN     93.000     0.247      0.157  2.359 0.018
+      bridge     NaN            NaN     27.000     0.222      0.159  0.902 0.367
+      xmas       NaN            NaN    140.000     0.243      0.156  2.766 0.006
+      dst        NaN            NaN     20.000     0.450      0.157  3.569 0.000
+      school     NaN            NaN    887.000     0.180      0.152  1.993 0.046
+   short: hours with highest spike share: 19h x2.2, 18h x2.1, 08h x1.9, 09h x1.7, 17h x1.6
+   long: hours with highest spike share: 13h x2.2, 14h x2.0, 12h x1.9, 15h x1.8, 16h x1.4
+
+-- day-level flag tests, window qh (share of days with >= 1 spike QH)
+               share  ratio_to_base  n_days_on  share_on  share_off      z     p
+side  level                                                                     
+short weekend    NaN            NaN    444.000     0.173      0.251 -3.276 0.001
+      holiday    NaN            NaN     38.000     0.132      0.231 -1.442 0.149
+      bridge     NaN            NaN     12.000     0.083      0.230 -1.203 0.229
+      xmas       NaN            NaN     56.000     0.089      0.234 -2.528 0.011
+      dst        NaN            NaN      8.000     0.125      0.229 -0.700 0.484
+      school     NaN            NaN    394.000     0.244      0.223  0.824 0.410
+long  weekend    NaN            NaN    444.000     0.387      0.285  3.930 0.000
+      holiday    NaN            NaN     38.000     0.474      0.310  2.144 0.032
+      bridge     NaN            NaN     12.000     0.333      0.314  0.143 0.886
+      xmas       NaN            NaN     56.000     0.411      0.311  1.584 0.113
+      dst        NaN            NaN      8.000     0.500      0.313  1.135 0.256
+      school     NaN            NaN    394.000     0.317      0.313  0.150 0.881
+   short: hours with highest spike share: 19h x2.0, 18h x1.9, 17h x1.8, 20h x1.4, 11h x1.4
+   long: hours with highest spike share: 13h x2.9, 12h x2.7, 14h x2.3, 15h x1.9, 10h x1.6
+
+==========================================================================================
+C. Trigger vs duration (hour boundary) and direction check; QH regime only
+==========================================================================================
+short: episodes (len>=2, QH regime) n=397; ending at :45 = 0.380 (uniform 0.25), z = 6.00
+short: share of spike QH whose ch_imb_vol_mwh has the expected sign = 0.813 (n=2255)
+long: episodes (len>=2, QH regime) n=399; ending at :45 = 0.283 (uniform 0.25), z = 1.53
+long: share of spike QH whose ch_imb_vol_mwh has the expected sign = 0.910 (n=2017)
+
+-- minute-of-hour of spike QH / episode starts / ends and mean signed imbalance volume (+ = in spike direction)
+              share_spike_qh  share_episode_starts  share_episode_ends  mean_signed_imb_vol_mwh
+side  minute                                                                                   
+short 0                0.278                 0.393               0.259                   50.643
+      15               0.230                 0.126               0.255                   45.298
+      30               0.212                 0.206               0.088                   45.238
+      45               0.280                 0.276               0.398                   48.740
+long  0                0.314                 0.332               0.413                   56.821
+      15               0.174                 0.128               0.115                   66.004
+      30               0.176                 0.121               0.095                   69.000
+      45               0.336                 0.419               0.377                   62.591
+
+==========================================================================================
+D. Ex-post driver profile: standardised mean difference spike vs no-spike
+   (variables demeaned within year x month x hour-of-day; sd = sd of the demeaned no-spike values)
+==========================================================================================
+
+-- short, window qh: 12 largest standardised differences
+                          n_spike  std_diff    se
+variable                                         
+ch_afrr_up_act_mw            2255     2.282 0.022
+ch_price_da_eur_mwh          2255     1.542 0.021
+fr_price_da_eur_mwh          2255     1.509 0.021
+at_price_da_eur_mwh          2255     1.473 0.021
+it_nord_price_da_eur_mwh     2255     1.437 0.021
+de_lu_price_da_eur_mwh       2255     1.308 0.021
+tgt_imb_vol_mwh              2255    -1.063 0.021
+ch_ghi_lw_wm2__pf            2255    -0.551 0.021
+cal_school_holiday_share     2255    -0.526 0.021
+ch_net_export_mw             2255     0.459 0.021
+ch_mfrr_up_act_all_mw        2255     0.434 0.021
+ch_ghi_ramp_lw_wm2__pf       2255    -0.428 0.021
+
+-- long, window qh: 12 largest standardised differences
+                          n_spike  std_diff    se
+variable                                         
+ch_afrr_down_act_mw          2017     2.965 0.023
+tgt_imb_vol_mwh              2017     1.612 0.023
+ch_mfrr_down_act_all_mw      2017     1.187 0.023
+ch_ghi_lw_wm2__pf            2017     0.826 0.022
+ch_price_da_eur_mwh          2017    -0.784 0.022
+at_price_da_eur_mwh          2017    -0.698 0.022
+de_lu_price_da_eur_mwh       2017    -0.657 0.022
+fr_price_da_eur_mwh          2017    -0.587 0.022
+it_nord_price_da_eur_mwh     2017    -0.541 0.022
+ce_freq_mean_abs_df_mhz      1963     0.447 0.023
+ch_afrr_up_act_mw            2017    -0.439 0.022
+ch_ghi_ramp_lw_wm2__pf       2017     0.408 0.022
+
+-- short, window all: 12 largest standardised differences
+                          n_spike  std_diff    se
+variable                                         
+it_nord_price_da_eur_mwh     8919     1.418 0.011
+ch_price_da_eur_mwh          8919     1.408 0.011
+fr_price_da_eur_mwh          8919     1.304 0.011
+at_price_da_eur_mwh          8919     1.282 0.011
+de_lu_price_da_eur_mwh       8919     1.190 0.011
+ch_net_export_mw             8919     0.703 0.011
+tgt_imb_vol_mwh              8919    -0.684 0.011
+ch_afrr_up_act_mw            8919     0.643 0.011
+ch_load_actual_mw            8919     0.618 0.011
+ch_mfrr_up_act_all_mw        8919     0.472 0.011
+cal_school_holiday_share     8919    -0.327 0.011
+ch_temp_lw_degc__pf          8919    -0.323 0.011
+
+-- long, window all: 12 largest standardised differences
+                          n_spike  std_diff    se
+variable                                         
+tgt_imb_vol_mwh              3936     1.609 0.016
+ch_mfrr_down_act_all_mw      3936     1.571 0.016
+ch_afrr_down_act_mw          3936     1.510 0.016
+ch_price_da_eur_mwh          3936    -0.868 0.016
+at_price_da_eur_mwh          3936    -0.770 0.016
+de_lu_price_da_eur_mwh       3936    -0.719 0.016
+fr_price_da_eur_mwh          3936    -0.643 0.016
+ch_ghi_lw_wm2__pf            3936     0.641 0.016
+it_nord_price_da_eur_mwh     3936    -0.515 0.016
+err_ch_solar_mw              3936     0.484 0.016
+ch_temp_lw_degc__pf          3936     0.389 0.016
+ch_net_export_mw             3936    -0.331 0.016
+
+-- long vs short contrast (qh window): 15 largest |std_diff_long - std_diff_short|
+side                       long  short  diff_long_minus_short
+variable                                                     
+ch_afrr_down_act_mw       2.965 -0.370                  3.335
+ch_afrr_up_act_mw        -0.439  2.282                 -2.721
+tgt_imb_vol_mwh           1.612 -1.063                  2.674
+ch_price_da_eur_mwh      -0.784  1.542                 -2.326
+at_price_da_eur_mwh      -0.698  1.473                 -2.171
+fr_price_da_eur_mwh      -0.587  1.509                 -2.096
+it_nord_price_da_eur_mwh -0.541  1.437                 -1.978
+de_lu_price_da_eur_mwh   -0.657  1.308                 -1.965
+ch_ghi_lw_wm2__pf         0.826 -0.551                  1.377
+ch_mfrr_down_act_all_mw   1.187 -0.130                  1.317
+ch_ghi_ramp_lw_wm2__pf    0.408 -0.428                  0.836
+err_ch_solar_mw           0.407 -0.411                  0.818
+ch_mfrr_up_act_all_mw    -0.348  0.434                 -0.782
+ch_net_export_mw         -0.238  0.459                 -0.696
+cal_school_holiday_share  0.130 -0.526                  0.656
