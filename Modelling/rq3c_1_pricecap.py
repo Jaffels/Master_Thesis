@@ -27,6 +27,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import run_utils as RU  # run.log, run_meta.json, run history, macOS notification
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "Clean"))
@@ -123,6 +124,7 @@ def boot(w_pre, raw_pre, all_pre, w_post, raw_post, all_post, side, rng):
 
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
+    RU.set_output(OUT)
     df = load()
     log(f"RQ3c: {len(df):,} quarter-hours; cap date {CAP.date()}")
     rng = np.random.default_rng(SEED)
@@ -175,4 +177,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    RU.run(main, "RQ3c price cap")

@@ -29,6 +29,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import run_utils as RU  # run.log, run_meta.json, run history, macOS notification
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
@@ -188,8 +189,10 @@ def evaluate(tr, te, cols, target, lam):
     res = {"n_features": len(cols), "n_test": len(yte), "test_pos": int(yte.sum()), "AUC": auc(yte, p),
            "PR_AUC": avg_precision(yte, p), "PR_AUC_base": float(yte.mean()),
            "McFadden_R2": 1 - loglik(yte, p) / ll0, "Brier_skill": 1 - brier / brier0}
-    coef = pd.DataFrame({"feature": cols, "coef_std": beta[1:], "z": beta[1:] / se[1:]})
-    return res, coef
+    coef = pd.DataFrame({"feature": cols, "coef_std": beta[1:], "z": beta[1:] / se[1:],
+                         "odds_ratio_per_sd": np.exp(beta[1:]), "train_mean": mu.to_numpy(), "train_sd": sd.to_numpy(),
+                         "nan_share_train": tr[cols].isna().mean().to_numpy()})
+    return res, coef, p
 
 
 def main() -> None:
@@ -198,6 +201,7 @@ def main() -> None:
     ap.add_argument("--lam", type=float, default=5.0, help="L2 penalty on standardised coefficients")
     a = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
+    RU.set_output(OUT)
     df = build()
     q = df[df["date"] >= C.QH_START].copy()
     split = pd.Timestamp(a.split)
@@ -207,17 +211,20 @@ def main() -> None:
     for k, v in B.items():
         log(f"  block {k}: {len(v)} features")
     order = ["cal", "fund", "hist", "wx", "err"]
-    rows, coefs = [], {}
+    rows, coefs, tp = [], {}, {}
     for side, target in TARGETS.items():
         log(f"\n=== {side}: {target}; train positives {int(tr[target].sum())}, test positives {int(te[target].sum())}")
         for i, k in enumerate(order):
             cols = [c for b in order[: i + 1] for c in B[b]]
-            r, cf = evaluate(tr, te, cols, target, a.lam)
+            r, cf, p = evaluate(tr, te, cols, target, a.lam)
             rows.append({"side": side, "model": "cumulative to " + k, **r})
+            tp.setdefault(side, pd.DataFrame({"ts_utc": te["ts_utc"].to_numpy(), "side": side,
+                                              "y": te[target].to_numpy(float)}))[f"cum_{k}"] = p
             if k == "err":
                 coefs[side] = cf
         for k in order:
-            r, _ = evaluate(tr, te, B[k], target, a.lam)
+            r, _, p = evaluate(tr, te, B[k], target, a.lam)
+            tp[side][f"only_{k}"] = p
             rows.append({"side": side, "model": "block alone: " + k, **r})
     res = pd.DataFrame(rows)
     res.to_csv(OUT / "model_comparison.csv", index=False)
@@ -235,9 +242,18 @@ def main() -> None:
     log(cmp_.head(25).to_string(float_format=lambda x: f"{x:,.2f}"))
     sig = cmp_[(cmp_[["z_short", "z_long"]].abs().min(axis=1) > 3) & cmp_["sign_differs"]]
     log(f"\nfeatures significant (|z|>3) on both sides with opposite sign: {list(sig.index)}")
+    # ---- test predictions + diagnostics (capture rate, calibration, per-year metrics, plots)
+    import ml_diagnostics as D
+    TP = pd.concat(tp.values(), ignore_index=True)
+    TP.to_parquet(OUT / "test_predictions.parquet")
+    D.classifier_diagnostics(TP, [c for c in TP.columns if c.startswith(("cum_", "only_"))], OUT, y_col="y",
+                             time_col="ts_utc", group_col="side", reference="only_cal", title="RQ3a logit")
+    for side in TARGETS:
+        t = res[(res.side == side) & res.model.str.startswith("cumulative")].set_index("model")
+        RU.summary(f"{side}: PR-AUC cal {t['PR_AUC'].iloc[0]:.3f} -> full {t['PR_AUC'].iloc[-1]:.3f}")
     (OUT / "report_rq3a_2.txt").write_text("\n".join(lines), encoding="utf-8")
     print(f"\nwritten: {OUT}")
 
 
 if __name__ == "__main__":
-    main()
+    RU.run(main, "RQ3a logit")

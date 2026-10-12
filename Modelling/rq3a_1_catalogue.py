@@ -30,6 +30,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import run_utils as RU  # run.log, run_meta.json, run history, macOS notification
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "Clean"))
@@ -284,6 +285,7 @@ def part_d(df: pd.DataFrame) -> None:
 
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
+    RU.set_output(OUT)
     df = load()
     log(f"RQ3a step 1: {len(df):,} quarter-hours, {df['loc'].min()} -> {df['loc'].max()}")
     eps = part_a(df)
@@ -295,4 +297,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    RU.run(main, "RQ3a spike catalogue")

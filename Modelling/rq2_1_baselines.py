@@ -16,6 +16,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 import pandas as pd
+import run_utils as RU  # run.log, run_meta.json, run history, macOS notification
 import rq2_common as C
 
 
@@ -25,6 +26,7 @@ def main() -> None:
     ap.add_argument("--out", default=str(C.ROOT / "Modelling" / "Output" / "rq2_1"))
     a = ap.parse_args()
     out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
+    RU.set_output(out)
     rows, rows_y, lines = [], [], []
     for view in a.products:
         df = C.load_view(view)
@@ -57,4 +59,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    RU.run(main, "RQ2 baselines")

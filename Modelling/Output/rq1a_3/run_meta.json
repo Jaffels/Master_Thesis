@@ -1,0 +1,87 @@
+{
+  "script": "rq1a_3_weekly_granger",
+  "label": "RQ1a weekly Granger",
+  "status": "ok",
+  "error": "",
+  "argv": [],
+  "start": "2026-10-12T16:43:16",
+  "end": "2026-10-12T16:43:19",
+  "duration_s": 3.0,
+  "duration": "3 s",
+  "summary": [],
+  "output_dir": "Modelling/Output/rq1a_3",
+  "git": {
+    "commit": "7394ba7",
+    "branch": "loose-ends",
+    "uncommitted_files_in_Modelling_Clean": [
+      "odelling/Output/rq1b/report_rq1b.txt",
+      "Modelling/Output/rq2_1/report_rq2_1.txt",
+      "Modelling/Output/rq2_2_delta/report_rq2_2.txt",
+      "Modelling/Output/rq2_3/report_rq2_3.txt",
+      "Modelling/Output/rq2_4/report_rq2_4.txt",
+      "Modelling/Output/rq3a_1/report_rq3a_1.txt",
+      "Modelling/Output/rq3a_2/report_rq3a_2.txt",
+      "Modelling/Output/rq3b_1/report_rq3b_1.txt",
+      "Modelling/Output/rq3b_1_fixed/report_rq3b_1.txt",
+      "Modelling/Output/rq3b_1_qh/report_rq3b_1.txt",
+      "Modelling/Output/rq3c_1/report_rq3c_1.txt",
+      "Modelling/Output/rq4_1/report_rq4_1.txt",
+      "Modelling/Output/rq4_1_perfect/report_rq4_1.txt",
+      "Modelling/rq1a_1_correlations.py",
+      "Modelling/rq1a_2_regression.py",
+      "Modelling/rq1a_3_weekly_granger.py",
+      "Modelling/rq1b_regimes.py",
+      "Modelling/rq2_1_baselines.py",
+      "Modelling/rq2_2_lightgbm.py",
+      "Modelling/rq2_3_linear.py",
+      "Modelling/rq2_4_wxfc.py",
+      "Modelling/rq3a_1_catalogue.py",
+      "Modelling/rq3a_2_logit.py",
+      "Modelling/rq3b_1_riskmodel.py",
+      "Modelling/rq3c_1_pricecap.py",
+      "Modelling/rq4_1_revenue.py",
+      "Modelling/Output/rq1a_1/run.log",
+      "Modelling/Output/rq1a_1/run_meta.json",
+      "Modelling/Output/rq1a_2/run.log",
+      "Modelling/Output/rq1a_2/run_meta.json",
+      "Modelling/Output_round1/",
+      "Modelling/ml_diagnostics.py",
+      "Modelling/rq2_5_tier1.py",
+      "Modelling/run_utils.py"
+    ]
+  },
+  "python": "3.14.7",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "machine": "Johans-MacBook-Air.local",
+  "cpu_count": 8,
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "pyarrow": "25.0.1",
+    "duckdb": "1.5.6",
+    "lightgbm": "4.7.0",
+    "scikit-learn": "1.9.1",
+    "catboost": "1.2.10",
+    "quantile-forest": "1.4.2",
+    "matplotlib": "3.11.2"
+  },
+  "files_written": [
+    {
+      "file": "granger_afrr.csv",
+      "kB": 99.0
+    },
+    {
+      "file": "granger_mfrr.csv",
+      "kB": 98.5
+    },
+    {
+      "file": "reg_weekly.csv",
+      "kB": 1.4
+    },
+    {
+      "file": "report_rq1a_3.txt",
+      "kB": 5.9
+    }
+  ]
+}

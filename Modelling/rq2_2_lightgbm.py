@@ -23,6 +23,7 @@ from __future__ import annotations
 import argparse, time
 from pathlib import Path
 import numpy as np, pandas as pd
+import run_utils as RU  # run.log, run_meta.json, run history, macOS notification
 import lightgbm as lgb
 import rq2_common as C
 
@@ -97,6 +98,7 @@ def main() -> None:
     ap.add_argument("--out", default=None)
     a = ap.parse_args()
     out = Path(a.out) if a.out else C.ROOT / "Modelling" / "Output" / f"rq2_2_{a.mode}"; out.mkdir(parents=True, exist_ok=True)
+    RU.set_output(out)
     lines = ["RQ2 9.2b/c - LightGBM, rolling origin, expanding window; errors in EUR/MWh on the common rows "
              "of the model and all three baselines.",
              f"mode={a.mode}, objective={a.objective} on asinh(price), lr={a.lr}, leaves={a.leaves}, colsample={a.colsample}, "
@@ -107,7 +109,8 @@ def main() -> None:
     t_all = time.time()
     for view in a.products:
         df = C.load_view(view)
-        base_keys = ["series", "product", "direction", "procurement", "auction_id", "block_start_utc", "y", *C.BASELINES]
+        base_keys = ["series", "product", "direction", "procurement", "auction_id", "block_start_utc", "slot", "y", *C.BASELINES,
+                     *[c for c in df.columns if c.startswith("regime_")]]
         for fset in a.sets:
             feats, weather = feature_list(df, view, fset)
             X = make_X(df, feats)
@@ -198,10 +201,23 @@ def main() -> None:
             top = I[s].sort_values(ascending=False).head(10)
             lines.append(f"   {s} top 10: " + "; ".join(f"{c} {v*100:.1f}%" for c, v in top.items()))
         lines.append("")
+    # ---- diagnostics: per fold, error breakdowns (year / slot / weekday / regime), worst errors, plots
+    import ml_diagnostics as D
+    for fset, ps in pred_store.items():
+        if not ps: continue
+        P = pd.concat(ps)
+        imp = D.importance_table(imp_store[fset])
+        D.forecast_diagnostics(P, {"lgbm": "pred", **{b: b for b in C.BASELINES}}, out, baseline="b_prev_slot",
+                               importance={"lgbm_gain": imp}, group_cols=[c for c in P.columns if c.startswith("regime_")],
+                               title=f"LightGBM [{fset}]", subdir=f"diagnostics_{fset}")
+    for fset, g in M[M.model == "lgbm"].groupby("set", sort=False):
+        nb = M[(M.model == "b_prev_slot") & (M.set == fset)].set_index("series")["MAE"]
+        sk = {r.series: (1 - r.MAE / nb[r.series]) * 100 for r in g.itertuples()}
+        RU.summary(f"[{fset}] skill vs naive: " + ", ".join(f"{k.replace('|', ' ')} {v:+.1f}%" for k, v in sk.items()))
     (out / "report_rq2_2.txt").write_text("\n".join(lines))
     print("\n".join(lines))
     print(f"total {time.time()-t_all:.0f}s")
 
 
 if __name__ == "__main__":
-    main()
+    RU.run(main, "RQ2 LightGBM")

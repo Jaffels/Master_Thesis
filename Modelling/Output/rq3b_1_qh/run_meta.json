@@ -1,0 +1,175 @@
+{
+  "script": "rq3b_1_riskmodel",
+  "label": "RQ3b risk model",
+  "status": "ok",
+  "error": "",
+  "argv": [
+    "--train-from",
+    "2022-06-01",
+    "--test-start",
+    "2023-07-01",
+    "--tag",
+    "_qh"
+  ],
+  "start": "2026-10-12T19:37:26",
+  "end": "2026-10-12T19:38:29",
+  "duration_s": 62.7,
+  "duration": "1 min 03 s",
+  "summary": [
+    "short: best gbm_pf_d1, Brier skill +0.004 vs persist_h1",
+    "long: best clim_roll, Brier skill +0.000 vs clim_roll"
+  ],
+  "output_dir": "Modelling/Output/rq3b_1_qh",
+  "git": {
+    "commit": "67ffb66",
+    "branch": "loose-ends",
+    "uncommitted_files_in_Modelling_Clean": [
+      "Modelling/Output/rq2_2_delta/",
+      "Modelling/Output/rq2_3/",
+      "Modelling/Output/rq2_4/",
+      "Modelling/Output/rq2_5_afrr/",
+      "Modelling/Output/rq2_5_fcr/",
+      "Modelling/Output/rq2_5_mfrr/",
+      "Modelling/Output/rq3a_1/",
+      "Modelling/Output/rq3a_2/",
+      "Modelling/Output/rq3b_1/",
+      "Modelling/Output/rq3b_1_fixed/",
+      "Modelling/Output/rq3b_1_qh/",
+      "Modelling/Output/rq3c_1/"
+    ]
+  },
+  "python": "3.14.7",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "machine": "Johans-MacBook-Air.local",
+  "cpu_count": 8,
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "pyarrow": "25.0.1",
+    "duckdb": "1.5.6",
+    "lightgbm": "4.7.0",
+    "scikit-learn": "1.9.1",
+    "catboost": "1.2.10",
+    "quantile-forest": "1.4.2",
+    "matplotlib": "3.11.2"
+  },
+  "files_written": [
+    {
+      "file": "brier_gain_bootstrap.csv",
+      "kB": 1.1
+    },
+    {
+      "file": "diagnostics/README.txt",
+      "kB": 0.8
+    },
+    {
+      "file": "diagnostics/calibration_bins.csv",
+      "kB": 27.0
+    },
+    {
+      "file": "diagnostics/capture_rate.csv",
+      "kB": 9.7
+    },
+    {
+      "file": "diagnostics/importance_gbm.csv",
+      "kB": 187.4
+    },
+    {
+      "file": "diagnostics/metrics_by_year.csv",
+      "kB": 13.8
+    },
+    {
+      "file": "diagnostics/monthly_rates.csv",
+      "kB": 55.8
+    },
+    {
+      "file": "diagnostics/plots/long/brier_by_year.png",
+      "kB": 25.8
+    },
+    {
+      "file": "diagnostics/plots/long/capture_rate.png",
+      "kB": 30.5
+    },
+    {
+      "file": "diagnostics/plots/long/importance_gbm_d1.png",
+      "kB": 54.8
+    },
+    {
+      "file": "diagnostics/plots/long/importance_gbm_h1.png",
+      "kB": 56.7
+    },
+    {
+      "file": "diagnostics/plots/long/importance_gbm_pf_d1.png",
+      "kB": 53.2
+    },
+    {
+      "file": "diagnostics/plots/long/importance_gbm_pf_h1.png",
+      "kB": 55.2
+    },
+    {
+      "file": "diagnostics/plots/long/monthly_rates.png",
+      "kB": 161.9
+    },
+    {
+      "file": "diagnostics/plots/long/pr_curve.png",
+      "kB": 61.4
+    },
+    {
+      "file": "diagnostics/plots/long/reliability.png",
+      "kB": 81.0
+    },
+    {
+      "file": "diagnostics/plots/short/brier_by_year.png",
+      "kB": 24.9
+    },
+    {
+      "file": "diagnostics/plots/short/capture_rate.png",
+      "kB": 29.7
+    },
+    {
+      "file": "diagnostics/plots/short/importance_gbm_d1.png",
+      "kB": 56.0
+    },
+    {
+      "file": "diagnostics/plots/short/importance_gbm_h1.png",
+      "kB": 53.9
+    },
+    {
+      "file": "diagnostics/plots/short/importance_gbm_pf_d1.png",
+      "kB": 54.1
+    },
+    {
+      "file": "diagnostics/plots/short/importance_gbm_pf_h1.png",
+      "kB": 55.5
+    },
+    {
+      "file": "diagnostics/plots/short/monthly_rates.png",
+      "kB": 150.8
+    },
+    {
+      "file": "diagnostics/plots/short/pr_curve.png",
+      "kB": 60.7
+    },
+    {
+      "file": "diagnostics/plots/short/reliability.png",
+      "kB": 84.9
+    },
+    {
+      "file": "metrics.csv",
+      "kB": 14.0
+    },
+    {
+      "file": "predictions.csv",
+      "kB": 14097.6
+    },
+    {
+      "file": "reliability.csv",
+      "kB": 4.8
+    },
+    {
+      "file": "report_rq3b_1.txt",
+      "kB": 20.7
+    }
+  ]
+}

@@ -17,6 +17,7 @@ from __future__ import annotations
 import argparse, sys
 from pathlib import Path
 import numpy as np, pandas as pd
+import run_utils as RU  # run.log, run_meta.json, run history, macOS notification
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "Clean"))
@@ -79,6 +80,7 @@ def main() -> None:
     ap.add_argument("--out", default=str(ROOT / "Modelling" / "Output" / "rq1a_1"))
     a = ap.parse_args()
     out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
+    RU.set_output(out)
     rep = []
     for prod in a.products:
         df = V.load(prod, kind="expost", rq="RQ1a", impute=False)
@@ -104,4 +106,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    RU.run(main, "RQ1a correlations")

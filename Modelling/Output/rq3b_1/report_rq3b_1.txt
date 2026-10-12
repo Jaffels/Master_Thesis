@@ -1,29 +1,29 @@
 RQ3b: 91,344 complete hours 2016-03-30 22:00:00+00:00 -> 2026-08-31 21:00:00+00:00; features d1 157, h1 218, pf 9; LightGBM yes
   spike hour share: short 0.0320, long 0.0191
   short fold 2021-01-01 -> 2021-07-01: train 41,642 h (786 pos), test 4,344 h (83 pos)  [7s]
-  short fold 2021-07-01 -> 2022-01-01: train 45,986 h (869 pos), test 4,416 h (873 pos)  [15s]
-  short fold 2022-01-01 -> 2022-07-01: train 50,402 h (1742 pos), test 4,344 h (117 pos)  [22s]
+  short fold 2021-07-01 -> 2022-01-01: train 45,986 h (869 pos), test 4,416 h (873 pos)  [13s]
+  short fold 2022-01-01 -> 2022-07-01: train 50,402 h (1742 pos), test 4,344 h (117 pos)  [21s]
   short fold 2022-07-01 -> 2023-01-01: train 54,746 h (1855 pos), test 4,416 h (427 pos)  [29s]
   short fold 2023-01-01 -> 2023-07-01: train 59,162 h (2286 pos), test 4,344 h (20 pos)  [37s]
   short fold 2023-07-01 -> 2024-01-01: train 63,506 h (2306 pos), test 4,416 h (20 pos)  [45s]
-  short fold 2024-01-01 -> 2024-07-01: train 67,922 h (2326 pos), test 4,368 h (108 pos)  [54s]
-  short fold 2024-07-01 -> 2025-01-01: train 72,290 h (2432 pos), test 4,416 h (358 pos)  [63s]
-  short fold 2025-01-01 -> 2025-07-01: train 76,706 h (2790 pos), test 4,344 h (35 pos)  [74s]
-  short fold 2025-07-01 -> 2026-01-01: train 81,050 h (2826 pos), test 4,416 h (5 pos)  [84s]
-  short fold 2026-01-01 -> 2026-07-01: train 85,466 h (2832 pos), test 4,344 h (44 pos)  [95s]
-  short fold 2026-07-01 -> 2027-01-01: train 89,810 h (2873 pos), test 1,486 h (46 pos)  [107s]
-  long fold 2021-01-01 -> 2021-07-01: train 41,642 h (419 pos), test 4,344 h (59 pos)  [113s]
-  long fold 2021-07-01 -> 2022-01-01: train 45,986 h (478 pos), test 4,416 h (35 pos)  [120s]
-  long fold 2022-01-01 -> 2022-07-01: train 50,402 h (513 pos), test 4,344 h (65 pos)  [127s]
-  long fold 2022-07-01 -> 2023-01-01: train 54,746 h (577 pos), test 4,416 h (339 pos)  [135s]
-  long fold 2023-01-01 -> 2023-07-01: train 59,162 h (912 pos), test 4,344 h (198 pos)  [143s]
-  long fold 2023-07-01 -> 2024-01-01: train 63,506 h (1115 pos), test 4,416 h (108 pos)  [151s]
-  long fold 2024-01-01 -> 2024-07-01: train 67,922 h (1222 pos), test 4,368 h (226 pos)  [161s]
-  long fold 2024-07-01 -> 2025-01-01: train 72,290 h (1448 pos), test 4,416 h (143 pos)  [170s]
-  long fold 2025-01-01 -> 2025-07-01: train 76,706 h (1589 pos), test 4,344 h (42 pos)  [179s]
-  long fold 2025-07-01 -> 2026-01-01: train 81,050 h (1634 pos), test 4,416 h (19 pos)  [190s]
-  long fold 2026-01-01 -> 2026-07-01: train 85,466 h (1653 pos), test 4,344 h (67 pos)  [204s]
-  long fold 2026-07-01 -> 2027-01-01: train 89,810 h (1720 pos), test 1,486 h (23 pos)  [217s]
+  short fold 2024-01-01 -> 2024-07-01: train 67,922 h (2326 pos), test 4,368 h (108 pos)  [53s]
+  short fold 2024-07-01 -> 2025-01-01: train 72,290 h (2432 pos), test 4,416 h (358 pos)  [62s]
+  short fold 2025-01-01 -> 2025-07-01: train 76,706 h (2790 pos), test 4,344 h (35 pos)  [72s]
+  short fold 2025-07-01 -> 2026-01-01: train 81,050 h (2826 pos), test 4,416 h (5 pos)  [82s]
+  short fold 2026-01-01 -> 2026-07-01: train 85,466 h (2832 pos), test 4,344 h (44 pos)  [92s]
+  short fold 2026-07-01 -> 2027-01-01: train 89,810 h (2873 pos), test 1,486 h (46 pos)  [103s]
+  long fold 2021-01-01 -> 2021-07-01: train 41,642 h (419 pos), test 4,344 h (59 pos)  [109s]
+  long fold 2021-07-01 -> 2022-01-01: train 45,986 h (478 pos), test 4,416 h (35 pos)  [117s]
+  long fold 2022-01-01 -> 2022-07-01: train 50,402 h (513 pos), test 4,344 h (65 pos)  [123s]
+  long fold 2022-07-01 -> 2023-01-01: train 54,746 h (577 pos), test 4,416 h (339 pos)  [131s]
+  long fold 2023-01-01 -> 2023-07-01: train 59,162 h (912 pos), test 4,344 h (198 pos)  [138s]
+  long fold 2023-07-01 -> 2024-01-01: train 63,506 h (1115 pos), test 4,416 h (108 pos)  [147s]
+  long fold 2024-01-01 -> 2024-07-01: train 67,922 h (1222 pos), test 4,368 h (226 pos)  [155s]
+  long fold 2024-07-01 -> 2025-01-01: train 72,290 h (1448 pos), test 4,416 h (143 pos)  [164s]
+  long fold 2025-01-01 -> 2025-07-01: train 76,706 h (1589 pos), test 4,344 h (42 pos)  [174s]
+  long fold 2025-07-01 -> 2026-01-01: train 81,050 h (1634 pos), test 4,416 h (19 pos)  [184s]
+  long fold 2026-01-01 -> 2026-07-01: train 85,466 h (1653 pos), test 4,344 h (67 pos)  [194s]
+  long fold 2026-07-01 -> 2027-01-01: train 89,810 h (1720 pos), test 1,486 h (23 pos)  [203s]
 
 -- short, test period all; best baseline (pooled) = cal_hist_d1
                  n   pos  Brier  Brier_skill_vs_best_baseline  logloss  PR_AUC  ROC_AUC  base_rate
@@ -242,3 +242,28 @@ gbm_pf_h1    13127  134 0.0130                       -0.2850   0.0597  0.0626   
       7  long      gbm_h1     0.0292    0.0310 4965
       8  long      gbm_h1     0.0511    0.0526 4965
       9  long      gbm_h1     0.1652    0.0985 4966
+
+-- LightGBM gain importance (mean share over fits; share of fits in the top 20)
+   short gbm_d1: spikehist_short_q990__lb24h_d1 19.5% (100%); ch_price_da_eur_mwh__fc_d1 9.4% (100%); spikehist_short_q990__lb7d_d1 8.6% (100%); ch_gen_total_da_fc_mw__fc_d1 5.5% (100%); fr_price_da_eur_mwh__fc_d1 2.9% (100%); it_nord_gen_total_da_fc_mw__fc_d1 2.3% (92%); spikehist_short_q990__lb30d_d1 2.0% (58%); it_nord_load_da_fc_mw__fc_d1 1.8% (75%); de_lu_price_da_eur_mwh__fc_d1 1.7% (75%); it_nord_price_da_eur_mwh__fc_d1 1.3% (75%)
+   short gbm_pf_d1: spikehist_short_q990__lb24h_d1 19.1% (100%); ch_price_da_eur_mwh__fc_d1 9.8% (100%); spikehist_short_q990__lb7d_d1 9.2% (100%); ch_gen_total_da_fc_mw__fc_d1 6.0% (100%); fr_price_da_eur_mwh__fc_d1 2.8% (100%); it_nord_gen_total_da_fc_mw__fc_d1 2.5% (92%); it_nord_price_da_eur_mwh__fc_d1 1.6% (92%); cal_doy_sin 1.5% (100%); de_lu_resid_load_da_fc_mw__fc_d1 1.3% (75%); spikehist_short_q990__lb30d_d1 1.2% (42%)
+   short gbm_h1: spikehist_short_q990__lb24h_d1 15.8% (100%); spikehist_short_q990__lb4h_h1 13.5% (100%); spikehist_short_q990__lb7d_d1 6.1% (100%); ch_gen_total_da_fc_mw__fc_d1 5.5% (100%); ch_price_da_eur_mwh__fc_d1 5.2% (100%); ch_imb_price_short_eur_mwh__last_h1 3.2% (92%); fr_price_da_eur_mwh__fc_d1 3.1% (100%); it_nord_gen_total_da_fc_mw__fc_d1 2.2% (100%); ch_imb_vol_mwh__last_h1 1.9% (100%); it_nord_load_da_fc_mw__fc_d1 1.3% (67%)
+   short gbm_pf_h1: spikehist_short_q990__lb4h_h1 14.4% (100%); spikehist_short_q990__lb24h_d1 12.7% (100%); spikehist_short_q990__lb7d_d1 7.0% (100%); ch_gen_total_da_fc_mw__fc_d1 5.9% (100%); ch_price_da_eur_mwh__fc_d1 4.7% (100%); fr_price_da_eur_mwh__fc_d1 3.9% (100%); ch_imb_price_short_eur_mwh__last_h1 2.0% (75%); spikehist_short_q990__lb30d_d1 2.0% (58%); it_nord_gen_total_da_fc_mw__fc_d1 1.9% (92%); ch_imb_vol_mwh__last_h1 1.9% (100%)
+   long gbm_d1: ch_imb_price_long_min_eur_mwh__lb24h_d1 7.7% (100%); ch_gen_total_da_fc_mw__fc_d1 4.9% (100%); ch_imb_price_long_min_eur_mwh__lb7d_d1 3.7% (92%); spikehist_long_q010__lb24h_d1 3.5% (100%); de_lu_resid_load_da_fc_mw__fc_d1 2.9% (100%); ch_imb_price_long_eur_mwh__lb24h_d1 1.8% (42%); it_nord_gen_total_da_fc_mw__fc_d1 1.8% (92%); spikehist_long_q010__lb7d_d1 1.8% (58%); de_lu_resid_load_da_fc_mw_ramp__fc_d1 1.7% (100%); at_price_da_eur_mwh__fc_d1 1.7% (83%)
+   long gbm_pf_d1: ch_imb_price_long_min_eur_mwh__lb24h_d1 7.0% (100%); ch_gen_total_da_fc_mw__fc_d1 5.0% (100%); ch_imb_price_long_min_eur_mwh__lb7d_d1 3.9% (100%); ch_imb_price_long_eur_mwh__lb24h_d1 2.9% (58%); de_lu_resid_load_da_fc_mw__fc_d1 2.5% (100%); de_lu_price_da_eur_mwh__fc_d1 1.9% (100%); err_de_lu_load_mw__lb7d_d1 1.8% (58%); ch_ghi_lw_wm2__pf 1.8% (58%); ch_temp_lw_degc__pf 1.7% (100%); ch_imb_vol_mwh__lb24h_d1 1.7% (67%)
+   long gbm_h1: ch_imb_price_long_eur_mwh__last_h1 11.2% (100%); spikehist_long_q010__lb4h_h1 8.0% (100%); ch_imb_vol_mwh__last_h1 5.9% (100%); ch_gen_total_da_fc_mw__fc_d1 3.6% (100%); ch_imb_vol_mwh__lb1h_h1 2.7% (92%); ch_imb_price_long_min_eur_mwh__lb7d_d1 2.3% (92%); ch_imb_price_long_min_eur_mwh__lb24h_d1 2.3% (92%); ch_imb_price_long_eur_mwh__lb1h_h1 2.1% (100%); spikehist_long_q010__lb24h_d1 2.1% (58%); de_lu_resid_load_da_fc_mw__fc_d1 1.9% (100%)
+   long gbm_pf_h1: spikehist_long_q010__lb4h_h1 8.7% (100%); ch_imb_price_long_eur_mwh__last_h1 7.5% (100%); ch_imb_vol_mwh__last_h1 7.1% (100%); ch_gen_total_da_fc_mw__fc_d1 3.4% (100%); ch_imb_price_long_eur_mwh__lb1h_h1 3.3% (100%); ch_imb_vol_mwh__lb1h_h1 2.3% (92%); ch_imb_price_long_min_eur_mwh__lb24h_d1 2.3% (92%); regime_imb_resolution 1.8% (67%); ch_imb_price_long_min_eur_mwh__lb7d_d1 1.8% (83%); de_lu_price_da_eur_mwh__fc_d1 1.4% (83%)
+
+-- share of all spike hours inside the top 5 % riskiest hours (capture rate)
+group        long  short
+model                   
+cal_hist_d1 0.153  0.436
+clim_exp    0.210  0.101
+clim_roll   0.203  0.229
+gbm_d1      0.212  0.157
+gbm_h1      0.249  0.233
+gbm_pf_d1   0.206  0.176
+gbm_pf_h1   0.239  0.268
+lr_d1       0.199  0.544
+lr_h1       0.270  0.559
+persist_d1  0.154  0.411
+persist_h1  0.233  0.448

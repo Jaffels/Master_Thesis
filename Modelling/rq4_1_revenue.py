@@ -35,6 +35,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import run_utils as RU  # run.log, run_meta.json, run history, macOS notification
 
 warnings.filterwarnings("ignore", category=FutureWarning)
 ROOT = Path(__file__).resolve().parent.parent
@@ -133,6 +134,7 @@ def main() -> None:
     a = ap.parse_args()
     out = Path(a.out) if a.out else ROOT / "Modelling" / "Output" / ("rq4_1" if a.set == "exante" else f"rq4_1_{a.set}")
     out.mkdir(parents=True, exist_ok=True)
+    RU.set_output(out)
 
     d = load(a.set)
     d = d.dropna(subset=["c", "naive", "roll_med", "lgbm"]).reset_index(drop=True)
@@ -183,6 +185,11 @@ def main() -> None:
     slopes.to_csv(out / "mae_to_revenue.csv", index=False)
     offs.to_csv(out / "offsets_k.csv", index=False)
     d[["series", "start", "c", "y"] + STRATS + [f"rev_{x}" for x in STRATS]].to_parquet(out / "blocks.parquet")
+    import ml_diagnostics as D                       # cumulative revenue, win rates, bid / clearing ratio, offsets
+    D.revenue_diagnostics(d, STRATS, out, offsets=offs,
+                          show=["oracle", "naive", "naive_off", "roll_med_off", "lgbm", "lgbm_off"])
+    for r in summ[summ.strategy == "lgbm_off"].itertuples():
+        RU.summary(f"{r.series.replace('|', ' ')}: lgbm_off {r.share_of_oracle:.0%} of oracle")
 
     pd.set_option("display.width", 220, "display.max_columns", 30, "display.float_format", lambda v: f"{v:,.3f}")
     for s in SERIES:
@@ -201,4 +208,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    RU.run(main, "RQ4 revenue")
