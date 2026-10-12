@@ -1,0 +1,175 @@
+{
+  "script": "rq4_1_revenue",
+  "label": "RQ4 revenue",
+  "status": "ok",
+  "error": "",
+  "argv": [],
+  "start": "2026-10-12T19:47:45",
+  "end": "2026-10-12T19:47:51",
+  "duration_s": 5.2,
+  "duration": "5 s",
+  "summary": [
+    "aFRR down 4h: lgbm_off 59% of oracle",
+    "aFRR up 4h: lgbm_off 65% of oracle",
+    "mFRR down 4h: lgbm_off 54% of oracle",
+    "mFRR up 4h: lgbm_off 48% of oracle"
+  ],
+  "output_dir": "Modelling/Output/rq4_1",
+  "git": {
+    "commit": "67ffb66",
+    "branch": "loose-ends",
+    "uncommitted_files_in_Modelling_Clean": [
+      "Modelling/Output/rq2_2_delta/",
+      "Modelling/Output/rq2_3/",
+      "Modelling/Output/rq2_4/",
+      "Modelling/Output/rq2_5_afrr/",
+      "Modelling/Output/rq2_5_fcr/",
+      "Modelling/Output/rq2_5_mfrr/",
+      "Modelling/Output/rq3a_1/",
+      "Modelling/Output/rq3a_2/",
+      "Modelling/Output/rq3b_1/",
+      "Modelling/Output/rq3b_1_fixed/",
+      "Modelling/Output/rq3b_1_qh/",
+      "Modelling/Output/rq3c_1/",
+      "Modelling/Output/rq4_1/"
+    ]
+  },
+  "python": "3.14.7",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "machine": "Johans-MacBook-Air.local",
+  "cpu_count": 8,
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "pyarrow": "25.0.1",
+    "duckdb": "1.5.6",
+    "lightgbm": "4.7.0",
+    "scikit-learn": "1.9.1",
+    "catboost": "1.2.10",
+    "quantile-forest": "1.4.2",
+    "matplotlib": "3.11.2"
+  },
+  "files_written": [
+    {
+      "file": "blocks.parquet",
+      "kB": 2309.1
+    },
+    {
+      "file": "diagnostics/README.txt",
+      "kB": 0.6
+    },
+    {
+      "file": "diagnostics/bid_vs_clearing.csv",
+      "kB": 5.0
+    },
+    {
+      "file": "diagnostics/plots/aFRR_down_4h/bid_ratio_hist.png",
+      "kB": 27.8
+    },
+    {
+      "file": "diagnostics/plots/aFRR_down_4h/cumulative_revenue.png",
+      "kB": 72.5
+    },
+    {
+      "file": "diagnostics/plots/aFRR_down_4h/offset_k.png",
+      "kB": 26.0
+    },
+    {
+      "file": "diagnostics/plots/aFRR_down_4h/share_of_oracle_by_year.png",
+      "kB": 20.1
+    },
+    {
+      "file": "diagnostics/plots/aFRR_down_4h/win_rate_monthly.png",
+      "kB": 86.4
+    },
+    {
+      "file": "diagnostics/plots/aFRR_up_4h/bid_ratio_hist.png",
+      "kB": 27.6
+    },
+    {
+      "file": "diagnostics/plots/aFRR_up_4h/cumulative_revenue.png",
+      "kB": 75.5
+    },
+    {
+      "file": "diagnostics/plots/aFRR_up_4h/offset_k.png",
+      "kB": 28.3
+    },
+    {
+      "file": "diagnostics/plots/aFRR_up_4h/share_of_oracle_by_year.png",
+      "kB": 19.8
+    },
+    {
+      "file": "diagnostics/plots/aFRR_up_4h/win_rate_monthly.png",
+      "kB": 73.4
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_4h/bid_ratio_hist.png",
+      "kB": 28.5
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_4h/cumulative_revenue.png",
+      "kB": 62.6
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_4h/offset_k.png",
+      "kB": 25.2
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_4h/share_of_oracle_by_year.png",
+      "kB": 24.2
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_4h/win_rate_monthly.png",
+      "kB": 175.4
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_4h/bid_ratio_hist.png",
+      "kB": 28.6
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_4h/cumulative_revenue.png",
+      "kB": 59.4
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_4h/offset_k.png",
+      "kB": 23.5
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_4h/share_of_oracle_by_year.png",
+      "kB": 23.1
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_4h/win_rate_monthly.png",
+      "kB": 146.7
+    },
+    {
+      "file": "diagnostics/revenue_monthly.csv",
+      "kB": 151.8
+    },
+    {
+      "file": "mae_to_revenue.csv",
+      "kB": 0.7
+    },
+    {
+      "file": "offsets_k.csv",
+      "kB": 13.3
+    },
+    {
+      "file": "report_rq4_1.txt",
+      "kB": 12.3
+    },
+    {
+      "file": "revenue_by_year.csv",
+      "kB": 12.8
+    },
+    {
+      "file": "revenue_diff_bootstrap.csv",
+      "kB": 4.9
+    },
+    {
+      "file": "revenue_summary.csv",
+      "kB": 7.4
+    }
+  ]
+}

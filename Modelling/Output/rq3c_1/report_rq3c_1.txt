@@ -1,0 +1,159 @@
+RQ3c: 365,376 quarter-hours; cap date 2025-03-03
+
+=== real: cap 2025-03-03, thresholds from pre12m (2024-03-03 - 2025-03-02): short q99 = 1171.9, long q01 = -1309.5 EUR/MWh
+  -- post variant all: pre 35,040 QH, post 35,040 QH
+     short:
+                         pre      post   effect     effect_type    ci_lo    ci_hi
+metric                                                                           
+share_qh               0.010     0.000    0.023  ratio post/pre    0.003    0.049
+episodes_per_week      3.792     0.113    0.030  ratio post/pre    0.005    0.061
+mean_len_qh            1.746     1.333    0.764  ratio post/pre    0.498    1.303
+mean_excess        1,272.798   663.995    0.522  ratio post/pre    0.117    1.136
+pctl_price         1,171.905   558.449 -613.456      difference -831.650 -384.716
+extreme           13,501.300 3,015.600      NaN             NaN      NaN      NaN
+     long:
+                          pre       post  effect     effect_type   ci_lo   ci_hi
+metric                                                                          
+share_qh                0.010      0.002   0.248  ratio post/pre   0.117   0.445
+episodes_per_week       3.226      0.585   0.181  ratio post/pre   0.089   0.299
+mean_len_qh             2.053      2.806   1.367  ratio post/pre   0.981   1.883
+mean_excess         1,927.124    913.381   0.474  ratio post/pre   0.281   0.783
+pctl_price         -1,309.540   -694.966 614.574      difference 313.011 929.095
+extreme           -16,272.900 -6,825.800     NaN             NaN     NaN     NaN
+  -- post variant dual: pre 35,040 QH, post 29,184 QH
+     short:
+                         pre      post   effect     effect_type    ci_lo    ci_hi
+metric                                                                           
+share_qh               0.010     0.000    0.017  ratio post/pre    0.000    0.046
+episodes_per_week      3.792     0.068    0.018  ratio post/pre    0.000    0.042
+mean_len_qh            1.746     1.667    0.954  ratio post/pre    0.000    1.831
+mean_excess        1,272.798   871.275    0.685  ratio post/pre    0.000    1.388
+pctl_price         1,171.905   574.651 -597.254      difference -825.980 -381.565
+extreme           13,501.300 3,015.600      NaN             NaN      NaN      NaN
+     long:
+                          pre       post  effect     effect_type   ci_lo   ci_hi
+metric                                                                          
+share_qh                0.010      0.003   0.284  ratio post/pre   0.134   0.511
+episodes_per_week       3.226      0.659   0.204  ratio post/pre   0.106   0.346
+mean_len_qh             2.053      2.862   1.394  ratio post/pre   1.022   1.981
+mean_excess         1,927.124    931.978   0.484  ratio post/pre   0.294   0.855
+pctl_price         -1,309.540   -740.870 568.670      difference 280.080 884.178
+extreme           -16,272.900 -6,825.800     NaN             NaN     NaN     NaN
+
+=== real: cap 2025-03-03, thresholds from prior12m (2023-03-03 - 2024-03-02): short q99 = 361.0, long q01 = -228.5 EUR/MWh
+  -- post variant all: pre 35,040 QH, post 35,040 QH
+     short:
+                         pre      post   effect     effect_type    ci_lo    ci_hi
+metric                                                                           
+share_qh               0.102     0.054    0.531  ratio post/pre    0.378    0.748
+episodes_per_week     29.849    18.830    0.631  ratio post/pre    0.469    0.854
+mean_len_qh            2.254     1.898    0.842  ratio post/pre    0.745    0.949
+mean_excess          364.816   116.202    0.319  ratio post/pre    0.224    0.430
+pctl_price         1,171.905   558.449 -613.456      difference -841.233 -386.249
+extreme           13,501.300 3,015.600      NaN             NaN      NaN      NaN
+     long:
+                          pre       post  effect     effect_type   ci_lo   ci_hi
+metric                                                                          
+share_qh                0.100      0.085   0.844  ratio post/pre   0.581   1.190
+episodes_per_week      27.358     21.660   0.792  ratio post/pre   0.569   1.062
+mean_len_qh             2.423      2.584   1.066  ratio post/pre   0.930   1.217
+mean_excess           506.280    240.257   0.475  ratio post/pre   0.345   0.631
+pctl_price         -1,309.540   -694.966 614.574      difference 323.222 927.286
+extreme           -16,272.900 -6,825.800     NaN             NaN     NaN     NaN
+  -- post variant dual: pre 35,040 QH, post 29,184 QH
+     short:
+                         pre      post   effect     effect_type    ci_lo    ci_hi
+metric                                                                           
+share_qh               0.102     0.062    0.609  ratio post/pre    0.437    0.854
+episodes_per_week     29.849    21.750    0.729  ratio post/pre    0.542    0.985
+mean_len_qh            2.254     1.890    0.839  ratio post/pre    0.751    0.937
+mean_excess          364.816   115.175    0.316  ratio post/pre    0.228    0.427
+pctl_price         1,171.905   574.651 -597.254      difference -820.168 -365.010
+extreme           13,501.300 3,015.600      NaN             NaN      NaN      NaN
+     long:
+                          pre       post  effect     effect_type   ci_lo   ci_hi
+metric                                                                          
+share_qh                0.100      0.101   1.006  ratio post/pre   0.712   1.365
+episodes_per_week      27.358     25.864   0.945  ratio post/pre   0.711   1.236
+mean_len_qh             2.423      2.586   1.067  ratio post/pre   0.934   1.218
+mean_excess           506.280    237.909   0.470  ratio post/pre   0.336   0.616
+pctl_price         -1,309.540   -740.870 568.670      difference 284.149 895.863
+extreme           -16,272.900 -6,825.800     NaN             NaN     NaN     NaN
+
+=== placebo: cap 2024-03-03, thresholds from pre12m (2023-03-03 - 2024-03-02): short q99 = 361.0, long q01 = -228.5 EUR/MWh
+  -- post variant all: pre 35,136 QH, post 35,040 QH
+     short:
+                         pre       post  effect     effect_type   ci_lo     ci_hi
+metric                                                                           
+share_qh               0.010      0.102  10.158  ratio post/pre   6.267    17.174
+episodes_per_week      3.038     29.849   9.826  ratio post/pre   6.753    14.476
+mean_len_qh            2.186      2.254   1.031  ratio post/pre   0.799     1.364
+mean_excess          505.654    364.816   0.721  ratio post/pre   0.479     1.261
+pctl_price           361.025  1,171.905 810.880      difference 592.509 1,022.828
+extreme           14,864.600 13,501.300     NaN             NaN     NaN       NaN
+     long:
+                          pre        post     effect     effect_type      ci_lo    ci_hi
+metric                                                                                  
+share_qh                0.010       0.100     10.007  ratio post/pre      7.330   13.656
+episodes_per_week       3.264      27.358      8.382  ratio post/pre      6.401   11.091
+mean_len_qh             2.035       2.423      1.191  ratio post/pre      0.924    1.512
+mean_excess           917.816     506.280      0.552  ratio post/pre      0.377    0.880
+pctl_price           -228.465  -1,309.540 -1,081.075      difference -1,383.235 -796.181
+extreme           -16,505.500 -16,272.900        NaN             NaN        NaN      NaN
+
+=== placebo: cap 2024-03-03, thresholds from prior12m (2022-03-03 - 2023-03-02): short q99 = 962.4, long q01 = -90.2 EUR/MWh
+  -- post variant all: pre 35,136 QH, post 35,040 QH
+     short:
+                         pre       post  effect     effect_type   ci_lo     ci_hi
+metric                                                                           
+share_qh               0.002      0.014   7.217  ratio post/pre   3.845    15.829
+episodes_per_week      0.566      4.906   8.667  ratio post/pre   5.441    15.263
+mean_len_qh            2.200      1.827   0.830  ratio post/pre   0.563     1.301
+mean_excess        1,611.261  1,120.359   0.695  ratio post/pre   0.385     1.210
+pctl_price           361.025  1,171.905 810.880      difference 593.485 1,023.276
+extreme           14,864.600 13,501.300     NaN             NaN     NaN       NaN
+     long:
+                          pre        post     effect     effect_type      ci_lo    ci_hi
+metric                                                                                  
+share_qh                0.025       0.210      8.448  ratio post/pre      6.494   11.030
+episodes_per_week       8.302      44.868      5.405  ratio post/pre      4.281    6.827
+mean_len_qh             1.986       3.096      1.559  ratio post/pre      1.306    1.850
+mean_excess           452.514     337.581      0.746  ratio post/pre      0.499    1.161
+pctl_price           -228.465  -1,309.540 -1,081.075      difference -1,379.012 -803.950
+extreme           -16,505.500 -16,272.900        NaN             NaN        NaN      NaN
+
+=== Mechanism: monthly count of QH beyond +-1,000 EUR/MWh (cap 3 Mar 2025)
+         afrr_up_gt_1000_qh  afrr_down_lt_m1000_qh  short_gt_1000_qh  long_lt_m1000_qh  afrr_up_price_max
+month                                                                                                    
+2024-01                   0                      0                 4                 0                919
+2024-02                   1                      2                 1                18              1,428
+2024-03                   9                     15                10                35              4,521
+2024-04                   3                     17                14                43              2,297
+2024-05                   3                     33                 6                90              2,827
+2024-06                  12                     30                59                34              4,288
+2024-07                  32                     40                54                56              5,533
+2024-08                  34                     26                39                29              5,686
+2024-09                  27                     44                31                66              5,795
+2024-10                  71                     17               100                21              3,812
+2024-11                  27                     13                33                21              2,383
+2024-12                  34                     42                47                48              6,143
+2025-01                  25                     12                27                28              3,575
+2025-02                  21                      8                25                21              5,055
+2025-03                   1                      6                 1                47              1,537
+2025-04                   0                      0                 1                44                793
+2025-05                   0                      1                 0                 0                865
+2025-06                   0                      1                 1                14                678
+2025-07                   1                      0                 1                 5              1,192
+2025-08                   1                      0                 4                 2              1,395
+2025-09                   0                      0                 0                25                661
+2025-10                   0                      0                 0                 8                589
+2025-11                   0                      0                 0                 2                536
+2025-12                   0                      0                 0                 0                815
+2026-01                   1                      0                 3                 0              1,384
+2026-02                   0                      0                 1                 6                509
+2026-03                   1                      0                 1                 8              1,015
+2026-04                   0                      0                 0                 8                672
+2026-05                   0                      0                 0                 5                816
+2026-06                   0                      0                 0                 4                765
+2026-07                   2                      0                 2                 8              1,383
+2026-08                   0                      0                 0                 4                852

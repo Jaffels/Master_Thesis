@@ -1,0 +1,76 @@
+{
+  "script": "rq3a_1_catalogue",
+  "label": "RQ3a spike catalogue",
+  "status": "ok",
+  "error": "",
+  "argv": [],
+  "start": "2026-10-12T19:30:24",
+  "end": "2026-10-12T19:30:25",
+  "duration_s": 1.2,
+  "duration": "1 s",
+  "summary": [],
+  "output_dir": "Modelling/Output/rq3a_1",
+  "git": {
+    "commit": "67ffb66",
+    "branch": "loose-ends",
+    "uncommitted_files_in_Modelling_Clean": [
+      "Modelling/Output/rq2_2_delta/",
+      "Modelling/Output/rq2_3/",
+      "Modelling/Output/rq2_4/",
+      "Modelling/Output/rq2_5_afrr/",
+      "Modelling/Output/rq2_5_fcr/",
+      "Modelling/Output/rq2_5_mfrr/",
+      "Modelling/Output/rq3a_1/"
+    ]
+  },
+  "python": "3.14.7",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "machine": "Johans-MacBook-Air.local",
+  "cpu_count": 8,
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "pyarrow": "25.0.1",
+    "duckdb": "1.5.6",
+    "lightgbm": "4.7.0",
+    "scikit-learn": "1.9.1",
+    "catboost": "1.2.10",
+    "quantile-forest": "1.4.2",
+    "matplotlib": "3.11.2"
+  },
+  "files_written": [
+    {
+      "file": "calendar.csv",
+      "kB": 13.6
+    },
+    {
+      "file": "catalogue.csv",
+      "kB": 2.2
+    },
+    {
+      "file": "driver_contrast_qh.csv",
+      "kB": 1.2
+    },
+    {
+      "file": "driver_profile.csv",
+      "kB": 13.3
+    },
+    {
+      "file": "episodes.csv",
+      "kB": 238.9
+    },
+    {
+      "file": "hour_boundary.csv",
+      "kB": 0.7
+    },
+    {
+      "file": "report_rq3a_1.txt",
+      "kB": 14.3
+    },
+    {
+      "file": "threshold_share_by_year.csv",
+      "kB": 1.4
+    }
+  ]
+}
