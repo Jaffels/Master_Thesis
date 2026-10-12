@@ -24,6 +24,7 @@ import argparse, time
 from pathlib import Path
 from types import SimpleNamespace
 import numpy as np, pandas as pd
+import run_utils as RU  # run.log, run_meta.json, run history, macOS notification
 import rq2_common as C
 import rq2_2_lightgbm as L
 
@@ -54,6 +55,7 @@ def main() -> None:
     a = ap.parse_args()
     lg = SimpleNamespace(mode="delta", objective="l1", lr=0.05, leaves=15, colsample=0.3, rounds=800, threads=0)
     out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
+    RU.set_output(out)
     start = pd.Timestamp(a.start, tz=C.TZ).tz_convert("UTC")
     store = []
     for view in a.products:
@@ -110,8 +112,17 @@ def main() -> None:
         lines.append("   MAE gain of the first set over the second (%), and DM p-value:")
         lines.append(C.fmt(sub[gcols])); lines.append(C.fmt(sub[[c for c in sub.columns if c.startswith("DM_")]])); lines.append("")
     M = pd.DataFrame(rows); M.to_csv(out / "metrics.csv", index=False)
+    # ---- diagnostics on all common rows (2022-): per year / slot / weekday, worst errors, plots per feature set
+    import ml_diagnostics as D
+    W = wide.reset_index()
+    D.forecast_diagnostics(W, {**{x: x for x in sets}, "b_prev_slot": "b_prev_slot"}, out, baseline="b_prev_slot",
+                           title="LightGBM weather sets")
+    a_ = M[M.window == "A"]
+    if "gain_wxfc_vs_noweather_%" in a_:
+        RU.summary("window A, weather forecasts vs no weather: " + ", ".join(
+            f"{s_.replace('|', ' ')} {v:+.1f}%" for s_, v in zip(a_["series"], a_["gain_wxfc_vs_noweather_%"])))
     (out / "report_rq2_4.txt").write_text("\n".join(lines)); print("\n".join(lines))
 
 
 if __name__ == "__main__":
-    main()
+    RU.run(main, "RQ2 weather forecasts")

@@ -1,0 +1,147 @@
+RQ2 9.2a - naive baselines (test period: blocks from 1 Jan 2021; common rows of all baselines)
+Baselines: b_prev_slot = same slot, previous day / week; b_prev_auction = previous auction; b_roll_med = median of last 7 days (4 weeks for weekly)
+
+== FCR|sym|4h   (n = 12,414, median price 14.00, first block 2020-12-31)
+                 MAE   RMSE  sMAPE_%  MAE_asinh
+baseline                                       
+b_prev_slot    4.938  8.550   25.656      0.263
+b_prev_auction 7.040 10.655   37.147      0.386
+b_roll_med     5.393  8.910   28.541      0.293
+   best by MAE: b_prev_slot
+   MAE by year:
+baseline  b_prev_auction  b_prev_slot  b_roll_med
+year                                             
+2021               5.300        4.832       5.077
+2022               9.458        8.110       8.455
+2023               4.738        3.833       4.115
+2024               6.407        3.799       4.144
+2025               7.535        4.278       5.204
+2026               9.689        4.696       5.348
+
+== aFRR|down|4h   (n = 1,984, median price 3.76, first block 2025-10-02)
+                 MAE   RMSE  sMAPE_%  MAE_asinh
+baseline                                       
+b_prev_slot    1.825  5.171   17.709      0.165
+b_prev_auction 6.217 11.332   73.841      0.809
+b_roll_med     3.424  8.460   37.417      0.356
+   best by MAE: b_prev_slot
+   MAE by year:
+baseline  b_prev_auction  b_prev_slot  b_roll_med
+year                                             
+2025               4.888        2.622       5.052
+2026               6.713        1.526       2.816
+
+== aFRR|down|week   (n = 295, median price 13.34, first block 2021-01-03)
+                 MAE   RMSE  sMAPE_%  MAE_asinh
+baseline                                       
+b_prev_slot    4.939 10.988   16.403      0.166
+b_prev_auction 4.939 10.988   16.403      0.166
+b_roll_med     9.782 19.655   32.397      0.334
+   best by MAE: b_prev_slot
+   MAE by year:
+baseline  b_prev_auction  b_prev_slot  b_roll_med
+year                                             
+2021               3.305        3.305       6.222
+2022               9.162        9.162      16.513
+2023              11.061       11.061      23.688
+2024               1.927        1.927       3.856
+2025               1.831        1.831       3.969
+2026               1.062        1.062       1.788
+
+== aFRR|up|4h   (n = 1,991, median price 1.97, first block 2025-10-02)
+                 MAE  RMSE  sMAPE_%  MAE_asinh
+baseline                                      
+b_prev_slot    0.408 1.106   12.752      0.110
+b_prev_auction 0.839 1.435   29.069      0.260
+b_roll_med     0.832 1.699   27.049      0.236
+   best by MAE: b_prev_slot
+   MAE by year:
+baseline  b_prev_auction  b_prev_slot  b_roll_med
+year                                             
+2025               1.136        0.770       1.532
+2026               0.728        0.274       0.571
+
+== aFRR|up|week   (n = 295, median price 7.23, first block 2021-01-03)
+                 MAE  RMSE  sMAPE_%  MAE_asinh
+baseline                                      
+b_prev_slot    1.477 3.523    9.938      0.099
+b_prev_auction 1.477 3.523    9.938      0.099
+b_roll_med     2.634 5.599   17.715      0.177
+   best by MAE: b_prev_slot
+   MAE by year:
+baseline  b_prev_auction  b_prev_slot  b_roll_med
+year                                             
+2021               1.360        1.360       2.047
+2022               1.848        1.848       3.493
+2023               3.689        3.689       6.852
+2024               0.784        0.784       1.301
+2025               0.459        0.459       0.886
+2026               0.344        0.344       0.515
+
+== mFRR|down|4h   (n = 9,226, median price 6.50, first block 2020-12-31)
+                 MAE   RMSE  sMAPE_%  MAE_asinh
+baseline                                       
+b_prev_slot    4.443 10.964   24.868      0.244
+b_prev_auction 8.516 16.055   56.596      0.598
+b_roll_med     7.848 18.228   43.031      0.436
+   best by MAE: b_prev_slot
+   MAE by year:
+baseline  b_prev_auction  b_prev_slot  b_roll_med
+year                                             
+2021               6.731        3.933       5.905
+2022              18.269       10.451      18.636
+2023               4.917        3.025       4.698
+2024               7.173        6.431      19.500
+2025               6.822        2.833       5.595
+2026               5.555        1.365       2.469
+
+== mFRR|down|week   (n = 295, median price 7.81, first block 2021-01-03)
+                 MAE  RMSE  sMAPE_%  MAE_asinh
+baseline                                      
+b_prev_slot    1.840 3.129   13.486      0.134
+b_prev_auction 1.840 3.129   13.486      0.134
+b_roll_med     3.217 5.184   24.938      0.252
+   best by MAE: b_prev_slot
+   MAE by year:
+baseline  b_prev_auction  b_prev_slot  b_roll_med
+year                                             
+2021               1.985        1.985       3.730
+2022               3.894        3.894       6.533
+2023               2.188        2.188       3.629
+2024               0.731        0.731       1.186
+2025               1.091        1.091       2.319
+2026               0.818        0.818       1.274
+
+== mFRR|up|4h   (n = 9,958, median price 1.62, first block 2020-12-31)
+                 MAE  RMSE  sMAPE_%  MAE_asinh
+baseline                                      
+b_prev_slot    1.183 3.382   34.766      0.266
+b_prev_auction 2.286 4.992   63.882      0.548
+b_roll_med     2.153 5.837   56.721      0.465
+   best by MAE: b_prev_slot
+   MAE by year:
+baseline  b_prev_auction  b_prev_slot  b_roll_med
+year                                             
+2021               3.801        2.046       3.507
+2022               4.055        1.971       4.199
+2023               1.327        0.649       0.975
+2024               2.410        1.325       2.402
+2025               1.182        0.670       0.989
+2026               0.607        0.320       0.671
+
+== mFRR|up|week   (n = 295, median price 2.69, first block 2021-01-03)
+                 MAE  RMSE  sMAPE_%  MAE_asinh
+baseline                                      
+b_prev_slot    0.592 1.526   10.225      0.091
+b_prev_auction 0.592 1.526   10.225      0.091
+b_roll_med     1.128 2.593   21.433      0.190
+   best by MAE: b_prev_slot
+   MAE by year:
+baseline  b_prev_auction  b_prev_slot  b_roll_med
+year                                             
+2021               0.809        0.809       1.577
+2022               0.730        0.730       1.377
+2023               1.493        1.493       2.671
+2024               0.092        0.092       0.215
+2025               0.123        0.123       0.288
+2026               0.172        0.172       0.407

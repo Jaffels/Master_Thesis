@@ -19,6 +19,7 @@ from __future__ import annotations
 import argparse, time
 from pathlib import Path
 import numpy as np, pandas as pd
+import run_utils as RU  # run.log, run_meta.json, run history, macOS notification
 import warnings
 import rq2_common as C
 warnings.filterwarnings("ignore", category=RuntimeWarning)
@@ -46,7 +47,7 @@ def prep(Xtr: np.ndarray, Xte: np.ndarray):
     mu = np.nanmean(Xtr, axis=0); sd = np.nanstd(Xtr, axis=0)
     keep = np.isfinite(mu) & np.isfinite(sd) & (sd > 1e-9)
     f = lambda A: np.nan_to_num(np.clip((A[:, keep] - mu[keep]) / sd[keep], -5, 5), nan=0.0)
-    return f(Xtr), f(Xte)
+    return f(Xtr), f(Xte), keep
 
 
 def ridge(A, y, alpha):
@@ -56,8 +57,9 @@ def ridge(A, y, alpha):
     return b, ym
 
 
-def fit_predict(Xtr, ytr, Xte):
-    A, B = prep(Xtr, Xte)
+def fit_predict(Xtr, ytr, Xte, names=None):
+    """Returns (prediction, alpha, standardised coefficients as a Series or None)."""
+    A, B, keep = prep(Xtr, Xte)
     nv = max(10, int(0.15 * len(A)))
     best, besta = np.inf, ALPHAS[0]
     for al in ALPHAS:
@@ -65,7 +67,8 @@ def fit_predict(Xtr, ytr, Xte):
         e = np.abs(A[-nv:] @ b + ym - ytr[-nv:]).mean()
         if e < best: best, besta = e, al
     b, ym = ridge(A, ytr, besta)
-    return B @ b + ym, besta
+    coef = pd.Series(b, index=np.asarray(names)[keep]) if names is not None else None
+    return B @ b + ym, besta, coef
 
 
 def main() -> None:
@@ -79,19 +82,21 @@ def main() -> None:
     ap.add_argument("--lgbm", default=str(C.ROOT / "Modelling" / "Output" / "rq2_2_delta" / "preds_exante.parquet"))
     a = ap.parse_args()
     out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
+    RU.set_output(out)
     lines = ["RQ2 9.2d - ridge benchmark (impute=True), delta target, rolling origin (same folds as LightGBM)", ""]
     store = {s: [] for s in a.sets}
+    coefs: dict = {}                                    # (set, series) -> list of per-fold coefficient Series
     for view in a.products:
         t0 = time.time()
         df = C.load_view(view, impute=True)
         print(f"{view}: loaded + imputed in {time.time()-t0:.0f}s", flush=True)
-        keys = ["series", "auction_id", "block_start_utc", "y", *C.BASELINES]
+        keys = ["series", "auction_id", "block_start_utc", "slot", "y", *C.BASELINES, *[c for c in df.columns if c.startswith("regime_")]]
         for fset in a.sets:
             X = design(df, view, fset)
             for s in df["series"].unique():
                 if a.only and a.only != s: continue
                 gi = np.flatnonzero((df["series"] == s).to_numpy()); g = df.iloc[gi]
-                Xg = X.iloc[gi].to_numpy()
+                Xg = X.iloc[gi].to_numpy(); names = list(X.columns)
                 ya = np.arcsinh(g["y"].to_numpy(float)); off = np.arcsinh(g["b_prev_slot"].to_numpy(float))
                 yt = ya - off; ok = ~np.isnan(yt)
                 rm = a.refit_months_week if s.endswith("|week") else a.refit_months
@@ -100,7 +105,8 @@ def main() -> None:
                 for f, start, tr, te in C.fold_plan(g.reset_index(drop=True), rm, mt):
                     tr = tr[ok[tr]]
                     if len(tr) < mt: continue
-                    p, al = fit_predict(Xg[tr], yt[tr], Xg[te])
+                    p, al, coef = fit_predict(Xg[tr], yt[tr], Xg[te], names)
+                    coefs.setdefault((fset, s), []).append(coef)
                     r = g.iloc[te][keys].copy(); r["pred"] = np.sinh(p + off[te]); r["fold"] = f; r["alpha"] = al; r["set"] = fset
                     preds.append(r)
                 print(f"{view} {fset:11s} {s:16s} folds={len(preds):3d} {time.time()-t1:6.1f}s", flush=True)
@@ -133,9 +139,36 @@ def main() -> None:
     lines.append("MAE in EUR/MWh on the common rows of the model and all baselines (skill = 1 - MAE_ridge / MAE_naive).")
     lines.append("DM_lgbm_vs_ridge: stat < 0 = LightGBM more accurate than ridge (same rows).")
     lines.append(C.fmt(M.set_index(["series", "set"])))
+    # ---- coefficients and diagnostics
+    import ml_diagnostics as D
+    crow = []
+    for (fset, s), lst in coefs.items():
+        Cm = pd.concat(lst, axis=1)
+        crow.append(pd.DataFrame({"set": fset, "series": s, "feature": Cm.index, "coef_mean": Cm.mean(axis=1),
+                                  "coef_std": Cm.std(axis=1), "abs_mean": Cm.abs().mean(axis=1),
+                                  "sign_stable_share": (np.sign(Cm).eq(np.sign(Cm.mean(axis=1)), axis=0)).mean(axis=1),
+                                  "n_folds": Cm.notna().sum(axis=1)}).sort_values("abs_mean", ascending=False))
+    if crow:
+        CF = pd.concat(crow, ignore_index=True); CF.to_csv(out / "coefficients.csv", index=False)
+        lines.append("\n== Largest standardised ridge coefficients (asinh-delta per 1 SD; mean over folds, sign_stable = share of folds with the same sign)")
+        for (fset, s), g in CF.groupby(["set", "series"], sort=False):
+            lines.append(f"   {s} [{fset}]: " + "; ".join(f"{r.feature} {r.coef_mean:+.3f} ({r.sign_stable_share:.0%})" for r in g.head(10).itertuples()))
+    for fset, P in allp.items():
+        Pm = P.merge(lg, on=["series", "auction_id", "block_start_utc"], how="left") if lg is not None else P.assign(lgbm=np.nan)
+        models = {"ridge": "pred", **({"lgbm": "lgbm"} if Pm["lgbm"].notna().any() else {}), **{b: b for b in C.BASELINES}}
+        imp = None
+        if crow:
+            sub = CF[CF.set == fset]
+            tot = sub.groupby("series")["abs_mean"].transform("sum")
+            imp = sub.assign(mean=sub["abs_mean"] / tot, std=sub["coef_std"] / tot)[["series", "feature", "mean", "std"]]
+        D.forecast_diagnostics(Pm.dropna(subset=["lgbm"]) if "lgbm" in models else Pm, models, out, baseline="b_prev_slot",
+                               importance={"ridge_abs_coef": imp}, group_cols=[c for c in P.columns if c.startswith("regime_")],
+                               title=f"Ridge [{fset}]", subdir=f"diagnostics_{fset}")
+    RU.summary("skill vs naive: " + ", ".join(f"{a_.replace('|', ' ')} [{b_}] {v:+.1f}%"
+                                              for a_, b_, v in zip(M["series"], M["set"], M["skill_vs_naive_%"])))
     (out / "report_rq2_3.txt").write_text("\n".join(lines))
     print("\n".join(lines))
 
 
 if __name__ == "__main__":
-    main()
+    RU.run(main, "RQ2 ridge")

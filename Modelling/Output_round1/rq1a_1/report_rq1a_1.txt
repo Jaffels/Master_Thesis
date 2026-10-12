@@ -1,0 +1,90 @@
+
+== fcr | sym | 4h: 12,414 blocks, 271 features ==
+                   feature     n  spearman  pearson   kind
+         de_lu_gen_coal_mw 12414    -0.241   -0.325 driver
+    de_lu_price_da_eur_mwh 12414    -0.223   -0.224 driver
+          de_lu_gen_gas_mw 12414    -0.214   -0.235 driver
+  de_ch_expl_price_eur_mwh 12414     0.211    0.202 driver
+de_lu_gen_wind_on_da_fc_mw 12414     0.205    0.259 driver
+       ch_gen_hydro_res_mw 12414    -0.205   -0.256 driver
+de_lu_gen_wind_on_id_fc_mw 12414     0.202    0.257 driver
+de_lu_gen_hydro_ps_cons_mw 12414     0.197    0.221 driver
+   at_gen_hydro_ps_cons_mw 12414     0.195    0.221 driver
+      de_lu_gen_wind_on_mw 12414     0.194    0.248 driver
+     fr_gen_total_da_fc_mw 12366    -0.194   -0.230 driver
+       at_price_da_eur_mwh 12414    -0.193   -0.185 driver
+      de_lu_gen_biomass_mw 12414    -0.192   -0.191 driver
+       de_ch_expl_offer_mw 12414    -0.185   -0.182 driver
+       de_ch_expl_alloc_mw 12414    -0.183   -0.181 driver
+
+== afrr | down | 4h: 2,002 blocks, 319 features ==
+                              feature    n  spearman  pearson   kind
+                 ch_load_ma_fc_max_mw 1672    -0.403   -0.117 driver
+              de_lu_load_ma_fc_min_mw 1462    -0.391   -0.413 driver
+                 fr_load_ya_fc_max_mw 1840    -0.317   -0.368 driver
+                 fr_load_ya_fc_min_mw 1840    -0.310   -0.354 driver
+              de_lu_load_ya_fc_min_mw 1840    -0.297   -0.294 driver
+            it_nord_load_ma_fc_min_mw 1672    -0.291   -0.197 driver
+            it_nord_load_ya_fc_min_mw 1840    -0.291   -0.191 driver
+              de_lu_load_ya_fc_max_mw 1840    -0.289   -0.249 driver
+                 fr_load_ma_fc_min_mw 1672    -0.277   -0.294 driver
+                 fr_load_ma_fc_max_mw 1672    -0.268   -0.304 driver
+                 ch_load_wa_fc_min_mw 1990    -0.242   -0.317 driver
+                      fr_ch_ntc_ma_mw 1990    -0.234   -0.188 driver
+                 de_lu_gen_biomass_mw 1996    -0.233   -0.259 driver
+ch_tre_da_down_act_price_vwap_eur_mwh 1350    -0.218   -0.081 driver
+     ch_tre_da_down_price_max_eur_mwh 1996    -0.214   -0.091 driver
+
+== afrr | up | 4h: 2,009 blocks, 319 features ==
+                      feature    n  spearman  pearson   kind
+     ch_outage_gen_planned_mw 2001     0.325    0.287 driver
+  it_nord_hydro_reservoir_mwh 1995     0.273    0.248 driver
+       at_hydro_reservoir_mwh 1995     0.237    0.142 driver
+          fr_gen_hydro_ror_mw 1996    -0.224   -0.370 driver
+         ch_load_wa_fc_min_mw 1995    -0.221   -0.266 driver
+            at_gen_biomass_mw 2001     0.207    0.241 driver
+      at_outage_gen_forced_mw 2001     0.178    0.155 driver
+         ch_load_ma_fc_max_mw 1677    -0.175    0.023 driver
+             ch_snow_hydro_cm 2001    -0.170   -0.151 driver
+              ch_gen_solar_mw 2001     0.168    0.100 driver
+it_nord_outage_gen_planned_mw 2001    -0.160   -0.084 driver
+        ch_sched_net_total_mw 1449    -0.160   -0.146 driver
+ at_ch_outage_trans_planned_n 2001     0.159    0.183 driver
+            fr_load_actual_mw 2001     0.156    0.100 driver
+             fr_load_da_fc_mw 2001     0.149    0.085 driver
+
+== mfrr | down | 4h: 9,341 blocks, 266 features ==
+                   feature    n  spearman  pearson   kind
+ it_nord_load_ya_fc_min_mw 8902    -0.288   -0.288 driver
+ it_nord_load_ma_fc_min_mw 8752    -0.281   -0.280 driver
+ it_nord_load_ya_fc_max_mw 8902    -0.251   -0.287 driver
+      it_nord_gen_total_mw 9340    -0.242   -0.313 driver
+ it_nord_load_ma_fc_max_mw 8752    -0.241   -0.292 driver
+       ch_gen_hydro_res_mw 9340    -0.236   -0.303 driver
+it_nord_gen_total_da_fc_mw 9306    -0.230   -0.297 driver
+         fr_load_actual_mw 9340    -0.229   -0.342 driver
+          fr_load_da_fc_mw 9340    -0.228   -0.352 driver
+       fr_price_da_eur_mwh 9340    -0.225   -0.265 driver
+    it_nord_load_actual_mw 9340    -0.223   -0.281 driver
+ it_nord_load_wa_fc_min_mw 9316    -0.221   -0.293 driver
+          de_lu_gen_gas_mw 9340    -0.219   -0.263 driver
+      fr_load_wa_fc_min_mw 9316    -0.219   -0.330 driver
+     it_nord_load_da_fc_mw 9340    -0.215   -0.279 driver
+
+== mfrr | up | 4h: 10,013 blocks, 266 features ==
+                   feature    n  spearman  pearson   kind
+   de_lu_load_wa_fc_max_mw 9073     0.403    0.386 driver
+       de_lu_load_da_fc_mw 9902     0.384    0.375 driver
+      de_lu_load_actual_mw 9912     0.382    0.382 driver
+         at_load_actual_mw 9912     0.379    0.366 driver
+        it_nord_gen_gas_mw 9912     0.367    0.366 driver
+          at_load_da_fc_mw 9912     0.367    0.352 driver
+         ch_cons_enduse_mw 9912     0.363    0.368 driver
+ it_nord_load_wa_fc_max_mw 9882     0.362    0.376 driver
+      it_nord_gen_total_mw 9912     0.358    0.373 driver
+it_nord_gen_total_da_fc_mw 9878     0.353    0.359 driver
+      at_load_wa_fc_max_mw 9882     0.350    0.336 driver
+   de_lu_load_wa_fc_min_mw 9073     0.349    0.315 driver
+          de_lu_gen_gas_mw 9912     0.343    0.300 driver
+      fr_load_wa_fc_max_mw 9882     0.341    0.344 driver
+     it_nord_load_da_fc_mw 9912     0.341    0.358 driver

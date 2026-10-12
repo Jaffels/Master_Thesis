@@ -40,6 +40,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import run_utils as RU  # run.log, run_meta.json, run history, macOS notification
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
@@ -195,12 +196,18 @@ def lr_fit_predict(tr, te, cols, target, lam=5.0):
     return np.clip(predict(beta, Xte), 1e-5, 1 - 1e-5)
 
 
+IMP_LOG: list = []      # gain importance of every LightGBM fit (side, fold, model set in CTX by main)
+CTX: dict = {}
+
+
 def gbm_fit_predict(tr, te, cols, target, fast):
     cols = [c for c in cols if tr[c].notna().any() and tr[c].nunique() > 1]
     params = dict(objective="binary", learning_rate=0.04, num_leaves=15, min_data_in_leaf=40, bagging_fraction=0.8,
                   bagging_freq=1, feature_fraction=0.5, lambda_l2=5.0, num_threads=4, verbose=-1, seed=7)
     ds = lgb.Dataset(tr[cols].astype("float32"), label=tr[target].to_numpy(), free_raw_data=True)
     m = lgb.train(params, ds, num_boost_round=150 if fast else 350)
+    g = pd.Series(m.feature_importance("gain"), index=cols)
+    IMP_LOG.append({**CTX, "imp": g / g.sum() if g.sum() > 0 else g})
     return np.clip(m.predict(te[cols].astype("float32")), 1e-5, 1 - 1e-5)
 
 
@@ -247,6 +254,7 @@ def main() -> None:
         FIXED = (a.thr_short, a.thr_long)
         TARGETS = {"short": "spike_short_fix", "long": "spike_long_fix"}
     OUT.mkdir(parents=True, exist_ok=True)
+    RU.set_output(OUT)
     t0 = time.time()
     h, feats = build_hourly()
     B = blocks(h)
@@ -298,10 +306,10 @@ def main() -> None:
             out["lr_d1"][te_m] = platt(f_lr, trf, cal, te, cl, target)
             out["lr_h1"][te_m] = platt(f_lr, trf, cal, te, cl + B["now"], target)
             if lgb is not None:
-                out["gbm_d1"][te_m] = platt(f_gb, trf, cal, te, feats["d1"], target)
-                out["gbm_pf_d1"][te_m] = platt(f_gb, trf, cal, te, feats["d1"] + feats["pf"], target)
-                out["gbm_h1"][te_m] = platt(f_gb, trf, cal, te, feats["h1"], target)
-                out["gbm_pf_h1"][te_m] = platt(f_gb, trf, cal, te, feats["h1"] + feats["pf"], target)
+                for mk, cols_ in (("gbm_d1", feats["d1"]), ("gbm_pf_d1", feats["d1"] + feats["pf"]),
+                                  ("gbm_h1", feats["h1"]), ("gbm_pf_h1", feats["h1"] + feats["pf"])):
+                    CTX.update(side=side, fold=str(f0.date()), model=mk)
+                    out[mk][te_m] = platt(f_gb, trf, cal, te, cols_, target)
             log(f"  {side} fold {f0.date()} -> {f1.date()}: train {tr_m.sum():,} h ({int(tr[target].sum())} pos), "
                 f"test {te_m.sum():,} h ({int(te[target].sum())} pos)  [{time.time() - t0:.0f}s]")
         for k, v in out.items():
@@ -385,9 +393,32 @@ def main() -> None:
     Rel.to_csv(OUT / "reliability.csv", index=False)
     log("\n-- reliability (decile of predicted probability: mean prediction vs observed rate)")
     log(Rel.to_string(float_format=lambda x: f"{x:,.4f}", index=False))
+    # ---- diagnostics: capture rate of the riskiest hours, metrics per year, calibration, plots, importance
+    import ml_diagnostics as D
+    D.classifier_diagnostics(P, models, OUT, y_col="y", time_col="hk", group_col="side", reference=best,
+                             title=f"RQ3b{a.tag}")
+    if IMP_LOG:
+        per = {}
+        for e in IMP_LOG:
+            per.setdefault(f"{e['side']}|{e['model']}", []).append(e["imp"])
+        IT = D.importance_table(per)
+        IT[["side", "model"]] = IT["series"].str.split("|", expand=True); IT = IT.drop(columns="series")
+        IT.to_csv(OUT / "diagnostics" / "importance_gbm.csv", index=False)
+        log("\n-- LightGBM gain importance (mean share over fits; share of fits in the top 20)")
+        for (sd_, mk), g in IT.groupby(["side", "model"], sort=False):
+            log(f"   {sd_} {mk}: " + "; ".join(f"{r.feature} {r.mean*100:.1f}% ({r.top20_share_of_folds:.0%})" for r in g.head(10).itertuples()))
+            D._try_plot(D._plot_importance, g, OUT / "diagnostics" / "plots" / sd_ / f"importance_{mk}.png", f"RQ3b {sd_} {mk}")
+    cap = pd.read_csv(OUT / "diagnostics" / "capture_rate.csv")
+    log("\n-- share of all spike hours inside the top 5 % riskiest hours (capture rate)")
+    log(cap[cap.top_share == 0.05].pivot(index="model", columns="group", values="capture_rate").to_string(float_format=lambda x: f"{x:.3f}"))
+    for side in TARGETS:
+        t = R[(R["side"] == side) & (R["period"] == "all")].set_index("model")
+        if len(t):
+            bm = t["Brier"].idxmin()
+            RU.summary(f"{side}: best {bm}, Brier skill {t.at[bm, 'Brier_skill_vs_best_baseline']:+.3f} vs {best[side]}")
     (OUT / "report_rq3b_1.txt").write_text("\n".join(lines), encoding="utf-8")
     print(f"\nwritten: {OUT}  ({time.time() - t0:.0f}s)")
 
 
 if __name__ == "__main__":
-    main()
+    RU.run(main, "RQ3b risk model")

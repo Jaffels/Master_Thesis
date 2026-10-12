@@ -27,6 +27,7 @@ from __future__ import annotations
 import argparse, math, sys
 from pathlib import Path
 import numpy as np, pandas as pd
+import run_utils as RU  # run.log, run_meta.json, run history, macOS notification
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
@@ -144,6 +145,7 @@ def main() -> None:
     ap.add_argument("--out", default=str(ROOT / "Modelling" / "Output" / "rq1b"))
     a = ap.parse_args()
     out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
+    RU.set_output(out)
     rep, allrows = [], []
     for prod in a.products:
         df = V.load(prod, kind="expost", rq="RQ1b", impute=True)
@@ -210,4 +212,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    RU.run(main, "RQ1b regimes")
