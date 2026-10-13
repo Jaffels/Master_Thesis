@@ -1,0 +1,423 @@
+RQ2 Tier 2 (ML_Options.md) - advanced models vs Tier 1 and the naive baselines.
+Rolling origin, expanding window, refit every 3 months (weekly 12); test from 2021-01-01; errors in EUR/MWh on the common rows of all point models and baselines.
+Tier 2: NHITS-x, Chronos-2 (zero-shot); seeds 1; nets: device mps, max epochs 60 / warm 20, patience 8, warm start True, final epochs 2, TFT hidden 32 heads 4, NHITS hidden 256, lr 0.001, wd 0.0001, dropout 0.1, inputs all; TabPFN default, max train 10000, max features 500; Chronos amazon/chronos-2, context 2048, covariates none.
+Tier 1 (merged from rq2_5): lear, lgbm_l1 (round 1), lgbm_q, cat_q, qrf, svr. best_t1 = Tier 1 model with the lowest MAE on these rows (chosen ex post, a strict reference).
+
+== FCR|sym|4h   n = 12,414   best Tier 1 = lgbm_q
+                 MAE   RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_t1_%
+model                                                                                                     
+nhits          5.384  8.762   28.942      0.296                -9.032          -13.618             -13.961
+chronos        4.535  7.664   24.184      0.246                 8.160            4.297               4.008
+lear           4.738  8.038   25.347      0.259                 4.037            0.000              -0.302
+lgbm_l1        4.739  8.007   25.783      0.264                 4.015           -0.023              -0.325
+lgbm_q         4.724  7.990   25.618      0.262                 4.326            0.301               0.000
+cat_q          4.735  8.081   25.610      0.262                 4.100            0.066              -0.236
+qrf            4.728  7.979   25.525      0.261                 4.238            0.210              -0.091
+svr            4.930  8.391   26.011      0.266                 0.150           -4.050              -4.364
+b_prev_slot    4.938  8.550   25.656      0.263                 0.000           -4.207              -4.521
+b_prev_auction 7.040 10.655   37.147      0.386               -42.582          -48.580             -49.028
+b_roll_med     5.393  8.910   28.541      0.293                -9.216          -13.810             -14.154
+   Diebold-Mariano |error| (stat < 0: row model better):
+   vs       b_prev_slot  chronos   lear  lgbm_l1  lgbm_q   nhits
+   model                                                        
+   chronos       -8.410      NaN -5.230   -4.740  -4.410 -10.700
+   nhits          5.210   10.700  8.690    8.680   8.900     NaN
+   p-values:
+   vs       b_prev_slot  chronos  lear  lgbm_l1  lgbm_q  nhits
+   model                                                      
+   chronos        0.000      NaN 0.000    0.000   0.000  0.000
+   nhits          0.000    0.000 0.000    0.000   0.000    NaN
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+            tier  pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                                
+   nhits       2    2.143        4.287     51.036     82.121        9.421       20.589    11874     62.153     90.517       12.659       29.747    11874
+   chronos     2    1.611        3.222     73.783     80.377       12.709       14.718    11874     85.144     90.037       17.387       20.284    11874
+   lgbm_q      1    1.691        3.382     78.626     81.725       14.517       15.755    11874     88.075     90.904       20.277       23.144    11874
+   cat_q       1    1.719        3.438     74.659     84.268       13.338       17.667    11874     83.881     92.639       18.201       25.533    11874
+   qrf         1    1.698        3.396     83.771     80.899       17.270       16.055    11874     92.404     90.130       24.223       22.214    11874
+   DM pinball: nhits vs lgbm_q stat 12.24 p 0.0000; nhits vs cat_q stat 10.99 p 0.0000; nhits vs chronos stat 13.40 p 0.0000; chronos vs lgbm_q stat -5.57 p 0.0000; chronos vs cat_q stat -7.20 p 0.0000; chronos vs nhits stat -13.40 p 0.0000
+   MAE by year:
+   model  nhits  chronos  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                                    
+   2021   5.914    4.385 4.828    4.848   4.823  4.839 4.927 4.699        4.832           5.300       5.077
+   2022   8.674    7.211 7.470    7.463   7.484  7.562 7.458 8.076        8.110           9.458       8.455
+   2023   4.107    3.348 3.605    3.764   3.703  3.654 3.564 3.881        3.833           4.738       4.115
+   2024   3.960    3.413 3.665    3.594   3.591  3.549 3.648 3.690        3.799           6.407       4.144
+   2025   4.605    4.205 4.212    4.112   4.109  4.168 4.133 4.521        4.278           7.535       5.204
+   2026   4.876    4.707 4.610    4.617   4.595  4.595 4.601 4.610        4.696           9.689       5.348
+
+== aFRR|down|4h   n = 1,444   best Tier 1 = lgbm_l1
+                 MAE   RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_t1_%
+model                                                                                                     
+nhits          1.397  3.894   18.514      0.156                 8.495            6.273               0.225
+chronos        1.880  5.485   22.486      0.199               -23.149          -26.140             -34.279
+lear           1.490  4.238   16.586      0.149                 2.371            0.000              -6.453
+lgbm_l1        1.400  4.088   16.480      0.146                 8.289            6.062               0.000
+lgbm_q         1.400  4.089   16.474      0.146                 8.253            6.025              -0.039
+cat_q          1.414  4.153   16.660      0.147                 7.347            5.096              -1.028
+qrf            1.469  4.080   17.459      0.155                 3.740            1.402              -4.961
+svr            1.474  4.141   17.425      0.155                 3.421            1.075              -5.308
+b_prev_slot    1.526  4.274   16.816      0.153                 0.000           -2.429              -9.038
+b_prev_auction 6.713 11.751   84.917      0.943              -339.805         -350.487            -379.556
+b_roll_med     2.816  7.658   34.457      0.315               -84.462          -88.943            -101.135
+   Diebold-Mariano |error| (stat < 0: row model better):
+   vs       b_prev_slot  chronos   lear  lgbm_l1  nhits
+   model                                               
+   chronos        3.410      NaN  3.740    4.090  3.860
+   nhits         -2.330   -3.860 -1.740   -0.100    NaN
+   p-values:
+   vs       b_prev_slot  chronos  lear  lgbm_l1  nhits
+   model                                              
+   chronos        0.001      NaN 0.000    0.000  0.000
+   nhits          0.020    0.000 0.082    0.922    NaN
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+            tier  pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                                
+   nhits       2    0.543        1.086     81.527     75.885        3.859        3.269      904     89.159     91.372        5.866        6.711      904
+   chronos     2    0.735        1.470     79.425     81.969       10.188       10.630      904     87.942     95.022       17.078       19.647      904
+   lgbm_q      1    0.575        1.149     89.712     81.748        6.858        5.592      904     93.805     94.137        9.880       10.675      904
+   cat_q       1    0.566        1.133     84.181     83.407        4.981        4.711      904     92.146     94.248        8.129        9.972      904
+   qrf         1    0.638        1.277     90.597     81.858       11.159        9.606      904     96.018     94.801       17.971       17.778      904
+   DM pinball: nhits vs lgbm_q stat -2.52 p 0.0116; nhits vs cat_q stat -1.47 p 0.1426; nhits vs chronos stat -4.16 p 0.0000; chronos vs lgbm_q stat 3.63 p 0.0003; chronos vs cat_q stat 4.02 p 0.0001; chronos vs nhits stat 4.16 p 0.0000
+   MAE by year:
+   model  nhits  chronos  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                                    
+   2026   1.397    1.880 1.490    1.400   1.400  1.414 1.469 1.474        1.526           6.713       2.816
+
+== aFRR|down|week   n = 295   best Tier 1 = qrf
+                 MAE   RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_t1_%
+model                                                                                                     
+nhits          4.231  9.239   15.767      0.158                14.340            6.806              -2.777
+chronos        4.201  9.721   14.265      0.144                14.948            7.468              -2.047
+lear           4.540  9.916   15.954      0.161                 8.084            0.000             -10.283
+lgbm_l1        4.333  9.639   15.207      0.153                12.273            4.557              -5.258
+lgbm_q         4.309  9.635   14.940      0.151                12.759            5.086              -4.674
+cat_q          4.275  9.569   15.096      0.152                13.445            5.832              -3.851
+qrf            4.116  9.262   14.780      0.149                16.655            9.324               0.000
+svr            4.561 10.446   15.399      0.155                 7.647           -0.476             -10.808
+b_prev_slot    4.939 10.988   16.403      0.166                 0.000           -8.795             -19.982
+b_prev_auction 4.939 10.988   16.403      0.166                 0.000           -8.795             -19.982
+b_roll_med     9.782 19.655   32.397      0.334               -98.055         -115.473            -137.631
+   Diebold-Mariano |error| (stat < 0: row model better):
+   vs       b_prev_slot  chronos   lear  lgbm_l1  nhits   qrf
+   model                                                     
+   chronos       -2.480      NaN -1.100   -0.550 -0.080 0.380
+   nhits         -2.090    0.080 -0.990   -0.420    NaN 0.450
+   p-values:
+   vs       b_prev_slot  chronos  lear  lgbm_l1  nhits   qrf
+   model                                                    
+   chronos        0.013      NaN 0.270    0.582  0.933 0.701
+   nhits          0.037    0.933 0.321    0.671    NaN 0.656
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+            tier  pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                                
+   nhits       2    1.585        3.171     48.148     79.424        9.597       18.643      243     63.786     86.831       14.428       25.341      243
+   chronos     2    1.547        3.094     84.362     86.008       15.089       16.997      243     91.770     94.239       21.274       26.202      243
+   lgbm_q      1    1.562        3.124     74.486     87.243       11.420       17.852      243     88.477     95.473       17.265       27.844      243
+   cat_q       1    1.619        3.238     60.905     87.243        9.614       20.134      243     71.193     95.885       13.402       33.862      243
+   qrf         1    1.484        2.967     86.008     85.185       15.734       18.120      243     94.239     91.358       25.799       26.872      243
+   DM pinball: nhits vs lgbm_q stat 0.30 p 0.7652; nhits vs cat_q stat -0.42 p 0.6769; nhits vs chronos stat 0.28 p 0.7813; chronos vs lgbm_q stat -0.16 p 0.8706; chronos vs cat_q stat -0.75 p 0.4522; chronos vs nhits stat -0.28 p 0.7813
+   MAE by year:
+   model  nhits  chronos  lear  lgbm_l1  lgbm_q  cat_q   qrf    svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                                     
+   2021   3.257    2.932 3.188    3.186   3.141  2.987 3.016  3.159        3.305           3.305       6.222
+   2022   8.178    7.624 9.125    8.094   8.062  8.682 7.752  8.087        9.162           9.162      16.513
+   2023   8.922    9.384 9.009    9.350   9.406  8.535 8.767 10.485       11.061          11.061      23.688
+   2024   1.562    1.754 2.255    1.670   1.627  1.719 1.580  1.926        1.927           1.927       3.856
+   2025   1.238    1.447 1.373    1.538   1.471  1.544 1.522  1.563        1.831           1.831       3.969
+   2026   1.243    1.003 1.162    1.086   1.079  1.148 1.046  0.947        1.062           1.062       1.788
+
+== aFRR|up|4h   n = 1,451   best Tier 1 = cat_q
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_t1_%
+model                                                                                                    
+nhits          0.266 0.595   12.684      0.104                 2.756            3.648              -3.667
+chronos        0.315 0.658   14.572      0.120               -15.186          -14.130             -22.794
+lear           0.276 0.611   12.707      0.105                -0.925            0.000              -7.591
+lgbm_l1        0.259 0.596   12.029      0.099                 5.474            6.340              -0.769
+lgbm_q         0.269 0.599   12.696      0.104                 1.630            2.532              -4.868
+cat_q          0.257 0.596   12.182      0.099                 6.196            7.056               0.000
+qrf            0.276 0.601   12.847      0.106                -1.003           -0.077              -7.674
+svr            0.277 0.595   13.123      0.107                -1.176           -0.248              -7.858
+b_prev_slot    0.274 0.603   12.545      0.103                 0.000            0.917              -6.605
+b_prev_auction 0.728 1.116   31.071      0.273              -166.170         -163.730            -183.750
+b_roll_med     0.571 0.965   27.009      0.228              -108.795         -106.881            -122.586
+   Diebold-Mariano |error| (stat < 0: row model better):
+   vs       b_prev_slot  cat_q  chronos   lear  lgbm_l1  nhits
+   model                                                      
+   chronos        3.900  5.460      NaN  3.380    5.420  4.450
+   nhits         -1.260  2.110   -4.450 -1.380    1.490    NaN
+   p-values:
+   vs       b_prev_slot  cat_q  chronos  lear  lgbm_l1  nhits
+   model                                                     
+   chronos        0.000  0.000      NaN 0.001    0.000  0.000
+   nhits          0.206  0.035    0.000 0.168    0.137    NaN
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+            tier  pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                                
+   nhits       2    0.107        0.214     80.241     62.898        0.778        0.458      911     87.486     72.558        1.203        0.690      911
+   chronos     2    0.118        0.235     77.387     79.912        0.994        1.029      911     86.169     90.121        1.391        1.558      911
+   lgbm_q      1    0.107        0.215     81.559     78.266        0.966        0.873      911     87.267     85.181        1.441        1.303      911
+   cat_q       1    0.103        0.206     77.058     76.729        0.729        0.709      911     86.389     87.377        1.184        1.228      911
+   qrf         1    0.123        0.246     83.205     76.729        1.547        1.364      911     90.340     88.694        2.530        2.409      911
+   DM pinball: nhits vs lgbm_q stat -0.13 p 0.8979; nhits vs cat_q stat 2.58 p 0.0100; nhits vs chronos stat -2.59 p 0.0097; chronos vs lgbm_q stat 2.62 p 0.0089; chronos vs cat_q stat 3.75 p 0.0002; chronos vs nhits stat 2.59 p 0.0097
+   MAE by year:
+   model  nhits  chronos  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                                    
+   2026   0.266    0.315 0.276    0.259   0.269  0.257 0.276 0.277        0.274           0.728       0.571
+
+== aFRR|up|week   n = 295   best Tier 1 = cat_q
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_t1_%
+model                                                                                                    
+nhits          1.681 3.738   10.782      0.107               -13.827          -13.525             -17.818
+chronos        1.592 3.808    9.565      0.095                -7.749           -7.463             -11.526
+lear           1.481 3.547    9.911      0.098                -0.266            0.000              -3.781
+lgbm_l1        1.449 3.535    9.499      0.094                 1.928            2.188              -1.510
+lgbm_q         1.440 3.506    9.503      0.094                 2.498            2.757              -0.920
+cat_q          1.427 3.506    9.452      0.094                 3.387            3.643               0.000
+qrf            1.514 3.593    9.614      0.096                -2.494           -2.222              -6.087
+svr            1.575 3.688   10.188      0.101                -6.595           -6.312             -10.332
+b_prev_slot    1.477 3.523    9.938      0.099                 0.000            0.265              -3.506
+b_prev_auction 1.477 3.523    9.938      0.099                 0.000            0.265              -3.506
+b_roll_med     2.634 5.599   17.715      0.177               -78.286          -77.813             -84.536
+   Diebold-Mariano |error| (stat < 0: row model better):
+   vs       b_prev_slot  cat_q  chronos  lear  lgbm_l1  nhits
+   model                                                     
+   chronos        1.170  1.710      NaN 1.120    1.470 -0.910
+   nhits          1.920  2.630    0.910 1.870    2.430    NaN
+   p-values:
+   vs       b_prev_slot  cat_q  chronos  lear  lgbm_l1  nhits
+   model                                                     
+   chronos        0.243  0.088      NaN 0.261    0.141  0.361
+   nhits          0.055  0.009    0.361 0.062    0.015    NaN
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+            tier  pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                                
+   nhits       2    0.663        1.326     46.914     84.362        2.716        6.594      243     66.667     94.239        4.425        9.392      243
+   chronos     2    0.607        1.214     86.420     87.243        5.150        5.446      243     91.770     92.593        7.648        8.688      243
+   lgbm_q      1    0.560        1.120     76.132     86.831        4.025        5.726      243     83.951     93.416        5.589        7.977      243
+   cat_q       1    0.546        1.091     79.012     89.300        4.034        6.445      243     86.008     94.239        5.513        9.513      243
+   qrf         1    0.574        1.148     86.831     88.066        5.590        6.821      243     92.593     94.650        9.009       10.872      243
+   DM pinball: nhits vs lgbm_q stat 2.55 p 0.0108; nhits vs cat_q stat 2.88 p 0.0040; nhits vs chronos stat 1.24 p 0.2149; chronos vs lgbm_q stat 1.21 p 0.2259; chronos vs cat_q stat 1.45 p 0.1463; chronos vs nhits stat -1.24 p 0.2149
+   MAE by year:
+   model  nhits  chronos  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                                    
+   2021   1.411    1.283 1.368    1.342   1.342  1.373 1.332 1.345        1.360           1.360       2.047
+   2022   2.355    2.237 1.834    1.779   1.792  1.688 2.074 2.037        1.848           1.848       3.493
+   2023   4.317    4.096 3.794    3.738   3.678  3.704 3.846 4.099        3.689           3.689       6.852
+   2024   0.781    0.828 0.715    0.727   0.724  0.712 0.724 0.798        0.784           0.784       1.301
+   2025   0.415    0.357 0.456    0.406   0.409  0.384 0.387 0.411        0.459           0.459       0.886
+   2026   0.374    0.325 0.339    0.327   0.325  0.339 0.325 0.347        0.344           0.344       0.515
+
+== mFRR|down|4h   n = 9,226   best Tier 1 = qrf
+                 MAE   RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_t1_%
+model                                                                                                     
+nhits          4.466 10.893   26.482      0.257                -0.519           -8.585             -10.360
+chronos        4.448 10.695   25.969      0.251                -0.112           -8.145              -9.913
+lear           4.113 10.294   24.495      0.236                 7.428            0.000              -1.634
+lgbm_l1        4.048 10.226   23.437      0.229                 8.884            1.572              -0.036
+lgbm_q         4.054 10.264   23.443      0.229                 8.761            1.439              -0.172
+cat_q          4.053 10.305   23.498      0.229                 8.780            1.460              -0.151
+qrf            4.047 10.380   23.465      0.229                 8.917            1.608               0.000
+svr            4.615 11.210   27.025      0.263                -3.863          -12.198             -14.031
+b_prev_slot    4.443 10.964   24.868      0.244                 0.000           -8.025              -9.790
+b_prev_auction 8.516 16.055   56.596      0.598               -91.664         -107.045            -110.429
+b_roll_med     7.848 18.228   43.031      0.436               -76.639          -90.814             -93.933
+   Diebold-Mariano |error| (stat < 0: row model better):
+   vs       b_prev_slot  chronos  lear  lgbm_l1  nhits   qrf
+   model                                                    
+   chronos        0.060      NaN 3.940    4.510 -0.150 3.810
+   nhits          0.200    0.150 3.760    4.320    NaN 4.410
+   p-values:
+   vs       b_prev_slot  chronos  lear  lgbm_l1  nhits   qrf
+   model                                                    
+   chronos        0.955      NaN 0.000    0.000  0.882 0.000
+   nhits          0.841    0.882 0.000    0.000    NaN 0.000
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+            tier  pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                                
+   nhits       2    1.799        3.597     58.105     85.931        8.261       18.464     8686     69.330     92.655       11.641       26.959     8686
+   chronos     2    1.643        3.285     72.174     82.800       12.264       16.134     8686     83.387     91.872       17.649       24.181     8686
+   lgbm_q      1    1.531        3.062     82.765     81.649       14.649       14.415     8686     90.767     91.734       21.025       22.656     8686
+   cat_q       1    1.525        3.050     82.236     84.953       14.243       15.905     8686     90.824     93.656       21.668       26.794     8686
+   qrf         1    1.599        3.198     87.532     80.532       19.251       16.070     8686     93.921     91.158       30.527       26.716     8686
+   DM pinball: nhits vs lgbm_q stat 5.71 p 0.0000; nhits vs cat_q stat 5.59 p 0.0000; nhits vs chronos stat 2.85 p 0.0044; chronos vs lgbm_q stat 3.56 p 0.0004; chronos vs cat_q stat 3.59 p 0.0003; chronos vs nhits stat -2.85 p 0.0044
+   MAE by year:
+   model  nhits  chronos  lear  lgbm_l1  lgbm_q  cat_q   qrf    svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                                     
+   2021   4.227    3.579 3.778    3.555   3.571  3.607 3.546  4.185        3.933           6.731       5.905
+   2022  10.208   10.327 9.398    9.322   9.323  9.291 9.367 10.608       10.451          18.269      18.636
+   2023   2.905    3.110 2.684    2.719   2.717  2.622 2.633  2.997        3.025           4.917       4.698
+   2024   9.807    7.313 7.546    6.999   7.118  6.954 7.391 10.474        6.431           7.173      19.500
+   2025   2.756    3.041 2.717    2.680   2.680  2.772 2.750  2.915        2.833           6.822       5.595
+   2026   1.280    1.503 1.233    1.293   1.293  1.274 1.186  1.352        1.365           5.555       2.469
+
+== mFRR|down|week   n = 295   best Tier 1 = qrf
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_t1_%
+model                                                                                                    
+nhits          1.934 3.480   13.979      0.139                -5.099           -4.873             -12.062
+chronos        1.709 3.145   12.299      0.122                 7.126            7.325               0.972
+lear           1.844 3.129   13.519      0.134                -0.215            0.000              -6.855
+lgbm_l1        1.798 3.044   13.019      0.129                 2.306            2.516              -4.166
+lgbm_q         1.786 3.031   12.984      0.129                 2.948            3.157              -3.481
+cat_q          1.770 3.064   12.819      0.127                 3.813            4.019              -2.560
+qrf            1.726 2.978   12.680      0.126                 6.214            6.415               0.000
+svr            1.851 3.190   13.772      0.137                -0.574           -0.358              -7.238
+b_prev_slot    1.840 3.129   13.486      0.134                 0.000            0.215              -6.625
+b_prev_auction 1.840 3.129   13.486      0.134                 0.000            0.215              -6.625
+b_roll_med     3.217 5.184   24.938      0.252               -74.863          -74.487             -86.448
+   Diebold-Mariano |error| (stat < 0: row model better):
+   vs       b_prev_slot  chronos   lear  lgbm_l1  nhits    qrf
+   model                                                      
+   chronos       -1.330      NaN -1.360   -0.990 -1.780 -0.210
+   nhits          1.120    1.780  1.050    1.030    NaN  2.000
+   p-values:
+   vs       b_prev_slot  chronos  lear  lgbm_l1  nhits   qrf
+   model                                                    
+   chronos        0.184      NaN 0.174    0.322  0.076 0.831
+   nhits          0.264    0.076 0.291    0.303    NaN 0.046
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+            tier  pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                                
+   nhits       2    0.822        1.645     37.037     86.420        1.725        8.157      243     55.144     94.650        2.965       12.737      243
+   chronos     2    0.633        1.266     80.658     82.305        5.681        6.711      243     88.477     93.827        8.176       10.454      243
+   lgbm_q      1    0.638        1.275     73.663     83.128        5.166        8.525      243     88.889     93.827        7.365       14.719      243
+   cat_q       1    0.648        1.295     71.193     86.831        4.523        8.463      243     83.128     90.947        6.225       12.049      243
+   qrf         1    0.617        1.233     86.008     86.831        6.184        8.746      243     93.827     94.650        9.992       13.082      243
+   DM pinball: nhits vs lgbm_q stat 3.17 p 0.0015; nhits vs cat_q stat 3.16 p 0.0016; nhits vs chronos stat 3.13 p 0.0017; chronos vs lgbm_q stat -0.19 p 0.8484; chronos vs cat_q stat -0.54 p 0.5909; chronos vs nhits stat -3.13 p 0.0017
+   MAE by year:
+   model  nhits  chronos  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                                    
+   2021   1.969    1.719 1.993    1.979   1.978  1.962 1.946 1.939        1.985           1.985       3.730
+   2022   4.516    3.581 3.903    3.968   3.956  3.876 3.677 3.813        3.894           3.894       6.533
+   2023   2.272    2.225 2.214    1.998   1.914  1.989 2.003 2.341        2.188           2.188       3.629
+   2024   0.687    0.728 0.685    0.696   0.692  0.654 0.646 0.736        0.731           0.731       1.186
+   2025   0.927    0.909 1.133    1.026   1.059  1.025 0.996 1.132        1.091           1.091       2.319
+   2026   0.896    0.791 0.793    0.790   0.792  0.797 0.778 0.799        0.818           0.818       1.274
+
+== mFRR|up|4h   n = 9,958   best Tier 1 = lgbm_q
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_t1_%
+model                                                                                                    
+nhits          1.083 2.962   34.396      0.246                 8.428          -10.872             -21.917
+chronos        1.039 3.068   32.973      0.230                12.143           -6.374             -16.971
+lear           0.977 2.925   35.061      0.227                17.407            0.000              -9.962
+lgbm_l1        0.890 2.688   29.137      0.206                24.728            8.863              -0.216
+lgbm_q         0.888 2.692   29.016      0.205                24.890            9.059               0.000
+cat_q          0.895 2.704   29.003      0.206                24.296            8.340              -0.790
+qrf            0.925 2.781   28.455      0.209                21.737            5.242              -4.197
+svr            1.149 3.187   37.845      0.273                 2.831          -17.648             -29.368
+b_prev_slot    1.183 3.382   34.766      0.266                 0.000          -21.076             -33.138
+b_prev_auction 2.286 4.992   63.882      0.548               -93.301         -134.041            -157.356
+b_roll_med     2.153 5.837   56.721      0.465               -82.038         -120.405            -142.361
+   Diebold-Mariano |error| (stat < 0: row model better):
+   vs       b_prev_slot  chronos  lear  lgbm_l1  lgbm_q  nhits
+   model                                                      
+   chronos       -3.860      NaN 2.090    5.270   5.330 -1.290
+   nhits         -2.650    1.290 3.890    7.200   7.250    NaN
+   p-values:
+   vs       b_prev_slot  chronos  lear  lgbm_l1  lgbm_q  nhits
+   model                                                      
+   chronos        0.000      NaN 0.037    0.000   0.000  0.198
+   nhits          0.008    0.198 0.000    0.000   0.000    NaN
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+            tier  pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                                
+   nhits       2    0.450        0.901     52.665     85.878        1.697        4.087     9418     62.327     93.937        2.284        6.078     9418
+   chronos     2    0.386        0.772     72.627     83.160        2.826        3.432     9418     83.850     92.366        3.918        5.177     9418
+   lgbm_q      1    0.338        0.676     81.769     83.298        2.688        2.873     9418     89.966     92.716        3.869        4.656     9418
+   cat_q       1    0.338        0.677     81.100     86.621        2.603        3.171     9418     89.839     94.511        3.859        5.089     9418
+   qrf         1    0.351        0.702     85.496     83.086        3.680        3.618     9418     93.130     92.366        5.783        5.808     9418
+   DM pinball: nhits vs lgbm_q stat 9.00 p 0.0000; nhits vs cat_q stat 8.74 p 0.0000; nhits vs chronos stat 4.37 p 0.0000; chronos vs lgbm_q stat 5.04 p 0.0000; chronos vs cat_q stat 4.94 p 0.0000; chronos vs nhits stat -4.37 p 0.0000
+   MAE by year:
+   model  nhits  chronos  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                                    
+   2021   1.898    1.683 1.668    1.503   1.501  1.488 1.498 1.912        2.046           3.801       3.507
+   2022   1.779    1.693 1.550    1.375   1.372  1.412 1.497 1.893        1.971           4.055       4.199
+   2023   0.542    0.576 0.503    0.484   0.484  0.489 0.493 0.650        0.649           1.327       0.975
+   2024   1.067    1.261 1.129    1.132   1.127  1.152 1.158 1.221        1.325           2.410       2.402
+   2025   0.669    0.666 0.587    0.578   0.575  0.570 0.603 0.711        0.670           1.182       0.989
+   2026   0.317    0.351 0.388    0.309   0.308  0.313 0.333 0.348        0.320           0.607       0.671
+
+== mFRR|up|week   n = 295   best Tier 1 = cat_q
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_t1_%
+model                                                                                                    
+nhits          0.620 1.565   12.839      0.103                -4.631           -3.477              -8.450
+chronos        0.568 1.474    8.529      0.078                 4.063            5.121               0.561
+lear           0.599 1.532   10.295      0.091                -1.115            0.000              -4.806
+lgbm_l1        0.577 1.517    9.733      0.087                 2.677            3.750              -0.876
+lgbm_q         0.578 1.517    9.642      0.086                 2.460            3.536              -1.101
+cat_q          0.572 1.497    9.973      0.088                 3.522            4.586               0.000
+qrf            0.577 1.522    9.808      0.087                 2.528            3.603              -1.030
+svr            0.623 1.552   10.140      0.091                -5.124           -3.965              -8.962
+b_prev_slot    0.592 1.526   10.225      0.091                 0.000            1.103              -3.651
+b_prev_auction 0.592 1.526   10.225      0.091                 0.000            1.103              -3.651
+b_roll_med     1.128 2.593   21.433      0.190               -90.405          -88.305             -97.356
+   Diebold-Mariano |error| (stat < 0: row model better):
+   vs       b_prev_slot  cat_q  chronos   lear  lgbm_l1  nhits
+   model                                                      
+   chronos       -0.680 -0.100      NaN -0.850   -0.250 -1.350
+   nhits          0.790  1.760    1.350  0.580    1.490    NaN
+   p-values:
+   vs       b_prev_slot  cat_q  chronos  lear  lgbm_l1  nhits
+   model                                                     
+   chronos        0.497  0.922      NaN 0.397    0.801  0.177
+   nhits          0.427  0.079    0.177 0.562    0.137    NaN
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+            tier  pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                                
+   nhits       2    0.265        0.530     41.152     85.597        0.452        1.727      243     56.379     91.770        0.822        2.300      243
+   chronos     2    0.210        0.420     89.712     72.840        1.993        1.620      243     97.119     88.066        2.977        2.636      243
+   lgbm_q      1    0.225        0.449     81.070     87.243        1.399        2.017      243     90.123     95.473        2.214        3.029      243
+   cat_q       1    0.224        0.448     79.835     93.004        1.164        2.256      243     90.947     97.119        1.868        3.337      243
+   qrf         1    0.226        0.451     84.362     88.889        1.801        2.223      243     96.296     97.119        2.750        3.219      243
+   DM pinball: nhits vs lgbm_q stat 2.64 p 0.0082; nhits vs cat_q stat 2.72 p 0.0066; nhits vs chronos stat 3.14 p 0.0017; chronos vs lgbm_q stat -1.37 p 0.1713; chronos vs cat_q stat -1.15 p 0.2514; chronos vs nhits stat -3.14 p 0.0017
+   MAE by year:
+   model  nhits  chronos  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                                    
+   2021   0.817    0.608 0.810    0.764   0.777  0.804 0.784 0.781        0.809           0.809       1.577
+   2022   0.783    0.832 0.747    0.754   0.762  0.706 0.763 1.006        0.730           0.730       1.377
+   2023   1.506    1.548 1.510    1.454   1.453  1.426 1.438 1.458        1.493           1.493       2.671
+   2024   0.156    0.072 0.094    0.089   0.087  0.086 0.087 0.081        0.092           0.092       0.215
+   2025   0.133    0.057 0.123    0.113   0.111  0.122 0.109 0.107        0.123           0.123       0.288
+   2026   0.181    0.163 0.172    0.147   0.132  0.149 0.144 0.151        0.172           0.172       0.407
+
+== Summary: MAE skill vs same-slot-yesterday (%)
+                 nhits  chronos   lear  lgbm_l1  lgbm_q  cat_q    qrf    svr
+series                                                                      
+FCR|sym|4h      -9.032    8.160  4.037    4.015   4.326  4.100  4.238  0.150
+aFRR|down|4h     8.495  -23.149  2.371    8.289   8.253  7.347  3.740  3.421
+aFRR|down|week  14.340   14.948  8.084   12.273  12.759 13.445 16.655  7.647
+aFRR|up|4h       2.756  -15.186 -0.925    5.474   1.630  6.196 -1.003 -1.176
+aFRR|up|week   -13.827   -7.749 -0.266    1.928   2.498  3.387 -2.494 -6.595
+mFRR|down|4h    -0.519   -0.112  7.428    8.884   8.761  8.780  8.917 -3.863
+mFRR|down|week  -5.099    7.126 -0.215    2.306   2.948  3.813  6.214 -0.574
+mFRR|up|4h       8.428   12.143 17.407   24.728  24.890 24.296 21.737  2.831
+mFRR|up|week    -4.631    4.063 -1.115    2.677   2.460  3.522  2.528 -5.124
+   best point model per series: FCR|sym|4h: chronos; aFRR|down|4h: nhits; aFRR|down|week: qrf; aFRR|up|4h: cat_q; aFRR|up|week: cat_q; mFRR|down|4h: qrf; mFRR|down|week: chronos; mFRR|up|4h: lgbm_q; mFRR|up|week: chronos
+== Summary: mean pinball loss (EUR/MWh), lower is better
+model           cat_q  chronos  lgbm_q  nhits   qrf
+series                                             
+FCR|sym|4h      1.719    1.611   1.691  2.143 1.698
+aFRR|down|4h    0.566    0.735   0.575  0.543 0.638
+aFRR|down|week  1.619    1.547   1.562  1.585 1.484
+aFRR|up|4h      0.103    0.118   0.107  0.107 0.123
+aFRR|up|week    0.546    0.607   0.560  0.663 0.574
+mFRR|down|4h    1.525    1.643   1.531  1.799 1.599
+mFRR|down|week  0.648    0.633   0.638  0.822 0.617
+mFRR|up|4h      0.338    0.386   0.338  0.450 0.351
+mFRR|up|week    0.224    0.210   0.225  0.265 0.226
+== Summary: 90 % interval coverage raw -> CQR (%)
+model                  cat_q       chronos        lgbm_q         nhits           qrf
+series                                                                              
+FCR|sym|4h      83.9 -> 92.6  85.1 -> 90.0  88.1 -> 90.9  62.2 -> 90.5  92.4 -> 90.1
+aFRR|down|4h    92.1 -> 94.2  87.9 -> 95.0  93.8 -> 94.1  89.2 -> 91.4  96.0 -> 94.8
+aFRR|down|week  71.2 -> 95.9  91.8 -> 94.2  88.5 -> 95.5  63.8 -> 86.8  94.2 -> 91.4
+aFRR|up|4h      86.4 -> 87.4  86.2 -> 90.1  87.3 -> 85.2  87.5 -> 72.6  90.3 -> 88.7
+aFRR|up|week    86.0 -> 94.2  91.8 -> 92.6  84.0 -> 93.4  66.7 -> 94.2  92.6 -> 94.7
+mFRR|down|4h    90.8 -> 93.7  83.4 -> 91.9  90.8 -> 91.7  69.3 -> 92.7  93.9 -> 91.2
+mFRR|down|week  83.1 -> 90.9  88.5 -> 93.8  88.9 -> 93.8  55.1 -> 94.7  93.8 -> 94.7
+mFRR|up|4h      89.8 -> 94.5  83.9 -> 92.4  90.0 -> 92.7  62.3 -> 93.9  93.1 -> 92.4
+mFRR|up|week    90.9 -> 97.1  97.1 -> 88.1  90.1 -> 95.5  56.4 -> 91.8  96.3 -> 97.1
+
+More detail: fold_log.csv (per fold sizes / timings / epochs), training_curves.csv (+ plots/), tft_attention.csv, diagnostics/ (breakdowns, worst errors, calibration, importance, plots; see README.txt)
+
+total runtime 9 min 00 s

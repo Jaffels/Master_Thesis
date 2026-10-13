@@ -19,10 +19,10 @@
     "--out",
     "Modelling/Output/rq2_6_tabpfn_small"
   ],
-  "start": "2026-10-13T19:10:02",
-  "end": "2026-10-13T20:05:53",
-  "duration_s": 3350.5,
-  "duration": "55 min 51 s",
+  "start": "2026-10-13T20:24:47",
+  "end": "2026-10-13T21:18:34",
+  "duration_s": 3227.6,
+  "duration": "53 min 48 s",
   "summary": [
     "aFRR down 4h: tabpfn +11.6% (best T1 lgbm_l1 +8.3%)",
     "aFRR down week: tabpfn +28.3% (best T1 qrf +16.7%)",
@@ -33,19 +33,10 @@
   ],
   "output_dir": "Modelling/Output/rq2_6_tabpfn_small",
   "git": {
-    "commit": "a025bb7",
+    "commit": "3971ac4",
     "branch": "2nd-runs",
     "uncommitted_files_in_Modelling_Clean": [
-      "odelling/run_utils.py",
-      "Modelling/Output/rq2_6_quick/",
-      "Modelling/Output/rq2_6_tabpfn_small/",
-      "Modelling/Output/rq2_6_tft_mfrr_up/",
-      "Modelling/Output/rq2_6_tft_mfrr_up_v2/",
-      "Modelling/Output/tier2_setup/",
-      "Modelling/rq2_6_tier2.py",
-      "Modelling/rq2_7_stack.py",
-      "Modelling/tier2_nets.py",
-      "Modelling/tier2_setup_check.py"
+      "odelling/Output/rq2_6_tabpfn_small/report_rq2_6.txt"
     ]
   },
   "python": "3.14.7",
@@ -69,10 +60,6 @@
     "matplotlib": "3.11.2"
   },
   "files_written": [
-    {
-      "file": "diagnostics/README.txt",
-      "kB": 1.5
-    },
     {
       "file": "diagnostics/error_breakdown.csv",
       "kB": 224.9
@@ -123,7 +110,7 @@
     },
     {
       "file": "diagnostics/plots/aFRR_down_week/quantile_calibration.png",
-      "kB": 56.9
+      "kB": 57.0
     },
     {
       "file": "diagnostics/plots/aFRR_down_week/rolling_mae.png",
@@ -139,7 +126,7 @@
     },
     {
       "file": "diagnostics/plots/aFRR_down_week/zoom_last_8w.png",
-      "kB": 99.9
+      "kB": 99.1
     },
     {
       "file": "diagnostics/plots/aFRR_up_4h/error_hist.png",
@@ -171,7 +158,7 @@
     },
     {
       "file": "diagnostics/plots/aFRR_up_4h/zoom_last_8w.png",
-      "kB": 125.6
+      "kB": 125.1
     },
     {
       "file": "diagnostics/plots/aFRR_up_week/error_hist.png",
@@ -275,7 +262,7 @@
     },
     {
       "file": "fold_log.csv",
-      "kB": 2.8
+      "kB": 3.2
     },
     {
       "file": "metrics_by_year.csv",

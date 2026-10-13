@@ -1,47 +1,47 @@
-[2026-10-13T19:10:02] rq2_6_tier2 --products afrr mfrr --models tabpfn --only aFRR|up|4h aFRR|down|4h aFRR|up|week aFRR|down|week mFRR|up|week mFRR|down|week --out Modelling/Output/rq2_6_tabpfn_small
+[2026-10-13T20:24:47] rq2_6_tier2 --products afrr mfrr --models tabpfn --only aFRR|up|4h aFRR|down|4h aFRR|up|week aFRR|down|week mFRR|up|week mFRR|down|week --out Modelling/Output/rq2_6_tabpfn_small
 models: TabPFN; device (nets) cpu; seeds 1
    tier 1 predictions: Modelling/Output/rq2_5_afrr/preds.parquet
    tier 1 predictions: Modelling/Output/rq2_5_mfrr/preds.parquet
 afrr: 5,048 blocks, 776 features
-      aFRR|down|4h fold 20 (2025-12-31 -> 2026-03-31, n_train 552): tabpfn   119s
-      aFRR|down|4h fold 21 (2026-03-31 -> 2026-06-30, n_train 1,092): tabpfn   239s
+      aFRR|down|4h fold 20 (2025-12-31 -> 2026-03-31, n_train 552): tabpfn   123s
+      aFRR|down|4h fold 21 (2026-03-31 -> 2026-06-30, n_train 1,092): tabpfn   228s
       TabPFN: Apple-GPU (MPS) out of memory -> this fold on CPU
-      aFRR|down|4h fold 22 (2026-06-30 -> 2026-08-31, n_train 1,638): tabpfn  1178s
-   aFRR|down|4h     folds=  3  tabpfn  1537s
-      aFRR|down|week fold  0 (2021-01-03 -> 2021-12-26, n_train 132): tabpfn    10s
+      aFRR|down|4h fold 22 (2026-06-30 -> 2026-08-31, n_train 1,638): tabpfn  1047s
+   aFRR|down|4h     folds=  3  tabpfn  1398s
+      aFRR|down|week fold  0 (2021-01-03 -> 2021-12-26, n_train 132): tabpfn     8s
       aFRR|down|week fold  1 (2022-01-02 -> 2022-12-25, n_train 184): tabpfn     8s
       aFRR|down|week fold  2 (2023-01-01 -> 2023-12-24, n_train 236): tabpfn    10s
       aFRR|down|week fold  3 (2023-12-31 -> 2024-12-29, n_train 289): tabpfn    11s
-      aFRR|down|week fold  4 (2025-01-05 -> 2025-12-28, n_train 341): tabpfn    13s
-      aFRR|down|week fold  5 (2026-01-04 -> 2026-08-23, n_train 393): tabpfn    14s
-   aFRR|down|week   folds=  6  tabpfn    66s
-      aFRR|up|4h fold 20 (2025-12-31 -> 2026-03-31, n_train 552): tabpfn   169s
-      aFRR|up|4h fold 21 (2026-03-31 -> 2026-06-30, n_train 1,092): tabpfn   290s
+      aFRR|down|week fold  4 (2025-01-05 -> 2025-12-28, n_train 341): tabpfn    12s
+      aFRR|down|week fold  5 (2026-01-04 -> 2026-08-23, n_train 393): tabpfn    12s
+   aFRR|down|week   folds=  6  tabpfn    61s
+      aFRR|up|4h fold 20 (2025-12-31 -> 2026-03-31, n_train 552): tabpfn   145s
+      aFRR|up|4h fold 21 (2026-03-31 -> 2026-06-30, n_train 1,092): tabpfn   263s
       TabPFN: Apple-GPU (MPS) out of memory -> this fold on CPU
-      aFRR|up|4h fold 22 (2026-06-30 -> 2026-08-31, n_train 1,638): tabpfn  1054s
-   aFRR|up|4h       folds=  3  tabpfn  1513s
+      aFRR|up|4h fold 22 (2026-06-30 -> 2026-08-31, n_train 1,638): tabpfn  1131s
+   aFRR|up|4h       folds=  3  tabpfn  1539s
       aFRR|up|week fold  0 (2021-01-03 -> 2021-12-26, n_train 132): tabpfn     9s
       aFRR|up|week fold  1 (2022-01-02 -> 2022-12-25, n_train 184): tabpfn     6s
-      aFRR|up|week fold  2 (2023-01-01 -> 2023-12-24, n_train 236): tabpfn     9s
+      aFRR|up|week fold  2 (2023-01-01 -> 2023-12-24, n_train 236): tabpfn     8s
       aFRR|up|week fold  3 (2023-12-31 -> 2024-12-29, n_train 289): tabpfn    10s
       aFRR|up|week fold  4 (2025-01-05 -> 2025-12-28, n_train 341): tabpfn    11s
-      aFRR|up|week fold  5 (2026-01-04 -> 2026-08-23, n_train 393): tabpfn    15s
-   aFRR|up|week     folds=  6  tabpfn    59s
+      aFRR|up|week fold  5 (2026-01-04 -> 2026-08-23, n_train 393): tabpfn    13s
+   aFRR|up|week     folds=  6  tabpfn    58s
 mfrr: 43,018 blocks, 778 features
-      mFRR|down|week fold  0 (2021-01-03 -> 2021-12-26, n_train 300): tabpfn    13s
-      mFRR|down|week fold  1 (2022-01-02 -> 2022-12-25, n_train 352): tabpfn    14s
+      mFRR|down|week fold  0 (2021-01-03 -> 2021-12-26, n_train 300): tabpfn    11s
+      mFRR|down|week fold  1 (2022-01-02 -> 2022-12-25, n_train 352): tabpfn    12s
       mFRR|down|week fold  2 (2023-01-01 -> 2023-12-24, n_train 404): tabpfn    13s
-      mFRR|down|week fold  3 (2023-12-31 -> 2024-12-29, n_train 457): tabpfn    13s
-      mFRR|down|week fold  4 (2025-01-05 -> 2025-12-28, n_train 509): tabpfn    15s
-      mFRR|down|week fold  5 (2026-01-04 -> 2026-08-23, n_train 561): tabpfn    17s
-   mFRR|down|week   folds=  6  tabpfn    84s
+      mFRR|down|week fold  3 (2023-12-31 -> 2024-12-29, n_train 457): tabpfn    14s
+      mFRR|down|week fold  4 (2025-01-05 -> 2025-12-28, n_train 509): tabpfn    16s
+      mFRR|down|week fold  5 (2026-01-04 -> 2026-08-23, n_train 561): tabpfn    16s
+   mFRR|down|week   folds=  6  tabpfn    83s
       mFRR|up|week fold  0 (2021-01-03 -> 2021-12-26, n_train 306): tabpfn    10s
-      mFRR|up|week fold  1 (2022-01-02 -> 2022-12-25, n_train 358): tabpfn    12s
-      mFRR|up|week fold  2 (2023-01-01 -> 2023-12-24, n_train 410): tabpfn    14s
+      mFRR|up|week fold  1 (2022-01-02 -> 2022-12-25, n_train 358): tabpfn    13s
+      mFRR|up|week fold  2 (2023-01-01 -> 2023-12-24, n_train 410): tabpfn    13s
       mFRR|up|week fold  3 (2023-12-31 -> 2024-12-29, n_train 463): tabpfn    14s
       mFRR|up|week fold  4 (2025-01-05 -> 2025-12-28, n_train 515): tabpfn    16s
       mFRR|up|week fold  5 (2026-01-04 -> 2026-08-23, n_train 567): tabpfn    17s
-   mFRR|up|week     folds=  6  tabpfn    84s
+   mFRR|up|week     folds=  6  tabpfn    83s
    diagnostics written: Modelling/Output/rq2_6_tabpfn_small/diagnostics
 RQ2 Tier 2 (ML_Options.md) - advanced models vs Tier 1 and the naive baselines.
 Rolling origin, expanding window, refit every 3 months (weekly 12); test from 2021-01-01; errors in EUR/MWh on the common rows of all point models and baselines.
@@ -72,7 +72,7 @@ b_roll_med     2.816  7.658   34.457      0.315               -84.462          -
    Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
            tier  pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
    model                                                                                                                                               
-   tabpfn     2    0.537        1.073     90.265     64.934        6.860        4.607      904     95.796     84.403       12.081        9.675      904
+   tabpfn     2    0.537        1.073     90.265     64.934        6.860        4.607      904     95.796     84.403       12.077        9.670      904
    lgbm_q     1    0.575        1.149     89.712     81.748        6.858        5.592      904     93.805     94.137        9.880       10.675      904
    cat_q      1    0.566        1.133     84.181     83.407        4.981        4.711      904     92.146     94.248        8.129        9.972      904
    qrf        1    0.638        1.277     90.597     81.858       11.159        9.606      904     96.018     94.801       17.971       17.778      904
@@ -106,11 +106,11 @@ b_roll_med     9.782 19.655   32.397      0.334               -98.055         -1
    Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
            tier  pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
    model                                                                                                                                               
-   tabpfn     2    1.313        2.626     84.774     80.247       16.444       15.254      243     91.770     88.066       26.444       22.879      243
+   tabpfn     2    1.296        2.591     84.774     80.247       16.059       14.868      243     91.770     88.477       24.676       21.683      243
    lgbm_q     1    1.562        3.124     74.486     87.243       11.420       17.852      243     88.477     95.473       17.265       27.844      243
    cat_q      1    1.619        3.238     60.905     87.243        9.614       20.134      243     71.193     95.885       13.402       33.862      243
    qrf        1    1.484        2.967     86.008     85.185       15.734       18.120      243     94.239     91.358       25.799       26.872      243
-   DM pinball: tabpfn vs lgbm_q stat -3.09 p 0.0020; tabpfn vs cat_q stat -3.20 p 0.0014
+   DM pinball: tabpfn vs lgbm_q stat -3.15 p 0.0016; tabpfn vs cat_q stat -3.23 p 0.0012
    MAE by year:
    model  tabpfn  lear  lgbm_l1  lgbm_q  cat_q   qrf    svr  b_prev_slot  b_prev_auction  b_roll_med
    year                                                                                             
@@ -145,11 +145,11 @@ b_roll_med     0.571 0.965   27.009      0.228              -108.795         -10
    Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
            tier  pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
    model                                                                                                                                               
-   tabpfn     2    0.106        0.211     85.950     65.313        1.234        0.766      911     92.865     80.241        2.216        1.512      911
+   tabpfn     2    0.106        0.211     85.950     65.313        1.234        0.765      911     92.865     80.241        2.207        1.504      911
    lgbm_q     1    0.107        0.215     81.559     78.266        0.966        0.873      911     87.267     85.181        1.441        1.303      911
    cat_q      1    0.103        0.206     77.058     76.729        0.729        0.709      911     86.389     87.377        1.184        1.228      911
    qrf        1    0.123        0.246     83.205     76.729        1.547        1.364      911     90.340     88.694        2.530        2.409      911
-   DM pinball: tabpfn vs lgbm_q stat -1.14 p 0.2532; tabpfn vs cat_q stat 1.25 p 0.2129
+   DM pinball: tabpfn vs lgbm_q stat -1.16 p 0.2457; tabpfn vs cat_q stat 1.23 p 0.2194
    MAE by year:
    model  tabpfn  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
    year                                                                                            
@@ -179,11 +179,11 @@ b_roll_med     2.634 5.599   17.715      0.177               -78.286          -7
    Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
            tier  pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
    model                                                                                                                                               
-   tabpfn     2   24.622       49.244     88.889     64.609        9.993        7.414      243     95.473     72.428       18.706       12.694      243
+   tabpfn     2    0.660        1.320     88.889     64.609        8.775        6.261      243     95.473     73.251       12.697        7.542      243
    lgbm_q     1    0.560        1.120     76.132     86.831        4.025        5.726      243     83.951     93.416        5.589        7.977      243
    cat_q      1    0.546        1.091     79.012     89.300        4.034        6.445      243     86.008     94.239        5.513        9.513      243
    qrf        1    0.574        1.148     86.831     88.066        5.590        6.821      243     92.593     94.650        9.009       10.872      243
-   DM pinball: tabpfn vs lgbm_q stat 1.06 p 0.2894; tabpfn vs cat_q stat 1.06 p 0.2890
+   DM pinball: tabpfn vs lgbm_q stat 2.36 p 0.0182; tabpfn vs cat_q stat 2.58 p 0.0099
    MAE by year:
    model  tabpfn  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
    year                                                                                            
@@ -218,11 +218,11 @@ b_roll_med     3.217 5.184   24.938      0.252               -74.863          -7
    Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
            tier  pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
    model                                                                                                                                               
-   tabpfn     2    0.668        1.336     87.654     79.012        9.767       10.703      243     94.650     86.831       17.537       18.980      243
+   tabpfn     2    0.649        1.298     87.654     79.012        9.767       10.703      243     94.650     86.831       16.159       17.370      243
    lgbm_q     1    0.638        1.275     73.663     83.128        5.166        8.525      243     88.889     93.827        7.365       14.719      243
    cat_q      1    0.648        1.295     71.193     86.831        4.523        8.463      243     83.128     90.947        6.225       12.049      243
    qrf        1    0.617        1.233     86.008     86.831        6.184        8.746      243     93.827     94.650        9.992       13.082      243
-   DM pinball: tabpfn vs lgbm_q stat 1.01 p 0.3118; tabpfn vs cat_q stat 0.65 p 0.5177
+   DM pinball: tabpfn vs lgbm_q stat 0.42 p 0.6754; tabpfn vs cat_q stat 0.05 p 0.9571
    MAE by year:
    model  tabpfn  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
    year                                                                                            
@@ -261,7 +261,7 @@ b_roll_med     1.128 2.593   21.433      0.190               -90.405          -8
    lgbm_q     1    0.225        0.449     81.070     87.243        1.399        2.017      243     90.123     95.473        2.214        3.029      243
    cat_q      1    0.224        0.448     79.835     93.004        1.164        2.256      243     90.947     97.119        1.868        3.337      243
    qrf        1    0.226        0.451     84.362     88.889        1.801        2.223      243     96.296     97.119        2.750        3.219      243
-   DM pinball: tabpfn vs lgbm_q stat 0.20 p 0.8438; tabpfn vs cat_q stat 0.29 p 0.7693
+   DM pinball: tabpfn vs lgbm_q stat 0.18 p 0.8545; tabpfn vs cat_q stat 0.28 p 0.7805
    MAE by year:
    model  tabpfn  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
    year                                                                                            
@@ -286,22 +286,22 @@ mFRR|up|week     3.006 -1.115    2.677   2.460  3.522  2.528 -5.124
 model           cat_q  lgbm_q   qrf  tabpfn
 series                                     
 aFRR|down|4h    0.566   0.575 0.638   0.537
-aFRR|down|week  1.619   1.562 1.484   1.313
+aFRR|down|week  1.619   1.562 1.484   1.296
 aFRR|up|4h      0.103   0.107 0.123   0.106
-aFRR|up|week    0.546   0.560 0.574  24.622
-mFRR|down|week  0.648   0.638 0.617   0.668
+aFRR|up|week    0.546   0.560 0.574   0.660
+mFRR|down|week  0.648   0.638 0.617   0.649
 mFRR|up|week    0.224   0.225 0.226   0.227
 == Summary: 90 % interval coverage raw -> CQR (%)
 model                  cat_q        lgbm_q           qrf        tabpfn
 series                                                                
 aFRR|down|4h    92.1 -> 94.2  93.8 -> 94.1  96.0 -> 94.8  95.8 -> 84.4
-aFRR|down|week  71.2 -> 95.9  88.5 -> 95.5  94.2 -> 91.4  91.8 -> 88.1
+aFRR|down|week  71.2 -> 95.9  88.5 -> 95.5  94.2 -> 91.4  91.8 -> 88.5
 aFRR|up|4h      86.4 -> 87.4  87.3 -> 85.2  90.3 -> 88.7  92.9 -> 80.2
-aFRR|up|week    86.0 -> 94.2  84.0 -> 93.4  92.6 -> 94.7  95.5 -> 72.4
+aFRR|up|week    86.0 -> 94.2  84.0 -> 93.4  92.6 -> 94.7  95.5 -> 73.3
 mFRR|down|week  83.1 -> 90.9  88.9 -> 93.8  93.8 -> 94.7  94.7 -> 86.8
 mFRR|up|week    90.9 -> 97.1  90.1 -> 95.5  96.3 -> 97.1  91.4 -> 88.5
 
 More detail: fold_log.csv (per fold sizes / timings / epochs), training_curves.csv (+ plots/), tft_attention.csv, diagnostics/ (breakdowns, worst errors, calibration, importance, plots; see README.txt)
 
-total runtime 55 min 50 s
-[2026-10-13T20:05:53] rq2_6_tier2: ok after 55 min 51 s
+total runtime 53 min 47 s
+[2026-10-13T21:18:34] rq2_6_tier2: ok after 53 min 48 s
