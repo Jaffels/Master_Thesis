@@ -1,0 +1,261 @@
+RQ2 Tier 2 (ML_Options.md) - advanced models vs Tier 1 and the naive baselines.
+Rolling origin, expanding window, refit every 3 months (weekly 12); test from 2021-01-01; errors in EUR/MWh on the common rows of all point models and baselines.
+Tier 2: TabPFN; seeds 1; nets: device cpu, max epochs 60 / warm 20, patience 8, warm start True, final epochs 2, TFT hidden 32 heads 4, NHITS hidden 256, lr 0.001, wd 0.0001, dropout 0.1, inputs all; TabPFN default, max train 10000, max features 500; Chronos amazon/chronos-2, context 2048, covariates none.
+Tier 1 (merged from rq2_5): lear, lgbm_l1 (round 1), lgbm_q, cat_q, qrf, svr. best_t1 = Tier 1 model with the lowest MAE on these rows (chosen ex post, a strict reference).
+
+== aFRR|down|4h   n = 1,444   best Tier 1 = lgbm_l1
+                 MAE   RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_t1_%
+model                                                                                                     
+tabpfn         1.350  3.958   15.720      0.142                11.569            9.421               3.576
+lear           1.490  4.238   16.586      0.149                 2.371            0.000              -6.453
+lgbm_l1        1.400  4.088   16.480      0.146                 8.289            6.062               0.000
+lgbm_q         1.400  4.089   16.474      0.146                 8.253            6.025              -0.039
+cat_q          1.414  4.153   16.660      0.147                 7.347            5.096              -1.028
+qrf            1.469  4.080   17.459      0.155                 3.740            1.402              -4.961
+svr            1.474  4.141   17.425      0.155                 3.421            1.075              -5.308
+b_prev_slot    1.526  4.274   16.816      0.153                 0.000           -2.429              -9.038
+b_prev_auction 6.713 11.751   84.917      0.943              -339.805         -350.487            -379.556
+b_roll_med     2.816  7.658   34.457      0.315               -84.462          -88.943            -101.135
+   Diebold-Mariano |error| (stat < 0: row model better):
+   vs      b_prev_slot   lear  lgbm_l1
+   model                              
+   tabpfn       -3.280 -2.730   -1.870
+   p-values:
+   vs      b_prev_slot  lear  lgbm_l1
+   model                             
+   tabpfn        0.001 0.006    0.061
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           tier  pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                               
+   tabpfn     2    0.537        1.073     90.265     64.934        6.860        4.607      904     95.796     84.403       12.081        9.675      904
+   lgbm_q     1    0.575        1.149     89.712     81.748        6.858        5.592      904     93.805     94.137        9.880       10.675      904
+   cat_q      1    0.566        1.133     84.181     83.407        4.981        4.711      904     92.146     94.248        8.129        9.972      904
+   qrf        1    0.638        1.277     90.597     81.858       11.159        9.606      904     96.018     94.801       17.971       17.778      904
+   DM pinball: tabpfn vs lgbm_q stat -4.14 p 0.0000; tabpfn vs cat_q stat -2.04 p 0.0415
+   MAE by year:
+   model  tabpfn  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                            
+   2026    1.350 1.490    1.400   1.400  1.414 1.469 1.474        1.526           6.713       2.816
+
+== aFRR|down|week   n = 295   best Tier 1 = qrf
+                 MAE   RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_t1_%
+model                                                                                                     
+tabpfn         3.540  7.798   14.019      0.141                28.316           22.012              13.992
+lear           4.540  9.916   15.954      0.161                 8.084            0.000             -10.283
+lgbm_l1        4.333  9.639   15.207      0.153                12.273            4.557              -5.258
+lgbm_q         4.309  9.635   14.940      0.151                12.759            5.086              -4.674
+cat_q          4.275  9.569   15.096      0.152                13.445            5.832              -3.851
+qrf            4.116  9.262   14.780      0.149                16.655            9.324               0.000
+svr            4.561 10.446   15.399      0.155                 7.647           -0.476             -10.808
+b_prev_slot    4.939 10.988   16.403      0.166                 0.000           -8.795             -19.982
+b_prev_auction 4.939 10.988   16.403      0.166                 0.000           -8.795             -19.982
+b_roll_med     9.782 19.655   32.397      0.334               -98.055         -115.473            -137.631
+   Diebold-Mariano |error| (stat < 0: row model better):
+   vs      b_prev_slot   lear  lgbm_l1    qrf
+   model                                     
+   tabpfn       -3.210 -2.500   -2.530 -1.910
+   p-values:
+   vs      b_prev_slot  lear  lgbm_l1   qrf
+   model                                   
+   tabpfn        0.001 0.012    0.011 0.056
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           tier  pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                               
+   tabpfn     2    1.313        2.626     84.774     80.247       16.444       15.254      243     91.770     88.066       26.444       22.879      243
+   lgbm_q     1    1.562        3.124     74.486     87.243       11.420       17.852      243     88.477     95.473       17.265       27.844      243
+   cat_q      1    1.619        3.238     60.905     87.243        9.614       20.134      243     71.193     95.885       13.402       33.862      243
+   qrf        1    1.484        2.967     86.008     85.185       15.734       18.120      243     94.239     91.358       25.799       26.872      243
+   DM pinball: tabpfn vs lgbm_q stat -3.09 p 0.0020; tabpfn vs cat_q stat -3.20 p 0.0014
+   MAE by year:
+   model  tabpfn  lear  lgbm_l1  lgbm_q  cat_q   qrf    svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                             
+   2021    2.662 3.188    3.186   3.141  2.987 3.016  3.159        3.305           3.305       6.222
+   2022    6.073 9.125    8.094   8.062  8.682 7.752  8.087        9.162           9.162      16.513
+   2023    7.836 9.009    9.350   9.406  8.535 8.767 10.485       11.061          11.061      23.688
+   2024    1.486 2.255    1.670   1.627  1.719 1.580  1.926        1.927           1.927       3.856
+   2025    1.283 1.373    1.538   1.471  1.544 1.522  1.563        1.831           1.831       3.969
+   2026    1.095 1.162    1.086   1.079  1.148 1.046  0.947        1.062           1.062       1.788
+
+== aFRR|up|4h   n = 1,451   best Tier 1 = cat_q
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_t1_%
+model                                                                                                    
+tabpfn         0.252 0.594   11.710      0.096                 8.012            8.855               1.936
+lear           0.276 0.611   12.707      0.105                -0.925            0.000              -7.591
+lgbm_l1        0.259 0.596   12.029      0.099                 5.474            6.340              -0.769
+lgbm_q         0.269 0.599   12.696      0.104                 1.630            2.532              -4.868
+cat_q          0.257 0.596   12.182      0.099                 6.196            7.056               0.000
+qrf            0.276 0.601   12.847      0.106                -1.003           -0.077              -7.674
+svr            0.277 0.595   13.123      0.107                -1.176           -0.248              -7.858
+b_prev_slot    0.274 0.603   12.545      0.103                 0.000            0.917              -6.605
+b_prev_auction 0.728 1.116   31.071      0.273              -166.170         -163.730            -183.750
+b_roll_med     0.571 0.965   27.009      0.228              -108.795         -106.881            -122.586
+   Diebold-Mariano |error| (stat < 0: row model better):
+   vs      b_prev_slot  cat_q   lear  lgbm_l1
+   model                                     
+   tabpfn       -4.520 -1.880 -3.860   -2.550
+   p-values:
+   vs      b_prev_slot  cat_q  lear  lgbm_l1
+   model                                    
+   tabpfn        0.000  0.060 0.000    0.011
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           tier  pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                               
+   tabpfn     2    0.106        0.211     85.950     65.313        1.234        0.766      911     92.865     80.241        2.216        1.512      911
+   lgbm_q     1    0.107        0.215     81.559     78.266        0.966        0.873      911     87.267     85.181        1.441        1.303      911
+   cat_q      1    0.103        0.206     77.058     76.729        0.729        0.709      911     86.389     87.377        1.184        1.228      911
+   qrf        1    0.123        0.246     83.205     76.729        1.547        1.364      911     90.340     88.694        2.530        2.409      911
+   DM pinball: tabpfn vs lgbm_q stat -1.14 p 0.2532; tabpfn vs cat_q stat 1.25 p 0.2129
+   MAE by year:
+   model  tabpfn  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                            
+   2026    0.252 0.276    0.259   0.269  0.257 0.276 0.277        0.274           0.728       0.571
+
+== aFRR|up|week   n = 295   best Tier 1 = cat_q
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_t1_%
+model                                                                                                    
+tabpfn         1.592 3.622   10.171      0.101                -7.741           -7.455             -11.518
+lear           1.481 3.547    9.911      0.098                -0.266            0.000              -3.781
+lgbm_l1        1.449 3.535    9.499      0.094                 1.928            2.188              -1.510
+lgbm_q         1.440 3.506    9.503      0.094                 2.498            2.757              -0.920
+cat_q          1.427 3.506    9.452      0.094                 3.387            3.643               0.000
+qrf            1.514 3.593    9.614      0.096                -2.494           -2.222              -6.087
+svr            1.575 3.688   10.188      0.101                -6.595           -6.312             -10.332
+b_prev_slot    1.477 3.523    9.938      0.099                 0.000            0.265              -3.506
+b_prev_auction 1.477 3.523    9.938      0.099                 0.000            0.265              -3.506
+b_roll_med     2.634 5.599   17.715      0.177               -78.286          -77.813             -84.536
+   Diebold-Mariano |error| (stat < 0: row model better):
+   vs      b_prev_slot  cat_q  lear  lgbm_l1
+   model                                    
+   tabpfn        1.120  1.750 1.060    1.480
+   p-values:
+   vs      b_prev_slot  cat_q  lear  lgbm_l1
+   model                                    
+   tabpfn        0.263  0.080 0.290    0.139
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           tier  pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                               
+   tabpfn     2   24.622       49.244     88.889     64.609        9.993        7.414      243     95.473     72.428       18.706       12.694      243
+   lgbm_q     1    0.560        1.120     76.132     86.831        4.025        5.726      243     83.951     93.416        5.589        7.977      243
+   cat_q      1    0.546        1.091     79.012     89.300        4.034        6.445      243     86.008     94.239        5.513        9.513      243
+   qrf        1    0.574        1.148     86.831     88.066        5.590        6.821      243     92.593     94.650        9.009       10.872      243
+   DM pinball: tabpfn vs lgbm_q stat 1.06 p 0.2894; tabpfn vs cat_q stat 1.06 p 0.2890
+   MAE by year:
+   model  tabpfn  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                            
+   2021    1.401 1.368    1.342   1.342  1.373 1.332 1.345        1.360           1.360       2.047
+   2022    2.634 1.834    1.779   1.792  1.688 2.074 2.037        1.848           1.848       3.493
+   2023    3.705 3.794    3.738   3.678  3.704 3.846 4.099        3.689           3.689       6.852
+   2024    0.685 0.715    0.727   0.724  0.712 0.724 0.798        0.784           0.784       1.301
+   2025    0.377 0.456    0.406   0.409  0.384 0.387 0.411        0.459           0.459       0.886
+   2026    0.327 0.339    0.327   0.325  0.339 0.325 0.347        0.344           0.344       0.515
+
+== mFRR|down|week   n = 295   best Tier 1 = qrf
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_t1_%
+model                                                                                                    
+tabpfn         1.652 2.799   12.491      0.124                10.215           10.408               4.266
+lear           1.844 3.129   13.519      0.134                -0.215            0.000              -6.855
+lgbm_l1        1.798 3.044   13.019      0.129                 2.306            2.516              -4.166
+lgbm_q         1.786 3.031   12.984      0.129                 2.948            3.157              -3.481
+cat_q          1.770 3.064   12.819      0.127                 3.813            4.019              -2.560
+qrf            1.726 2.978   12.680      0.126                 6.214            6.415               0.000
+svr            1.851 3.190   13.772      0.137                -0.574           -0.358              -7.238
+b_prev_slot    1.840 3.129   13.486      0.134                 0.000            0.215              -6.625
+b_prev_auction 1.840 3.129   13.486      0.134                 0.000            0.215              -6.625
+b_roll_med     3.217 5.184   24.938      0.252               -74.863          -74.487             -86.448
+   Diebold-Mariano |error| (stat < 0: row model better):
+   vs      b_prev_slot   lear  lgbm_l1    qrf
+   model                                     
+   tabpfn       -3.250 -3.190   -1.910 -1.640
+   p-values:
+   vs      b_prev_slot  lear  lgbm_l1   qrf
+   model                                   
+   tabpfn        0.001 0.001    0.057 0.101
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           tier  pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                               
+   tabpfn     2    0.668        1.336     87.654     79.012        9.767       10.703      243     94.650     86.831       17.537       18.980      243
+   lgbm_q     1    0.638        1.275     73.663     83.128        5.166        8.525      243     88.889     93.827        7.365       14.719      243
+   cat_q      1    0.648        1.295     71.193     86.831        4.523        8.463      243     83.128     90.947        6.225       12.049      243
+   qrf        1    0.617        1.233     86.008     86.831        6.184        8.746      243     93.827     94.650        9.992       13.082      243
+   DM pinball: tabpfn vs lgbm_q stat 1.01 p 0.3118; tabpfn vs cat_q stat 0.65 p 0.5177
+   MAE by year:
+   model  tabpfn  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                            
+   2021    1.928 1.993    1.979   1.978  1.962 1.946 1.939        1.985           1.985       3.730
+   2022    3.382 3.903    3.968   3.956  3.876 3.677 3.813        3.894           3.894       6.533
+   2023    1.961 2.214    1.998   1.914  1.989 2.003 2.341        2.188           2.188       3.629
+   2024    0.602 0.685    0.696   0.692  0.654 0.646 0.736        0.731           0.731       1.186
+   2025    0.945 1.133    1.026   1.059  1.025 0.996 1.132        1.091           1.091       2.319
+   2026    0.829 0.793    0.790   0.792  0.797 0.778 0.799        0.818           0.818       1.274
+
+== mFRR|up|week   n = 295   best Tier 1 = cat_q
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_t1_%
+model                                                                                                    
+tabpfn         0.575 1.505    9.899      0.088                 3.006            4.075              -0.535
+lear           0.599 1.532   10.295      0.091                -1.115            0.000              -4.806
+lgbm_l1        0.577 1.517    9.733      0.087                 2.677            3.750              -0.876
+lgbm_q         0.578 1.517    9.642      0.086                 2.460            3.536              -1.101
+cat_q          0.572 1.497    9.973      0.088                 3.522            4.586               0.000
+qrf            0.577 1.522    9.808      0.087                 2.528            3.603              -1.030
+svr            0.623 1.552   10.140      0.091                -5.124           -3.965              -8.962
+b_prev_slot    0.592 1.526   10.225      0.091                 0.000            1.103              -3.651
+b_prev_auction 0.592 1.526   10.225      0.091                 0.000            1.103              -3.651
+b_roll_med     1.128 2.593   21.433      0.190               -90.405          -88.305             -97.356
+   Diebold-Mariano |error| (stat < 0: row model better):
+   vs      b_prev_slot  cat_q   lear  lgbm_l1
+   model                                     
+   tabpfn       -0.820  0.240 -1.040   -0.120
+   p-values:
+   vs      b_prev_slot  cat_q  lear  lgbm_l1
+   model                                    
+   tabpfn        0.410  0.810 0.300    0.908
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           tier  pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                               
+   tabpfn     2    0.227        0.453     84.362     79.424        2.174        2.429      243     91.358     88.477        3.977        4.210      243
+   lgbm_q     1    0.225        0.449     81.070     87.243        1.399        2.017      243     90.123     95.473        2.214        3.029      243
+   cat_q      1    0.224        0.448     79.835     93.004        1.164        2.256      243     90.947     97.119        1.868        3.337      243
+   qrf        1    0.226        0.451     84.362     88.889        1.801        2.223      243     96.296     97.119        2.750        3.219      243
+   DM pinball: tabpfn vs lgbm_q stat 0.20 p 0.8438; tabpfn vs cat_q stat 0.29 p 0.7693
+   MAE by year:
+   model  tabpfn  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                            
+   2021    0.777 0.810    0.764   0.777  0.804 0.784 0.781        0.809           0.809       1.577
+   2022    0.722 0.747    0.754   0.762  0.706 0.763 1.006        0.730           0.730       1.377
+   2023    1.470 1.510    1.454   1.453  1.426 1.438 1.458        1.493           1.493       2.671
+   2024    0.090 0.094    0.089   0.087  0.086 0.087 0.081        0.092           0.092       0.215
+   2025    0.109 0.123    0.113   0.111  0.122 0.109 0.107        0.123           0.123       0.288
+   2026    0.137 0.172    0.147   0.132  0.149 0.144 0.151        0.172           0.172       0.407
+
+== Summary: MAE skill vs same-slot-yesterday (%)
+                tabpfn   lear  lgbm_l1  lgbm_q  cat_q    qrf    svr
+series                                                             
+aFRR|down|4h    11.569  2.371    8.289   8.253  7.347  3.740  3.421
+aFRR|down|week  28.316  8.084   12.273  12.759 13.445 16.655  7.647
+aFRR|up|4h       8.012 -0.925    5.474   1.630  6.196 -1.003 -1.176
+aFRR|up|week    -7.741 -0.266    1.928   2.498  3.387 -2.494 -6.595
+mFRR|down|week  10.215 -0.215    2.306   2.948  3.813  6.214 -0.574
+mFRR|up|week     3.006 -1.115    2.677   2.460  3.522  2.528 -5.124
+   best point model per series: aFRR|down|4h: tabpfn; aFRR|down|week: tabpfn; aFRR|up|4h: tabpfn; aFRR|up|week: cat_q; mFRR|down|week: tabpfn; mFRR|up|week: cat_q
+== Summary: mean pinball loss (EUR/MWh), lower is better
+model           cat_q  lgbm_q   qrf  tabpfn
+series                                     
+aFRR|down|4h    0.566   0.575 0.638   0.537
+aFRR|down|week  1.619   1.562 1.484   1.313
+aFRR|up|4h      0.103   0.107 0.123   0.106
+aFRR|up|week    0.546   0.560 0.574  24.622
+mFRR|down|week  0.648   0.638 0.617   0.668
+mFRR|up|week    0.224   0.225 0.226   0.227
+== Summary: 90 % interval coverage raw -> CQR (%)
+model                  cat_q        lgbm_q           qrf        tabpfn
+series                                                                
+aFRR|down|4h    92.1 -> 94.2  93.8 -> 94.1  96.0 -> 94.8  95.8 -> 84.4
+aFRR|down|week  71.2 -> 95.9  88.5 -> 95.5  94.2 -> 91.4  91.8 -> 88.1
+aFRR|up|4h      86.4 -> 87.4  87.3 -> 85.2  90.3 -> 88.7  92.9 -> 80.2
+aFRR|up|week    86.0 -> 94.2  84.0 -> 93.4  92.6 -> 94.7  95.5 -> 72.4
+mFRR|down|week  83.1 -> 90.9  88.9 -> 93.8  93.8 -> 94.7  94.7 -> 86.8
+mFRR|up|week    90.9 -> 97.1  90.1 -> 95.5  96.3 -> 97.1  91.4 -> 88.5
+
+More detail: fold_log.csv (per fold sizes / timings / epochs), training_curves.csv (+ plots/), tft_attention.csv, diagnostics/ (breakdowns, worst errors, calibration, importance, plots; see README.txt)
+
+total runtime 55 min 50 s

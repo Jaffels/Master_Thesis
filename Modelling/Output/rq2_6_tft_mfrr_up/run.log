@@ -1,0 +1,99 @@
+[2026-10-13T18:07:10] rq2_6_tier2 --only mFRR|up|4h --models tft --device mps --out Modelling/Output/rq2_6_tft_mfrr_up
+models: Temporal Fusion Transformer; device (nets) mps; seeds 1
+   tier 1 predictions: Modelling/Output/rq2_5_fcr/preds.parquet
+   tier 1 predictions: Modelling/Output/rq2_5_afrr/preds.parquet
+   tier 1 predictions: Modelling/Output/rq2_5_mfrr/preds.parquet
+fcr: 14,118 blocks, 777 features
+afrr: 5,048 blocks, 776 features
+mfrr: 43,018 blocks, 778 features
+      mFRR|up|4h fold  0 (2020-12-31 -> 2021-03-31, n_train 10,702): tft   119s, epochs 16 (best 8)
+      mFRR|up|4h fold  1 (2021-03-31 -> 2021-06-30, n_train 11,242): tft    76s, epochs 9 (best 1)
+      mFRR|up|4h fold  2 (2021-06-30 -> 2021-09-30, n_train 11,698): tft    79s, epochs 9 (best 1)
+      mFRR|up|4h fold  3 (2021-09-30 -> 2021-12-31, n_train 12,250): tft    82s, epochs 9 (best 1)
+      mFRR|up|4h fold  4 (2021-12-31 -> 2022-03-31, n_train 12,754): tft    93s, epochs 10 (best 2)
+      mFRR|up|4h fold  5 (2022-03-31 -> 2022-06-30, n_train 13,246): tft    97s, epochs 10 (best 2)
+      mFRR|up|4h fold  6 (2022-06-30 -> 2022-09-30, n_train 13,702): tft    96s, epochs 9 (best 1)
+      mFRR|up|4h fold  7 (2022-09-30 -> 2022-12-31, n_train 14,254): tft    98s, epochs 9 (best 1)
+      mFRR|up|4h fold  8 (2022-12-31 -> 2023-03-31, n_train 14,758): tft   101s, epochs 9 (best 1)
+      mFRR|up|4h fold  9 (2023-03-31 -> 2023-06-30, n_train 15,082): tft   102s, epochs 9 (best 1)
+      mFRR|up|4h fold 10 (2023-06-30 -> 2023-09-30, n_train 15,580): tft   103s, epochs 9 (best 1)
+      mFRR|up|4h fold 11 (2023-09-30 -> 2023-12-31, n_train 16,132): tft   108s, epochs 9 (best 1)
+      mFRR|up|4h fold 12 (2023-12-31 -> 2024-02-04, n_train 16,684): tft   112s, epochs 9 (best 1)
+      mFRR|up|4h fold 15 (2024-12-01 -> 2024-12-31, n_train 16,846): tft   121s, epochs 10 (best 2)
+      mFRR|up|4h fold 16 (2024-12-31 -> 2025-03-31, n_train 17,020): tft   118s, epochs 9 (best 1)
+      mFRR|up|4h fold 17 (2025-03-31 -> 2025-06-30, n_train 17,560): tft   118s, epochs 9 (best 1)
+      mFRR|up|4h fold 18 (2025-06-30 -> 2025-09-30, n_train 18,106): tft   123s, epochs 9 (best 1)
+      mFRR|up|4h fold 19 (2025-09-30 -> 2025-12-31, n_train 18,658): tft   123s, epochs 9 (best 1)
+      mFRR|up|4h fold 20 (2025-12-31 -> 2026-03-31, n_train 19,210): tft   144s, epochs 10 (best 2)
+      mFRR|up|4h fold 21 (2026-03-31 -> 2026-06-30, n_train 19,750): tft   140s, epochs 9 (best 1)
+      mFRR|up|4h fold 22 (2026-06-30 -> 2026-08-31, n_train 20,296): tft   139s, epochs 9 (best 1)
+   mFRR|up|4h       folds= 21  tft  2292s
+   diagnostics written: Modelling/Output/rq2_6_tft_mfrr_up/diagnostics
+RQ2 Tier 2 (ML_Options.md) - advanced models vs Tier 1 and the naive baselines.
+Rolling origin, expanding window, refit every 3 months (weekly 12); test from 2021-01-01; errors in EUR/MWh on the common rows of all point models and baselines.
+Tier 2: Temporal Fusion Transformer; seeds 1; nets: device mps, max epochs 60 / warm 20, patience 8, warm start True, final epochs 2, TFT hidden 32 heads 4, NHITS hidden 256; TabPFN default, max train 10000, max features 500; Chronos amazon/chronos-2, context 2048, covariates none.
+Tier 1 (merged from rq2_5): lear, lgbm_l1 (round 1), lgbm_q, cat_q, qrf, svr. best_t1 = Tier 1 model with the lowest MAE on these rows (chosen ex post, a strict reference).
+
+== mFRR|up|4h   n = 9,958   best Tier 1 = lgbm_q
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_t1_%
+model                                                                                                    
+tft            1.020 2.983   33.826      0.235                13.756           -4.421             -14.823
+lear           0.977 2.925   35.061      0.227                17.407            0.000              -9.962
+lgbm_l1        0.890 2.688   29.137      0.206                24.728            8.863              -0.216
+lgbm_q         0.888 2.692   29.016      0.205                24.890            9.059               0.000
+cat_q          0.895 2.704   29.003      0.206                24.296            8.340              -0.790
+qrf            0.925 2.781   28.455      0.209                21.737            5.242              -4.197
+svr            1.149 3.187   37.845      0.273                 2.831          -17.648             -29.368
+b_prev_slot    1.183 3.382   34.766      0.266                 0.000          -21.076             -33.138
+b_prev_auction 2.286 4.992   63.882      0.548               -93.301         -134.041            -157.356
+b_roll_med     2.153 5.837   56.721      0.465               -82.038         -120.405            -142.361
+   Diebold-Mariano |error| (stat < 0: row model better):
+   vs     b_prev_slot  lear  lgbm_l1  lgbm_q
+   model                                    
+   tft         -4.460 1.710    4.980   5.000
+   p-values:
+   vs     b_prev_slot  lear  lgbm_l1  lgbm_q
+   model                                    
+   tft          0.000 0.087    0.000   0.000
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           tier  pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                               
+   tft        2    0.414        0.828     48.864     86.908        1.419        3.714     9418     60.894     94.181        1.942        5.422     9418
+   lgbm_q     1    0.338        0.676     81.769     83.298        2.688        2.873     9418     89.966     92.716        3.869        4.656     9418
+   cat_q      1    0.338        0.677     81.100     86.621        2.603        3.171     9418     89.839     94.511        3.859        5.089     9418
+   qrf        1    0.351        0.702     85.496     83.086        3.680        3.618     9418     93.130     92.366        5.783        5.808     9418
+   DM pinball: tft vs lgbm_q stat 6.78 p 0.0000; tft vs cat_q stat 6.48 p 0.0000
+   MAE by year:
+   model   tft  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                          
+   2021  1.810 1.668    1.503   1.501  1.488 1.498 1.912        2.046           3.801       3.507
+   2022  1.476 1.550    1.375   1.372  1.412 1.497 1.893        1.971           4.055       4.199
+   2023  0.561 0.503    0.484   0.484  0.489 0.493 0.650        0.649           1.327       0.975
+   2024  1.181 1.129    1.132   1.127  1.152 1.158 1.221        1.325           2.410       2.402
+   2025  0.673 0.587    0.578   0.575  0.570 0.603 0.711        0.670           1.182       0.989
+   2026  0.367 0.388    0.309   0.308  0.313 0.333 0.348        0.320           0.607       0.671
+
+== Summary: MAE skill vs same-slot-yesterday (%)
+              tft   lear  lgbm_l1  lgbm_q  cat_q    qrf   svr
+series                                                       
+mFRR|up|4h 13.756 17.407   24.728  24.890 24.296 21.737 2.831
+   best point model per series: mFRR|up|4h: lgbm_q
+== Summary: mean pinball loss (EUR/MWh), lower is better
+model       cat_q  lgbm_q   qrf   tft
+series                               
+mFRR|up|4h  0.338   0.338 0.351 0.414
+== Summary: 90 % interval coverage raw -> CQR (%)
+model              cat_q        lgbm_q           qrf           tft
+series                                                            
+mFRR|up|4h  89.8 -> 94.5  90.0 -> 92.7  93.1 -> 92.4  60.9 -> 94.2
+== Top features: TFT known inputs (VSN weight) (mean share over folds; % of folds in top 20)
+   mFRR|up|4h: weekday 1.6% (100%); slot 0.9% (81%); tgt_prev_slot__price_bid_vwap 0.7% (29%); it_nord_load_ma_fc_max_mw__dw 0.7% (24%); ch_mfrr_bids_up_act_mw__lb7d 0.6% (43%); ch_gen_solar_da_fc_mw__lb24h 0.5% (38%); regime_imb_resolution 0.5% (33%); ch_gen_solar_mw__lb24h 0.5% (24%); ch_mfrr_down_offered_mw__lb24h 0.5% (43%); ch_mfrr_up_offered_mw__lb7d 0.5% (38%)
+== Top features: TFT past inputs (VSN weight) (mean share over folds; % of folds in top 20)
+   mFRR|up|4h: y_delta 26.8% (100%); dow_sin 21.6% (100%); y_level 11.6% (100%); dow_cos 8.4% (100%); slot_cos 7.6% (100%); slot_sin 6.9% (100%); y_observed 6.6% (100%); season_cos 3.7% (100%); y_delta_observed 3.5% (100%); season_sin 3.5% (100%)
+== TFT attention: share on the 6 most attended positions (steps before auction start; 0 = target block)
+   mFRR|up|4h: 8: 0.035; 10: 0.034; 2: 0.033; 4: 0.033; 3: 0.029; 1: 0.028
+
+More detail: fold_log.csv (per fold sizes / timings / epochs), training_curves.csv (+ plots/), tft_attention.csv, diagnostics/ (breakdowns, worst errors, calibration, importance, plots; see README.txt)
+
+total runtime 38 min 33 s
+[2026-10-13T18:45:44] rq2_6_tier2: ok after 38 min 33 s

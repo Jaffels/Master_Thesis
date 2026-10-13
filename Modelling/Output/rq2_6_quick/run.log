@@ -1,0 +1,96 @@
+[2026-10-13T18:06:02] rq2_6_tier2 --only mFRR|up|week --quick --device mps --out Modelling/Output/rq2_6_quick
+models: Temporal Fusion Transformer, NHITS-x, TabPFN, Chronos-2 (zero-shot); device (nets) mps; seeds 1; max 2 folds per series  [QUICK MODE - not for the thesis]
+   tier 1 predictions: Modelling/Output/rq2_5_fcr/preds.parquet
+   tier 1 predictions: Modelling/Output/rq2_5_afrr/preds.parquet
+   tier 1 predictions: Modelling/Output/rq2_5_mfrr/preds.parquet
+fcr: 14,118 blocks, 777 features
+afrr: 5,048 blocks, 776 features
+mfrr: 43,018 blocks, 778 features
+      mFRR|up|week fold  0 (2021-01-03 -> 2021-12-26, n_train 306): tft     7s, epochs 3 (best 3)
+      mFRR|up|week fold  0 (2021-01-03 -> 2021-12-26, n_train 306): nhits     1s, epochs 3 (best 3)
+      mFRR|up|week fold  0 (2021-01-03 -> 2021-12-26, n_train 306): tabpfn     6s
+Loading weights:   0%|          | 0/170 [00:00<?, ?it/s]Loading weights:  14%|#4        | 24/170 [00:00<00:00, 195.75it/s]Loading weights:  38%|###8      | 65/170 [00:00<00:00, 299.18it/s]Loading weights: 100%|##########| 170/170 [00:00<00:00, 734.75it/s]
+      mFRR|up|week fold  0 (2021-01-03 -> 2021-12-26, n_train 306): chronos     4s
+      mFRR|up|week fold  1 (2022-01-02 -> 2022-12-25, n_train 358): tft     3s, epochs 2 (best 2)
+      mFRR|up|week fold  1 (2022-01-02 -> 2022-12-25, n_train 358): nhits     0s, epochs 2 (best 1)
+      mFRR|up|week fold  1 (2022-01-02 -> 2022-12-25, n_train 358): tabpfn     3s
+      mFRR|up|week fold  1 (2022-01-02 -> 2022-12-25, n_train 358): chronos     0s
+   mFRR|up|week     folds=  2  tft    11s  nhits     2s  tabpfn     9s  chronos     4s
+   diagnostics written: Modelling/Output/rq2_6_quick/diagnostics
+RQ2 Tier 2 (ML_Options.md) - advanced models vs Tier 1 and the naive baselines.
+Rolling origin, expanding window, refit every 3 months (weekly 12); test from 2021-01-01; errors in EUR/MWh on the common rows of all point models and baselines.
+Tier 2: Temporal Fusion Transformer, NHITS-x, TabPFN, Chronos-2 (zero-shot); seeds 1; nets: device mps, max epochs 3 / warm 2, patience 2, warm start True, final epochs 2, TFT hidden 32 heads 4, NHITS hidden 256; TabPFN default, max train 1000, max features 500; Chronos amazon/chronos-2, context 256, covariates none.
+Tier 1 (merged from rq2_5): lear, lgbm_l1 (round 1), lgbm_q, cat_q, qrf, svr. best_t1 = Tier 1 model with the lowest MAE on these rows (chosen ex post, a strict reference).
+*** QUICK MODE: few folds / epochs - not for the thesis ***
+
+== mFRR|up|week   n = 104   best Tier 1 = cat_q
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_t1_%
+model                                                                                                    
+tft            0.811 1.197   12.031      0.118                -5.470           -4.225              -7.467
+nhits          0.866 1.293   13.071      0.128               -12.525          -11.197             -14.656
+tabpfn         0.751 1.128   11.280      0.110                 2.380            3.532               0.532
+chronos        0.808 1.245   10.830      0.106                -4.989           -3.750              -6.977
+lear           0.779 1.178   11.832      0.116                -1.194            0.000              -3.111
+lgbm_l1        0.759 1.160   11.351      0.111                 1.349            2.513              -0.519
+lgbm_q         0.770 1.164   11.469      0.112                -0.039            1.142              -1.933
+cat_q          0.755 1.148   11.510      0.113                 1.858            3.017               0.000
+qrf            0.773 1.177   11.659      0.114                -0.518            0.668              -2.422
+svr            0.893 1.263   12.857      0.126               -16.088          -14.718             -18.287
+b_prev_slot    0.769 1.173   11.740      0.115                 0.000            1.180              -1.894
+b_prev_auction 0.769 1.173   11.740      0.115                 0.000            1.180              -1.894
+b_roll_med     1.477 2.180   23.356      0.231               -92.016          -89.750             -95.652
+   Diebold-Mariano |error| (stat < 0: row model better):
+   vs       b_prev_slot  cat_q  chronos   lear  lgbm_l1  nhits  tabpfn    tft
+   model                                                                     
+   chronos        0.450  0.610      NaN  0.350    0.590 -0.890   0.740 -0.040
+   nhits          1.480  1.740    0.890  1.340    1.660    NaN   2.260  0.730
+   tabpfn        -0.580 -0.140   -0.740 -0.870   -0.260 -2.260     NaN -1.250
+   tft            1.310  1.530    0.040  1.050    1.200 -0.730   1.250    NaN
+   p-values:
+   vs       b_prev_slot  cat_q  chronos  lear  lgbm_l1  nhits  tabpfn   tft
+   model                                                                   
+   chronos        0.655  0.541      NaN 0.729    0.558  0.373   0.458 0.965
+   nhits          0.139  0.081    0.373 0.179    0.097    NaN   0.024 0.465
+   tabpfn         0.560  0.886    0.458 0.382    0.798  0.024     NaN 0.212
+   tft            0.189  0.126    0.965 0.295    0.231  0.465   0.212   NaN
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+            tier  pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                                
+   tft         2    0.303        0.606     94.231     88.462        4.190        3.268       52    100.000     92.308        6.541        4.302       52
+   nhits       2    0.322        0.644     57.692     92.308        2.180        4.031       52     80.769    100.000        3.500        5.841       52
+   tabpfn      2    0.320        0.640     98.077    100.000        5.825        7.116       52    100.000    100.000       12.389       13.789       52
+   chronos     2    0.289        0.578     82.692     75.000        3.309        2.861       52     98.077     96.154        4.990        4.697       52
+   lgbm_q      1    0.288        0.575     84.615     96.154        2.953        4.791       52     94.231     98.077        4.258        6.114       52
+   cat_q       1    0.291        0.582     78.846     98.077        2.019        4.791       52     90.385    100.000        3.253        6.397       52
+   qrf         1    0.295        0.590     84.615     98.077        4.025        5.656       52     96.154    100.000        6.014        7.563       52
+   DM pinball: tft vs lgbm_q stat 1.12 p 0.2610; tft vs cat_q stat 0.65 p 0.5184; tft vs nhits stat -0.72 p 0.4743; tft vs tabpfn stat -0.83 p 0.4038; tft vs chronos stat 0.68 p 0.4941; nhits vs lgbm_q stat 1.65 p 0.0983; nhits vs cat_q stat 1.35 p 0.1770; nhits vs tft stat 0.72 p 0.4743; nhits vs tabpfn stat 0.07 p 0.9472; nhits vs chronos stat 1.47 p 0.1424; tabpfn vs lgbm_q stat 1.76 p 0.0790; tabpfn vs cat_q stat 1.44 p 0.1501; tabpfn vs tft stat 0.83 p 0.4038; tabpfn vs nhits stat -0.07 p 0.9472; tabpfn vs chronos stat 1.12 p 0.2628; chronos vs lgbm_q stat 0.04 p 0.9658; chronos vs cat_q stat -0.08 p 0.9383; chronos vs tft stat -0.68 p 0.4941; chronos vs nhits stat -1.47 p 0.1424; chronos vs tabpfn stat -1.12 p 0.2628
+   MAE by year:
+   model   tft  nhits  tabpfn  chronos  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                                                  
+   2021  0.876  0.826   0.776    0.639 0.810    0.764   0.777  0.804 0.784 0.781        0.809           0.809       1.577
+   2022  0.747  0.906   0.726    0.977 0.747    0.754   0.762  0.706 0.763 1.006        0.730           0.730       1.377
+
+== Summary: MAE skill vs same-slot-yesterday (%)
+                tft   nhits  tabpfn  chronos   lear  lgbm_l1  lgbm_q  cat_q    qrf     svr
+series                                                                                    
+mFRR|up|week -5.470 -12.525   2.380   -4.989 -1.194    1.349  -0.039  1.858 -0.518 -16.088
+   best point model per series: mFRR|up|week: tabpfn
+== Summary: mean pinball loss (EUR/MWh), lower is better
+model         cat_q  chronos  lgbm_q  nhits   qrf  tabpfn   tft
+series                                                         
+mFRR|up|week  0.291    0.289   0.288  0.322 0.295   0.320 0.303
+== Summary: 90 % interval coverage raw -> CQR (%)
+model                 cat_q       chronos        lgbm_q          nhits            qrf          tabpfn            tft
+series                                                                                                              
+mFRR|up|week  90.4 -> 100.0  98.1 -> 96.2  94.2 -> 98.1  80.8 -> 100.0  96.2 -> 100.0  100.0 -> 100.0  100.0 -> 92.3
+== Top features: TFT known inputs (VSN weight) (mean share over folds; % of folds in top 20)
+   mFRR|up|week: de_lu_gen_solar_mw__lb24h 0.7% (100%); ch_melt_dh_hydro_kh__lb24h 0.6% (100%); de_lu_load_actual_mw__lb7d 0.5% (100%); ce_freq_out_10mhz_share__lb24h 0.5% (50%); de_ch_expl_price_eur_mwh__lb7d 0.5% (100%); ch_load_ya_fc_min_mw__dw 0.5% (100%); at_price_da_eur_mwh__lb7d 0.5% (50%); it_nord_ch_ntc_da_mw__lb7d 0.5% (100%); de_lu_gen_solar_mw__lb7d 0.5% (100%); ch_melt_dh_hydro_kh__lb7d 0.5% (100%)
+== Top features: TFT past inputs (VSN weight) (mean share over folds; % of folds in top 20)
+   mFRR|up|week: y_level 24.5% (100%); y_observed 23.3% (100%); y_delta 14.0% (100%); slot_sin 11.5% (100%); slot_cos 7.4% (100%); dow_cos 6.8% (100%); season_sin 5.1% (100%); season_cos 4.2% (100%); dow_sin 2.3% (100%); y_delta_observed 0.9% (100%)
+== TFT attention: share on the 6 most attended positions (steps before auction start; 0 = target block)
+   mFRR|up|week: 0: 0.041; 26: 0.037; 25: 0.037; 24: 0.037; 23: 0.037; 22: 0.037
+
+More detail: fold_log.csv (per fold sizes / timings / epochs), training_curves.csv (+ plots/), tft_attention.csv, diagnostics/ (breakdowns, worst errors, calibration, importance, plots; see README.txt)
+
+total runtime 27 s
+[2026-10-13T18:06:29] rq2_6_tier2: ok after 27 s
