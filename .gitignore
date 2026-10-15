@@ -53,6 +53,7 @@ env/
 *.7z
 *.empty
 *.xml
+*.png
 
 # Known data output directories
 ENTSOE/entsoe_complete_data/

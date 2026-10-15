@@ -1,0 +1,56 @@
+{
+  "script": "tier2_setup_check",
+  "label": "Tier 2 setup check",
+  "status": "ok",
+  "error": "",
+  "argv": [
+    "--skip-bench",
+    "--skip-chronos"
+  ],
+  "start": "2026-10-13T18:01:34",
+  "end": "2026-10-13T18:03:42",
+  "duration_s": 127.5,
+  "duration": "2 min 07 s",
+  "summary": [
+    "all ok; use --device cpu"
+  ],
+  "output_dir": "Modelling/Output/tier2_setup",
+  "git": {
+    "commit": "a025bb7",
+    "branch": "2nd-runs",
+    "uncommitted_files_in_Modelling_Clean": [
+      "odelling/run_utils.py",
+      "Modelling/Output/tier2_setup/",
+      "Modelling/rq2_6_tier2.py",
+      "Modelling/rq2_7_stack.py",
+      "Modelling/tier2_nets.py",
+      "Modelling/tier2_setup_check.py"
+    ]
+  },
+  "python": "3.14.7",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "machine": "Johans-MacBook-Air.local",
+  "cpu_count": 8,
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "pyarrow": "25.0.1",
+    "duckdb": "1.5.6",
+    "lightgbm": "4.7.0",
+    "scikit-learn": "1.9.1",
+    "catboost": "1.2.10",
+    "quantile-forest": "1.4.2",
+    "torch": "2.14.1",
+    "tabpfn": "9.2.0",
+    "chronos-forecasting": "2.3.2",
+    "transformers": "5.19.0",
+    "matplotlib": "3.11.2"
+  },
+  "files_written": [
+    {
+      "file": "setup_check.json",
+      "kB": 0.5
+    }
+  ]
+}

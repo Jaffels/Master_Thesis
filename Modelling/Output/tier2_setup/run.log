@@ -1,0 +1,36 @@
+[2026-10-13T18:01:34] tier2_setup_check --skip-bench --skip-chronos
+versions: {
+ "torch": "2.14.1",
+ "tabpfn": "9.2.0",
+ "chronos-forecasting": "2.3.2",
+ "transformers": "5.19.0",
+ "accelerate": "1.15.0",
+ "numpy": "2.5.3",
+ "pandas": "3.0.6",
+ "scikit-learn": "1.9.1"
+}
+torch 2.14.1, MPS (Apple GPU) available: True, CPU threads 4
+
+TabPFN requires a one-time license acceptance to download model weights for local inference.
+Opening your browser to complete login/registration…
+
+  https://ux.priorlabs.ai/login?callback=http://localhost:50373&hf_repo_id=tabpfn_3_5
+
+Waiting for login to complete…
+
+Having trouble? You can also authenticate manually:
+  1. Open https://ux.priorlabs.ai/account in a browser (log in or register if needed)
+  2. Accept the license at https://ux.priorlabs.ai/account/licenses
+  3. Copy your API Key
+  4. Paste the API key below
+
+API key (or press Enter to keep waiting): License accepted — API key cached for future sessions.
+
+
+tabpfn-v3.5-20260909.safetensors: reconstructing file:   0%|          |  0.00B /  876MB            [Atabpfn-v3.5-20260909.safetensors: downloading bytes:           |  0.00B            tabpfn-v3.5-20260909.safetensors: downloading bytes:           | 16.4kB            tabpfn-v3.5-20260909.safetensors: downloading bytes:           | 3.48MB, 1.59kB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: 1         | 14.9MB,  338kB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: 4         | 36.3MB, 1.44MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: 6         | 56.8MB, 3.48MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: #         | 95.0MB, 6.73MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: #3        |  118MB, 8.96MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: #7        |  155MB, 12.7MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: #9        |  174MB, 14.3MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: ##4       |  213MB, 17.1MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: ##6       |  233MB, 19.4MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: ##8       |  252MB, 21.1MB/s  
+tabpfn-v3.5-20260909.safetensors: reconstructing file:   8%|7         | 67.0MB /  876MB            [Atabpfn-v3.5-20260909.safetensors: downloading bytes: ###       |  271MB, 22.6MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: ###5      |  310MB, 25.4MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: ###8      |  340MB, 28.2MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: ####1     |  362MB, 29.5MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: ####3     |  381MB, 31.2MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: ####8     |  421MB, 33.8MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: #####     |  442MB, 35.7MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: #####4    |  480MB, 38.6MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: #####8    |  511MB, 41.2MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: ######1   |  537MB, 42.1MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: ######3   |  558MB, 44.1MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: ######8   |  599MB, 46.6MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: #######2  |  639MB, 48.9MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: #######5  |  659MB, 51.0MB/s  
+tabpfn-v3.5-20260909.safetensors: reconstructing file:  31%|###       |  268MB /  876MB, 6.25MB/s  [Atabpfn-v3.5-20260909.safetensors: downloading bytes: #######8  |  684MB, 52.4MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: ########2 |  724MB, 55.4MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: ########6 |  753MB, 57.6MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: ########8 |  773MB, 58.6MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: ########9 |  788MB, 54.8MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: #########1|  801MB, 54.2MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: #########3|  815MB, 54.3MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: #########4|  824MB, 54.4MB/s  
+tabpfn-v3.5-20260909.safetensors: reconstructing file: 100%|##########|  876MB /  876MB, 23.0MB/s  [Atabpfn-v3.5-20260909.safetensors: downloading bytes: ##########|  830MB, 54.8MB/s  tabpfn-v3.5-20260909.safetensors: downloading bytes: ##########|  830MB, 54.8MB/s  
+tabpfn-v3.5-20260909.safetensors: reconstructing file: 100%|##########|  876MB /  876MB, 69.0MB/s  
+TabPFN ok (default): 125 s incl. download, 80 % interval coverage on toy data 88%
+[2026-10-13T18:03:42] tier2_setup_check: ok after 2 min 07 s

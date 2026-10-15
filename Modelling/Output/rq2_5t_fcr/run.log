@@ -1,0 +1,136 @@
+[2026-10-14T10:54:53] rq2_5_tier1 --products fcr --tune 20 --seeds 3 --out Modelling/Output/rq2_5t_fcr
+fcr: 14,118 blocks, 777 features
+      FCR|sym|4h fold  0: tuned lgbm_q on 1,098 rows - config 0 (val gain vs default +0.0 %, 31s)
+      FCR|sym|4h fold  0: tuned cat_q on 1,098 rows - config 17 (val gain vs default +2.8 %, 224s)
+      FCR|sym|4h fold  0: tuned qrf on 1,098 rows - config 1 (val gain vs default +4.8 %, 9s)
+      FCR|sym|4h fold  0: tuned svr on 1,098 rows - config 17 (val gain vs default +13.5 %, 5s)
+      FCR|sym|4h fold  4: tuned lgbm_q on 3,288 rows - config 16 (val gain vs default +4.9 %, 60s)
+      FCR|sym|4h fold  4: tuned cat_q on 3,288 rows - config 12 (val gain vs default +6.4 %, 408s)
+      FCR|sym|4h fold  4: tuned qrf on 3,288 rows - config 15 (val gain vs default +6.2 %, 28s)
+      FCR|sym|4h fold  4: tuned svr on 3,288 rows - config 4 (val gain vs default +5.3 %, 18s)
+      FCR|sym|4h fold  8: tuned lgbm_q on 5,478 rows - config 13 (val gain vs default +2.2 %, 176s)
+      FCR|sym|4h fold  8: tuned cat_q on 5,478 rows - config 6 (val gain vs default +4.4 %, 721s)
+      FCR|sym|4h fold  8: tuned qrf on 5,478 rows - config 18 (val gain vs default +2.4 %, 53s)
+      FCR|sym|4h fold  8: tuned svr on 5,478 rows - config 9 (val gain vs default +2.7 %, 47s)
+      FCR|sym|4h fold 12: tuned lgbm_q on 7,668 rows - config 13 (val gain vs default +1.4 %, 160s)
+      FCR|sym|4h fold 12: tuned cat_q on 7,668 rows - config 0 (val gain vs default +0.0 %, 926s)
+      FCR|sym|4h fold 12: tuned qrf on 7,668 rows - config 5 (val gain vs default +3.3 %, 85s)
+      FCR|sym|4h fold 12: tuned svr on 7,668 rows - config 15 (val gain vs default +2.6 %, 98s)
+      FCR|sym|4h fold 16: tuned lgbm_q on 9,864 rows - config 15 (val gain vs default +1.7 %, 130s)
+      FCR|sym|4h fold 16: tuned cat_q on 9,864 rows - config 19 (val gain vs default +0.6 %, 646s)
+      FCR|sym|4h fold 16: tuned qrf on 9,864 rows - config 19 (val gain vs default +8.1 %, 125s)
+      FCR|sym|4h fold 16: tuned svr on 9,864 rows - config 4 (val gain vs default +2.4 %, 158s)
+      FCR|sym|4h fold 20: tuned lgbm_q on 12,054 rows - config 2 (val gain vs default +1.3 %, 97s)
+      FCR|sym|4h fold 20: tuned cat_q on 12,054 rows - config 9 (val gain vs default +0.5 %, 390s)
+      FCR|sym|4h fold 20: tuned qrf on 12,054 rows - config 14 (val gain vs default +1.1 %, 156s)
+      FCR|sym|4h fold 20: tuned svr on 12,054 rows - config 2 (val gain vs default +2.5 %, 174s)
+   FCR|sym|4h       folds= 23  lear   162s  lgbm_q  1373s  cat_q  1499s  qrf   801s  svr    98s
+   FCR|sym|day      folds=  0  lear     0s  lgbm_q     0s  cat_q     0s  qrf     0s  svr     0s
+   FCR|sym|week     folds=  0  lear     0s  lgbm_q     0s  cat_q     0s  qrf     0s  svr     0s
+   diagnostics written: Modelling/Output/rq2_5t_fcr/diagnostics
+RQ2 9.2 round 2 (Tier 1, ML_Options.md) - strong baselines and probabilistic forecasts.
+Rolling origin, expanding window, refit every 3 months (weekly 12); test from 2021-01-01; errors in EUR/MWh on the common rows of all point models and baselines.
+Models: LEAR (LASSO), LightGBM quantile, CatBoost MultiQuantile, Quantile Regression Forest, SVR (RBF); quantiles 05, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95; seeds 3; LEAR target delta.
+Hyperparameter search: 20 configurations per model (config 0 = round-2 defaults, rest random draws), re-tuned every 12 months on the last 20% of the training window (1 chunk(s)); score = mean pinball at 10/50/90 % (SVR: MAE); LEAR: LassoCV over 20 alphas on the same split(s); QRF tuned with 100 trees.
+lgbm_l1 = round-1 LightGBM (rq2_2_delta), merged for comparison.
+
+== FCR|sym|4h   n = 12,414
+                 MAE   RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%
+model                                                                                 
+lear           4.945  8.096   27.099      0.277                -0.148            0.000
+lgbm_l1        4.739  8.007   25.783      0.264                 4.015            4.157
+lgbm_q         4.709  8.028   25.394      0.260                 4.640            4.781
+cat_q          4.733  8.100   25.477      0.261                 4.139            4.281
+qrf            4.779  8.101   25.735      0.263                 3.203            3.347
+svr            5.175  8.786   27.755      0.285                -4.813           -4.658
+b_prev_slot    4.938  8.550   25.656      0.263                 0.000            0.148
+b_prev_auction 7.040 10.655   37.147      0.386               -42.582          -42.371
+b_roll_med     5.393  8.910   28.541      0.293                -9.216           -9.054
+   Diebold-Mariano |error| (stat < 0: row model better), p-values:
+   vs       b_prev_slot   lear  lgbm_l1
+   model                               
+   cat_q         -6.450 -6.170   -0.270
+   lear           0.150    NaN    5.750
+   lgbm_l1       -4.780 -5.750      NaN
+   lgbm_q        -6.670 -6.890   -1.820
+   qrf           -3.540 -4.770    1.440
+   svr            4.400  4.260    7.750
+   vs       b_prev_slot  lear  lgbm_l1
+   model                              
+   cat_q          0.000 0.000    0.788
+   lear           0.883   NaN    0.000
+   lgbm_l1        0.000 0.000      NaN
+   lgbm_q         0.000 0.000    0.069
+   qrf            0.000 0.000    0.150
+   svr            0.000 0.000    0.000
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                         
+   lgbm_q    1.684        3.368     79.729     81.649       14.859       15.827    11874     88.050     90.652       20.735       23.206    11874
+   cat_q     1.715        3.430     75.796     84.176       13.514       17.426    11874     85.001     92.917       18.456       25.461    11874
+   qrf       1.707        3.414     84.032     79.661       17.230       15.422    11874     92.639     89.784       24.378       21.456    11874
+   DM pinball vs lgbm_q: cat_q stat 4.86 p 0.0000; qrf stat 3.50 p 0.0005
+   MAE by year:
+   model  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                    
+   2021  5.283    4.848   4.847  4.780 5.252 6.364        4.832           5.300       5.077
+   2022  7.821    7.463   7.443  7.651 7.472 8.032        8.110           9.458       8.455
+   2023  3.934    3.764   3.588  3.604 3.545 3.802        3.833           4.738       4.115
+   2024  3.695    3.594   3.603  3.565 3.651 3.775        3.799           6.407       4.144
+   2025  4.240    4.112   4.165  4.150 4.130 4.273        4.278           7.535       5.204
+   2026  4.577    4.617   4.558  4.612 4.555 4.626        4.696           9.689       5.348
+
+== Summary: MAE skill vs same-slot-yesterday (%)
+             lear  lgbm_l1  lgbm_q  cat_q   qrf    svr
+series                                                
+FCR|sym|4h -0.148    4.015   4.640  4.139 3.203 -4.813
+   best point model per series: FCR|sym|4h: lgbm_q
+== Summary: mean pinball loss (EUR/MWh), lower is better
+model       cat_q  lgbm_q   qrf
+series                         
+FCR|sym|4h  1.715   1.684 1.707
+== Summary: 90 % interval coverage raw -> CQR (%)
+model              cat_q        lgbm_q           qrf
+series                                              
+FCR|sym|4h  85.0 -> 92.9  88.0 -> 90.7  92.6 -> 89.8
+== Top features: LEAR (LASSO) (mean importance share over folds; % of folds in top 20)
+   FCR|sym|4h: tgt_prev_slot__price_settle_ch 51.5% (96%); cal_weekend_share 14.9% (87%); dow_0 3.2% (57%); de_lu_price_da_eur_mwh__lb24h 2.7% (43%); tgt_prev_auction__n_bids 2.5% (26%); it_nord_load_wa_fc_max_mw__dw 1.4% (35%); tgt_prev_slot__n_bids 1.1% (26%); ch_fr_ntc_wa_mw__dw 0.9% (13%)
+== Top features: LightGBM quantile (mean importance share over folds; % of folds in top 20)
+   FCR|sym|4h: tgt_prev_slot__price_settle_ch 15.8% (100%); xm_fcr_coop_settle__prevday_slot 4.8% (96%); cal_dow 3.2% (96%); de_lu_load_wa_fc_max_mw__dw 2.5% (91%); it_nord_load_wa_fc_max_mw__dw 2.3% (91%); tgt_prev_slot__price_bid_vwap 1.9% (78%); cal_weekend_share 1.4% (57%); tgt_prev_auction__price_settle_ch 1.1% (48%)
+== Top features: CatBoost MultiQuantile (mean importance share over folds; % of folds in top 20)
+   FCR|sym|4h: tgt_prev_slot__price_settle_ch 14.2% (100%); xm_fcr_coop_settle__prevday_slot 7.2% (100%); cal_dow 5.4% (100%); cal_weekend_share 5.0% (100%); it_nord_load_wa_fc_max_mw__dw 2.3% (96%); tgt_prev_slot__price_bid_vwap 1.1% (70%); de_lu_load_wa_fc_max_mw__dw 1.0% (74%); tgt_prev_auction__price_settle_ch 0.9% (74%)
+== Top features: Quantile Regression Forest (mean importance share over folds; % of folds in top 20)
+   FCR|sym|4h: tgt_prev_slot__price_settle_ch 12.5% (100%); xm_fcr_coop_settle__prevday_slot 5.6% (100%); cal_dow 3.7% (100%); cal_weekend_share 2.3% (96%); it_nord_load_wa_fc_max_mw__dw 1.7% (96%); tgt_prev_slot__price_bid_vwap 1.6% (96%); de_lu_load_wa_fc_max_mw__dw 1.2% (83%); tgt_prev_auction__price_settle_ch 1.1% (87%)
+
+More detail: fold_log.csv (per fold sizes / timings / tuning), lear_coefficients.csv (signed LEAR coefficients), diagnostics/ (breakdowns, worst errors, calibration, importance, plots; see its README.txt)
+== Hyperparameter search (tuning_log.csv): per series / model - tuning points, how often the default config won, median validation gain of the chosen config vs default, tuning time
+                   points  default_chosen  median_val_gain_pct  tune_minutes
+series     model                                                            
+FCR|sym|4h cat_q        6               1                1.695        55.232
+           lgbm_q       6               1                1.554        10.917
+           qrf          6               0                4.062         7.600
+           svr          6               0                2.658         8.347
+   FCR|sym|4h lgbm_q: fold 0: lr=0.05, leaves=15, min_leaf=0, colsample=0.3, bagging=0.8, l2=1 | fold 4: lr=0.0556, leaves=7, min_leaf=100, colsample=0.559, bagging=0.628, l2=0.559 | fold 8: lr=0.0291, leaves=7, min_leaf=100, colsample=0.481, bagging=0.871, l2=0.952 | fold 12: lr=0.0291, leaves=7, min_leaf=100, colsample=0.481, bagging=0.871, l2=0.952 | fold 16: lr=0.0168, leaves=7, min_leaf=20, colsample=0.14, bagging=0.686, l2=1.5 | fold 20: lr=0.029, leaves=31, min_leaf=50, colsample=0.644, bagging=0.769, l2=1.12
+   FCR|sym|4h cat_q: fold 0: colsample=0.325, cat_lr=0.0409, cat_depth=5, cat_l2=5.24 | fold 4: colsample=0.134, cat_lr=0.0734, cat_depth=8, cat_l2=18.5 | fold 8: colsample=0.644, cat_lr=0.0178, cat_depth=5, cat_l2=5.38 | fold 12: colsample=0.3, cat_lr=0.05, cat_depth=6, cat_l2=nan | fold 16: colsample=0.147, cat_lr=0.0157, cat_depth=4, cat_l2=17.2 | fold 20: colsample=0.424, cat_lr=0.0342, cat_depth=7, cat_l2=1.59
+   FCR|sym|4h qrf: fold 0: colsample=0.523, qrf_leaf=1, qrf_depth=20 | fold 4: colsample=0.159, qrf_leaf=1, qrf_depth=8 | fold 8: colsample=0.355, qrf_leaf=20, qrf_depth=8 | fold 12: colsample=0.576, qrf_leaf=10, qrf_depth=8 | fold 16: colsample=0.131, qrf_leaf=50, qrf_depth=12 | fold 20: colsample=0.318, qrf_leaf=50, qrf_depth=20
+   FCR|sym|4h svr: fold 0: svr_c=23.5, svr_eps=0.0289, svr_gamma=0.369 | fold 4: svr_c=0.134, svr_eps=0.189, svr_gamma=0.832 | fold 8: svr_c=10.9, svr_eps=0.0494, svr_gamma=6.77 | fold 12: svr_c=0.151, svr_eps=0.0599, svr_gamma=6.22 | fold 16: svr_c=0.134, svr_eps=0.189, svr_gamma=0.832 | fold 20: svr_c=1.32, svr_eps=0.0185, svr_gamma=2.17
+== Tuned vs default (round 2) on the same rows; DM stat < 0 = tuned better
+                       n  mae_default  mae_tuned  change_%  skill_default_%  skill_tuned_%  dm_tuned_vs_default     p  pinball_default  pinball_tuned  dm_pinball  p_pinball
+series     model                                                                                                                                                            
+FCR|sym|4h lear    12414        4.738      4.945     4.361            4.037         -0.148                6.605 0.000              NaN            NaN         NaN        NaN
+           lgbm_q  12414        4.724      4.709    -0.328            4.326          4.640               -1.082 0.279            1.691          1.684      -2.137      0.033
+           cat_q   12414        4.735      4.733    -0.041            4.100          4.139               -0.118 0.906            1.719          1.715      -0.688      0.492
+           qrf     12414        4.728      4.779     1.081            4.238          3.203                3.283 0.001            1.698          1.707       2.216      0.027
+           svr     12414        4.930      5.175     4.971            0.150         -4.813                4.943 0.000              NaN            NaN         NaN        NaN
+== Seed robustness (3 seeds): MAE per seed, spread, gain of the seed average (seed_spread.csv, seed_mae.csv)
+                       n  n_seeds  mae_seed_mean  mae_seed_std  mae_seed_min  mae_seed_max  seed_range_%_of_mae  skill_seed_min_%  skill_seed_max_%  mae_seed_avg  gain_avg_vs_mean_seed_%  dm_avg_vs_seed1  p_avg_vs_seed1
+series     model                                                                                                                                                                                                           
+FCR|sym|4h lgbm_q  12414        3          4.713         0.017         4.698         4.731                0.702             4.192             4.862         4.709                    0.087            1.928           0.054
+           cat_q   12414        3          4.752         0.015         4.743         4.770                0.575             3.394             3.948         4.733                    0.398           -1.233           0.218
+           qrf     12414        3          4.787         0.003         4.784         4.789                0.117             2.999             3.113         4.779                    0.166           -0.890           0.374
+   FCR|sym|4h: best model per seed: seed 1 lgbm_q, seed 2 lgbm_q, seed 3 lgbm_q
+== FCR|sym|day: no fold with >= 200 training blocks
+== FCR|sym|week: no fold with >= 100 training blocks
+
+total runtime 8861s
+[2026-10-14T13:22:35] rq2_5_tier1: ok after 2 h 27 min

@@ -1,0 +1,22 @@
+{
+  "python": "3.14.7",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "packages": {
+    "torch": "2.14.1",
+    "tabpfn": "9.2.0",
+    "chronos-forecasting": "2.3.2",
+    "transformers": "5.19.0",
+    "accelerate": "1.15.0",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.1"
+  },
+  "mps_available": true,
+  "tabpfn": {
+    "ok": true,
+    "seconds": 125.3,
+    "test_80pct_coverage": 0.88,
+    "version": "default",
+    "device": "(device(type='mps'),)"
+  }
+}

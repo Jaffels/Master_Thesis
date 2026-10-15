@@ -39,7 +39,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 HISTORY = HERE / "Output" / "run_history.csv"
 PACKAGES = ["numpy", "pandas", "scipy", "pyarrow", "duckdb", "lightgbm", "scikit-learn", "catboost",
-            "quantile-forest", "statsmodels", "torch", "matplotlib"]
+            "quantile-forest", "statsmodels", "torch", "tabpfn", "chronos-forecasting", "transformers", "matplotlib"]
 
 _state: dict = {"out": None, "summary": [], "start": None}
 
