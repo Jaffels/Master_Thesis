@@ -1,0 +1,279 @@
+{
+  "script": "rq2_8_subperiods",
+  "label": "RQ2 sub-period DM",
+  "status": "ok",
+  "error": "",
+  "argv": [
+    "--out",
+    "Modelling/Output/rq2_8_default"
+  ],
+  "start": "2026-10-15T11:56:22",
+  "end": "2026-10-15T11:56:31",
+  "duration_s": 8.1,
+  "duration": "8 s",
+  "summary": [
+    "reversal FCR|sym|4h invmae vs best_single (year: 2025, 2026)",
+    "reversal FCR|sym|4h invmae vs best_single (period: 3_post_crisis)",
+    "reversal FCR|sym|4h invmae vs best_single (regime_afrr_daily=regime_mfrr_merged: 1)",
+    "reversal FCR|sym|4h invmae vs best_single (regime_imb_resolution: qh)",
+    "reversal FCR|sym|4h invmae vs best_single (regime_imb_pricing: single)",
+    "reversal FCR|sym|4h invmae vs best_single (regime_ch_gen_reporting: r2025)",
+    "reversal aFRR|up|week invmae vs best_single (year: 2026)",
+    "reversal aFRR|up|week invmae vs best_single (regime_afrr_daily=regime_mfrr_merged: 1)",
+    "reversal aFRR|up|week invmae vs best_single (regime_imb_pricing: single)",
+    "reversal mFRR|down|week invmae vs best_single (year: 2026)",
+    "reversal mFRR|down|week invmae vs best_single (regime_afrr_daily=regime_mfrr_merged: 1)",
+    "reversal mFRR|down|week invmae vs best_single (regime_imb_pricing: single)",
+    "reversal mFRR|up|week invmae vs best_single (year: 2021, 2025)"
+  ],
+  "output_dir": "Modelling/Output/rq2_8_default",
+  "git": {
+    "commit": "bafcfe7",
+    "branch": "master",
+    "uncommitted_files_in_Modelling_Clean": [
+      "Modelling/Output/rq2_8_default/"
+    ]
+  },
+  "python": "3.14.7",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "machine": "Johans-MacBook-Air.local",
+  "cpu_count": 8,
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "pyarrow": "25.0.1",
+    "duckdb": "1.5.6",
+    "lightgbm": "4.7.0",
+    "scikit-learn": "1.9.1",
+    "catboost": "1.2.10",
+    "quantile-forest": "1.4.2",
+    "torch": "2.14.1",
+    "tabpfn": "9.2.0",
+    "chronos-forecasting": "2.3.2",
+    "transformers": "5.19.0",
+    "matplotlib": "3.11.2"
+  },
+  "files_written": [
+    {
+      "file": "dm_by_group.csv",
+      "kB": 1950.0
+    },
+    {
+      "file": "metrics_by_group.csv",
+      "kB": 630.4
+    },
+    {
+      "file": "pinball_by_group.csv",
+      "kB": 65.9
+    },
+    {
+      "file": "plots/skill_FCR_sym_4h_period.png",
+      "kB": 55.3
+    },
+    {
+      "file": "plots/skill_FCR_sym_4h_regime_afrr_daily=regime_mfrr_merged.png",
+      "kB": 45.6
+    },
+    {
+      "file": "plots/skill_FCR_sym_4h_regime_ch_gen_reporting.png",
+      "kB": 55.3
+    },
+    {
+      "file": "plots/skill_FCR_sym_4h_regime_imb_pricing.png",
+      "kB": 45.6
+    },
+    {
+      "file": "plots/skill_FCR_sym_4h_regime_imb_resolution.png",
+      "kB": 48.7
+    },
+    {
+      "file": "plots/skill_FCR_sym_4h_slot.png",
+      "kB": 68.3
+    },
+    {
+      "file": "plots/skill_FCR_sym_4h_year.png",
+      "kB": 68.8
+    },
+    {
+      "file": "plots/skill_aFRR_down_4h_slot.png",
+      "kB": 69.7
+    },
+    {
+      "file": "plots/skill_aFRR_down_week_period.png",
+      "kB": 61.7
+    },
+    {
+      "file": "plots/skill_aFRR_down_week_regime_afrr_daily=regime_mfrr_merged.png",
+      "kB": 49.4
+    },
+    {
+      "file": "plots/skill_aFRR_down_week_regime_ch_gen_reporting.png",
+      "kB": 60.2
+    },
+    {
+      "file": "plots/skill_aFRR_down_week_regime_imb_pricing.png",
+      "kB": 49.9
+    },
+    {
+      "file": "plots/skill_aFRR_down_week_regime_imb_resolution.png",
+      "kB": 52.5
+    },
+    {
+      "file": "plots/skill_aFRR_down_week_year.png",
+      "kB": 80.1
+    },
+    {
+      "file": "plots/skill_aFRR_up_4h_slot.png",
+      "kB": 71.3
+    },
+    {
+      "file": "plots/skill_aFRR_up_week_period.png",
+      "kB": 50.6
+    },
+    {
+      "file": "plots/skill_aFRR_up_week_regime_afrr_daily=regime_mfrr_merged.png",
+      "kB": 42.3
+    },
+    {
+      "file": "plots/skill_aFRR_up_week_regime_ch_gen_reporting.png",
+      "kB": 52.5
+    },
+    {
+      "file": "plots/skill_aFRR_up_week_regime_imb_pricing.png",
+      "kB": 42.5
+    },
+    {
+      "file": "plots/skill_aFRR_up_week_regime_imb_resolution.png",
+      "kB": 43.6
+    },
+    {
+      "file": "plots/skill_aFRR_up_week_year.png",
+      "kB": 67.0
+    },
+    {
+      "file": "plots/skill_mFRR_down_4h_period.png",
+      "kB": 55.0
+    },
+    {
+      "file": "plots/skill_mFRR_down_4h_regime_afrr_daily=regime_mfrr_merged.png",
+      "kB": 44.1
+    },
+    {
+      "file": "plots/skill_mFRR_down_4h_regime_ch_gen_reporting.png",
+      "kB": 52.8
+    },
+    {
+      "file": "plots/skill_mFRR_down_4h_regime_imb_pricing.png",
+      "kB": 45.0
+    },
+    {
+      "file": "plots/skill_mFRR_down_4h_regime_imb_resolution.png",
+      "kB": 46.2
+    },
+    {
+      "file": "plots/skill_mFRR_down_4h_slot.png",
+      "kB": 69.2
+    },
+    {
+      "file": "plots/skill_mFRR_down_4h_year.png",
+      "kB": 69.9
+    },
+    {
+      "file": "plots/skill_mFRR_down_week_period.png",
+      "kB": 50.6
+    },
+    {
+      "file": "plots/skill_mFRR_down_week_regime_afrr_daily=regime_mfrr_merged.png",
+      "kB": 44.9
+    },
+    {
+      "file": "plots/skill_mFRR_down_week_regime_ch_gen_reporting.png",
+      "kB": 52.6
+    },
+    {
+      "file": "plots/skill_mFRR_down_week_regime_imb_pricing.png",
+      "kB": 45.3
+    },
+    {
+      "file": "plots/skill_mFRR_down_week_regime_imb_resolution.png",
+      "kB": 46.5
+    },
+    {
+      "file": "plots/skill_mFRR_down_week_year.png",
+      "kB": 67.7
+    },
+    {
+      "file": "plots/skill_mFRR_up_4h_period.png",
+      "kB": 64.0
+    },
+    {
+      "file": "plots/skill_mFRR_up_4h_regime_afrr_daily=regime_mfrr_merged.png",
+      "kB": 49.5
+    },
+    {
+      "file": "plots/skill_mFRR_up_4h_regime_ch_gen_reporting.png",
+      "kB": 59.6
+    },
+    {
+      "file": "plots/skill_mFRR_up_4h_regime_imb_pricing.png",
+      "kB": 50.1
+    },
+    {
+      "file": "plots/skill_mFRR_up_4h_regime_imb_resolution.png",
+      "kB": 54.3
+    },
+    {
+      "file": "plots/skill_mFRR_up_4h_slot.png",
+      "kB": 83.8
+    },
+    {
+      "file": "plots/skill_mFRR_up_4h_year.png",
+      "kB": 82.7
+    },
+    {
+      "file": "plots/skill_mFRR_up_week_period.png",
+      "kB": 53.6
+    },
+    {
+      "file": "plots/skill_mFRR_up_week_regime_afrr_daily=regime_mfrr_merged.png",
+      "kB": 43.9
+    },
+    {
+      "file": "plots/skill_mFRR_up_week_regime_ch_gen_reporting.png",
+      "kB": 53.1
+    },
+    {
+      "file": "plots/skill_mFRR_up_week_regime_imb_pricing.png",
+      "kB": 45.2
+    },
+    {
+      "file": "plots/skill_mFRR_up_week_regime_imb_resolution.png",
+      "kB": 43.2
+    },
+    {
+      "file": "plots/skill_mFRR_up_week_year.png",
+      "kB": 69.8
+    },
+    {
+      "file": "report_rq2_8.txt",
+      "kB": 77.9
+    },
+    {
+      "file": "series_meta.csv",
+      "kB": 1.4
+    },
+    {
+      "file": "stability.csv",
+      "kB": 24.4
+    },
+    {
+      "file": "table_year.csv",
+      "kB": 5.9
+    },
+    {
+      "file": "winners.csv",
+      "kB": 21.6
+    }
+  ]
+}

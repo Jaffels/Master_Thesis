@@ -37,6 +37,20 @@ Hyperparameter search (--tune N, done_todo 2.2 item 5; default 0 = fixed default
   QRF is tuned with --tune-qrf-trees trees. Output: tuning_log.csv (every configuration, score, chosen,
   gain vs default), hp columns in fold_log.csv, tuned_vs_default.csv (DM tuned vs the round-2 predictions
   in Output/rq2_5_<product>, --compare-default).
+Validation scheme (--tune-cv, done_todo 2.2 item 5b): train / validation / test.
+  Test   = the next fold (3 months, weekly 12), never used for any choice.
+  Train / validation = split of the fold's training window only, rows in time order (never shuffled):
+    holdout  train = first (1 - tune_val) of the window, validation = last tune_val (default 20 %)
+             (= the 14 Oct run; --tune-splits > 1 cuts the validation part into chunks).
+    cv       full time-series cross-validation over the WHOLE training window: the window is cut into
+             --cv-folds + 1 consecutive chunks; split k trains on chunks 1..k and validates on chunk k+1
+             (expanding, like sklearn TimeSeriesSplit). Score = mean over the --cv-folds splits.
+    auto     cv for small series (<= --cv-max-rows blocks in total: all weekly series, aFRR 4h),
+             holdout for the large ones (FCR 4h, mFRR 4h), where the data allows a plain split and
+             full CV would cost --cv-folds times the runtime.
+  After the search the chosen configuration is refitted on the full training window and predicts the test fold.
+  LEAR uses the same splits for its alpha (LassoCV). The scheme per fold is logged (fold_log.csv: val_scheme,
+  n_val_splits; tuning_log.csv: val_scheme).
 Seeds (--seeds n, item 6): tree models averaged over n seeds; with n > 1 the per-seed medians are kept as
   p_<model>_seed<k> and seed_spread.csv / seed_mae.csv give the MAE of every seed, the spread and the gain
   of the seed average (DM seed average vs seed 1). Tuning always uses seed 1.
@@ -52,6 +66,7 @@ Evaluation (common rows: every point model + all baselines non-missing):
     python Modelling/rq2_5_tier1.py                                   # all series, all models
     python Modelling/rq2_5_tier1.py --models lear lgbm_q --products fcr
     python Modelling/rq2_5_tier1.py --products afrr --tune 20 --seeds 3 --out Modelling/Output/rq2_5t_afrr
+    python Modelling/rq2_5_tier1.py --products afrr --tune 20 --tune-cv auto --out Modelling/Output/rq2_5cv_afrr
 Output: Modelling/Output/rq2_5/{preds.parquet, metrics_point.csv, metrics_prob.csv, metrics_by_year.csv,
         dm.csv, fold_log.csv, lear_nonzero.csv, lear_coefficients.csv, report_rq2_5.txt, run.log,
         run_meta.json, diagnostics/ (see diagnostics/README.txt)}
@@ -263,6 +278,24 @@ def tune_splits(n: int, a) -> list[tuple[np.ndarray, np.ndarray]]:
     return [(np.arange(0, edges[j]), np.arange(edges[j], edges[j + 1])) for j in range(a.tune_splits)]
 
 
+def cv_splits(n: int, k: int) -> list[tuple[np.ndarray, np.ndarray]]:
+    """Full time-series cross-validation over all n training rows (sorted by time): n is cut into k + 1
+    consecutive chunks; split j trains on chunks 0..j and validates on chunk j + 1 (expanding window).
+    Splits whose training part has < 20 rows are dropped."""
+    edges = np.linspace(0, n, k + 2).astype(int)
+    out = [(np.arange(0, edges[j + 1]), np.arange(edges[j + 1], edges[j + 2])) for j in range(k)]
+    return [(t, v) for t, v in out if len(t) >= 20 and len(v) > 0]
+
+
+def use_cv(a, n_series: int) -> bool:
+    """True if this series is validated with full CV (--tune-cv cv, or auto and a small series)."""
+    return a.tune_cv == "cv" or (a.tune_cv == "auto" and n_series <= a.cv_max_rows)
+
+
+def val_splits(n: int, a, cv: bool) -> list[tuple[np.ndarray, np.ndarray]]:
+    return cv_splits(n, a.cv_folds) if cv else tune_splits(n, a)
+
+
 def _val_score(y, Q, point: bool) -> float:
     """mean pinball loss over TUNE_Q (probabilistic models) or pinball at 0.5 (= MAE / 2, point models),
     in the model's own target space (asinh delta)."""
@@ -271,10 +304,10 @@ def _val_score(y, Q, point: bool) -> float:
     return float(np.mean([pinball(y, Q[:, k], QS[k]).mean() for k in TUNE_Q]))
 
 
-def tune_model(m, a, s, f, Xd, Zt_, Zl_, yd_, trd) -> tuple[argparse.Namespace, list[dict]]:
+def tune_model(m, a, s, f, Xd, Zt_, Zl_, yd_, trd, cv: bool = False) -> tuple[argparse.Namespace, list[dict]]:
     """Random search with a.tune configurations for model m on the training window trd. Returns the namespace
     with the best configuration and one log row per configuration."""
-    cands, splits, rows = candidates(m, a, s), tune_splits(len(trd), a), []
+    cands, splits, rows = candidates(m, a, s), val_splits(len(trd), a, cv), []
     for ci, cfg in enumerate(cands):
         ac = argparse.Namespace(**{**vars(a), **cfg})
         if m == "qrf":
@@ -297,7 +330,8 @@ def tune_model(m, a, s, f, Xd, Zt_, Zl_, yd_, trd) -> tuple[argparse.Namespace, 
             score = float(np.mean(sc))
         except Exception as e:                          # a failing candidate is skipped, never stops the run
             score = float("inf"); print(f"      tuning {s} {m} config {ci} failed: {e}")
-        rows.append({"series": s, "fold": f, "model": m, "config": ci, "is_default": ci == 0, "score": score,
+        rows.append({"series": s, "fold": f, "model": m, "val_scheme": "cv" if cv else "holdout",
+                     "n_val_splits": len(splits), "config": ci, "is_default": ci == 0, "score": score,
                      "seconds": round(time.time() - t0, 1), **{f"hp_{k}": v for k, v in cfg.items()}})
     best = int(np.argmin([r["score"] for r in rows]))
     for r in rows:
@@ -362,7 +396,8 @@ def run_series(g: pd.DataFrame, Xg: pd.DataFrame, s: str, a, log, tlog: list | N
     tuned: dict[str, argparse.Namespace] = {}           # model -> namespace with the chosen hyperparameters
     last_tune = None                                    # month index of the last tuning point
     al = argparse.Namespace(**{**vars(a), "lear_alphas": a.tune}) if a.tune else a   # LEAR: same budget
-    lear_cv = (lambda n: tune_splits(n, a)) if a.tune else (lambda n: None)
+    cv = bool(a.tune) and use_cv(a, len(g))             # full CV for small series (--tune-cv)
+    lear_cv = (lambda n: val_splits(n, a, cv)) if a.tune else (lambda n: None)
     Zl = linear_frame(Xg, g) if {"lear", "svr"} & set(a.models) else None
     rm = a.refit_months_week if s.endswith("|week") else a.refit_months
     mt = C.MIN_TRAIN[s.split("|")[2]]
@@ -383,15 +418,18 @@ def run_series(g: pd.DataFrame, Xg: pd.DataFrame, s: str, a, log, tlog: list | N
         if a.tune and (last_tune is None or mo - last_tune >= a.tune_every_months):
             for m in [m for m in a.models if m in SPACE]:
                 t0 = time.time()
-                tuned[m], rows_t = tune_model(m, a, s, f, Xg, Zt, Zl, yd, trd)
+                tuned[m], rows_t = tune_model(m, a, s, f, Xg, Zt, Zl, yd, trd, cv=cv)
                 if tlog is not None:
                     tlog += rows_t
                 ch = next(r for r in rows_t if r["chosen"])
                 fl[f"{m}_tune_seconds"] = round(time.time() - t0, 1)
-                log(f"      {s} fold {f:2d}: tuned {m} on {len(trd):,} rows - config {ch['config']} "
+                log(f"      {s} fold {f:2d}: tuned {m} on {len(trd):,} rows ({'cv' if cv else 'holdout'}) - config {ch['config']} "
                     f"(val gain vs default {ch['gain_vs_default_%']:+.1f} %, {time.time() - t0:.0f}s)")
             last_tune = mo
             fl["tuning_point"] = True
+        if a.tune:
+            fl["val_scheme"] = "cv" if cv else "holdout"
+            fl["n_val_splits"] = len(val_splits(len(trd), a, cv))
         for m in [m for m in a.models if m in tuned]:
             fl.update({f"{m}_hp_{k}": getattr(tuned[m], k) for k in DEFAULT_KEYS[m]})
         for m in a.models:
@@ -601,6 +639,11 @@ def main() -> None:
     ap.add_argument("--tune-every-months", type=int, default=12, help="re-tune when the fold start is >= n months after the last tuning point")
     ap.add_argument("--tune-val", type=float, default=0.2, help="share of the training window used for validation")
     ap.add_argument("--tune-splits", type=int, default=1, help="consecutive validation chunks (expanding); 1 = one hold-out")
+    ap.add_argument("--tune-cv", default="holdout", choices=["holdout", "cv", "auto"],
+                    help="validation scheme: holdout (last --tune-val of the window), cv (full time-series CV), "
+                         "auto (cv for series with <= --cv-max-rows blocks, holdout otherwise)")
+    ap.add_argument("--cv-folds", type=int, default=5, help="number of time-series CV splits")
+    ap.add_argument("--cv-max-rows", type=int, default=5000, help="auto: series with at most this many blocks use full CV")
     ap.add_argument("--tune-qrf-trees", type=int, default=100, help="QRF trees while tuning (final fit uses --qrf-trees)")
     ap.add_argument("--tune-seed", type=int, default=0, help="seed of the random candidate draw")
     ap.add_argument("--compare-default", default="auto",
@@ -697,8 +740,12 @@ def main() -> None:
            f"Models: {', '.join(LABEL.get(m, m) for m in a.models)}; quantiles {', '.join(QTAG)}; seeds {a.seeds}; "
            f"LEAR target {a.lear_target}{', per slot' if a.lear_per_slot else ''}.",
            (f"Hyperparameter search: {a.tune} configurations per model (config 0 = round-2 defaults, rest random draws), "
-            f"re-tuned every {a.tune_every_months} months on the last {a.tune_val:.0%} of the training window "
-            f"({a.tune_splits} chunk(s)); score = mean pinball at 10/50/90 % (SVR: MAE); LEAR: LassoCV over {a.tune} alphas "
+            f"re-tuned every {a.tune_every_months} months; validation {a.tune_cv}: "
+            + {"holdout": f"last {a.tune_val:.0%} of the training window ({a.tune_splits} chunk(s))",
+               "cv": f"full time-series CV, {a.cv_folds} expanding splits over the whole training window",
+               "auto": f"full time-series CV ({a.cv_folds} splits) for series with <= {a.cv_max_rows:,} blocks, "
+                       f"else last {a.tune_val:.0%} of the window"}[a.tune_cv]
+            + f"; score = mean pinball at 10/50/90 % (SVR: MAE); LEAR: LassoCV over {a.tune} alphas "
             f"on the same split(s); QRF tuned with {a.tune_qrf_trees} trees." if a.tune else
             "No hyperparameter search (fixed defaults; LEAR alpha by LassoCV, TimeSeriesSplit(4))."),
            "lgbm_l1 = round-1 LightGBM (rq2_2_delta), merged for comparison.", ""]
