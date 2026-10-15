@@ -1,0 +1,71 @@
+{
+  "script": "rq2_9_regime_compare",
+  "label": "RQ2 training-window comparison",
+  "status": "ok",
+  "error": "",
+  "argv": [],
+  "start": "2026-10-15T21:48:10",
+  "end": "2026-10-15T21:48:11",
+  "duration_s": 0.5,
+  "duration": "1 s",
+  "summary": [
+    "sliding: better 1, worse 11 of 45",
+    "regime: better 2, worse 10 of 45",
+    "regime_crisis: better 2, worse 6 of 20"
+  ],
+  "output_dir": "Modelling/Output/rq2_9_compare",
+  "git": {
+    "commit": "01679a0",
+    "branch": "4th-run",
+    "uncommitted_files_in_Modelling_Clean": [
+      "Modelling/Output/overnight_15oct.log",
+      "Modelling/Output/rq2_10/",
+      "Modelling/Output/rq2_9_compare/",
+      "Modelling/Output/rq2_9r_afrr/",
+      "Modelling/Output/rq2_9r_fcr/",
+      "Modelling/Output/rq2_9r_mfrr/",
+      "Modelling/Output/rq2_9rc_mfrr/",
+      "Modelling/Output/rq2_9s_afrr/",
+      "Modelling/Output/rq2_9s_fcr/",
+      "Modelling/Output/rq2_9s_mfrr/"
+    ]
+  },
+  "python": "3.14.7",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "machine": "Johans-MacBook-Air.local",
+  "cpu_count": 8,
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "pyarrow": "25.0.1",
+    "duckdb": "1.5.6",
+    "lightgbm": "4.7.0",
+    "scikit-learn": "1.9.1",
+    "catboost": "1.2.10",
+    "quantile-forest": "1.4.2",
+    "torch": "2.14.1",
+    "tabpfn": "9.2.0",
+    "chronos-forecasting": "2.3.2",
+    "transformers": "5.19.0",
+    "matplotlib": "3.11.2"
+  },
+  "files_written": [
+    {
+      "file": "best_model.csv",
+      "kB": 1.6
+    },
+    {
+      "file": "compare_by_period.csv",
+      "kB": 50.8
+    },
+    {
+      "file": "compare_overall.csv",
+      "kB": 20.8
+    },
+    {
+      "file": "report_rq2_9.txt",
+      "kB": 16.1
+    }
+  ]
+}

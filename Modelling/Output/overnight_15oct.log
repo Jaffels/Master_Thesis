@@ -1,0 +1,1959 @@
+[2026-10-15T18:31:56] rq2_10_pooled 
+fcr: 14,118 blocks, 777 features, series FCR|sym|4h, FCR|sym|day, FCR|sym|week
+afrr: 5,048 blocks, 776 features, series aFRR|down|4h, aFRR|down|week, aFRR|sym|week, aFRR|up|4h, aFRR|up|week
+mfrr: 43,018 blocks, 778 features, series mFRR|down|4h, mFRR|down|week, mFRR|up|4h, mFRR|up|week
+pooled: 62,184 blocks, 785 features (6 series-identity), 12 series
+23 pooled fits (distinct fold starts), 94 series-folds to predict
+   fit  1/23 start 2021-01-01: train 25,094 rows (10 series), test 1,828 (7 series)  lgbm_q 55s  cat_q 50s  [106s]
+   fit  2/23 start 2021-04-01: train 26,766 rows (10 series), test 1,554 (3 series)  lgbm_q 56s  cat_q 77s  [134s]
+   fit  3/23 start 2021-07-01: train 28,366 rows (10 series), test 1,446 (3 series)  lgbm_q 41s  cat_q 18s  [59s]
+   fit  4/23 start 2021-10-01: train 29,846 rows (10 series), test 1,572 (3 series)  lgbm_q 31s  cat_q 23s  [54s]
+   fit  5/23 start 2022-01-01: train 31,458 rows (10 series), test 1,576 (7 series)  lgbm_q 25s  cat_q 34s  [59s]
+   fit  6/23 start 2022-04-01: train 32,848 rows (10 series), test 1,512 (3 series)  lgbm_q 47s  cat_q 67s  [114s]
+   fit  7/23 start 2022-07-01: train 34,400 rows (10 series), test 1,572 (3 series)  lgbm_q 38s  cat_q 55s  [93s]
+   fit  8/23 start 2022-10-01: train 36,018 rows (10 series), test 1,614 (3 series)  lgbm_q 80s  cat_q 120s  [200s]
+   fit  9/23 start 2023-01-01: train 37,678 rows (10 series), test 1,504 (7 series)  lgbm_q 65s  cat_q 90s  [156s]
+   fit 10/23 start 2023-04-01: train 39,014 rows (10 series), test 1,428 (3 series)  lgbm_q 57s  cat_q 126s  [182s]
+   fit 11/23 start 2023-07-01: train 40,476 rows (10 series), test 1,602 (3 series)  lgbm_q 68s  cat_q 128s  [196s]
+   fit 12/23 start 2023-10-01: train 42,118 rows (10 series), test 1,572 (3 series)  lgbm_q 49s  cat_q 114s  [163s]
+   fit 13/23 start 2024-01-01: train 43,734 rows (10 series), test 926 (6 series)  lgbm_q 51s  cat_q 51s  [102s]
+   fit 14/23 start 2024-04-01: train 44,494 rows (10 series), test 546 (1 series)  lgbm_q 54s  cat_q 114s  [168s]
+   fit 15/23 start 2024-07-01: train 45,092 rows (10 series), test 552 (1 series)  lgbm_q 42s  cat_q 111s  [153s]
+   fit 16/23 start 2024-10-01: train 45,696 rows (10 series), test 912 (3 series)  lgbm_q 43s  cat_q 118s  [160s]
+   fit 17/23 start 2025-01-01: train 46,648 rows (10 series), test 1,828 (7 series)  lgbm_q 47s  cat_q 117s  [164s]
+   fit 18/23 start 2025-04-01: train 48,320 rows (10 series), test 1,638 (3 series)  lgbm_q 46s  cat_q 48s  [94s]
+   fit 19/23 start 2025-07-01: train 50,010 rows (10 series), test 1,656 (3 series)  lgbm_q 41s  cat_q 51s  [91s]
+   fit 20/23 start 2025-10-01: train 51,718 rows (10 series), test 1,656 (3 series)  lgbm_q 37s  cat_q 55s  [93s]
+   fit 21/23 start 2026-01-01: train 54,530 rows (12 series), test 2,836 (9 series)  lgbm_q 43s  cat_q 72s  [116s]
+   fit 22/23 start 2026-04-01: train 57,282 rows (12 series), test 2,723 (5 series)  lgbm_q 42s  cat_q 54s  [96s]
+   fit 23/23 start 2026-07-01: train 60,056 rows (12 series), test 1,790 (5 series)  lgbm_q 50s  cat_q 92s  [142s]
+merged single-series predictions from rq2_5_<product>
+   diagnostics written: /Users/johan/Master_Thesis/Modelling/Output/rq2_10/diagnostics
+RQ2 step 10 - pooled (global) tree model across all capacity-price series (done_todo 2.2 item 8).
+Pool: all series; target delta asinh, scale sd; folds as rq2_5 (refit 3 months, weekly 12); models lgbm_q, cat_q; seeds 1; round-2 default hyperparameters.
+Single-series comparison: Output/rq2_5_<product>. Errors in EUR/MWh on the common rows of all models.
+23 pooled fits.
+
+== MAE skill vs same-slot-yesterday (%)
+                pool_lgbm_q  pool_cat_q   lear  lgbm_q  cat_q    qrf    svr  lgbm_l1
+series                                                                              
+FCR|sym|4h            3.834       4.068  4.037   4.326  4.100  4.238  0.150    4.015
+aFRR|down|4h          7.580      13.241  2.371   8.253  7.347  3.740  3.421    8.289
+aFRR|down|week        2.136       3.822  8.084  12.759 13.445 16.655  7.647   12.273
+aFRR|up|4h            7.982       6.404 -0.925   1.630  6.196 -1.003 -1.176    5.474
+aFRR|up|week         -0.122       1.864 -0.266   2.498  3.387 -2.494 -6.595    1.928
+mFRR|down|4h          8.969       9.659  7.428   8.761  8.780  8.917 -3.863    8.884
+mFRR|down|week        3.847       2.604 -0.215   2.948  3.813  6.214 -0.574    2.306
+mFRR|up|4h           17.686      14.803 17.407  24.890 24.296 21.737  2.831   24.728
+mFRR|up|week          0.100      -5.798 -1.115   2.460  3.522  2.528 -5.124    2.677
+
+== Diebold-Mariano |error|, pooled vs reference (stat < 0 = pooled better)
+model           pool_cat_q                    pool_lgbm_q                    
+vs             b_prev_slot  lear single_cat_q b_prev_slot  lear single_lgbm_q
+series                                                                       
+FCR|sym|4h           0.000 0.948        0.946       0.000 0.635         0.365
+aFRR|down|4h         0.001 0.005        0.043       0.000 0.001         0.611
+aFRR|down|week       0.242 0.327        0.003       0.613 0.312         0.011
+aFRR|up|4h           0.000 0.000        0.865       0.000 0.000         0.000
+aFRR|up|week         0.378 0.382        0.469       0.956 0.960         0.313
+mFRR|down|4h         0.000 0.018        0.344       0.000 0.142         0.819
+mFRR|down|week       0.365 0.344        0.527       0.110 0.127         0.852
+mFRR|up|4h           0.000 0.138        0.000       0.000 0.826         0.000
+mFRR|up|week         0.017 0.054        0.001       0.977 0.748         0.484
+
+== Mean pinball loss (EUR/MWh)
+model           cat_q  lgbm_q  pool_cat_q  pool_lgbm_q   qrf
+series                                                      
+FCR|sym|4h      1.719   1.691       1.714        1.702 1.698
+aFRR|down|4h    0.566   0.575       0.518        0.540 0.638
+aFRR|down|week  1.619   1.562       1.698        1.703 1.484
+aFRR|up|4h      0.103   0.107       0.102        0.102 0.123
+aFRR|up|week    0.546   0.560       0.547        0.559 0.574
+mFRR|down|4h    1.525   1.531       1.498        1.520 1.599
+mFRR|down|week  0.648   0.638       0.635        0.635 0.617
+mFRR|up|4h      0.338   0.338       0.379        0.364 0.351
+mFRR|up|week    0.224   0.225       0.238        0.226 0.226
+   DM pinball pooled vs single: FCR|sym|4h pool_lgbm_q stat 1.68 p 0.0939; FCR|sym|4h pool_cat_q stat -0.57 p 0.5714; aFRR|down|week pool_lgbm_q stat 2.28 p 0.0228; aFRR|down|week pool_cat_q stat 1.88 p 0.0597; aFRR|up|week pool_lgbm_q stat -0.05 p 0.9621; aFRR|up|week pool_cat_q stat 0.08 p 0.9370; mFRR|down|4h pool_lgbm_q stat -1.05 p 0.2940; mFRR|down|4h pool_cat_q stat -1.99 p 0.0470; mFRR|down|week pool_lgbm_q stat -0.17 p 0.8676; mFRR|down|week pool_cat_q stat -0.83 p 0.4054; mFRR|up|4h pool_lgbm_q stat 6.17 p 0.0000; mFRR|up|4h pool_cat_q stat 5.51 p 0.0000; mFRR|up|week pool_lgbm_q stat 0.24 p 0.8080; mFRR|up|week pool_cat_q stat 2.45 p 0.0142; aFRR|down|4h pool_lgbm_q stat -5.01 p 0.0000; aFRR|down|4h pool_cat_q stat -2.77 p 0.0055; aFRR|up|4h pool_lgbm_q stat -4.90 p 0.0000; aFRR|up|4h pool_cat_q stat -0.26 p 0.7959
+== 90 % coverage raw -> CQR (%)
+model                  cat_q        lgbm_q    pool_cat_q   pool_lgbm_q           qrf
+series                                                                              
+FCR|sym|4h      83.9 -> 92.6  88.1 -> 90.9  85.8 -> 91.4  88.8 -> 91.0  92.4 -> 90.1
+aFRR|down|4h    92.1 -> 94.2  93.8 -> 94.1  92.5 -> 94.8  92.9 -> 93.3  96.0 -> 94.8
+aFRR|down|week  71.2 -> 95.9  88.5 -> 95.5  90.5 -> 94.7  91.4 -> 91.8  94.2 -> 91.4
+aFRR|up|4h      86.4 -> 87.4  87.3 -> 85.2  85.7 -> 86.7  85.7 -> 84.0  90.3 -> 88.7
+aFRR|up|week    86.0 -> 94.2  84.0 -> 93.4  87.7 -> 93.0  90.9 -> 93.4  92.6 -> 94.7
+mFRR|down|4h    90.8 -> 93.7  90.8 -> 91.7  88.9 -> 92.5  91.8 -> 91.6  93.9 -> 91.2
+mFRR|down|week  83.1 -> 90.9  88.9 -> 93.8  90.1 -> 91.4  89.3 -> 92.6  93.8 -> 94.7
+mFRR|up|4h      89.8 -> 94.5  90.0 -> 92.7  88.8 -> 92.7  92.4 -> 92.7  93.1 -> 92.4
+mFRR|up|week    90.9 -> 97.1  90.1 -> 95.5  89.7 -> 86.8  92.6 -> 87.2  96.3 -> 97.1
+
+== MAE by year
+   FCR|sym|4h:
+   model  b_prev_slot  cat_q  lear  lgbm_l1  lgbm_q  pool_cat_q  pool_lgbm_q   qrf   svr
+   year                                                                                 
+   2021         4.832  4.839 4.828    4.848   4.823       4.911        4.950 4.927 4.699
+   2022         8.110  7.562 7.470    7.463   7.484       7.628        7.642 7.458 8.076
+   2023         3.833  3.654 3.605    3.764   3.703       3.491        3.535 3.564 3.881
+   2024         3.799  3.549 3.665    3.594   3.591       3.592        3.546 3.648 3.690
+   2025         4.278  4.168 4.212    4.112   4.109       4.152        4.163 4.133 4.521
+   2026         4.696  4.595 4.610    4.617   4.595       4.607        4.610 4.601 4.610
+   aFRR|down|week:
+   model  b_prev_slot  cat_q  lear  lgbm_l1  lgbm_q  pool_cat_q  pool_lgbm_q   qrf    svr
+   year                                                                                  
+   2021         3.305  2.987 3.188    3.186   3.141       3.320        3.278 3.016  3.159
+   2022         9.162  8.682 9.125    8.094   8.062       8.832        9.132 7.752  8.087
+   2023        11.061  8.535 9.009    9.350   9.406      10.358       10.683 8.767 10.485
+   2024         1.927  1.719 2.255    1.670   1.627       1.917        1.939 1.580  1.926
+   2025         1.831  1.544 1.373    1.538   1.471       1.738        1.652 1.522  1.563
+   2026         1.062  1.148 1.162    1.086   1.079       1.141        1.070 1.046  0.947
+   aFRR|up|week:
+   model  b_prev_slot  cat_q  lear  lgbm_l1  lgbm_q  pool_cat_q  pool_lgbm_q   qrf   svr
+   year                                                                                 
+   2021         1.360  1.373 1.368    1.342   1.342       1.377        1.469 1.332 1.345
+   2022         1.848  1.688 1.834    1.779   1.792       1.781        1.849 2.074 2.037
+   2023         3.689  3.704 3.794    3.738   3.678       3.653        3.672 3.846 4.099
+   2024         0.784  0.712 0.715    0.727   0.724       0.768        0.754 0.724 0.798
+   2025         0.459  0.384 0.456    0.406   0.409       0.411        0.408 0.387 0.411
+   2026         0.344  0.339 0.339    0.327   0.325       0.335        0.340 0.325 0.347
+   mFRR|down|4h:
+   model  b_prev_slot  cat_q  lear  lgbm_l1  lgbm_q  pool_cat_q  pool_lgbm_q   qrf    svr
+   year                                                                                  
+   2021         3.933  3.607 3.778    3.555   3.571       3.621        3.682 3.546  4.185
+   2022        10.451  9.291 9.398    9.322   9.323       9.115        9.210 9.367 10.608
+   2023         3.025  2.622 2.684    2.719   2.717       2.608        2.687 2.633  2.997
+   2024         6.431  6.954 7.546    6.999   7.118       7.696        6.303 7.391 10.474
+   2025         2.833  2.772 2.717    2.680   2.680       2.728        2.727 2.750  2.915
+   2026         1.365  1.274 1.233    1.293   1.293       1.221        1.293 1.186  1.352
+   mFRR|down|week:
+   model  b_prev_slot  cat_q  lear  lgbm_l1  lgbm_q  pool_cat_q  pool_lgbm_q   qrf   svr
+   year                                                                                 
+   2021         1.985  1.962 1.993    1.979   1.978       1.983        2.025 1.946 1.939
+   2022         3.894  3.876 3.903    3.968   3.956       3.903        3.807 3.677 3.813
+   2023         2.188  1.989 2.214    1.998   1.914       1.974        1.945 2.003 2.341
+   2024         0.731  0.654 0.685    0.696   0.692       0.734        0.703 0.646 0.736
+   2025         1.091  1.025 1.133    1.026   1.059       1.015        1.011 0.996 1.132
+   2026         0.818  0.797 0.793    0.790   0.792       0.830        0.815 0.778 0.799
+   mFRR|up|4h:
+   model  b_prev_slot  cat_q  lear  lgbm_l1  lgbm_q  pool_cat_q  pool_lgbm_q   qrf   svr
+   year                                                                                 
+   2021         2.046  1.488 1.668    1.503   1.501       1.871        1.741 1.498 1.912
+   2022         1.971  1.412 1.550    1.375   1.372       1.549        1.555 1.497 1.893
+   2023         0.649  0.489 0.503    0.484   0.484       0.496        0.506 0.493 0.650
+   2024         1.325  1.152 1.129    1.132   1.127       1.182        1.110 1.158 1.221
+   2025         0.670  0.570 0.587    0.578   0.575       0.586        0.561 0.603 0.711
+   2026         0.320  0.313 0.388    0.309   0.308       0.313        0.295 0.333 0.348
+   mFRR|up|week:
+   model  b_prev_slot  cat_q  lear  lgbm_l1  lgbm_q  pool_cat_q  pool_lgbm_q   qrf   svr
+   year                                                                                 
+   2021         0.809  0.804 0.810    0.764   0.777       0.793        0.855 0.784 0.781
+   2022         0.730  0.706 0.747    0.754   0.762       0.775        0.709 0.763 1.006
+   2023         1.493  1.426 1.510    1.454   1.453       1.624        1.443 1.438 1.458
+   2024         0.092  0.086 0.094    0.089   0.087       0.125        0.105 0.087 0.081
+   2025         0.123  0.122 0.123    0.113   0.111       0.132        0.133 0.109 0.107
+   2026         0.172  0.149 0.172    0.147   0.132       0.160        0.168 0.144 0.151
+   aFRR|down|4h:
+   model  b_prev_slot  cat_q  lear  lgbm_l1  lgbm_q  pool_cat_q  pool_lgbm_q   qrf   svr
+   year                                                                                 
+   2026         1.526  1.414 1.490    1.400   1.400       1.324        1.411 1.469 1.474
+   aFRR|up|4h:
+   model  b_prev_slot  cat_q  lear  lgbm_l1  lgbm_q  pool_cat_q  pool_lgbm_q   qrf   svr
+   year                                                                                 
+   2026         0.274  0.257 0.276    0.259   0.269       0.256        0.252 0.276 0.277
+
+== Gain share of the series-identity features (mean over fits; id_importance.csv)
+        pool_product  pool_direction  pool_procurement  pool_series  pool_slot  pool_level  id_total
+model                                                                                               
+cat_q          0.001           0.014             0.000        0.006      0.012       0.050     0.082
+lgbm_q         0.002           0.031             0.001        0.034      0.004       0.087     0.158
+== Top features pooled lgbm_q: tgt_prev_slot__price_settle_ch 11.8%; pool_level 8.7%; cal_dow 6.3%; tgt_prev_slot__price_settle_max 3.9%; pool_series 3.4%; tgt_prev_slot__price_bid_vwap 3.2%; pool_direction 3.1%; tgt_prev_slot__awarded_mw 2.9%; tgt_prev_auction__awarded_mw 2.6%; it_nord_load_wa_fc_max_mw__dw 2.5%; cal_weekend_share 2.5%; de_lu_load_wa_fc_max_mw__dw 2.0%
+== Top features pooled cat_q: cal_dow 17.1%; cal_weekend_share 8.3%; tgt_prev_slot__price_settle_ch 5.8%; pool_level 5.0%; tgt_prev_slot__price_settle_max 3.7%; tgt_prev_slot__price_bid_vwap 3.5%; tgt_prev_auction__price_settle_max 3.1%; tgt_prev_auction__awarded_mw 3.0%; tgt_prev_slot__awarded_mw 2.9%; tgt_prev_auction__price_settle_ch 2.2%; tgt_prev_auction__n_bids 2.0%; it_nord_load_wa_fc_max_mw__dw 1.7%
+
+total runtime 2901s
+[2026-10-15T19:20:17] rq2_10_pooled: ok after 48 min 21 s
+[2026-10-15T19:20:19] rq2_5_tier1 --products afrr --window sliding --out Modelling/Output/rq2_9s_afrr
+afrr: 5,048 blocks, 776 features
+   aFRR|down|4h     folds=  3  lear    38s  lgbm_q    16s  cat_q     5s  qrf     4s  svr     1s
+   aFRR|down|week   folds=  6  lear     3s  lgbm_q    23s  cat_q    14s  qrf     2s  svr     1s
+   aFRR|sym|week    folds=  0  lear     0s  lgbm_q     0s  cat_q     0s  qrf     0s  svr     0s
+   aFRR|up|4h       folds=  3  lear    56s  lgbm_q    16s  cat_q     5s  qrf     5s  svr     1s
+   aFRR|up|week     folds=  6  lear     3s  lgbm_q    21s  cat_q    11s  qrf     2s  svr     1s
+   diagnostics written: Modelling/Output/rq2_9s_afrr/diagnostics
+RQ2 9.2 round 2 (Tier 1, ML_Options.md) - strong baselines and probabilistic forecasts.
+Rolling origin, sliding window (24 months; weekly 48), refit every 3 months (weekly 12); test from 2021-01-01; errors in EUR/MWh on the common rows of all point models and baselines.
+Models: LEAR (LASSO), LightGBM quantile, CatBoost MultiQuantile, Quantile Regression Forest, SVR (RBF); quantiles 05, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95; seeds 1; LEAR target delta.
+No hyperparameter search (fixed defaults; LEAR alpha by LassoCV, TimeSeriesSplit(4)).
+lgbm_l1 = round-1 LightGBM (rq2_2_delta), merged for comparison.
+
+== aFRR|down|4h   n = 1,444
+                 MAE   RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%
+model                                                                                 
+lear           1.490  4.238   16.586      0.149                 2.371            0.000
+lgbm_l1        1.400  4.088   16.480      0.146                 8.289            6.062
+lgbm_q         1.400  4.089   16.474      0.146                 8.253            6.025
+cat_q          1.414  4.153   16.660      0.147                 7.347            5.096
+qrf            1.469  4.080   17.459      0.155                 3.740            1.402
+svr            1.474  4.141   17.425      0.155                 3.421            1.075
+b_prev_slot    1.526  4.274   16.816      0.153                 0.000           -2.429
+b_prev_auction 6.713 11.751   84.917      0.943              -339.805         -350.487
+b_roll_med     2.816  7.658   34.457      0.315               -84.462          -88.943
+   Diebold-Mariano |error| (stat < 0: row model better), p-values:
+   vs       b_prev_slot   lear  lgbm_l1
+   model                               
+   cat_q         -4.020 -2.910    0.850
+   lear          -3.280    NaN    2.730
+   lgbm_l1       -3.670 -2.730      NaN
+   lgbm_q        -3.670 -2.730    0.590
+   qrf           -1.270 -0.470    1.830
+   svr           -1.680 -0.540    3.670
+   vs       b_prev_slot  lear  lgbm_l1
+   model                              
+   cat_q          0.000 0.004    0.398
+   lear           0.001   NaN    0.006
+   lgbm_l1        0.000 0.006      NaN
+   lgbm_q         0.000 0.006    0.555
+   qrf            0.204 0.641    0.067
+   svr            0.094 0.586    0.000
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                         
+   lgbm_q    0.575        1.149     89.712     81.748        6.858        5.592      904     93.805     94.137        9.880       10.675      904
+   cat_q     0.566        1.133     84.181     83.407        4.981        4.711      904     92.146     94.248        8.129        9.972      904
+   qrf       0.638        1.277     90.597     81.858       11.159        9.606      904     96.018     94.801       17.971       17.778      904
+   DM pinball vs lgbm_q: cat_q stat -0.94 p 0.3489; qrf stat 3.34 p 0.0008
+   MAE by year:
+   model  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                    
+   2026  1.490    1.400   1.400  1.414 1.469 1.474        1.526           6.713       2.816
+
+== aFRR|down|week   n = 295
+                 MAE   RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%
+model                                                                                 
+lear           4.894 10.655   16.923      0.171                 0.904            0.000
+lgbm_l1        4.333  9.639   15.207      0.153                12.273           11.473
+lgbm_q         4.218  9.460   15.068      0.152                14.588           13.809
+cat_q          4.509 10.278   15.392      0.155                 8.700            7.867
+qrf            4.202  9.455   14.911      0.150                14.929           14.153
+svr            4.555 10.395   15.358      0.155                 7.775            6.934
+b_prev_slot    4.939 10.988   16.403      0.166                 0.000           -0.912
+b_prev_auction 4.939 10.988   16.403      0.166                 0.000           -0.912
+b_roll_med     9.782 19.655   32.397      0.334               -98.055          -99.861
+   Diebold-Mariano |error| (stat < 0: row model better), p-values:
+   vs       b_prev_slot   lear  lgbm_l1
+   model                               
+   cat_q         -2.760 -2.410    1.390
+   lear          -0.390    NaN    2.960
+   lgbm_l1       -3.210 -2.960      NaN
+   lgbm_q        -3.540 -3.480   -1.540
+   qrf           -3.550 -3.420   -1.570
+   svr           -2.120 -1.710    1.490
+   vs       b_prev_slot  lear  lgbm_l1
+   model                              
+   cat_q          0.006 0.016    0.164
+   lear           0.694   NaN    0.003
+   lgbm_l1        0.001 0.003      NaN
+   lgbm_q         0.000 0.001    0.124
+   qrf            0.000 0.001    0.116
+   svr            0.034 0.088    0.136
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                         
+   lgbm_q    1.577        3.154     73.663     87.243       12.386       18.789      243     85.597     94.650       18.326       28.974      243
+   cat_q     1.690        3.380     63.374     87.243       10.525       21.224      243     77.778     96.296       14.875       35.445      243
+   qrf       1.506        3.011     85.597     83.951       15.775       18.132      243     93.827     91.770       25.605       26.521      243
+   DM pinball vs lgbm_q: cat_q stat 2.87 p 0.0042; qrf stat -2.88 p 0.0039
+   MAE by year:
+   model   lear  lgbm_l1  lgbm_q  cat_q   qrf    svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                      
+   2021   3.188    3.186   3.141  2.987 3.016  3.159        3.305           3.305       6.222
+   2022   9.125    8.094   8.062  8.682 7.752  8.087        9.162           9.162      16.513
+   2023  10.503    9.350   8.770  9.639 9.019 10.470       11.061          11.061      23.688
+   2024   2.650    1.670   1.723  1.864 1.709  1.927        1.927           1.927       3.856
+   2025   1.544    1.538   1.528  1.691 1.628  1.541        1.831           1.831       3.969
+   2026   1.078    1.086   1.031  1.044 1.037  0.948        1.062           1.062       1.788
+
+== aFRR|up|4h   n = 1,451
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%
+model                                                                                
+lear           0.276 0.611   12.707      0.105                -0.925            0.000
+lgbm_l1        0.259 0.596   12.029      0.099                 5.474            6.340
+lgbm_q         0.269 0.599   12.696      0.104                 1.630            2.532
+cat_q          0.257 0.596   12.182      0.099                 6.196            7.056
+qrf            0.276 0.601   12.847      0.106                -1.003           -0.077
+svr            0.277 0.595   13.123      0.107                -1.176           -0.248
+b_prev_slot    0.274 0.603   12.545      0.103                 0.000            0.917
+b_prev_auction 0.728 1.116   31.071      0.273              -166.170         -163.730
+b_roll_med     0.571 0.965   27.009      0.228              -108.795         -106.881
+   Diebold-Mariano |error| (stat < 0: row model better), p-values:
+   vs       b_prev_slot   lear  lgbm_l1
+   model                               
+   cat_q         -3.740 -3.310   -0.640
+   lear           0.470    NaN    3.350
+   lgbm_l1       -3.480 -3.350      NaN
+   lgbm_q        -0.990 -1.410    3.280
+   qrf            0.420  0.030    2.840
+   svr            0.900  0.130    4.100
+   vs       b_prev_slot  lear  lgbm_l1
+   model                              
+   cat_q          0.000 0.001    0.520
+   lear           0.642   NaN    0.001
+   lgbm_l1        0.000 0.001      NaN
+   lgbm_q         0.323 0.160    0.001
+   qrf            0.673 0.978    0.005
+   svr            0.367 0.900    0.000
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                         
+   lgbm_q    0.107        0.215     81.559     78.266        0.966        0.873      911     87.267     85.181        1.441        1.303      911
+   cat_q     0.103        0.206     77.058     76.729        0.729        0.709      911     86.389     87.377        1.184        1.228      911
+   qrf       0.123        0.246     83.205     76.729        1.547        1.364      911     90.340     88.694        2.530        2.409      911
+   DM pinball vs lgbm_q: cat_q stat -3.18 p 0.0015; qrf stat 6.47 p 0.0000
+   MAE by year:
+   model  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                    
+   2026  0.276    0.259   0.269  0.257 0.276 0.277        0.274           0.728       0.571
+
+== aFRR|up|week   n = 295
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%
+model                                                                                
+lear           1.506 3.562   10.253      0.102                -1.972            0.000
+lgbm_l1        1.449 3.535    9.499      0.094                 1.928            3.825
+lgbm_q         1.455 3.494    9.562      0.095                 1.478            3.383
+cat_q          1.438 3.459    9.724      0.097                 2.658            4.541
+qrf            1.514 3.580    9.757      0.097                -2.498           -0.515
+svr            1.606 3.740   10.362      0.103                -8.704           -6.602
+b_prev_slot    1.477 3.523    9.938      0.099                 0.000            1.934
+b_prev_auction 1.477 3.523    9.938      0.099                 0.000            1.934
+b_roll_med     2.634 5.599   17.715      0.177               -78.286          -74.837
+   Diebold-Mariano |error| (stat < 0: row model better), p-values:
+   vs       b_prev_slot   lear  lgbm_l1
+   model                               
+   cat_q         -1.210 -1.790   -0.430
+   lear           1.240    NaN    1.820
+   lgbm_l1       -1.020 -1.820      NaN
+   lgbm_q        -0.670 -1.260    0.350
+   qrf            0.640  0.130    1.450
+   svr            2.270  1.950    3.290
+   vs       b_prev_slot  lear  lgbm_l1
+   model                              
+   cat_q          0.227 0.073    0.665
+   lear           0.216   NaN    0.069
+   lgbm_l1        0.306 0.069      NaN
+   lgbm_q         0.503 0.206    0.728
+   qrf            0.522 0.896    0.147
+   svr            0.023 0.051    0.001
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                         
+   lgbm_q    0.559        1.119     73.251     86.831        4.147        5.859      243     84.362     92.593        5.432        7.830      243
+   cat_q     0.552        1.105     70.782     87.654        3.570        6.011      243     84.774     93.416        4.760        8.752      243
+   qrf       0.572        1.145     84.774     88.066        5.633        6.889      243     91.770     93.827        8.848       10.717      243
+   DM pinball vs lgbm_q: cat_q stat -0.65 p 0.5151; qrf stat 0.91 p 0.3625
+   MAE by year:
+   model  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                    
+   2021  1.368    1.342   1.342  1.373 1.332 1.345        1.360           1.360       2.047
+   2022  1.834    1.779   1.792  1.688 2.074 2.037        1.848           1.848       3.493
+   2023  3.820    3.738   3.735  3.706 3.826 4.239        3.689           3.689       6.852
+   2024  0.837    0.727   0.743  0.738 0.708 0.827        0.784           0.784       1.301
+   2025  0.451    0.406   0.418  0.423 0.417 0.411        0.459           0.459       0.886
+   2026  0.337    0.327   0.323  0.330 0.334 0.358        0.344           0.344       0.515
+
+== Summary: MAE skill vs same-slot-yesterday (%)
+                 lear  lgbm_l1  lgbm_q  cat_q    qrf    svr
+series                                                     
+aFRR|down|4h    2.371    8.289   8.253  7.347  3.740  3.421
+aFRR|down|week  0.904   12.273  14.588  8.700 14.929  7.775
+aFRR|up|4h     -0.925    5.474   1.630  6.196 -1.003 -1.176
+aFRR|up|week   -1.972    1.928   1.478  2.658 -2.498 -8.704
+   best point model per series: aFRR|down|4h: lgbm_l1; aFRR|down|week: qrf; aFRR|up|4h: cat_q; aFRR|up|week: cat_q
+== Summary: mean pinball loss (EUR/MWh), lower is better
+model           cat_q  lgbm_q   qrf
+series                             
+aFRR|down|4h    0.566   0.575 0.638
+aFRR|down|week  1.690   1.577 1.506
+aFRR|up|4h      0.103   0.107 0.123
+aFRR|up|week    0.552   0.559 0.572
+== Summary: 90 % interval coverage raw -> CQR (%)
+model                  cat_q        lgbm_q           qrf
+series                                                  
+aFRR|down|4h    92.1 -> 94.2  93.8 -> 94.1  96.0 -> 94.8
+aFRR|down|week  77.8 -> 96.3  85.6 -> 94.7  93.8 -> 91.8
+aFRR|up|4h      86.4 -> 87.4  87.3 -> 85.2  90.3 -> 88.7
+aFRR|up|week    84.8 -> 93.4  84.4 -> 92.6  91.8 -> 93.8
+== Top features: LEAR (LASSO) (mean importance share over folds; % of folds in top 20)
+   aFRR|down|4h: it_nord_load_wa_fc_max_mw__dw 52.6% (67%); cal_weekend_share 9.5% (33%); it_nord_gen_wind_on_mw__lb24h 4.6% (33%)
+   aFRR|down|week: cal_holiday_share 12.8% (67%); it_nord_gen_gas_mw__lb7d 8.8% (33%); fr_gen_hydro_ror_mw__lb7d 7.1% (50%); ch_gen_total_da_fc_mw__lb7d 5.7% (50%); de_lu_load_da_fc_mw__lb7d 5.4% (17%); ch_de_lu_outage_trans_forced_n__lb7d 5.3% (50%); ch_tn_vertical_feedin_mw__lb7d 4.8% (67%); ch_tre_da_down_price_max_eur_mwh__lb24h 4.7% (50%)
+   aFRR|up|4h: fr_gen_hydro_ps_cons_mw__lb24h 25.4% (100%); dow_0 15.7% (67%); tgt_prev_slot__price_bid_vwap 14.1% (67%); ch_load_ya_fc_max_mw__dw 11.1% (67%); at_gen_hydro_ps_cons_mw__lb24h 9.4% (33%); ch_afrr_fallback_share__lb24h 4.5% (33%); it_nord_load_ma_fc_min_mw__dw 3.9% (67%); it_nord_load_wa_fc_min_mw__dw 3.8% (67%)
+   aFRR|up|week: fr_outage_prod_forced_mw__exante 20.1% (33%); at_gen_total_mw__lb7d 19.8% (33%); fr_gen_hydro_ror_mw__lb24h 1.6% (33%); ch_afrr_up_act_mw__lb24h 1.5% (17%); ch_tre_da_down_price_max_eur_mwh__lb24h 1.3% (17%); xm_de_mfrr_down_marg__prevday 1.2% (17%); at_gen_solar_mw__lb24h 1.1% (17%); ce_freq_coverage_share__lb24h 1.0% (17%)
+== Top features: LightGBM quantile (mean importance share over folds; % of folds in top 20)
+   aFRR|down|4h: it_nord_load_wa_fc_max_mw__dw 2.7% (100%); tgt_prev_slot__price_settle_ch 2.6% (100%); it_nord_load_wa_fc_min_mw__dw 2.0% (100%); at_ch_ntc_ma_mw__dw 1.9% (100%); tgt_prev_slot__price_bid_vwap 1.8% (67%); ch_temp_max_lw_degc__lb7d 1.6% (67%); ch_it_nord_ntc_ma_mw__dw 1.4% (33%); tgt_prev_auction__price_settle_max 1.1% (67%)
+   aFRR|down|week: it_nord_load_ya_fc_max_mw__dw 1.9% (100%); cal_doy_sin 1.8% (100%); it_nord_gen_hydro_ror_mw__lb7d 1.8% (50%); it_nord_gen_hydro_ror_mw__lb24h 1.6% (33%); at_load_ya_fc_max_mw__dw 0.9% (67%); fr_gen_hydro_ror_mw__lb7d 0.9% (50%); cal_doy_cos 0.8% (50%); de_lu_load_ya_fc_min_mw__dw 0.7% (67%)
+   aFRR|up|4h: tgt_prev_slot__price_settle_ch 3.5% (67%); fr_ch_expl_price_eur_mwh__lb24h 2.2% (33%); tgt_prev_slot__price_bid_vwap 2.0% (67%); tgt_prev_auction__price_settle_ch 1.2% (67%); de_lu_load_wa_fc_min_mw__dw 1.1% (67%); fr_imb_price_long_eur_mwh__lb24h 1.0% (67%); ch_load_actual_mw__lb7d 1.0% (33%); fr_load_wa_fc_min_mw__dw 0.9% (67%)
+   aFRR|up|week: tgt_prev_auction__n_bids 1.5% (67%); fr_gen_hydro_ror_mw__lb24h 1.3% (50%); tgt_prev_slot__n_bids 1.3% (50%); fr_gen_hydro_ror_mw__lb7d 1.2% (67%); at_gen_total_mw__lb7d 1.1% (50%); cal_doy_sin 0.9% (33%); ce_freq_out_100mhz_share__lb7d 0.9% (50%); at_load_da_fc_mw__lb7d 0.8% (50%)
+== Top features: CatBoost MultiQuantile (mean importance share over folds; % of folds in top 20)
+   aFRR|down|4h: cal_dow 4.8% (100%); cal_weekend_share 2.3% (33%); ch_it_nord_ntc_ma_mw__dw 1.6% (67%); at_gen_wind_on_da_fc_mw__lb24h 1.5% (33%); de_lu_ch_outage_trans_planned_n__lb7d 1.5% (33%); ch_tre_da_down_bids_n__lb7d 1.3% (33%); tgt_prev_slot__price_settle_ch 1.3% (33%); tgt_prev_auction__price_bid_vwap 1.2% (33%)
+   aFRR|down|week: cal_doy_sin 2.1% (67%); ch_tn_vertical_feedin_mw__lb7d 1.8% (67%); ch_gen_total_mw__lb7d 1.4% (50%); it_nord_gen_gas_mw__lb7d 1.1% (50%); fr_gen_hydro_ror_mw__lb7d 1.1% (50%); ch_hydro_reservoir_mwh__lb24h 1.0% (33%); de_lu_gen_solar_da_fc_mw__lb7d 0.8% (33%); de_lu_load_da_fc_mw__lb7d 0.8% (17%)
+   aFRR|up|4h: tgt_prev_slot__price_settle_max 3.1% (100%); it_nord_load_wa_fc_min_mw__dw 2.5% (67%); tgt_prev_slot__price_bid_vwap 2.3% (100%); de_ch_expl_price_eur_mwh__lb24h 1.5% (33%); fr_imb_price_short_eur_mwh__lb24h 1.5% (33%); ch_export_mw__lb24h 1.4% (33%); de_lu_load_wa_fc_max_mw__dw 1.4% (33%); fr_gen_hydro_res_mw__lb24h 1.4% (33%)
+   aFRR|up|week: fr_gen_hydro_ror_mw__lb7d 1.6% (67%); ce_freq_out_50mhz_share__lb24h 1.2% (50%); fr_gen_hydro_ror_mw__lb24h 1.1% (50%); ch_hydro_reservoir_mwh__lb24h 1.0% (17%); xm_de_mfrr_up_avg__prevday 0.9% (17%); tgt_prev_slot__n_bids 0.9% (33%); tgt_prev_slot__awarded_mw 0.9% (33%); ch_price_da_eur_mwh__lb24h 0.8% (17%)
+== Top features: Quantile Regression Forest (mean importance share over folds; % of folds in top 20)
+   aFRR|down|4h: it_nord_load_wa_fc_max_mw__dw 3.8% (100%); ch_tre_da_down_bids_n__lb7d 2.7% (33%); de_lu_load_wa_fc_max_mw__dw 1.8% (100%); ch_mfrr_bids_down_offered_mw__lb7d 1.8% (67%); ch_it_nord_flow_phys_mw__lb7d 1.5% (67%); tgt_prev_slot__price_settle_max 1.4% (67%); it_nord_load_wa_fc_min_mw__dw 1.3% (33%); tgt_prev_slot__price_bid_vwap 1.2% (100%)
+   aFRR|down|week: cal_doy_sin 3.4% (100%); ch_tn_vertical_feedin_mw__lb7d 2.5% (83%); de_lu_load_da_fc_mw__lb7d 2.1% (50%); it_nord_load_da_fc_mw__lb7d 2.1% (50%); it_nord_gen_gas_mw__lb7d 2.0% (67%); it_nord_load_ya_fc_max_mw__dw 1.9% (100%); it_nord_load_actual_mw__lb7d 1.8% (67%); ch_gen_total_da_fc_mw__lb7d 1.7% (83%)
+   aFRR|up|4h: it_nord_gen_solar_id_fc_mw__lb7d 2.3% (100%); tgt_prev_slot__price_settle_ch 2.3% (100%); tgt_prev_slot__price_bid_vwap 2.3% (100%); cal_dow 2.1% (100%); de_lu_gen_total_da_fc_mw__lb7d 2.1% (67%); tgt_prev_slot__price_settle_max 1.9% (100%); at_gen_hydro_ps_cons_mw__lb24h 1.8% (33%); de_lu_gen_coal_mw__lb24h 1.8% (67%)
+   aFRR|up|week: fr_gen_hydro_ror_mw__lb7d 2.7% (83%); fr_gen_hydro_ror_mw__lb24h 2.7% (83%); at_gen_total_mw__lb7d 1.7% (50%); tgt_prev_auction__n_bids 1.4% (50%); tgt_prev_slot__n_bids 1.3% (67%); at_gen_hydro_ror_mw__lb24h 0.9% (33%); ch_afrr_up_act_price_eur_mwh__lb24h 0.9% (17%); ch_afrr_up_act_mw__lb7d 0.9% (33%)
+
+More detail: fold_log.csv (per fold sizes / timings / tuning), lear_coefficients.csv (signed LEAR coefficients), diagnostics/ (breakdowns, worst errors, calibration, importance, plots; see its README.txt)
+== sliding window vs default (round 2, expanding window) on the same rows (window_vs_default.csv; columns *_tuned = this run); DM stat < 0 = this run better
+                          n  mae_default  mae_tuned  change_%  skill_default_%  skill_tuned_%  dm_tuned_vs_default     p  pinball_default  pinball_tuned  dm_pinball  p_pinball
+series         model                                                                                                                                                           
+aFRR|down|4h   lear    1444        1.490      1.490     0.000            2.371          2.371                  NaN   NaN              NaN            NaN         NaN        NaN
+               lgbm_q  1444        1.400      1.400     0.000            8.253          8.253                  NaN   NaN            0.575          0.575         NaN        NaN
+               cat_q   1444        1.414      1.414     0.000            7.347          7.347                  NaN   NaN            0.566          0.566         NaN        NaN
+               qrf     1444        1.469      1.469     0.000            3.740          3.740                  NaN   NaN            0.638          0.638         NaN        NaN
+               svr     1444        1.474      1.474     0.000            3.421          3.421                  NaN   NaN              NaN            NaN         NaN        NaN
+aFRR|down|week lear     295        4.540      4.894     7.812            8.084          0.904                2.803 0.005              NaN            NaN         NaN        NaN
+               lgbm_q   295        4.309      4.218    -2.096           12.759         14.588               -1.192 0.233            1.562          1.577       0.830      0.407
+               cat_q    295        4.275      4.509     5.482           13.445          8.700                1.746 0.081            1.619          1.690       1.673      0.094
+               qrf      295        4.116      4.202     2.070           16.655         14.929                1.140 0.254            1.484          1.506       1.280      0.200
+               svr      295        4.561      4.555    -0.139            7.647          7.775               -0.201 0.841              NaN            NaN         NaN        NaN
+aFRR|up|4h     lear    1451        0.276      0.276     0.000           -0.925         -0.925                  NaN   NaN              NaN            NaN         NaN        NaN
+               lgbm_q  1451        0.269      0.269     0.000            1.630          1.630                  NaN   NaN            0.107          0.107         NaN        NaN
+               cat_q   1451        0.257      0.257     0.000            6.196          6.196                  NaN   NaN            0.103          0.103         NaN        NaN
+               qrf     1451        0.276      0.276     0.000           -1.003         -1.003                  NaN   NaN            0.123          0.123         NaN        NaN
+               svr     1451        0.277      0.277     0.000           -1.176         -1.176                  NaN   NaN              NaN            NaN         NaN        NaN
+aFRR|up|week   lear     295        1.481      1.506     1.702           -0.266         -1.972                1.909 0.056              NaN            NaN         NaN        NaN
+               lgbm_q   295        1.440      1.455     1.046            2.498          1.478                0.790 0.430            0.560          0.559      -0.238      0.812
+               cat_q    295        1.427      1.438     0.754            3.387          2.658                0.546 0.585            0.546          0.552       0.794      0.427
+               qrf      295        1.514      1.514     0.003           -2.494         -2.498                0.005 0.996            0.574          0.572      -0.423      0.672
+               svr      295        1.575      1.606     1.979           -6.595         -8.704                2.510 0.012              NaN            NaN         NaN        NaN
+== Training window rule per series (folds)
+                        folds  median_n_train
+series         rule                          
+aFRR|down|4h   sliding      3       1,092.000
+aFRR|down|week sliding      6         207.500
+aFRR|up|4h     sliding      3       1,092.000
+aFRR|up|week   sliding      6         207.500
+== aFRR|sym|week: no fold with >= 100 training blocks
+
+total runtime 232s
+[2026-10-15T19:24:11] rq2_5_tier1: ok after 3 min 52 s
+[2026-10-15T19:24:12] rq2_5_tier1 --products fcr --window sliding --out Modelling/Output/rq2_9s_fcr
+fcr: 14,118 blocks, 777 features
+   FCR|sym|4h       folds= 23  lear   658s  lgbm_q   338s  cat_q   139s  qrf   147s  svr    44s
+   FCR|sym|day      folds=  0  lear     0s  lgbm_q     0s  cat_q     0s  qrf     0s  svr     0s
+   FCR|sym|week     folds=  0  lear     0s  lgbm_q     0s  cat_q     0s  qrf     0s  svr     0s
+   diagnostics written: Modelling/Output/rq2_9s_fcr/diagnostics
+RQ2 9.2 round 2 (Tier 1, ML_Options.md) - strong baselines and probabilistic forecasts.
+Rolling origin, sliding window (24 months; weekly 48), refit every 3 months (weekly 12); test from 2021-01-01; errors in EUR/MWh on the common rows of all point models and baselines.
+Models: LEAR (LASSO), LightGBM quantile, CatBoost MultiQuantile, Quantile Regression Forest, SVR (RBF); quantiles 05, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95; seeds 1; LEAR target delta.
+No hyperparameter search (fixed defaults; LEAR alpha by LassoCV, TimeSeriesSplit(4)).
+lgbm_l1 = round-1 LightGBM (rq2_2_delta), merged for comparison.
+
+== FCR|sym|4h   n = 12,414
+                 MAE   RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%
+model                                                                                 
+lear           4.770  8.034   25.897      0.265                 3.402            0.000
+lgbm_l1        4.739  8.007   25.783      0.264                 4.015            0.634
+lgbm_q         4.774  7.997   26.019      0.266                 3.320           -0.084
+cat_q          4.753  8.123   25.552      0.261                 3.735            0.344
+qrf            4.750  7.972   25.793      0.263                 3.791            0.402
+svr            4.958  8.406   26.324      0.269                -0.421           -3.957
+b_prev_slot    4.938  8.550   25.656      0.263                 0.000           -3.522
+b_prev_auction 7.040 10.655   37.147      0.386               -42.582          -47.603
+b_roll_med     5.393  8.910   28.541      0.293                -9.216          -13.062
+   Diebold-Mariano |error| (stat < 0: row model better), p-values:
+   vs       b_prev_slot   lear  lgbm_l1
+   model                               
+   cat_q         -5.080 -0.680    0.600
+   lear          -4.690    NaN    1.080
+   lgbm_l1       -4.780 -1.080      NaN
+   lgbm_q        -3.720  0.140    1.870
+   qrf           -4.240 -0.770    0.460
+   svr            0.440  4.570    4.670
+   vs       b_prev_slot  lear  lgbm_l1
+   model                              
+   cat_q          0.000 0.497    0.548
+   lear           0.000   NaN    0.280
+   lgbm_l1        0.000 0.280      NaN
+   lgbm_q         0.000 0.889    0.061
+   qrf            0.000 0.444    0.648
+   svr            0.660 0.000    0.000
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                         
+   lgbm_q    1.705        3.409     77.531     80.832       14.457       15.783    11874     87.199     90.526       20.416       23.508    11874
+   cat_q     1.725        3.450     73.699     83.578       12.756       16.832    11874     83.578     92.319       17.205       24.013    11874
+   qrf       1.706        3.411     83.022     80.293       17.282       16.210    11874     91.957     89.650       24.349       22.567    11874
+   DM pinball vs lgbm_q: cat_q stat 2.71 p 0.0068; qrf stat 0.15 p 0.8790
+   MAE by year:
+   model  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                    
+   2021  4.828    4.848   4.823  4.839 4.927 4.699        4.832           5.300       5.077
+   2022  7.500    7.463   7.471  7.590 7.436 8.075        8.110           9.458       8.455
+   2023  3.700    3.764   3.963  3.636 3.674 3.858        3.833           4.738       4.115
+   2024  3.670    3.594   3.589  3.671 3.724 4.031        3.799           6.407       4.144
+   2025  4.205    4.112   4.156  4.135 4.134 4.423        4.278           7.535       5.204
+   2026  4.693    4.617   4.579  4.600 4.542 4.521        4.696           9.689       5.348
+
+== Summary: MAE skill vs same-slot-yesterday (%)
+            lear  lgbm_l1  lgbm_q  cat_q   qrf    svr
+series                                               
+FCR|sym|4h 3.402    4.015   3.320  3.735 3.791 -0.421
+   best point model per series: FCR|sym|4h: lgbm_l1
+== Summary: mean pinball loss (EUR/MWh), lower is better
+model       cat_q  lgbm_q   qrf
+series                         
+FCR|sym|4h  1.725   1.705 1.706
+== Summary: 90 % interval coverage raw -> CQR (%)
+model              cat_q        lgbm_q           qrf
+series                                              
+FCR|sym|4h  83.6 -> 92.3  87.2 -> 90.5  92.0 -> 89.6
+== Top features: LEAR (LASSO) (mean importance share over folds; % of folds in top 20)
+   FCR|sym|4h: tgt_prev_slot__price_settle_ch 56.3% (100%); cal_weekend_share 13.9% (83%); dow_0 4.2% (35%); xm_fcr_coop_settle__prevday_slot 2.4% (30%); it_nord_ch_expl_price_eur_mwh__lb24h 2.1% (17%); de_lu_price_da_eur_mwh__lb24h 1.8% (30%); it_nord_load_wa_fc_max_mw__dw 1.7% (43%); tgt_prev_auction__n_bids 1.6% (17%)
+== Top features: LightGBM quantile (mean importance share over folds; % of folds in top 20)
+   FCR|sym|4h: tgt_prev_slot__price_settle_ch 7.4% (100%); xm_fcr_coop_settle__prevday_slot 4.0% (100%); de_lu_load_wa_fc_max_mw__dw 1.9% (91%); tgt_prev_auction__price_settle_ch 1.2% (91%); cal_dow 1.1% (70%); tgt_prev_slot__price_bid_vwap 1.1% (74%); xm_fcr_coop_settle__prevday 1.1% (65%); tgt_prev_slot__n_bids 1.0% (87%)
+== Top features: CatBoost MultiQuantile (mean importance share over folds; % of folds in top 20)
+   FCR|sym|4h: tgt_prev_slot__price_settle_ch 11.7% (100%); xm_fcr_coop_settle__prevday_slot 5.7% (100%); cal_weekend_share 3.4% (96%); cal_dow 3.3% (100%); it_nord_load_wa_fc_max_mw__dw 1.8% (83%); de_lu_load_wa_fc_max_mw__dw 1.7% (65%); tgt_prev_auction__price_settle_ch 1.3% (70%); xm_fcr_coop_settle__prevday 1.1% (57%)
+== Top features: Quantile Regression Forest (mean importance share over folds; % of folds in top 20)
+   FCR|sym|4h: tgt_prev_slot__price_settle_ch 9.2% (100%); xm_fcr_coop_settle__prevday_slot 5.0% (100%); cal_dow 2.0% (96%); de_lu_load_wa_fc_max_mw__dw 1.6% (87%); tgt_prev_slot__price_bid_vwap 1.2% (91%); tgt_prev_auction__price_settle_ch 1.2% (100%); it_nord_load_wa_fc_max_mw__dw 1.1% (96%); cal_weekend_share 1.1% (65%)
+
+More detail: fold_log.csv (per fold sizes / timings / tuning), lear_coefficients.csv (signed LEAR coefficients), diagnostics/ (breakdowns, worst errors, calibration, importance, plots; see its README.txt)
+== sliding window vs default (round 2, expanding window) on the same rows (window_vs_default.csv; columns *_tuned = this run); DM stat < 0 = this run better
+                       n  mae_default  mae_tuned  change_%  skill_default_%  skill_tuned_%  dm_tuned_vs_default     p  pinball_default  pinball_tuned  dm_pinball  p_pinball
+series     model                                                                                                                                                            
+FCR|sym|4h lear    12414        4.738      4.770     0.662            4.037          3.402                1.912 0.056              NaN            NaN         NaN        NaN
+           lgbm_q  12414        4.724      4.774     1.051            4.326          3.320                3.122 0.002            1.691          1.705       4.179      0.000
+           cat_q   12414        4.735      4.753     0.381            4.100          3.735                1.327 0.184            1.719          1.725       1.226      0.220
+           qrf     12414        4.728      4.750     0.467            4.238          3.791                1.915 0.055            1.698          1.706       2.194      0.028
+           svr     12414        4.930      4.958     0.572            0.150         -0.421                1.646 0.100              NaN            NaN         NaN        NaN
+== Training window rule per series (folds)
+                    folds  median_n_train
+series     rule                          
+FCR|sym|4h sliding     23       4,380.000
+== FCR|sym|day: no fold with >= 200 training blocks
+== FCR|sym|week: no fold with >= 100 training blocks
+
+total runtime 1328s
+[2026-10-15T19:46:20] rq2_5_tier1: ok after 22 min 09 s
+[2026-10-15T19:46:22] rq2_5_tier1 --products mfrr --window sliding --out Modelling/Output/rq2_9s_mfrr
+mfrr: 43,018 blocks, 778 features
+   mFRR|down|4h     folds= 20  lear   497s  lgbm_q   194s  cat_q   110s  qrf    94s  svr    24s
+   mFRR|down|week   folds=  6  lear     3s  lgbm_q    23s  cat_q    15s  qrf     2s  svr     1s
+   mFRR|up|4h       folds= 21  lear   283s  lgbm_q   321s  cat_q   180s  qrf   101s  svr    28s
+   mFRR|up|week     folds=  6  lear     3s  lgbm_q    26s  cat_q    11s  qrf     2s  svr     1s
+   diagnostics written: Modelling/Output/rq2_9s_mfrr/diagnostics
+RQ2 9.2 round 2 (Tier 1, ML_Options.md) - strong baselines and probabilistic forecasts.
+Rolling origin, sliding window (24 months; weekly 48), refit every 3 months (weekly 12); test from 2021-01-01; errors in EUR/MWh on the common rows of all point models and baselines.
+Models: LEAR (LASSO), LightGBM quantile, CatBoost MultiQuantile, Quantile Regression Forest, SVR (RBF); quantiles 05, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95; seeds 1; LEAR target delta.
+No hyperparameter search (fixed defaults; LEAR alpha by LassoCV, TimeSeriesSplit(4)).
+lgbm_l1 = round-1 LightGBM (rq2_2_delta), merged for comparison.
+
+== mFRR|down|4h   n = 9,226
+                 MAE   RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%
+model                                                                                 
+lear           4.378 10.957   25.149      0.245                 1.465            0.000
+lgbm_l1        4.048 10.226   23.437      0.229                 8.884            7.529
+lgbm_q         4.255 10.718   24.758      0.242                 4.239            2.816
+cat_q          4.175 10.574   24.197      0.236                 6.036            4.639
+qrf            4.281 10.703   25.125      0.245                 3.641            2.209
+svr            4.814 11.267   28.058      0.273                -8.351           -9.962
+b_prev_slot    4.443 10.964   24.868      0.244                 0.000           -1.487
+b_prev_auction 8.516 16.055   56.596      0.598               -91.664          -94.514
+b_roll_med     7.848 18.228   43.031      0.436               -76.639          -79.266
+   Diebold-Mariano |error| (stat < 0: row model better), p-values:
+   vs       b_prev_slot   lear  lgbm_l1
+   model                               
+   cat_q         -4.160 -3.000    3.380
+   lear          -0.650    NaN    4.950
+   lgbm_l1       -6.360 -4.950      NaN
+   lgbm_q        -3.140 -1.700    5.310
+   qrf           -1.900 -1.200    4.240
+   svr            3.620  3.800    7.630
+   vs       b_prev_slot  lear  lgbm_l1
+   model                              
+   cat_q          0.000 0.003    0.001
+   lear           0.516   NaN    0.000
+   lgbm_l1        0.000 0.000      NaN
+   lgbm_q         0.002 0.089    0.000
+   qrf            0.057 0.229    0.000
+   svr            0.000 0.000    0.000
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                         
+   lgbm_q    1.595        3.189     80.636     81.142       14.693       15.219     8686     89.063     91.066       21.786       25.135     8686
+   cat_q     1.602        3.205     77.539     84.262       13.461       17.471     8686     85.966     92.770       20.773       29.985     8686
+   qrf       1.705        3.409     85.908     80.612       20.600       18.388     8686     93.012     90.744       33.671       31.168     8686
+   DM pinball vs lgbm_q: cat_q stat 0.62 p 0.5363; qrf stat 5.66 p 0.0000
+   MAE by year:
+   model   lear  lgbm_l1  lgbm_q  cat_q   qrf    svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                      
+   2021   3.966    3.555   3.842  3.828 3.907  4.559        3.933           6.731       5.905
+   2022  10.136    9.322   9.789  9.462 9.736 10.838       10.451          18.269      18.636
+   2023   2.735    2.719   2.733  2.720 2.626  2.961        3.025           4.917       4.698
+   2024   8.011    6.999   6.693  8.206 7.708  9.558        6.431           7.173      19.500
+   2025   2.924    2.680   2.907  2.753 3.025  3.348        2.833           6.822       5.595
+   2026   1.320    1.293   1.320  1.306 1.296  1.337        1.365           5.555       2.469
+
+== mFRR|down|week   n = 295
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%
+model                                                                                
+lear           1.851 3.145   13.476      0.134                -0.588            0.000
+lgbm_l1        1.798 3.044   13.019      0.129                 2.306            2.877
+lgbm_q         1.804 3.073   12.982      0.129                 1.946            2.520
+cat_q          1.796 3.102   13.235      0.131                 2.366            2.937
+qrf            1.799 3.105   12.898      0.128                 2.237            2.809
+svr            1.925 3.267   14.107      0.140                -4.627           -4.015
+b_prev_slot    1.840 3.129   13.486      0.134                 0.000            0.585
+b_prev_auction 1.840 3.129   13.486      0.134                 0.000            0.585
+b_roll_med     3.217 5.184   24.938      0.252               -74.863          -73.841
+   Diebold-Mariano |error| (stat < 0: row model better), p-values:
+   vs       b_prev_slot   lear  lgbm_l1
+   model                               
+   cat_q         -1.360 -1.350   -0.020
+   lear           0.310    NaN    0.680
+   lgbm_l1       -0.540 -0.680      NaN
+   lgbm_q        -0.520 -0.670    0.250
+   qrf           -0.570 -0.770    0.040
+   svr            1.260  1.170    2.230
+   vs       b_prev_slot  lear  lgbm_l1
+   model                              
+   cat_q          0.173 0.176    0.986
+   lear           0.758   NaN    0.497
+   lgbm_l1        0.587 0.497      NaN
+   lgbm_q         0.601 0.505    0.799
+   qrf            0.571 0.443    0.969
+   svr            0.209 0.242    0.026
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                         
+   lgbm_q    0.649        1.297     75.720     86.008        4.751        8.399      243     82.305     93.416        6.187       13.877      243
+   cat_q     0.684        1.367     60.082     86.420        4.021        8.910      243     70.370     94.239        5.590       14.806      243
+   qrf       0.654        1.307     80.247     87.243        5.877        9.164      243     90.123     93.827       10.397       16.484      243
+   DM pinball vs lgbm_q: cat_q stat 2.62 p 0.0089; qrf stat 0.39 p 0.6945
+   MAE by year:
+   model  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                    
+   2021  1.996    1.979   1.976  1.986 1.929 1.946        1.985           1.985       3.730
+   2022  3.944    3.968   4.031  3.903 3.982 3.961        3.894           3.894       6.533
+   2023  2.186    1.998   2.010  2.002 2.097 2.527        2.188           2.188       3.629
+   2024  0.730    0.696   0.684  0.723 0.655 0.789        0.731           0.731       1.186
+   2025  1.092    1.026   1.009  1.018 1.005 1.161        1.091           1.091       2.319
+   2026  0.822    0.790   0.783  0.833 0.802 0.799        0.818           0.818       1.274
+
+== mFRR|up|4h   n = 9,958
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%
+model                                                                                
+lear           0.968 2.846   35.052      0.226                18.173            0.000
+lgbm_l1        0.890 2.688   29.137      0.206                24.728            8.011
+lgbm_q         0.910 2.683   29.872      0.209                23.072            5.988
+cat_q          0.915 2.753   30.188      0.209                22.625            5.441
+qrf            0.944 2.927   28.956      0.209                20.128            2.389
+svr            1.103 3.147   36.733      0.261                 6.714          -14.003
+b_prev_slot    1.183 3.382   34.766      0.266                 0.000          -22.208
+b_prev_auction 2.286 4.992   63.882      0.548               -93.301         -136.230
+b_roll_med     2.153 5.837   56.721      0.465               -82.038         -122.466
+   Diebold-Mariano |error| (stat < 0: row model better), p-values:
+   vs       b_prev_slot   lear  lgbm_l1
+   model                               
+   cat_q         -9.570 -3.500    2.410
+   lear          -6.910    NaN    5.460
+   lgbm_l1      -10.170 -5.460      NaN
+   lgbm_q        -9.540 -4.000    2.420
+   qrf           -6.750 -0.960    2.690
+   svr           -2.630  6.730    8.270
+   vs       b_prev_slot  lear  lgbm_l1
+   model                              
+   cat_q          0.000 0.000    0.016
+   lear           0.000   NaN    0.000
+   lgbm_l1        0.000 0.000      NaN
+   lgbm_q         0.000 0.000    0.016
+   qrf            0.000 0.339    0.007
+   svr            0.009 0.000    0.000
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                         
+   lgbm_q    0.349        0.699     78.987     83.064        2.464        2.832     9418     88.044     91.569        3.792        4.627     9418
+   cat_q     0.352        0.704     75.165     85.305        2.261        3.084     9418     83.585     93.523        3.098        4.772     9418
+   qrf       0.365        0.730     86.069     81.089        4.014        3.786     9418     93.491     91.283        6.358        6.068     9418
+   DM pinball vs lgbm_q: cat_q stat 0.76 p 0.4485; qrf stat 1.68 p 0.0924
+   MAE by year:
+   model  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                    
+   2021  1.668    1.503   1.525  1.527 1.523 1.882        2.046           3.801       3.507
+   2022  1.510    1.375   1.422  1.459 1.589 1.814        1.971           4.055       4.199
+   2023  0.518    0.484   0.498  0.508 0.501 0.593        0.649           1.327       0.975
+   2024  1.206    1.132   1.117  1.125 1.093 1.237        1.325           2.410       2.402
+   2025  0.603    0.578   0.598  0.572 0.590 0.671        0.670           1.182       0.989
+   2026  0.319    0.309   0.299  0.306 0.325 0.317        0.320           0.607       0.671
+
+== mFRR|up|week   n = 295
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%
+model                                                                                
+lear           0.601 1.539   10.207      0.090                -1.444            0.000
+lgbm_l1        0.577 1.517    9.733      0.087                 2.677            4.062
+lgbm_q         0.602 1.540   10.154      0.090                -1.556           -0.110
+cat_q          0.575 1.502   10.125      0.088                 2.877            4.259
+qrf            0.572 1.511    9.948      0.088                 3.492            4.866
+svr            0.637 1.572   10.556      0.095                -7.467           -5.937
+b_prev_slot    0.592 1.526   10.225      0.091                 0.000            1.423
+b_prev_auction 0.592 1.526   10.225      0.091                 0.000            1.423
+b_roll_med     1.128 2.593   21.433      0.190               -90.405          -87.695
+   Diebold-Mariano |error| (stat < 0: row model better), p-values:
+   vs       b_prev_slot   lear  lgbm_l1
+   model                               
+   cat_q         -1.400 -1.490   -0.120
+   lear           1.060    NaN    1.670
+   lgbm_l1       -1.450 -1.670      NaN
+   lgbm_q         0.670  0.050    2.110
+   qrf           -1.390 -1.480   -0.520
+   svr            1.750  1.510    2.600
+   vs       b_prev_slot  lear  lgbm_l1
+   model                              
+   cat_q          0.162 0.136    0.904
+   lear           0.290   NaN    0.096
+   lgbm_l1        0.147 0.096      NaN
+   lgbm_q         0.501 0.963    0.035
+   qrf            0.165 0.139    0.601
+   svr            0.080 0.132    0.009
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                         
+   lgbm_q    0.226        0.451     76.543     90.535        1.212        2.030      243     86.420     96.296        1.758        3.175      243
+   cat_q     0.227        0.453     76.543     93.416        1.067        2.117      243     87.654     95.473        1.537        2.889      243
+   qrf       0.221        0.441     87.654     90.947        1.651        2.156      243     93.004     93.004        2.404        2.939      243
+   DM pinball vs lgbm_q: cat_q stat 0.24 p 0.8070; qrf stat -1.20 p 0.2310
+   MAE by year:
+   model  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                    
+   2021  0.803    0.764   0.825  0.771 0.771 0.783        0.809           0.809       1.577
+   2022  0.754    0.754   0.806  0.716 0.742 1.010        0.730           0.730       1.377
+   2023  1.530    1.454   1.479  1.473 1.432 1.494        1.493           1.493       2.671
+   2024  0.099    0.089   0.088  0.089 0.086 0.092        0.092           0.092       0.215
+   2025  0.123    0.113   0.113  0.114 0.115 0.110        0.123           0.123       0.288
+   2026  0.152    0.147   0.154  0.152 0.147 0.185        0.172           0.172       0.407
+
+== Summary: MAE skill vs same-slot-yesterday (%)
+                 lear  lgbm_l1  lgbm_q  cat_q    qrf    svr
+series                                                     
+mFRR|down|4h    1.465    8.884   4.239  6.036  3.641 -8.351
+mFRR|down|week -0.588    2.306   1.946  2.366  2.237 -4.627
+mFRR|up|4h     18.173   24.728  23.072 22.625 20.128  6.714
+mFRR|up|week   -1.444    2.677  -1.556  2.877  3.492 -7.467
+   best point model per series: mFRR|down|4h: lgbm_l1; mFRR|down|week: cat_q; mFRR|up|4h: lgbm_l1; mFRR|up|week: qrf
+== Summary: mean pinball loss (EUR/MWh), lower is better
+model           cat_q  lgbm_q   qrf
+series                             
+mFRR|down|4h    1.602   1.595 1.705
+mFRR|down|week  0.684   0.649 0.654
+mFRR|up|4h      0.352   0.349 0.365
+mFRR|up|week    0.227   0.226 0.221
+== Summary: 90 % interval coverage raw -> CQR (%)
+model                  cat_q        lgbm_q           qrf
+series                                                  
+mFRR|down|4h    86.0 -> 92.8  89.1 -> 91.1  93.0 -> 90.7
+mFRR|down|week  70.4 -> 94.2  82.3 -> 93.4  90.1 -> 93.8
+mFRR|up|4h      83.6 -> 93.5  88.0 -> 91.6  93.5 -> 91.3
+mFRR|up|week    87.7 -> 95.5  86.4 -> 96.3  93.0 -> 93.0
+== Top features: LEAR (LASSO) (mean importance share over folds; % of folds in top 20)
+   mFRR|down|4h: cal_weekend_share 33.8% (80%); dow_0 10.3% (65%); tgt_prev_slot__price_settle_ch 9.8% (55%); it_nord_load_wa_fc_max_mw__dw 7.9% (30%); cal_dow 3.6% (35%); de_lu_load_wa_fc_max_mw__dw 2.7% (20%); cal_holiday_share 2.6% (45%); tgt_prev_slot__price_settle_max 2.4% (20%)
+   mFRR|down|week: at_gen_total_mw__lb7d 19.4% (50%); ch_de_lu_outage_trans_forced_n__lb7d 11.5% (50%); at_gen_hydro_ror_mw__lb7d 6.1% (17%); ch_gen_total_da_fc_mw__lb7d 2.1% (17%); ch_gen_nuclear_mw__lb24h 1.6% (33%); it_nord_imb_price_long_eur_mwh__lb7d 1.1% (17%); it_nord_load_ya_fc_min_mw__dw 0.9% (17%); ch_tre_da_down_price_max_eur_mwh__lb7d 0.9% (17%)
+   mFRR|up|4h: dow_0 36.2% (100%); dow_5 20.7% (100%); cal_dow 19.9% (100%); tgt_prev_slot__price_settle_ch 11.3% (95%); tgt_prev_auction__price_settle_ch 2.0% (48%); ch_tre_sa_down_price_min_eur_mwh__lb7d 1.7% (29%); cal_holiday_share 0.9% (43%); tgt_prev_slot__awarded_mw 0.7% (33%)
+   mFRR|up|week: ch_fr_expl_price_eur_mwh__lb24h 16.7% (17%); ch_tre_da_down_price_max_eur_mwh__lb24h 6.1% (33%); at_gen_total_mw__lb7d 5.8% (33%); ch_gen_nuclear_mw__lb24h 4.6% (17%); tgt_prev_slot__offered_mw 3.6% (17%); ch_de_countertrade_mw__lb24h 2.9% (17%); xm_de_mfrr_down_avg__lb7d 2.2% (17%); ch_tre_sa_up_offered_mw__lb24h 1.6% (17%)
+== Top features: LightGBM quantile (mean importance share over folds; % of folds in top 20)
+   mFRR|down|4h: cal_dow 4.6% (95%); cal_weekend_share 4.2% (90%); it_nord_load_wa_fc_max_mw__dw 4.1% (100%); de_lu_load_wa_fc_max_mw__dw 3.1% (100%); tgt_prev_slot__price_settle_ch 1.8% (60%); at_load_wa_fc_max_mw__dw 1.6% (65%); it_nord_load_wa_fc_min_mw__dw 1.5% (80%); tgt_prev_auction__price_settle_ch 1.1% (55%)
+   mFRR|down|week: cal_doy_sin 2.2% (67%); de_lu_load_ya_fc_max_mw__dw 1.4% (33%); de_lu_load_ya_fc_min_mw__dw 1.2% (67%); it_nord_load_ya_fc_max_mw__dw 1.0% (67%); at_gen_total_mw__lb7d 0.8% (67%); it_nord_load_ma_fc_max_mw__dw 0.7% (33%); fr_imb_price_long_eur_mwh__lb7d 0.7% (33%); at_gen_total_da_fc_mw__lb7d 0.7% (50%)
+   mFRR|up|4h: cal_dow 7.6% (100%); tgt_prev_slot__price_settle_ch 4.7% (100%); it_nord_load_wa_fc_min_mw__dw 3.3% (90%); tgt_prev_slot__price_bid_vwap 3.1% (100%); tgt_prev_slot__price_settle_max 2.8% (100%); it_nord_load_wa_fc_max_mw__dw 2.0% (95%); cal_weekend_share 1.9% (95%); tgt_prev_auction__awarded_mw 1.6% (71%)
+   mFRR|up|week: it_nord_gen_other_mw__lb7d 2.0% (67%); cal_doy_cos 1.0% (17%); at_hydro_reservoir_mwh__lb24h 0.9% (50%); ch_hydro_reservoir_mwh__lb24h 0.9% (33%); at_load_da_fc_mw__lb7d 0.7% (33%); de_lu_load_ya_fc_min_mw__dw 0.7% (50%); cal_doy_sin 0.7% (50%); ce_fcr_up_equiv_h__lb7d 0.7% (50%)
+== Top features: CatBoost MultiQuantile (mean importance share over folds; % of folds in top 20)
+   mFRR|down|4h: cal_dow 12.2% (100%); cal_weekend_share 8.5% (100%); it_nord_load_wa_fc_max_mw__dw 3.4% (100%); de_lu_load_wa_fc_max_mw__dw 2.0% (80%); tgt_prev_slot__price_settle_max 1.7% (70%); tgt_prev_slot__price_settle_ch 1.5% (60%); tgt_prev_auction__price_settle_ch 1.2% (45%); tgt_prev_auction__price_settle_max 1.0% (45%)
+   mFRR|down|week: at_gen_total_mw__lb7d 2.4% (33%); it_nord_load_ya_fc_max_mw__dw 1.3% (67%); it_nord_load_ma_fc_min_mw__dw 0.9% (50%); cal_doy_sin 0.8% (33%); at_gen_total_mw__lb24h 0.8% (50%); at_ch_outage_trans_planned_n__lb7d 0.8% (50%); tgt_prev_auction__offered_mw 0.7% (17%); at_gen_total_da_fc_mw__lb24h 0.7% (17%)
+   mFRR|up|4h: cal_dow 16.7% (100%); cal_weekend_share 6.6% (100%); tgt_prev_slot__price_settle_ch 4.7% (100%); tgt_prev_slot__price_bid_vwap 3.0% (95%); tgt_prev_slot__price_settle_max 2.9% (90%); it_nord_load_wa_fc_min_mw__dw 1.9% (76%); tgt_prev_auction__price_settle_ch 1.8% (81%); tgt_prev_auction__price_bid_vwap 1.8% (81%)
+   mFRR|up|week: tgt_prev_slot__offered_mw 1.8% (67%); it_nord_gen_other_mw__lb7d 1.6% (50%); it_nord_gen_biomass_mw__lb7d 1.1% (33%); xm_de_mfrr_down_marg__lb7d 1.0% (33%); tgt_prev_slot__price_settle_ch 1.0% (33%); tgt_prev_auction__offered_mw 1.0% (33%); fr_ch_outage_trans_planned_n__lb7d 0.9% (33%); ch_fr_sched_total_mw__lb24h 0.9% (33%)
+== Top features: Quantile Regression Forest (mean importance share over folds; % of folds in top 20)
+   mFRR|down|4h: cal_dow 7.9% (100%); cal_weekend_share 4.4% (95%); it_nord_load_wa_fc_max_mw__dw 3.3% (100%); tgt_prev_slot__price_settle_ch 2.6% (100%); de_lu_load_wa_fc_max_mw__dw 2.2% (90%); tgt_prev_slot__price_settle_max 2.0% (100%); tgt_prev_slot__price_bid_vwap 1.6% (95%); at_load_wa_fc_max_mw__dw 1.5% (70%)
+   mFRR|down|week: at_gen_total_mw__lb7d 3.3% (67%); at_gen_hydro_ror_mw__lb7d 2.8% (100%); ch_precip_30d_hydro_mm__lb24h 2.6% (67%); at_gen_total_da_fc_mw__lb7d 2.5% (83%); at_hydro_reservoir_mwh__lb7d 2.5% (50%); it_nord_load_ya_fc_min_mw__dw 1.9% (67%); ch_precip_30d_hydro_mm__lb7d 1.8% (67%); it_nord_load_ya_fc_max_mw__dw 1.6% (100%)
+   mFRR|up|4h: cal_dow 22.3% (100%); cal_weekend_share 5.3% (100%); it_nord_load_wa_fc_max_mw__dw 4.6% (100%); tgt_prev_slot__price_settle_ch 3.7% (100%); tgt_prev_auction__price_settle_ch 2.6% (100%); tgt_prev_slot__price_bid_vwap 2.4% (100%); tgt_prev_auction__price_bid_vwap 2.3% (100%); at_load_wa_fc_max_mw__dw 2.0% (90%)
+   mFRR|up|week: at_gen_total_mw__lb7d 2.9% (67%); tgt_prev_auction__price_settle_max 1.9% (67%); tgt_prev_slot__offered_mw 1.8% (83%); tgt_prev_slot__price_settle_max 1.8% (67%); tgt_prev_auction__offered_mw 1.8% (67%); tgt_prev_auction__price_settle_ch 1.2% (50%); de_lu_load_ma_fc_max_mw__dw 1.1% (17%); ch_hydro_reservoir_mwh__lb24h 1.1% (67%)
+
+More detail: fold_log.csv (per fold sizes / timings / tuning), lear_coefficients.csv (signed LEAR coefficients), diagnostics/ (breakdowns, worst errors, calibration, importance, plots; see its README.txt)
+== sliding window vs default (round 2, expanding window) on the same rows (window_vs_default.csv; columns *_tuned = this run); DM stat < 0 = this run better
+                          n  mae_default  mae_tuned  change_%  skill_default_%  skill_tuned_%  dm_tuned_vs_default     p  pinball_default  pinball_tuned  dm_pinball  p_pinball
+series         model                                                                                                                                                           
+mFRR|down|4h   lear    9226        4.113      4.378     6.442            7.428          1.465                4.333 0.000              NaN            NaN         NaN        NaN
+               lgbm_q  9226        4.054      4.255     4.956            8.761          4.239                5.292 0.000            1.531          1.595       5.570      0.000
+               cat_q   9226        4.053      4.175     3.008            8.780          6.036                2.956 0.003            1.525          1.602       4.828      0.000
+               qrf     9226        4.047      4.281     5.792            8.917          3.641                4.707 0.000            1.599          1.705       5.832      0.000
+               svr     9226        4.615      4.814     4.321           -3.863         -8.351                3.002 0.003              NaN            NaN         NaN        NaN
+mFRR|down|week lear     295        1.844      1.851     0.372           -0.215         -0.588                0.205 0.838              NaN            NaN         NaN        NaN
+               lgbm_q   295        1.786      1.804     1.033            2.948          1.946                0.719 0.472            0.638          0.649       1.789      0.074
+               cat_q    295        1.770      1.796     1.504            3.813          2.366                0.969 0.332            0.648          0.684       3.072      0.002
+               qrf      295        1.726      1.799     4.240            6.214          2.237                1.772 0.076            0.617          0.654       2.606      0.009
+               svr      295        1.851      1.925     4.030           -0.574         -4.627                1.598 0.110              NaN            NaN         NaN        NaN
+mFRR|up|4h     lear    9958        0.977      0.968    -0.926           17.407         18.173               -0.858 0.391              NaN            NaN         NaN        NaN
+               lgbm_q  9958        0.888      0.910     2.420           24.890         23.072                2.691 0.007            0.338          0.349       3.822      0.000
+               cat_q   9958        0.895      0.915     2.207           24.296         22.625                2.032 0.042            0.338          0.352       3.698      0.000
+               qrf     9958        0.925      0.944     2.057           21.737         20.128                1.322 0.186            0.351          0.365       2.698      0.007
+               svr     9958        1.149      1.103    -3.996            2.831          6.714               -5.078 0.000              NaN            NaN         NaN        NaN
+mFRR|up|week   lear     295        0.599      0.601     0.325           -1.115         -1.444                0.300 0.764              NaN            NaN         NaN        NaN
+               lgbm_q   295        0.578      0.602     4.117            2.460         -1.556                2.432 0.015            0.225          0.226       0.540      0.589
+               cat_q    295        0.572      0.575     0.669            3.522          2.877                0.478 0.633            0.224          0.227       0.755      0.450
+               qrf      295        0.577      0.572    -0.989            2.528          3.492               -0.897 0.370            0.226          0.221      -1.266      0.205
+               svr      295        0.623      0.637     2.229           -5.124         -7.467                1.610 0.107              NaN            NaN         NaN        NaN
+== Training window rule per series (folds)
+                        folds  median_n_train
+series         rule                          
+mFRR|down|4h   sliding     20       3,603.000
+mFRR|down|week sliding      6         208.000
+mFRR|up|4h     sliding     21       3,882.000
+mFRR|up|week   sliding      6         208.000
+
+total runtime 1927s
+[2026-10-15T20:18:29] rq2_5_tier1: ok after 32 min 07 s
+[2026-10-15T20:18:30] rq2_5_tier1 --products afrr --window regime --out Modelling/Output/rq2_9r_afrr
+afrr: 5,048 blocks, 776 features
+   aFRR|down|4h: breaks none
+   aFRR|down|4h     folds=  3  lear    38s  lgbm_q    16s  cat_q     5s  qrf     4s  svr     1s
+   aFRR|down|week: breaks 2018-10-01, 2019-07-01, 2020-07-06, 2025-09-29, 2025-10-06
+   aFRR|down|week   folds=  6  lear     4s  lgbm_q    25s  cat_q    14s  qrf     2s  svr     1s
+   aFRR|sym|week: breaks none
+   aFRR|sym|week    folds=  0  lear     0s  lgbm_q     0s  cat_q     0s  qrf     0s  svr     0s
+   aFRR|up|4h: breaks none
+   aFRR|up|4h       folds=  3  lear    50s  lgbm_q    15s  cat_q     5s  qrf     5s  svr     1s
+   aFRR|up|week: breaks 2018-10-01, 2019-07-01, 2020-07-06, 2025-09-29, 2025-10-06
+   aFRR|up|week     folds=  6  lear     4s  lgbm_q    16s  cat_q    11s  qrf     2s  svr     1s
+   diagnostics written: Modelling/Output/rq2_9r_afrr/diagnostics
+RQ2 9.2 round 2 (Tier 1, ML_Options.md) - strong baselines and probabilistic forecasts.
+Rolling origin, regime window (since the latest break of regime_afrr_dir, regime_fcr, regime_de_zone, regime_mfrr_merged, regime_afrr_daily), refit every 3 months (weekly 12); test from 2021-01-01; errors in EUR/MWh on the common rows of all point models and baselines.
+Models: LEAR (LASSO), LightGBM quantile, CatBoost MultiQuantile, Quantile Regression Forest, SVR (RBF); quantiles 05, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95; seeds 1; LEAR target delta.
+No hyperparameter search (fixed defaults; LEAR alpha by LassoCV, TimeSeriesSplit(4)).
+lgbm_l1 = round-1 LightGBM (rq2_2_delta), merged for comparison.
+
+== aFRR|down|4h   n = 1,444
+                 MAE   RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%
+model                                                                                 
+lear           1.490  4.238   16.586      0.149                 2.371            0.000
+lgbm_l1        1.400  4.088   16.480      0.146                 8.289            6.062
+lgbm_q         1.400  4.089   16.474      0.146                 8.253            6.025
+cat_q          1.414  4.153   16.660      0.147                 7.347            5.096
+qrf            1.469  4.080   17.459      0.155                 3.740            1.402
+svr            1.474  4.141   17.425      0.155                 3.421            1.075
+b_prev_slot    1.526  4.274   16.816      0.153                 0.000           -2.429
+b_prev_auction 6.713 11.751   84.917      0.943              -339.805         -350.487
+b_roll_med     2.816  7.658   34.457      0.315               -84.462          -88.943
+   Diebold-Mariano |error| (stat < 0: row model better), p-values:
+   vs       b_prev_slot   lear  lgbm_l1
+   model                               
+   cat_q         -4.020 -2.910    0.850
+   lear          -3.280    NaN    2.730
+   lgbm_l1       -3.670 -2.730      NaN
+   lgbm_q        -3.670 -2.730    0.590
+   qrf           -1.270 -0.470    1.830
+   svr           -1.680 -0.540    3.670
+   vs       b_prev_slot  lear  lgbm_l1
+   model                              
+   cat_q          0.000 0.004    0.398
+   lear           0.001   NaN    0.006
+   lgbm_l1        0.000 0.006      NaN
+   lgbm_q         0.000 0.006    0.555
+   qrf            0.204 0.641    0.067
+   svr            0.094 0.586    0.000
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                         
+   lgbm_q    0.575        1.149     89.712     81.748        6.858        5.592      904     93.805     94.137        9.880       10.675      904
+   cat_q     0.566        1.133     84.181     83.407        4.981        4.711      904     92.146     94.248        8.129        9.972      904
+   qrf       0.638        1.277     90.597     81.858       11.159        9.606      904     96.018     94.801       17.971       17.778      904
+   DM pinball vs lgbm_q: cat_q stat -0.94 p 0.3489; qrf stat 3.34 p 0.0008
+   MAE by year:
+   model  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                    
+   2026  1.490    1.400   1.400  1.414 1.469 1.474        1.526           6.713       2.816
+
+== aFRR|down|week   n = 295
+                 MAE   RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%
+model                                                                                 
+lear           5.020 11.163   16.683      0.168                -1.637            0.000
+lgbm_l1        4.333  9.639   15.207      0.153                12.273           13.686
+lgbm_q         4.378  9.696   15.417      0.155                11.365           12.793
+cat_q          4.623 10.282   15.693      0.158                 6.390            7.898
+qrf            4.435  9.981   15.421      0.155                10.206           11.652
+svr            4.593 10.360   15.481      0.156                 7.006            8.504
+b_prev_slot    4.939 10.988   16.403      0.166                 0.000            1.611
+b_prev_auction 4.939 10.988   16.403      0.166                 0.000            1.611
+b_roll_med     9.782 19.655   32.397      0.334               -98.055          -94.865
+   Diebold-Mariano |error| (stat < 0: row model better), p-values:
+   vs       b_prev_slot   lear  lgbm_l1
+   model                               
+   cat_q         -1.680 -1.470    2.080
+   lear           0.590    NaN    2.750
+   lgbm_l1       -3.210 -2.750      NaN
+   lgbm_q        -2.990 -2.490    0.690
+   qrf           -2.520 -2.170    0.910
+   svr           -1.910 -1.680    1.630
+   vs       b_prev_slot  lear  lgbm_l1
+   model                              
+   cat_q          0.094 0.141    0.038
+   lear           0.556   NaN    0.006
+   lgbm_l1        0.001 0.006      NaN
+   lgbm_q         0.003 0.013    0.490
+   qrf            0.012 0.030    0.364
+   svr            0.056 0.092    0.104
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                         
+   lgbm_q    1.607        3.213     74.074     88.066       13.313       19.799      243     87.243     93.827       18.844       29.692      243
+   cat_q     1.759        3.518     66.255     86.831       10.163       20.711      243     76.543     96.296       13.823       34.272      243
+   qrf       1.560        3.121     83.128     84.362       15.163       17.649      243     92.593     90.947       24.000       25.500      243
+   DM pinball vs lgbm_q: cat_q stat 2.31 p 0.0206; qrf stat -1.46 p 0.1456
+   MAE by year:
+   model   lear  lgbm_l1  lgbm_q  cat_q    qrf    svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                       
+   2021   3.188    3.186   3.141  2.987  3.016  3.159        3.305           3.305       6.222
+   2022   9.125    8.094   8.062  8.682  7.752  8.087        9.162           9.162      16.513
+   2023  11.408    9.350   9.560 10.328 10.311 10.673       11.061          11.061      23.688
+   2024   2.497    1.670   1.789  1.828  1.765  1.936        1.927           1.927       3.856
+   2025   1.451    1.538   1.542  1.618  1.597  1.544        1.831           1.831       3.969
+   2026   1.162    1.086   1.079  1.148  1.046  0.947        1.062           1.062       1.788
+
+== aFRR|up|4h   n = 1,451
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%
+model                                                                                
+lear           0.276 0.611   12.707      0.105                -0.925            0.000
+lgbm_l1        0.259 0.596   12.029      0.099                 5.474            6.340
+lgbm_q         0.269 0.599   12.696      0.104                 1.630            2.532
+cat_q          0.257 0.596   12.182      0.099                 6.196            7.056
+qrf            0.276 0.601   12.847      0.106                -1.003           -0.077
+svr            0.277 0.595   13.123      0.107                -1.176           -0.248
+b_prev_slot    0.274 0.603   12.545      0.103                 0.000            0.917
+b_prev_auction 0.728 1.116   31.071      0.273              -166.170         -163.730
+b_roll_med     0.571 0.965   27.009      0.228              -108.795         -106.881
+   Diebold-Mariano |error| (stat < 0: row model better), p-values:
+   vs       b_prev_slot   lear  lgbm_l1
+   model                               
+   cat_q         -3.740 -3.310   -0.640
+   lear           0.470    NaN    3.350
+   lgbm_l1       -3.480 -3.350      NaN
+   lgbm_q        -0.990 -1.410    3.280
+   qrf            0.420  0.030    2.840
+   svr            0.900  0.130    4.100
+   vs       b_prev_slot  lear  lgbm_l1
+   model                              
+   cat_q          0.000 0.001    0.520
+   lear           0.642   NaN    0.001
+   lgbm_l1        0.000 0.001      NaN
+   lgbm_q         0.323 0.160    0.001
+   qrf            0.673 0.978    0.005
+   svr            0.367 0.900    0.000
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                         
+   lgbm_q    0.107        0.215     81.559     78.266        0.966        0.873      911     87.267     85.181        1.441        1.303      911
+   cat_q     0.103        0.206     77.058     76.729        0.729        0.709      911     86.389     87.377        1.184        1.228      911
+   qrf       0.123        0.246     83.205     76.729        1.547        1.364      911     90.340     88.694        2.530        2.409      911
+   DM pinball vs lgbm_q: cat_q stat -3.18 p 0.0015; qrf stat 6.47 p 0.0000
+   MAE by year:
+   model  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                    
+   2026  0.276    0.259   0.269  0.257 0.276 0.277        0.274           0.728       0.571
+
+== aFRR|up|week   n = 295
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%
+model                                                                                
+lear           1.512 3.607    9.896      0.098                -2.358            0.000
+lgbm_l1        1.449 3.535    9.499      0.094                 1.928            4.187
+lgbm_q         1.465 3.567    9.699      0.096                 0.794            3.079
+cat_q          1.458 3.498    9.834      0.098                 1.314            3.587
+qrf            1.509 3.643    9.689      0.096                -2.185            0.169
+svr            1.602 3.753   10.179      0.101                -8.479           -5.981
+b_prev_slot    1.477 3.523    9.938      0.099                 0.000            2.303
+b_prev_auction 1.477 3.523    9.938      0.099                 0.000            2.303
+b_roll_med     2.634 5.599   17.715      0.177               -78.286          -74.179
+   Diebold-Mariano |error| (stat < 0: row model better), p-values:
+   vs       b_prev_slot   lear  lgbm_l1
+   model                               
+   cat_q         -0.630 -1.630    0.330
+   lear           1.060    NaN    1.680
+   lgbm_l1       -1.020 -1.680      NaN
+   lgbm_q        -0.420 -1.360    1.010
+   qrf            0.550 -0.040    1.330
+   svr            2.040  2.000    2.880
+   vs       b_prev_slot  lear  lgbm_l1
+   model                              
+   cat_q          0.531 0.104    0.743
+   lear           0.288   NaN    0.092
+   lgbm_l1        0.306 0.092      NaN
+   lgbm_q         0.675 0.173    0.315
+   qrf            0.583 0.968    0.182
+   svr            0.042 0.045    0.004
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                         
+   lgbm_q    0.563        1.126     74.897     86.420        3.944        5.676      243     82.716     92.593        5.644        8.053      243
+   cat_q     0.564        1.128     67.078     85.597        3.276        5.765      243     76.955     93.416        4.264        8.285      243
+   qrf       0.573        1.146     84.774     86.831        5.521        6.754      243     92.181     93.827        8.728       10.585      243
+   DM pinball vs lgbm_q: cat_q stat 0.14 p 0.8907; qrf stat 0.65 p 0.5133
+   MAE by year:
+   model  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                    
+   2021  1.368    1.342   1.342  1.373 1.332 1.345        1.360           1.360       2.047
+   2022  1.834    1.779   1.792  1.688 2.074 2.037        1.848           1.848       3.493
+   2023  3.996    3.738   3.783  3.803 3.840 4.272        3.689           3.689       6.852
+   2024  0.691    0.727   0.740  0.751 0.690 0.787        0.784           0.784       1.301
+   2025  0.454    0.406   0.430  0.419 0.402 0.407        0.459           0.459       0.886
+   2026  0.339    0.327   0.325  0.339 0.325 0.347        0.344           0.344       0.515
+
+== Summary: MAE skill vs same-slot-yesterday (%)
+                 lear  lgbm_l1  lgbm_q  cat_q    qrf    svr
+series                                                     
+aFRR|down|4h    2.371    8.289   8.253  7.347  3.740  3.421
+aFRR|down|week -1.637   12.273  11.365  6.390 10.206  7.006
+aFRR|up|4h     -0.925    5.474   1.630  6.196 -1.003 -1.176
+aFRR|up|week   -2.358    1.928   0.794  1.314 -2.185 -8.479
+   best point model per series: aFRR|down|4h: lgbm_l1; aFRR|down|week: lgbm_l1; aFRR|up|4h: cat_q; aFRR|up|week: lgbm_l1
+== Summary: mean pinball loss (EUR/MWh), lower is better
+model           cat_q  lgbm_q   qrf
+series                             
+aFRR|down|4h    0.566   0.575 0.638
+aFRR|down|week  1.759   1.607 1.560
+aFRR|up|4h      0.103   0.107 0.123
+aFRR|up|week    0.564   0.563 0.573
+== Summary: 90 % interval coverage raw -> CQR (%)
+model                  cat_q        lgbm_q           qrf
+series                                                  
+aFRR|down|4h    92.1 -> 94.2  93.8 -> 94.1  96.0 -> 94.8
+aFRR|down|week  76.5 -> 96.3  87.2 -> 93.8  92.6 -> 90.9
+aFRR|up|4h      86.4 -> 87.4  87.3 -> 85.2  90.3 -> 88.7
+aFRR|up|week    77.0 -> 93.4  82.7 -> 92.6  92.2 -> 93.8
+== Top features: LEAR (LASSO) (mean importance share over folds; % of folds in top 20)
+   aFRR|down|4h: it_nord_load_wa_fc_max_mw__dw 52.6% (67%); cal_weekend_share 9.5% (33%); it_nord_gen_wind_on_mw__lb24h 4.6% (33%)
+   aFRR|down|week: cal_holiday_share 9.5% (67%); de_lu_load_da_fc_mw__lb7d 5.9% (33%); ch_gen_total_da_fc_mw__lb7d 3.9% (50%); ch_tn_vertical_feedin_mw__lb7d 3.6% (50%); de_lu_load_ya_fc_min_mw__dw 3.6% (50%); ch_tre_da_down_price_max_eur_mwh__lb24h 3.3% (50%); ch_de_lu_outage_trans_forced_n__lb7d 2.9% (50%); it_nord_ch_ntc_ya_mw__dw 2.5% (50%)
+   aFRR|up|4h: fr_gen_hydro_ps_cons_mw__lb24h 25.4% (100%); dow_0 15.7% (67%); tgt_prev_slot__price_bid_vwap 14.1% (67%); ch_load_ya_fc_max_mw__dw 11.1% (67%); at_gen_hydro_ps_cons_mw__lb24h 9.4% (33%); ch_afrr_fallback_share__lb24h 4.5% (33%); it_nord_load_ma_fc_min_mw__dw 3.9% (67%); it_nord_load_wa_fc_min_mw__dw 3.8% (67%)
+   aFRR|up|week: at_gen_total_mw__lb7d 33.5% (50%); fr_outage_prod_forced_mw__exante 16.0% (17%); at_gen_hydro_ror_mw__lb7d 3.1% (17%); fr_gen_hydro_ror_mw__lb7d 3.0% (33%); at_gen_solar_mw__lb24h 2.9% (17%); ch_gen_hydro_ps_mw__lb7d 2.3% (17%); ch_afrr_up_act_mw__lb24h 1.9% (17%); at_hydro_reservoir_mwh__lb7d 1.7% (17%)
+== Top features: LightGBM quantile (mean importance share over folds; % of folds in top 20)
+   aFRR|down|4h: it_nord_load_wa_fc_max_mw__dw 2.7% (100%); tgt_prev_slot__price_settle_ch 2.6% (100%); it_nord_load_wa_fc_min_mw__dw 2.0% (100%); at_ch_ntc_ma_mw__dw 1.9% (100%); tgt_prev_slot__price_bid_vwap 1.8% (67%); ch_temp_max_lw_degc__lb7d 1.6% (67%); ch_it_nord_ntc_ma_mw__dw 1.4% (33%); tgt_prev_auction__price_settle_max 1.1% (67%)
+   aFRR|down|week: cal_doy_sin 2.0% (100%); it_nord_gen_hydro_ror_mw__lb24h 1.5% (33%); it_nord_load_ya_fc_max_mw__dw 1.5% (100%); it_nord_gen_hydro_ror_mw__lb7d 1.5% (17%); it_nord_gen_solar_id_fc_mw__lb24h 0.8% (33%); cal_doy_cos 0.8% (50%); fr_gen_hydro_ror_mw__lb7d 0.7% (67%); fr_gen_gas_mw__lb7d 0.7% (17%)
+   aFRR|up|4h: tgt_prev_slot__price_settle_ch 3.5% (67%); fr_ch_expl_price_eur_mwh__lb24h 2.2% (33%); tgt_prev_slot__price_bid_vwap 2.0% (67%); tgt_prev_auction__price_settle_ch 1.2% (67%); de_lu_load_wa_fc_min_mw__dw 1.1% (67%); fr_imb_price_long_eur_mwh__lb24h 1.0% (67%); ch_load_actual_mw__lb7d 1.0% (33%); fr_load_wa_fc_min_mw__dw 0.9% (67%)
+   aFRR|up|week: tgt_prev_auction__n_bids 2.2% (83%); fr_gen_hydro_ror_mw__lb7d 1.8% (100%); tgt_prev_slot__n_bids 1.7% (83%); fr_gen_hydro_ror_mw__lb24h 1.6% (83%); ch_afrr_up_act_mw__lb24h 1.2% (67%); cal_doy_sin 1.1% (33%); ce_freq_out_50mhz_share__lb24h 0.9% (67%); ce_fcr_up_equiv_h__lb24h 0.9% (50%)
+== Top features: CatBoost MultiQuantile (mean importance share over folds; % of folds in top 20)
+   aFRR|down|4h: cal_dow 4.8% (100%); cal_weekend_share 2.3% (33%); ch_it_nord_ntc_ma_mw__dw 1.6% (67%); at_gen_wind_on_da_fc_mw__lb24h 1.5% (33%); de_lu_ch_outage_trans_planned_n__lb7d 1.5% (33%); ch_tre_da_down_bids_n__lb7d 1.3% (33%); tgt_prev_slot__price_settle_ch 1.3% (33%); tgt_prev_auction__price_bid_vwap 1.2% (33%)
+   aFRR|down|week: cal_doy_sin 2.5% (67%); it_nord_load_ya_fc_max_mw__dw 1.5% (67%); ch_tn_vertical_feedin_mw__lb7d 1.2% (33%); at_hydro_reservoir_mwh__lb7d 1.2% (67%); it_nord_load_ma_fc_min_mw__dw 1.0% (50%); fr_gen_hydro_ror_mw__lb7d 1.0% (33%); fr_gen_hydro_ror_mw__lb24h 0.9% (50%); ch_hydro_reservoir_mwh__lb24h 0.9% (33%)
+   aFRR|up|4h: tgt_prev_slot__price_settle_max 3.1% (100%); it_nord_load_wa_fc_min_mw__dw 2.5% (67%); tgt_prev_slot__price_bid_vwap 2.3% (100%); de_ch_expl_price_eur_mwh__lb24h 1.5% (33%); fr_imb_price_short_eur_mwh__lb24h 1.5% (33%); ch_export_mw__lb24h 1.4% (33%); de_lu_load_wa_fc_max_mw__dw 1.4% (33%); fr_gen_hydro_res_mw__lb24h 1.4% (33%)
+   aFRR|up|week: fr_gen_hydro_ror_mw__lb7d 1.8% (67%); fr_gen_hydro_ror_mw__lb24h 1.7% (67%); tgt_prev_slot__n_bids 1.6% (83%); at_hydro_reservoir_mwh__lb7d 1.3% (33%); tgt_prev_auction__n_bids 1.1% (33%); ch_hydro_reservoir_mwh__lb24h 1.0% (33%); ch_hydro_reservoir_mwh__lb7d 0.9% (33%); ch_cons_mw__lb7d 0.9% (33%)
+== Top features: Quantile Regression Forest (mean importance share over folds; % of folds in top 20)
+   aFRR|down|4h: it_nord_load_wa_fc_max_mw__dw 3.8% (100%); ch_tre_da_down_bids_n__lb7d 2.7% (33%); de_lu_load_wa_fc_max_mw__dw 1.8% (100%); ch_mfrr_bids_down_offered_mw__lb7d 1.8% (67%); ch_it_nord_flow_phys_mw__lb7d 1.5% (67%); tgt_prev_slot__price_settle_max 1.4% (67%); it_nord_load_wa_fc_min_mw__dw 1.3% (33%); tgt_prev_slot__price_bid_vwap 1.2% (100%)
+   aFRR|down|week: cal_doy_sin 3.5% (100%); ch_tn_vertical_feedin_mw__lb7d 2.1% (50%); it_nord_load_ya_fc_max_mw__dw 2.0% (100%); ch_cons_enduse_mw__lb7d 1.9% (83%); de_lu_load_da_fc_mw__lb7d 1.8% (33%); ch_gen_total_da_fc_mw__lb7d 1.7% (83%); fr_gen_hydro_ror_mw__lb7d 1.6% (67%); cal_doy_cos 1.6% (67%)
+   aFRR|up|4h: it_nord_gen_solar_id_fc_mw__lb7d 2.3% (100%); tgt_prev_slot__price_settle_ch 2.3% (100%); tgt_prev_slot__price_bid_vwap 2.3% (100%); cal_dow 2.1% (100%); de_lu_gen_total_da_fc_mw__lb7d 2.1% (67%); tgt_prev_slot__price_settle_max 1.9% (100%); at_gen_hydro_ps_cons_mw__lb24h 1.8% (33%); de_lu_gen_coal_mw__lb24h 1.8% (67%)
+   aFRR|up|week: fr_gen_hydro_ror_mw__lb7d 3.5% (100%); fr_gen_hydro_ror_mw__lb24h 3.3% (100%); tgt_prev_auction__n_bids 1.8% (83%); tgt_prev_slot__n_bids 1.7% (100%); at_gen_total_mw__lb7d 1.4% (67%); at_gen_hydro_ror_mw__lb24h 1.0% (50%); ch_afrr_up_act_mw__lb24h 0.8% (50%); ce_freq_out_50mhz_share__lb24h 0.8% (33%)
+
+More detail: fold_log.csv (per fold sizes / timings / tuning), lear_coefficients.csv (signed LEAR coefficients), diagnostics/ (breakdowns, worst errors, calibration, importance, plots; see its README.txt)
+== regime window vs default (round 2, expanding window) on the same rows (window_vs_default.csv; columns *_tuned = this run); DM stat < 0 = this run better
+                          n  mae_default  mae_tuned  change_%  skill_default_%  skill_tuned_%  dm_tuned_vs_default     p  pinball_default  pinball_tuned  dm_pinball  p_pinball
+series         model                                                                                                                                                           
+aFRR|down|4h   lear    1444        1.490      1.490     0.000            2.371          2.371                  NaN   NaN              NaN            NaN         NaN        NaN
+               lgbm_q  1444        1.400      1.400     0.000            8.253          8.253                  NaN   NaN            0.575          0.575         NaN        NaN
+               cat_q   1444        1.414      1.414     0.000            7.347          7.347                  NaN   NaN            0.566          0.566         NaN        NaN
+               qrf     1444        1.469      1.469     0.000            3.740          3.740                  NaN   NaN            0.638          0.638         NaN        NaN
+               svr     1444        1.474      1.474     0.000            3.421          3.421                  NaN   NaN              NaN            NaN         NaN        NaN
+aFRR|down|week lear     295        4.540      5.020    10.576            8.084         -1.637                2.417 0.016              NaN            NaN         NaN        NaN
+               lgbm_q   295        4.309      4.378     1.598           12.759         11.365                0.983 0.326            1.562          1.607       1.881      0.060
+               cat_q    295        4.275      4.623     8.151           13.445          6.390                2.134 0.033            1.619          1.759       2.124      0.034
+               qrf      295        4.116      4.435     7.737           16.655         10.206                2.081 0.037            1.484          1.560       2.366      0.018
+               svr      295        4.561      4.593     0.694            7.647          7.006                0.689 0.491              NaN            NaN         NaN        NaN
+aFRR|up|4h     lear    1451        0.276      0.276     0.000           -0.925         -0.925                  NaN   NaN              NaN            NaN         NaN        NaN
+               lgbm_q  1451        0.269      0.269     0.000            1.630          1.630                  NaN   NaN            0.107          0.107         NaN        NaN
+               cat_q   1451        0.257      0.257     0.000            6.196          6.196                  NaN   NaN            0.103          0.103         NaN        NaN
+               qrf     1451        0.276      0.276     0.000           -1.003         -1.003                  NaN   NaN            0.123          0.123         NaN        NaN
+               svr     1451        0.277      0.277     0.000           -1.176         -1.176                  NaN   NaN              NaN            NaN         NaN        NaN
+aFRR|up|week   lear     295        1.481      1.512     2.086           -0.266         -2.358                1.584 0.113              NaN            NaN         NaN        NaN
+               lgbm_q   295        1.440      1.465     1.748            2.498          0.794                1.403 0.161            0.560          0.563       0.550      0.582
+               cat_q    295        1.427      1.458     2.146            3.387          1.314                1.176 0.240            0.546          0.564       2.250      0.024
+               qrf      295        1.514      1.509    -0.302           -2.494         -2.185               -0.327 0.744            0.574          0.573      -0.222      0.824
+               svr      295        1.575      1.602     1.768           -6.595         -8.479                1.395 0.163              NaN            NaN         NaN        NaN
+== Training window rule per series (folds)
+                                folds  median_n_train
+series         rule                                  
+aFRR|down|4h   regime_none          3       1,092.000
+aFRR|down|week regime_fallback      3         184.000
+               regime_since         3         182.000
+aFRR|up|4h     regime_none          3       1,092.000
+aFRR|up|week   regime_fallback      3         184.000
+               regime_since         3         182.000
+== aFRR|sym|week: no fold with >= 100 training blocks
+
+total runtime 225s
+[2026-10-15T20:22:15] rq2_5_tier1: ok after 3 min 45 s
+[2026-10-15T20:22:16] rq2_5_tier1 --products fcr --window regime --out Modelling/Output/rq2_9r_fcr
+fcr: 14,118 blocks, 777 features
+   FCR|sym|4h: breaks 2025-09-29, 2025-09-30
+   FCR|sym|4h       folds= 23  lear   615s  lgbm_q   319s  cat_q   164s  qrf   239s  svr    83s
+   FCR|sym|day: breaks none
+   FCR|sym|day      folds=  0  lear     0s  lgbm_q     0s  cat_q     0s  qrf     0s  svr     0s
+   FCR|sym|week: breaks 2018-06-11, 2018-10-01
+   FCR|sym|week     folds=  0  lear     0s  lgbm_q     0s  cat_q     0s  qrf     0s  svr     0s
+   diagnostics written: Modelling/Output/rq2_9r_fcr/diagnostics
+RQ2 9.2 round 2 (Tier 1, ML_Options.md) - strong baselines and probabilistic forecasts.
+Rolling origin, regime window (since the latest break of regime_afrr_dir, regime_fcr, regime_de_zone, regime_mfrr_merged, regime_afrr_daily), refit every 3 months (weekly 12); test from 2021-01-01; errors in EUR/MWh on the common rows of all point models and baselines.
+Models: LEAR (LASSO), LightGBM quantile, CatBoost MultiQuantile, Quantile Regression Forest, SVR (RBF); quantiles 05, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95; seeds 1; LEAR target delta.
+No hyperparameter search (fixed defaults; LEAR alpha by LassoCV, TimeSeriesSplit(4)).
+lgbm_l1 = round-1 LightGBM (rq2_2_delta), merged for comparison.
+
+== FCR|sym|4h   n = 12,414
+                 MAE   RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%
+model                                                                                 
+lear           4.868  8.183   26.387      0.270                 1.412            0.000
+lgbm_l1        4.739  8.007   25.783      0.264                 4.015            2.640
+lgbm_q         4.723  8.001   25.602      0.262                 4.337            2.967
+cat_q          4.741  8.099   25.636      0.262                 3.990            2.614
+qrf            4.744  7.999   25.661      0.262                 3.922            2.546
+svr            4.938  8.407   25.963      0.266                -0.008           -1.441
+b_prev_slot    4.938  8.550   25.656      0.263                 0.000           -1.432
+b_prev_auction 7.040 10.655   37.147      0.386               -42.582          -44.624
+b_roll_med     5.393  8.910   28.541      0.293                -9.216          -10.781
+   Diebold-Mariano |error| (stat < 0: row model better), p-values:
+   vs       b_prev_slot   lear  lgbm_l1
+   model                               
+   cat_q         -5.470 -3.430    0.060
+   lear          -1.590    NaN    3.360
+   lgbm_l1       -4.780 -3.360      NaN
+   lgbm_q        -5.370 -3.850   -1.320
+   qrf           -4.470 -3.560    0.180
+   svr            0.010  1.420    4.370
+   vs       b_prev_slot  lear  lgbm_l1
+   model                              
+   cat_q          0.000 0.001    0.953
+   lear           0.111   NaN    0.001
+   lgbm_l1        0.000 0.001      NaN
+   lgbm_q         0.000 0.000    0.185
+   qrf            0.000 0.000    0.858
+   svr            0.992 0.155    0.000
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                         
+   lgbm_q    1.696        3.392     78.634     81.784       14.819       16.068    11874     88.235     91.098       20.670       23.545    11874
+   cat_q     1.724        3.448     74.726     84.150       13.391       17.743    11874     83.881     92.564       18.330       25.694    11874
+   qrf       1.706        3.413     83.914     81.043       17.497       16.285    11874     92.606     90.374       24.608       22.593    11874
+   DM pinball vs lgbm_q: cat_q stat 4.33 p 0.0000; qrf stat 1.59 p 0.1110
+   MAE by year:
+   model  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                    
+   2021  4.828    4.848   4.823  4.839 4.927 4.699        4.832           5.300       5.077
+   2022  7.470    7.463   7.484  7.562 7.458 8.076        8.110           9.458       8.455
+   2023  3.605    3.764   3.703  3.654 3.564 3.881        3.833           4.738       4.115
+   2024  3.665    3.594   3.591  3.549 3.648 3.690        3.799           6.407       4.144
+   2025  4.212    4.112   4.109  4.168 4.133 4.521        4.278           7.535       5.204
+   2026  5.713    4.617   4.590  4.641 4.733 4.677        4.696           9.689       5.348
+
+== Summary: MAE skill vs same-slot-yesterday (%)
+            lear  lgbm_l1  lgbm_q  cat_q   qrf    svr
+series                                               
+FCR|sym|4h 1.412    4.015   4.337  3.990 3.922 -0.008
+   best point model per series: FCR|sym|4h: lgbm_q
+== Summary: mean pinball loss (EUR/MWh), lower is better
+model       cat_q  lgbm_q   qrf
+series                         
+FCR|sym|4h  1.724   1.696 1.706
+== Summary: 90 % interval coverage raw -> CQR (%)
+model              cat_q        lgbm_q           qrf
+series                                              
+FCR|sym|4h  83.9 -> 92.6  88.2 -> 91.1  92.6 -> 90.4
+== Top features: LEAR (LASSO) (mean importance share over folds; % of folds in top 20)
+   FCR|sym|4h: tgt_prev_slot__price_settle_ch 61.0% (100%); cal_weekend_share 19.7% (87%); dow_0 4.8% (48%); tgt_prev_auction__n_bids 2.4% (26%); de_lu_price_da_eur_mwh__lb24h 1.5% (26%); it_nord_gen_other_mw__lb24h 0.9% (13%); ch_fr_ntc_wa_mw__dw 0.8% (13%); de_lu_load_actual_mw__lb24h 0.7% (9%)
+== Top features: LightGBM quantile (mean importance share over folds; % of folds in top 20)
+   FCR|sym|4h: tgt_prev_slot__price_settle_ch 9.2% (100%); xm_fcr_coop_settle__prevday_slot 4.0% (96%); tgt_prev_slot__price_bid_vwap 2.0% (91%); cal_dow 1.9% (83%); it_nord_load_wa_fc_max_mw__dw 1.5% (83%); de_lu_load_wa_fc_max_mw__dw 1.5% (78%); tgt_prev_slot__n_bids 1.2% (87%); tgt_prev_auction__price_settle_ch 1.1% (78%)
+== Top features: CatBoost MultiQuantile (mean importance share over folds; % of folds in top 20)
+   FCR|sym|4h: tgt_prev_slot__price_settle_ch 13.2% (100%); xm_fcr_coop_settle__prevday_slot 6.2% (96%); cal_weekend_share 4.8% (87%); cal_dow 4.6% (91%); it_nord_load_wa_fc_max_mw__dw 1.6% (65%); tgt_prev_slot__price_bid_vwap 1.0% (61%); tgt_prev_auction__price_settle_ch 0.9% (48%); de_lu_load_wa_fc_max_mw__dw 0.8% (57%)
+== Top features: Quantile Regression Forest (mean importance share over folds; % of folds in top 20)
+   FCR|sym|4h: tgt_prev_slot__price_settle_ch 9.6% (100%); xm_fcr_coop_settle__prevday_slot 4.2% (100%); cal_dow 2.6% (87%); cal_weekend_share 1.6% (87%); it_nord_load_wa_fc_max_mw__dw 1.3% (96%); tgt_prev_slot__price_bid_vwap 1.2% (96%); tgt_prev_auction__price_settle_ch 1.2% (96%); fr_price_da_eur_mwh__lb24h 0.9% (61%)
+
+More detail: fold_log.csv (per fold sizes / timings / tuning), lear_coefficients.csv (signed LEAR coefficients), diagnostics/ (breakdowns, worst errors, calibration, importance, plots; see its README.txt)
+== regime window vs default (round 2, expanding window) on the same rows (window_vs_default.csv; columns *_tuned = this run); DM stat < 0 = this run better
+                       n  mae_default  mae_tuned  change_%  skill_default_%  skill_tuned_%  dm_tuned_vs_default     p  pinball_default  pinball_tuned  dm_pinball  p_pinball
+series     model                                                                                                                                                            
+FCR|sym|4h lear    12414        4.738      4.868     2.735            4.037          1.412                4.736 0.000              NaN            NaN         NaN        NaN
+           lgbm_q  12414        4.724      4.723    -0.012            4.326          4.337               -0.071 0.943            1.691          1.696       2.087      0.037
+           cat_q   12414        4.735      4.741     0.115            4.100          3.990                0.730 0.465            1.719          1.724       1.863      0.062
+           qrf     12414        4.728      4.744     0.330            4.238          3.922                1.543 0.123            1.698          1.706       2.859      0.004
+           svr     12414        4.930      4.938     0.159            0.150         -0.008                0.930 0.352              NaN            NaN         NaN        NaN
+== Training window rule per series (folds)
+                            folds  median_n_train
+series     rule                                  
+FCR|sym|4h regime_fallback      1      11,502.000
+           regime_none         19       6,018.000
+           regime_since         3       1,098.000
+== FCR|sym|day: no fold with >= 200 training blocks
+== FCR|sym|week: no fold with >= 100 training blocks
+
+total runtime 1421s
+[2026-10-15T20:45:57] rq2_5_tier1: ok after 23 min 41 s
+[2026-10-15T20:45:59] rq2_5_tier1 --products mfrr --window regime --out Modelling/Output/rq2_9r_mfrr
+mfrr: 43,018 blocks, 778 features
+   mFRR|down|4h: breaks 2018-06-11, 2018-10-01, 2019-07-01, 2020-07-01, 2025-09-29, 2025-09-30
+   mFRR|down|4h     folds= 20  lear   350s  lgbm_q   204s  cat_q    88s  qrf   173s  svr    47s
+   mFRR|down|week: breaks 2018-06-11, 2018-10-01, 2019-07-01, 2020-07-06, 2025-09-29, 2025-10-06
+   mFRR|down|week   folds=  6  lear    12s  lgbm_q    21s  cat_q    14s  qrf     3s  svr     1s
+   mFRR|up|4h: breaks 2018-06-11, 2018-10-01, 2019-07-01, 2020-07-01, 2025-09-29, 2025-09-30
+   mFRR|up|4h       folds= 21  lear   213s  lgbm_q   361s  cat_q   200s  qrf   189s  svr    58s
+   mFRR|up|week: breaks 2018-06-11, 2018-10-01, 2019-07-01, 2020-07-06, 2025-09-29, 2025-10-06
+   mFRR|up|week     folds=  6  lear    15s  lgbm_q    30s  cat_q    15s  qrf     4s  svr     1s
+   diagnostics written: Modelling/Output/rq2_9r_mfrr/diagnostics
+RQ2 9.2 round 2 (Tier 1, ML_Options.md) - strong baselines and probabilistic forecasts.
+Rolling origin, regime window (since the latest break of regime_afrr_dir, regime_fcr, regime_de_zone, regime_mfrr_merged, regime_afrr_daily), refit every 3 months (weekly 12); test from 2021-01-01; errors in EUR/MWh on the common rows of all point models and baselines.
+Models: LEAR (LASSO), LightGBM quantile, CatBoost MultiQuantile, Quantile Regression Forest, SVR (RBF); quantiles 05, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95; seeds 1; LEAR target delta.
+No hyperparameter search (fixed defaults; LEAR alpha by LassoCV, TimeSeriesSplit(4)).
+lgbm_l1 = round-1 LightGBM (rq2_2_delta), merged for comparison.
+
+== mFRR|down|4h   n = 9,226
+                 MAE   RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%
+model                                                                                 
+lear           4.299 10.825   25.115      0.239                 3.248            0.000
+lgbm_l1        4.048 10.226   23.437      0.229                 8.884            5.826
+lgbm_q         4.180 10.629   23.849      0.233                 5.912            2.754
+cat_q          4.133 10.545   23.517      0.229                 6.989            3.867
+qrf            4.138 10.496   24.048      0.234                 6.858            3.732
+svr            4.567 10.938   26.118      0.254                -2.796           -6.246
+b_prev_slot    4.443 10.964   24.868      0.244                 0.000           -3.357
+b_prev_auction 8.516 16.055   56.596      0.598               -91.664          -98.098
+b_roll_med     7.848 18.228   43.031      0.436               -76.639          -82.569
+   Diebold-Mariano |error| (stat < 0: row model better), p-values:
+   vs       b_prev_slot   lear  lgbm_l1
+   model                               
+   cat_q         -5.110 -2.530    2.640
+   lear          -1.350    NaN    3.720
+   lgbm_l1       -6.360 -3.720      NaN
+   lgbm_q        -4.870 -1.410    2.780
+   qrf           -3.910 -2.200    1.950
+   svr            1.670  2.520    6.560
+   vs       b_prev_slot  lear  lgbm_l1
+   model                              
+   cat_q          0.000 0.011    0.008
+   lear           0.178   NaN    0.000
+   lgbm_l1        0.000 0.000      NaN
+   lgbm_q         0.000 0.159    0.005
+   qrf            0.000 0.027    0.051
+   svr            0.095 0.012    0.000
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                         
+   lgbm_q    1.581        3.162     81.131     80.624       14.537       14.733     8686     89.892     90.767       22.469       24.689     8686
+   cat_q     1.577        3.154     79.150     81.038       14.672       16.171     8686     88.775     91.250       22.856       26.847     8686
+   qrf       1.648        3.295     86.254     80.451       19.780       17.468     8686     92.989     90.778       31.608       29.481     8686
+   DM pinball vs lgbm_q: cat_q stat -0.36 p 0.7152; qrf stat 4.61 p 0.0000
+   MAE by year:
+   model   lear  lgbm_l1  lgbm_q  cat_q   qrf    svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                      
+   2021   3.561    3.555   3.607  3.528 3.625  3.969        3.933           6.731       5.905
+   2022  10.032    9.322   9.955  9.565 9.688 10.829       10.451          18.269      18.636
+   2023   2.711    2.719   2.749  2.685 2.614  3.007        3.025           4.917       4.698
+   2024   8.396    6.999   6.859  7.515 6.929  7.758        6.431           7.173      19.500
+   2025   2.965    2.680   2.642  2.811 2.782  2.935        2.833           6.822       5.595
+   2026   1.404    1.293   1.311  1.341 1.294  1.342        1.365           5.555       2.469
+
+== mFRR|down|week   n = 295
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%
+model                                                                                
+lear           1.843 3.134   13.445      0.133                -0.143            0.000
+lgbm_l1        1.798 3.044   13.019      0.129                 2.306            2.445
+lgbm_q         1.806 3.086   12.944      0.129                 1.836            1.976
+cat_q          1.796 3.080   13.019      0.129                 2.403            2.542
+qrf            1.785 3.078   12.946      0.129                 2.969            3.107
+svr            1.868 3.202   13.947      0.138                -1.542           -1.397
+b_prev_slot    1.840 3.129   13.486      0.134                 0.000            0.143
+b_prev_auction 1.840 3.129   13.486      0.134                 0.000            0.143
+b_roll_med     3.217 5.184   24.938      0.252               -74.863          -74.614
+   Diebold-Mariano |error| (stat < 0: row model better), p-values:
+   vs       b_prev_slot   lear  lgbm_l1
+   model                               
+   cat_q         -0.970 -0.800   -0.030
+   lear           0.090    NaN    0.530
+   lgbm_l1       -0.540 -0.530      NaN
+   lgbm_q        -0.440 -0.450    0.410
+   qrf           -1.140 -1.220   -0.200
+   svr            0.640  0.620    0.880
+   vs       b_prev_slot  lear  lgbm_l1
+   model                              
+   cat_q          0.331 0.422    0.972
+   lear           0.925   NaN    0.597
+   lgbm_l1        0.587 0.597      NaN
+   lgbm_q         0.659 0.654    0.681
+   qrf            0.254 0.222    0.838
+   svr            0.522 0.538    0.377
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                         
+   lgbm_q    0.649        1.297     76.955     84.362        4.853        8.311      243     85.597     93.827        6.675       14.127      243
+   cat_q     0.662        1.324     70.370     86.831        4.233        8.200      243     81.070     92.181        5.650       11.555      243
+   qrf       0.636        1.272     83.951     86.008        6.243        8.870      243     92.593     93.827        9.877       13.033      243
+   DM pinball vs lgbm_q: cat_q stat 1.17 p 0.2404; qrf stat -1.28 p 0.2018
+   MAE by year:
+   model  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                    
+   2021  1.993    1.979   1.978  1.962 1.946 1.939        1.985           1.985       3.730
+   2022  3.903    3.968   3.956  3.876 3.677 3.813        3.894           3.894       6.533
+   2023  2.225    1.998   2.084  2.116 2.292 2.383        2.188           2.188       3.629
+   2024  0.707    0.696   0.678  0.673 0.677 0.757        0.731           0.731       1.186
+   2025  1.092    1.026   1.020  1.026 1.014 1.170        1.091           1.091       2.319
+   2026  0.793    0.790   0.792  0.797 0.778 0.799        0.818           0.818       1.274
+
+== mFRR|up|4h   n = 9,958
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%
+model                                                                                
+lear           0.951 2.772   37.412      0.230                19.565            0.000
+lgbm_l1        0.890 2.688   29.137      0.206                24.728            6.418
+lgbm_q         0.921 2.696   29.445      0.207                22.117            3.173
+cat_q          0.928 2.772   29.593      0.208                21.521            2.432
+qrf            0.953 3.236   28.372      0.205                19.450           -0.143
+svr            1.100 3.131   36.701      0.260                 6.961          -15.670
+b_prev_slot    1.183 3.382   34.766      0.266                 0.000          -24.324
+b_prev_auction 2.286 4.992   63.882      0.548               -93.301         -140.319
+b_roll_med     2.153 5.837   56.721      0.465               -82.038         -126.317
+   Diebold-Mariano |error| (stat < 0: row model better), p-values:
+   vs       b_prev_slot   lear  lgbm_l1
+   model                               
+   cat_q         -9.380 -1.670    3.600
+   lear          -6.930    NaN    4.570
+   lgbm_l1      -10.170 -4.570      NaN
+   lgbm_q        -9.320 -2.100    2.990
+   qrf           -5.610  0.050    2.110
+   svr           -2.830  6.740    8.370
+   vs       b_prev_slot  lear  lgbm_l1
+   model                              
+   cat_q          0.000 0.096    0.000
+   lear           0.000   NaN    0.000
+   lgbm_l1        0.000 0.000      NaN
+   lgbm_q         0.000 0.036    0.003
+   qrf            0.000 0.964    0.035
+   svr            0.005 0.000    0.000
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                         
+   lgbm_q    0.349        0.699     79.444     82.873        2.563        2.829     9418     87.959     91.591        3.791        4.586     9418
+   cat_q     0.352        0.704     75.313     83.351        2.275        2.815     9418     85.092     91.909        3.126        4.422     9418
+   qrf       0.366        0.732     86.292     79.741        4.016        3.596     9418     93.417     89.998        6.265        5.703     9418
+   DM pinball vs lgbm_q: cat_q stat 0.80 p 0.4227; qrf stat 1.70 p 0.0901
+   MAE by year:
+   model  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                    
+   2021  1.573    1.503   1.592  1.602 1.528 1.835        2.046           3.801       3.507
+   2022  1.467    1.375   1.445  1.461 1.621 1.815        1.971           4.055       4.199
+   2023  0.516    0.484   0.494  0.491 0.494 0.604        0.649           1.327       0.975
+   2024  1.154    1.132   1.110  1.125 1.147 1.204        1.325           2.410       2.402
+   2025  0.620    0.578   0.567  0.576 0.594 0.690        0.670           1.182       0.989
+   2026  0.390    0.309   0.306  0.305 0.318 0.327        0.320           0.607       0.671
+
+== mFRR|up|week   n = 295
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%
+model                                                                                
+lear           0.589 1.520   10.504      0.093                 0.500            0.000
+lgbm_l1        0.577 1.517    9.733      0.087                 2.677            2.188
+lgbm_q         0.578 1.505    9.811      0.087                 2.452            1.962
+cat_q          0.580 1.509   10.353      0.089                 2.142            1.651
+qrf            0.578 1.500    9.978      0.089                 2.376            1.886
+svr            0.633 1.566   10.386      0.093                -6.812           -7.349
+b_prev_slot    0.592 1.526   10.225      0.091                 0.000           -0.502
+b_prev_auction 0.592 1.526   10.225      0.091                 0.000           -0.502
+b_roll_med     1.128 2.593   21.433      0.190               -90.405          -91.362
+   Diebold-Mariano |error| (stat < 0: row model better), p-values:
+   vs       b_prev_slot   lear  lgbm_l1
+   model                               
+   cat_q         -1.090 -0.750    0.330
+   lear          -0.150    NaN    0.750
+   lgbm_l1       -1.450 -0.750      NaN
+   lgbm_q        -1.240 -0.690    0.290
+   qrf           -0.880 -0.920    0.170
+   svr            1.720  1.510    2.670
+   vs       b_prev_slot  lear  lgbm_l1
+   model                              
+   cat_q          0.276 0.451    0.740
+   lear           0.877   NaN    0.452
+   lgbm_l1        0.147 0.452      NaN
+   lgbm_q         0.214 0.493    0.774
+   qrf            0.377 0.356    0.863
+   svr            0.085 0.130    0.008
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                         
+   lgbm_q    0.225        0.451     80.247     86.831        1.434        2.070      243     88.066     96.296        2.006        2.876      243
+   cat_q     0.227        0.454     79.424     93.827        1.236        2.337      243     88.066     96.708        1.796        3.289      243
+   qrf       0.222        0.445     86.008     88.889        1.762        2.171      243     95.885     97.119        2.589        3.074      243
+   DM pinball vs lgbm_q: cat_q stat 0.36 p 0.7212; qrf stat -0.45 p 0.6495
+   MAE by year:
+   model  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                    
+   2021  0.810    0.764   0.777  0.804 0.784 0.781        0.809           0.809       1.577
+   2022  0.747    0.754   0.762  0.706 0.763 1.006        0.730           0.730       1.377
+   2023  1.451    1.454   1.445  1.475 1.442 1.499        1.493           1.493       2.671
+   2024  0.098    0.089   0.091  0.091 0.083 0.095        0.092           0.092       0.215
+   2025  0.124    0.113   0.116  0.114 0.114 0.109        0.123           0.123       0.288
+   2026  0.172    0.147   0.132  0.149 0.144 0.151        0.172           0.172       0.407
+
+== Summary: MAE skill vs same-slot-yesterday (%)
+                 lear  lgbm_l1  lgbm_q  cat_q    qrf    svr
+series                                                     
+mFRR|down|4h    3.248    8.884   5.912  6.989  6.858 -2.796
+mFRR|down|week -0.143    2.306   1.836  2.403  2.969 -1.542
+mFRR|up|4h     19.565   24.728  22.117 21.521 19.450  6.961
+mFRR|up|week    0.500    2.677   2.452  2.142  2.376 -6.812
+   best point model per series: mFRR|down|4h: lgbm_l1; mFRR|down|week: qrf; mFRR|up|4h: lgbm_l1; mFRR|up|week: lgbm_l1
+== Summary: mean pinball loss (EUR/MWh), lower is better
+model           cat_q  lgbm_q   qrf
+series                             
+mFRR|down|4h    1.577   1.581 1.648
+mFRR|down|week  0.662   0.649 0.636
+mFRR|up|4h      0.352   0.349 0.366
+mFRR|up|week    0.227   0.225 0.222
+== Summary: 90 % interval coverage raw -> CQR (%)
+model                  cat_q        lgbm_q           qrf
+series                                                  
+mFRR|down|4h    88.8 -> 91.3  89.9 -> 90.8  93.0 -> 90.8
+mFRR|down|week  81.1 -> 92.2  85.6 -> 93.8  92.6 -> 93.8
+mFRR|up|4h      85.1 -> 91.9  88.0 -> 91.6  93.4 -> 90.0
+mFRR|up|week    88.1 -> 96.7  88.1 -> 96.3  95.9 -> 97.1
+== Top features: LEAR (LASSO) (mean importance share over folds; % of folds in top 20)
+   mFRR|down|4h: cal_weekend_share 45.9% (90%); dow_0 23.0% (85%); tgt_prev_slot__price_settle_ch 8.8% (75%); cal_dow 4.4% (40%); it_nord_load_wa_fc_min_mw__dw 3.4% (15%); tgt_prev_slot__price_settle_max 2.4% (35%); ch_tre_da_down_price_min_eur_mwh__lb24h 1.9% (15%); dow_5 1.8% (25%)
+   mFRR|down|week: at_gen_total_mw__lb7d 17.3% (50%); ch_de_lu_outage_trans_forced_n__lb7d 15.6% (67%); at_gen_hydro_ror_mw__lb7d 13.7% (50%); ch_gen_total_da_fc_mw__lb7d 8.0% (33%); fr_gen_hydro_ror_mw__lb24h 2.9% (17%); ch_tn_vertical_feedin_mw__lb7d 2.1% (17%); cal_holiday_share 2.0% (33%); at_gen_total_mw__lb24h 1.9% (17%)
+   mFRR|up|4h: dow_0 33.1% (95%); dow_5 26.4% (100%); cal_dow 16.6% (95%); tgt_prev_slot__price_settle_ch 10.6% (95%); tgt_prev_slot__awarded_mw 1.6% (52%); ch_it_nord_ntc_ya_mw__dw 1.3% (5%); tgt_prev_auction__awarded_mw 1.0% (76%); tgt_prev_auction__price_settle_ch 1.0% (43%)
+   mFRR|up|week: tgt_prev_slot__offered_mw 4.5% (17%); ch_gen_wind_on_mw__lb7d 2.7% (17%); at_gen_total_mw__lb7d 2.7% (17%); it_nord_gen_solar_da_fc_mw__lb24h 2.2% (17%); ch_it_nord_sched_da_mw__lb24h 1.8% (17%); cal_holiday_share 1.2% (17%); xm_de_mfrr_down_avg__lb7d 0.7% (17%); ce_freq_out_50mhz_share__lb24h 0.7% (17%)
+== Top features: LightGBM quantile (mean importance share over folds; % of folds in top 20)
+   mFRR|down|4h: cal_dow 9.8% (85%); it_nord_load_wa_fc_max_mw__dw 5.0% (100%); cal_weekend_share 4.9% (90%); at_load_wa_fc_max_mw__dw 3.2% (85%); tgt_prev_slot__price_settle_ch 2.2% (95%); de_lu_load_wa_fc_max_mw__dw 1.9% (90%); tgt_prev_slot__awarded_mw 1.7% (85%); it_nord_load_wa_fc_min_mw__dw 1.2% (55%)
+   mFRR|down|week: cal_doy_sin 2.1% (83%); it_nord_load_ya_fc_max_mw__dw 1.7% (100%); ce_freq_mean_df_mhz__lb24h 1.1% (67%); de_lu_load_ya_fc_max_mw__dw 1.0% (67%); cal_month 1.0% (33%); de_lu_load_ya_fc_min_mw__dw 0.9% (67%); at_gen_total_da_fc_mw__lb7d 0.7% (50%); it_nord_load_ma_fc_min_mw__dw 0.7% (33%)
+   mFRR|up|4h: cal_dow 8.9% (100%); tgt_prev_slot__price_settle_ch 6.0% (100%); tgt_prev_slot__price_bid_vwap 3.6% (100%); tgt_prev_slot__price_settle_max 3.2% (100%); cal_weekend_share 2.4% (90%); at_load_wa_fc_max_mw__dw 2.0% (86%); it_nord_load_wa_fc_min_mw__dw 2.0% (90%); tgt_prev_slot__awarded_mw 1.9% (76%)
+   mFRR|up|week: ch_hydro_reservoir_mwh__lb7d 2.4% (50%); it_nord_gen_other_mw__lb7d 1.3% (50%); tgt_prev_slot__offered_mw 1.2% (50%); cal_doy_sin 0.9% (33%); ch_it_nord_flow_phys_mw__lb24h 0.9% (50%); ce_freq_mean_abs_df_mhz__lb24h 0.8% (67%); ch_cons_enduse_mw__lb24h 0.7% (33%); fr_ch_ntc_ma_mw__dw 0.7% (33%)
+== Top features: CatBoost MultiQuantile (mean importance share over folds; % of folds in top 20)
+   mFRR|down|4h: cal_dow 18.0% (100%); cal_weekend_share 10.7% (95%); it_nord_load_wa_fc_max_mw__dw 4.1% (100%); tgt_prev_slot__price_settle_ch 2.2% (85%); tgt_prev_slot__price_settle_max 1.7% (75%); at_load_wa_fc_max_mw__dw 1.3% (65%); tgt_prev_slot__price_bid_vwap 1.3% (60%); tgt_prev_auction__price_settle_ch 1.3% (65%)
+   mFRR|down|week: cal_doy_sin 2.4% (67%); ch_hydro_reservoir_mwh__lb7d 1.5% (33%); fr_gen_hydro_ror_mw__lb7d 1.5% (50%); de_lu_load_ya_fc_min_mw__dw 1.2% (50%); it_nord_load_ya_fc_max_mw__dw 1.1% (33%); it_nord_load_ya_fc_min_mw__dw 1.0% (33%); it_nord_hydro_reservoir_mwh__lb7d 1.0% (33%); cal_doy_cos 0.9% (17%)
+   mFRR|up|4h: cal_dow 21.0% (100%); cal_weekend_share 8.6% (100%); tgt_prev_slot__price_settle_ch 6.1% (100%); tgt_prev_slot__price_bid_vwap 3.8% (95%); tgt_prev_slot__price_settle_max 2.9% (90%); it_nord_load_wa_fc_max_mw__dw 1.7% (76%); it_nord_load_wa_fc_min_mw__dw 1.6% (81%); at_load_wa_fc_max_mw__dw 1.3% (52%)
+   mFRR|up|week: ch_it_nord_expl_alloc_mw__lb24h 1.3% (17%); de_lu_gen_hydro_res_mw__lb24h 1.2% (33%); fr_hydro_reservoir_mwh__lb24h 1.2% (33%); de_lu_load_actual_mw__lb7d 1.1% (33%); ch_hydro_reservoir_mwh__lb24h 1.1% (17%); it_nord_gen_other_mw__lb7d 1.0% (33%); at_hydro_reservoir_mwh__lb7d 1.0% (17%); ch_hydro_reservoir_mwh__lb7d 1.0% (17%)
+== Top features: Quantile Regression Forest (mean importance share over folds; % of folds in top 20)
+   mFRR|down|4h: cal_dow 11.5% (100%); cal_weekend_share 5.8% (85%); it_nord_load_wa_fc_max_mw__dw 5.7% (100%); at_load_wa_fc_max_mw__dw 2.8% (90%); tgt_prev_slot__price_settle_max 2.6% (100%); tgt_prev_slot__price_settle_ch 2.4% (100%); tgt_prev_slot__price_bid_vwap 1.6% (100%); it_nord_load_wa_fc_min_mw__dw 1.4% (100%)
+   mFRR|down|week: at_gen_total_mw__lb7d 2.4% (67%); it_nord_load_ya_fc_min_mw__dw 2.1% (100%); at_gen_total_da_fc_mw__lb24h 2.1% (50%); at_hydro_reservoir_mwh__lb7d 1.9% (50%); de_lu_gen_oil_mw__lb24h 1.9% (50%); at_gen_total_da_fc_mw__lb7d 1.7% (83%); ch_precip_30d_hydro_mm__lb24h 1.6% (83%); at_gen_total_mw__lb24h 1.6% (50%)
+   mFRR|up|4h: cal_dow 23.3% (100%); cal_weekend_share 5.7% (95%); it_nord_load_wa_fc_max_mw__dw 4.3% (95%); tgt_prev_slot__price_settle_ch 3.7% (100%); at_load_wa_fc_max_mw__dw 2.7% (86%); tgt_prev_slot__price_bid_vwap 2.6% (100%); tgt_prev_slot__price_settle_max 2.0% (100%); tgt_prev_auction__price_settle_ch 1.8% (100%)
+   mFRR|up|week: tgt_prev_auction__offered_mw 2.7% (100%); tgt_prev_slot__offered_mw 2.5% (100%); ch_hydro_reservoir_mwh__lb7d 2.1% (100%); at_gen_total_mw__lb7d 1.9% (50%); tgt_prev_slot__awarded_mw 1.8% (50%); tgt_prev_auction__awarded_mw 1.8% (50%); tgt_prev_auction__price_settle_max 1.5% (50%); ch_hydro_reservoir_mwh__lb24h 1.4% (83%)
+
+More detail: fold_log.csv (per fold sizes / timings / tuning), lear_coefficients.csv (signed LEAR coefficients), diagnostics/ (breakdowns, worst errors, calibration, importance, plots; see its README.txt)
+== regime window vs default (round 2, expanding window) on the same rows (window_vs_default.csv; columns *_tuned = this run); DM stat < 0 = this run better
+                          n  mae_default  mae_tuned  change_%  skill_default_%  skill_tuned_%  dm_tuned_vs_default     p  pinball_default  pinball_tuned  dm_pinball  p_pinball
+series         model                                                                                                                                                           
+mFRR|down|4h   lear    9226        4.113      4.299     4.516            7.428          3.248                2.890 0.004              NaN            NaN         NaN        NaN
+               lgbm_q  9226        4.054      4.180     3.122            8.761          5.912                2.725 0.006            1.531          1.581       4.505      0.000
+               cat_q   9226        4.053      4.133     1.963            8.780          6.989                2.417 0.016            1.525          1.577       4.358      0.000
+               qrf     9226        4.047      4.138     2.260            8.917          6.858                2.525 0.012            1.599          1.648       3.979      0.000
+               svr     9226        4.615      4.567    -1.028           -3.863         -2.796               -0.858 0.391              NaN            NaN         NaN        NaN
+mFRR|down|week lear     295        1.844      1.843    -0.072           -0.215         -0.143               -0.051 0.959              NaN            NaN         NaN        NaN
+               lgbm_q   295        1.786      1.806     1.146            2.948          1.836                0.894 0.371            0.638          0.649       1.856      0.063
+               cat_q    295        1.770      1.796     1.466            3.813          2.403                1.257 0.209            0.648          0.662       2.260      0.024
+               qrf      295        1.726      1.785     3.459            6.214          2.969                1.852 0.064            0.617          0.636       2.248      0.025
+               svr      295        1.851      1.868     0.962           -0.574         -1.542                1.059 0.290              NaN            NaN         NaN        NaN
+mFRR|up|4h     lear    9958        0.977      0.951    -2.612           17.407         19.565               -2.122 0.034              NaN            NaN         NaN        NaN
+               lgbm_q  9958        0.888      0.921     3.691           24.890         22.117                3.108 0.002            0.338          0.349       3.630      0.000
+               cat_q   9958        0.895      0.928     3.666           24.296         21.521                3.370 0.001            0.338          0.352       4.262      0.000
+               qrf     9958        0.925      0.953     2.922           21.737         19.450                1.151 0.250            0.351          0.366       2.341      0.019
+               svr     9958        1.149      1.100    -4.250            2.831          6.961               -6.418 0.000              NaN            NaN         NaN        NaN
+mFRR|up|week   lear     295        0.599      0.589    -1.597           -1.115          0.500               -0.454 0.650              NaN            NaN         NaN        NaN
+               lgbm_q   295        0.578      0.578     0.008            2.460          2.452                0.013 0.989            0.225          0.225       0.387      0.699
+               cat_q    295        0.572      0.580     1.430            3.522          2.142                1.514 0.130            0.224          0.227       1.231      0.218
+               qrf      295        0.577      0.578     0.156            2.528          2.376                0.185 0.853            0.226          0.222      -0.841      0.401
+               svr      295        0.623      0.633     1.606           -5.124         -6.812                1.400 0.161              NaN            NaN         NaN        NaN
+== Training window rule per series (folds)
+                                folds  median_n_train
+series         rule                                  
+mFRR|down|4h   regime_fallback      1      18,918.000
+               regime_since        19       3,822.000
+mFRR|down|week regime_fallback      3         352.000
+               regime_since         3         182.000
+mFRR|up|4h     regime_fallback      1      18,658.000
+               regime_since        20       4,380.000
+mFRR|up|week   regime_fallback      3         358.000
+               regime_since         3         182.000
+
+total runtime 2006s
+[2026-10-15T21:19:24] rq2_5_tier1: ok after 33 min 26 s
+[2026-10-15T21:19:26] rq2_5_tier1 --products mfrr --window regime --break-extra 2021-09-01 2023-07-01 --out Modelling/Output/rq2_9rc_mfrr
+mfrr: 43,018 blocks, 778 features
+   mFRR|down|4h: breaks 2018-06-11, 2018-10-01, 2019-07-01, 2020-07-01, 2021-09-01, 2023-07-01, 2025-09-29, 2025-09-30
+   mFRR|down|4h     folds= 20  lear   331s  lgbm_q   184s  cat_q   106s  qrf   189s  svr    33s
+   mFRR|down|week: breaks 2018-06-11, 2018-10-01, 2019-07-01, 2020-07-06, 2021-09-01, 2023-07-01, 2025-09-29, 2025-10-06
+   mFRR|down|week   folds=  6  lear    23s  lgbm_q    26s  cat_q    19s  qrf     3s  svr     1s
+   mFRR|up|4h: breaks 2018-06-11, 2018-10-01, 2019-07-01, 2020-07-01, 2021-09-01, 2023-07-01, 2025-09-29, 2025-09-30
+   mFRR|up|4h       folds= 21  lear   131s  lgbm_q   271s  cat_q   148s  qrf   136s  svr    27s
+   mFRR|up|week: breaks 2018-06-11, 2018-10-01, 2019-07-01, 2020-07-06, 2021-09-01, 2023-07-01, 2025-09-29, 2025-10-06
+   mFRR|up|week     folds=  6  lear    30s  lgbm_q    34s  cat_q    17s  qrf     4s  svr     1s
+   diagnostics written: Modelling/Output/rq2_9rc_mfrr/diagnostics
+RQ2 9.2 round 2 (Tier 1, ML_Options.md) - strong baselines and probabilistic forecasts.
+Rolling origin, regime window (since the latest break of regime_afrr_dir, regime_fcr, regime_de_zone, regime_mfrr_merged, regime_afrr_daily; extra breaks 2021-09-01, 2023-07-01), refit every 3 months (weekly 12); test from 2021-01-01; errors in EUR/MWh on the common rows of all point models and baselines.
+Models: LEAR (LASSO), LightGBM quantile, CatBoost MultiQuantile, Quantile Regression Forest, SVR (RBF); quantiles 05, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95; seeds 1; LEAR target delta.
+No hyperparameter search (fixed defaults; LEAR alpha by LassoCV, TimeSeriesSplit(4)).
+lgbm_l1 = round-1 LightGBM (rq2_2_delta), merged for comparison.
+
+== mFRR|down|4h   n = 9,226
+                 MAE   RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%
+model                                                                                 
+lear           4.300 10.795   24.760      0.236                 3.216            0.000
+lgbm_l1        4.048 10.226   23.437      0.229                 8.884            5.856
+lgbm_q         4.190 10.557   23.878      0.233                 5.689            2.555
+cat_q          4.163 10.672   23.396      0.228                 6.313            3.200
+qrf            4.220 10.582   24.227      0.235                 5.011            1.854
+svr            4.465 10.802   25.725      0.250                -0.497           -3.837
+b_prev_slot    4.443 10.964   24.868      0.244                 0.000           -3.323
+b_prev_auction 8.516 16.055   56.596      0.598               -91.664          -98.033
+b_roll_med     7.848 18.228   43.031      0.436               -76.639          -82.509
+   Diebold-Mariano |error| (stat < 0: row model better), p-values:
+   vs       b_prev_slot   lear  lgbm_l1
+   model                               
+   cat_q         -5.280 -2.260    3.020
+   lear          -1.750    NaN    3.930
+   lgbm_l1       -6.360 -3.930      NaN
+   lgbm_q        -4.010 -1.740    2.950
+   qrf           -3.000 -1.010    3.510
+   svr            0.310  2.290    5.970
+   vs       b_prev_slot  lear  lgbm_l1
+   model                              
+   cat_q          0.000 0.024    0.003
+   lear           0.079   NaN    0.000
+   lgbm_l1        0.000 0.000      NaN
+   lgbm_q         0.000 0.083    0.003
+   qrf            0.003 0.312    0.000
+   svr            0.757 0.022    0.000
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                         
+   lgbm_q    1.591        3.183     81.349     80.256       14.720       14.701     8686     89.523     90.490       24.365       26.260     8686
+   cat_q     1.595        3.191     77.872     80.958       13.410       15.153     8686     87.428     91.020       20.444       25.260     8686
+   qrf       1.700        3.400     85.609     80.117       20.126       17.901     8686     92.781     90.467       34.921       32.396     8686
+   DM pinball vs lgbm_q: cat_q stat 0.30 p 0.7671; qrf stat 5.57 p 0.0000
+   MAE by year:
+   model   lear  lgbm_l1  lgbm_q  cat_q   qrf    svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                      
+   2021   3.622    3.555   3.590  3.523 3.586  3.945        3.933           6.731       5.905
+   2022  10.164    9.322   9.727  9.783 9.700 10.065       10.451          18.269      18.636
+   2023   2.742    2.719   2.777  2.679 2.779  3.032        3.025           4.917       4.698
+   2024   6.493    6.999   6.543  7.058 8.098  7.680        6.431           7.173      19.500
+   2025   2.934    2.680   2.890  2.804 2.929  3.147        2.833           6.822       5.595
+   2026   1.404    1.293   1.311  1.341 1.294  1.342        1.365           5.555       2.469
+
+== mFRR|down|week   n = 295
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%
+model                                                                                
+lear           1.844 3.129   13.519      0.134                -0.215            0.000
+lgbm_l1        1.798 3.044   13.019      0.129                 2.306            2.516
+lgbm_q         1.786 3.031   12.984      0.129                 2.948            3.157
+cat_q          1.770 3.064   12.819      0.127                 3.813            4.019
+qrf            1.726 2.978   12.680      0.126                 6.214            6.415
+svr            1.851 3.190   13.772      0.137                -0.574           -0.358
+b_prev_slot    1.840 3.129   13.486      0.134                 0.000            0.215
+b_prev_auction 1.840 3.129   13.486      0.134                 0.000            0.215
+b_roll_med     3.217 5.184   24.938      0.252               -74.863          -74.487
+   Diebold-Mariano |error| (stat < 0: row model better), p-values:
+   vs       b_prev_slot   lear  lgbm_l1
+   model                               
+   cat_q         -1.660 -1.710   -0.540
+   lear           0.330    NaN    0.600
+   lgbm_l1       -0.540 -0.600      NaN
+   lgbm_q        -0.680 -0.740   -1.090
+   qrf           -2.170 -2.250   -1.460
+   svr            0.280  0.190    0.680
+   vs       b_prev_slot  lear  lgbm_l1
+   model                              
+   cat_q          0.097 0.087    0.591
+   lear           0.740   NaN    0.545
+   lgbm_l1        0.587 0.545      NaN
+   lgbm_q         0.497 0.460    0.275
+   qrf            0.030 0.024    0.143
+   svr            0.776 0.853    0.493
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                         
+   lgbm_q    0.638        1.275     73.663     83.128        5.166        8.525      243     88.889     93.827        7.365       14.719      243
+   cat_q     0.648        1.295     71.193     86.831        4.523        8.463      243     83.128     90.947        6.225       12.049      243
+   qrf       0.617        1.233     86.008     86.831        6.184        8.746      243     93.827     94.650        9.992       13.082      243
+   DM pinball vs lgbm_q: cat_q stat 0.94 p 0.3478; qrf stat -2.33 p 0.0197
+   MAE by year:
+   model  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                    
+   2021  1.993    1.979   1.978  1.962 1.946 1.939        1.985           1.985       3.730
+   2022  3.903    3.968   3.956  3.876 3.677 3.813        3.894           3.894       6.533
+   2023  2.214    1.998   1.914  1.989 2.003 2.341        2.188           2.188       3.629
+   2024  0.685    0.696   0.692  0.654 0.646 0.736        0.731           0.731       1.186
+   2025  1.133    1.026   1.059  1.025 0.996 1.132        1.091           1.091       2.319
+   2026  0.793    0.790   0.792  0.797 0.778 0.799        0.818           0.818       1.274
+
+== mFRR|up|4h   n = 9,958
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%
+model                                                                                
+lear           0.987 2.900   36.897      0.229                16.519            0.000
+lgbm_l1        0.890 2.688   29.137      0.206                24.728            9.833
+lgbm_q         0.949 2.826   30.670      0.216                19.757            3.879
+cat_q          0.956 2.865   30.605      0.214                19.133            3.131
+qrf            0.915 2.723   29.391      0.208                22.596            7.279
+svr            1.088 3.109   36.043      0.256                 7.983          -10.225
+b_prev_slot    1.183 3.382   34.766      0.266                 0.000          -19.788
+b_prev_auction 2.286 4.992   63.882      0.548               -93.301         -131.551
+b_roll_med     2.153 5.837   56.721      0.465               -82.038         -118.060
+   Diebold-Mariano |error| (stat < 0: row model better), p-values:
+   vs       b_prev_slot   lear  lgbm_l1
+   model                               
+   cat_q         -9.260 -1.820    5.080
+   lear          -5.950    NaN    5.190
+   lgbm_l1      -10.170 -5.190      NaN
+   lgbm_q        -8.460 -2.520    4.990
+   qrf           -8.370 -4.400    1.940
+   svr           -3.500  4.130    8.970
+   vs       b_prev_slot  lear  lgbm_l1
+   model                              
+   cat_q          0.000 0.069    0.000
+   lear           0.000   NaN    0.000
+   lgbm_l1        0.000 0.000      NaN
+   lgbm_q         0.000 0.012    0.000
+   qrf            0.000 0.000    0.052
+   svr            0.000 0.000    0.000
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                         
+   lgbm_q    0.359        0.719     79.295     82.788        2.626        2.957     9418     87.779     91.208        3.820        4.660     9418
+   cat_q     0.368        0.736     73.466     82.226        2.201        2.884     9418     82.003     91.325        3.139        4.556     9418
+   qrf       0.355        0.711     85.485     78.669        3.914        3.486     9418     92.408     89.010        5.888        5.387     9418
+   DM pinball vs lgbm_q: cat_q stat 2.61 p 0.0090; qrf stat -0.53 p 0.5941
+   MAE by year:
+   model  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                    
+   2021  1.649    1.503   1.606  1.573 1.470 1.862        2.046           3.801       3.507
+   2022  1.609    1.375   1.511  1.607 1.453 1.734        1.971           4.055       4.199
+   2023  0.514    0.484   0.512  0.500 0.522 0.615        0.649           1.327       0.975
+   2024  1.158    1.132   1.229  1.196 1.197 1.218        1.325           2.410       2.402
+   2025  0.583    0.578   0.586  0.578 0.602 0.672        0.670           1.182       0.989
+   2026  0.390    0.309   0.306  0.305 0.318 0.327        0.320           0.607       0.671
+
+== mFRR|up|week   n = 295
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%
+model                                                                                
+lear           0.599 1.532   10.295      0.091                -1.115            0.000
+lgbm_l1        0.577 1.517    9.733      0.087                 2.677            3.750
+lgbm_q         0.578 1.517    9.642      0.086                 2.460            3.536
+cat_q          0.572 1.497    9.973      0.088                 3.522            4.586
+qrf            0.577 1.522    9.808      0.087                 2.528            3.603
+svr            0.623 1.552   10.140      0.091                -5.124           -3.965
+b_prev_slot    0.592 1.526   10.225      0.091                 0.000            1.103
+b_prev_auction 0.592 1.526   10.225      0.091                 0.000            1.103
+b_roll_med     1.128 2.593   21.433      0.190               -90.405          -88.305
+   Diebold-Mariano |error| (stat < 0: row model better), p-values:
+   vs       b_prev_slot   lear  lgbm_l1
+   model                               
+   cat_q         -1.700 -1.920   -0.530
+   lear           2.230    NaN    1.850
+   lgbm_l1       -1.450 -1.850      NaN
+   lgbm_q        -1.310 -1.740    0.410
+   qrf           -1.080 -1.390    0.110
+   svr            1.300  1.050    2.280
+   vs       b_prev_slot  lear  lgbm_l1
+   model                              
+   cat_q          0.089 0.055    0.593
+   lear           0.025   NaN    0.064
+   lgbm_l1        0.147 0.064      NaN
+   lgbm_q         0.189 0.082    0.685
+   qrf            0.281 0.165    0.913
+   svr            0.193 0.294    0.023
+   Probabilistic (pinball / CRPS in EUR/MWh; coverage %, width EUR/MWh on CQR-eligible rows):
+           pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_raw  width80_cqr  n_cqr80  cov90_raw  cov90_cqr  width90_raw  width90_cqr  n_cqr90
+   model                                                                                                                                         
+   lgbm_q    0.225        0.449     81.070     87.243        1.399        2.017      243     90.123     95.473        2.214        3.029      243
+   cat_q     0.224        0.448     79.835     93.004        1.164        2.256      243     90.947     97.119        1.868        3.337      243
+   qrf       0.226        0.451     84.362     88.889        1.801        2.223      243     96.296     97.119        2.750        3.219      243
+   DM pinball vs lgbm_q: cat_q stat -0.21 p 0.8349; qrf stat 0.24 p 0.8075
+   MAE by year:
+   model  lear  lgbm_l1  lgbm_q  cat_q   qrf   svr  b_prev_slot  b_prev_auction  b_roll_med
+   year                                                                                    
+   2021  0.810    0.764   0.777  0.804 0.784 0.781        0.809           0.809       1.577
+   2022  0.747    0.754   0.762  0.706 0.763 1.006        0.730           0.730       1.377
+   2023  1.510    1.454   1.453  1.426 1.438 1.458        1.493           1.493       2.671
+   2024  0.094    0.089   0.087  0.086 0.087 0.081        0.092           0.092       0.215
+   2025  0.123    0.113   0.111  0.122 0.109 0.107        0.123           0.123       0.288
+   2026  0.172    0.147   0.132  0.149 0.144 0.151        0.172           0.172       0.407
+
+== Summary: MAE skill vs same-slot-yesterday (%)
+                 lear  lgbm_l1  lgbm_q  cat_q    qrf    svr
+series                                                     
+mFRR|down|4h    3.216    8.884   5.689  6.313  5.011 -0.497
+mFRR|down|week -0.215    2.306   2.948  3.813  6.214 -0.574
+mFRR|up|4h     16.519   24.728  19.757 19.133 22.596  7.983
+mFRR|up|week   -1.115    2.677   2.460  3.522  2.528 -5.124
+   best point model per series: mFRR|down|4h: lgbm_l1; mFRR|down|week: qrf; mFRR|up|4h: lgbm_l1; mFRR|up|week: cat_q
+== Summary: mean pinball loss (EUR/MWh), lower is better
+model           cat_q  lgbm_q   qrf
+series                             
+mFRR|down|4h    1.595   1.591 1.700
+mFRR|down|week  0.648   0.638 0.617
+mFRR|up|4h      0.368   0.359 0.355
+mFRR|up|week    0.224   0.225 0.226
+== Summary: 90 % interval coverage raw -> CQR (%)
+model                  cat_q        lgbm_q           qrf
+series                                                  
+mFRR|down|4h    87.4 -> 91.0  89.5 -> 90.5  92.8 -> 90.5
+mFRR|down|week  83.1 -> 90.9  88.9 -> 93.8  93.8 -> 94.7
+mFRR|up|4h      82.0 -> 91.3  87.8 -> 91.2  92.4 -> 89.0
+mFRR|up|week    90.9 -> 97.1  90.1 -> 95.5  96.3 -> 97.1
+== Top features: LEAR (LASSO) (mean importance share over folds; % of folds in top 20)
+   mFRR|down|4h: cal_weekend_share 34.6% (75%); tgt_prev_slot__price_settle_ch 12.8% (75%); dow_0 8.7% (55%); it_nord_load_wa_fc_min_mw__dw 3.4% (15%); cal_dow 3.0% (25%); it_nord_load_wa_fc_max_mw__dw 1.9% (35%); ch_tre_da_down_price_min_eur_mwh__lb24h 1.9% (15%); ch_tre_da_down_price_max_eur_mwh__lb24h 1.7% (10%)
+   mFRR|down|week: at_gen_hydro_ror_mw__lb7d 15.2% (50%); ch_de_lu_outage_trans_forced_n__lb7d 7.2% (50%); fr_gen_hydro_ror_mw__lb24h 6.2% (50%); de_lu_load_ya_fc_max_mw__dw 5.6% (33%); cal_holiday_share 5.4% (50%); ch_tn_vertical_feedin_mw__lb7d 2.6% (33%); ch_hydro_reservoir_mwh__lb24h 1.5% (33%); de_lu_imb_price_long_eur_mwh__lb7d 1.3% (33%)
+   mFRR|up|4h: dow_0 35.2% (95%); dow_5 22.7% (100%); cal_dow 17.1% (95%); tgt_prev_slot__price_settle_ch 7.9% (90%); tgt_prev_auction__price_settle_ch 2.1% (52%); ch_tre_sa_down_price_min_eur_mwh__lb7d 1.4% (19%); ch_it_nord_ntc_ya_mw__dw 1.3% (5%); cal_weekend_share 1.1% (19%)
+   mFRR|up|week: no feature selected in any fold (model = same slot yesterday + constant)
+== Top features: LightGBM quantile (mean importance share over folds; % of folds in top 20)
+   mFRR|down|4h: cal_dow 6.2% (85%); it_nord_load_wa_fc_max_mw__dw 4.0% (95%); cal_weekend_share 3.7% (90%); tgt_prev_slot__price_settle_ch 3.0% (85%); de_lu_load_wa_fc_max_mw__dw 2.3% (80%); at_load_wa_fc_max_mw__dw 2.2% (80%); tgt_prev_slot__price_bid_vwap 1.9% (65%); tgt_prev_slot__price_settle_max 1.4% (60%)
+   mFRR|down|week: cal_doy_sin 3.1% (100%); de_lu_load_ya_fc_max_mw__dw 1.4% (67%); cal_month 1.4% (67%); it_nord_load_ya_fc_max_mw__dw 1.4% (67%); fr_gen_hydro_ror_mw__lb7d 1.3% (67%); ce_freq_mean_df_mhz__lb24h 1.2% (83%); at_gen_total_mw__lb7d 1.1% (50%); it_nord_load_ya_fc_min_mw__dw 1.1% (50%)
+   mFRR|up|4h: cal_dow 7.5% (100%); tgt_prev_slot__price_settle_ch 5.2% (100%); tgt_prev_slot__price_settle_max 3.2% (100%); tgt_prev_slot__price_bid_vwap 3.2% (100%); it_nord_load_wa_fc_min_mw__dw 2.6% (90%); it_nord_load_wa_fc_max_mw__dw 2.3% (90%); at_load_wa_fc_max_mw__dw 2.1% (71%); cal_weekend_share 2.0% (90%)
+   mFRR|up|week: ch_cons_enduse_mw__lb24h 1.3% (67%); ch_hydro_reservoir_mwh__lb7d 1.2% (33%); de_lu_load_ma_fc_min_mw__dw 1.2% (83%); de_lu_load_ma_fc_max_mw__dw 0.9% (67%); de_lu_load_da_fc_mw__lb7d 0.7% (50%); tgt_prev_auction__offered_mw 0.7% (17%); ch_fr_expl_price_eur_mwh__lb24h 0.7% (50%); tgt_prev_slot__awarded_mw 0.7% (33%)
+== Top features: CatBoost MultiQuantile (mean importance share over folds; % of folds in top 20)
+   mFRR|down|4h: cal_dow 12.3% (100%); cal_weekend_share 8.4% (95%); it_nord_load_wa_fc_max_mw__dw 2.6% (85%); tgt_prev_slot__price_settle_ch 2.3% (55%); tgt_prev_auction__price_settle_ch 1.8% (65%); tgt_prev_slot__price_bid_vwap 1.6% (50%); de_lu_load_wa_fc_max_mw__dw 1.6% (60%); tgt_prev_slot__price_settle_max 1.5% (45%)
+   mFRR|down|week: cal_doy_sin 2.8% (83%); cal_month 2.0% (83%); it_nord_load_ya_fc_max_mw__dw 1.7% (67%); fr_gen_hydro_ror_mw__lb7d 1.7% (67%); de_lu_load_ya_fc_max_mw__dw 1.5% (67%); ch_hydro_reservoir_mwh__lb7d 1.4% (33%); it_nord_load_ya_fc_min_mw__dw 1.3% (50%); ch_hydro_reservoir_mwh__lb24h 1.2% (33%)
+   mFRR|up|4h: cal_dow 16.8% (100%); cal_weekend_share 7.0% (100%); tgt_prev_slot__price_settle_ch 4.5% (95%); tgt_prev_slot__price_bid_vwap 3.4% (95%); tgt_prev_auction__price_settle_ch 2.3% (81%); tgt_prev_slot__price_settle_max 2.2% (76%); it_nord_load_wa_fc_min_mw__dw 1.9% (76%); tgt_prev_auction__price_bid_vwap 1.8% (81%)
+   mFRR|up|week: ch_transit_mw__lb7d 1.4% (33%); it_nord_load_ma_fc_min_mw__dw 1.4% (50%); tgt_prev_slot__price_bid_vwap 1.3% (50%); ch_de_expl_alloc_mw__lb7d 1.2% (17%); fr_gen_hydro_ror_mw__lb24h 1.1% (33%); it_nord_ch_expl_offer_mw__lb24h 1.1% (17%); ch_gen_solar_mw__lb24h 1.0% (17%); ch_export_mw__lb7d 0.9% (33%)
+== Top features: Quantile Regression Forest (mean importance share over folds; % of folds in top 20)
+   mFRR|down|4h: cal_dow 8.0% (100%); it_nord_load_wa_fc_max_mw__dw 4.2% (100%); cal_weekend_share 4.1% (85%); tgt_prev_slot__price_settle_max 2.9% (100%); tgt_prev_slot__price_settle_ch 2.7% (100%); at_load_wa_fc_max_mw__dw 2.3% (90%); de_lu_load_wa_fc_max_mw__dw 2.0% (80%); tgt_prev_slot__price_bid_vwap 1.8% (95%)
+   mFRR|down|week: at_hydro_reservoir_mwh__lb7d 3.6% (100%); de_lu_gen_oil_mw__lb24h 2.9% (100%); ch_hydro_reservoir_mwh__lb24h 2.3% (100%); it_nord_load_ya_fc_min_mw__dw 2.2% (100%); it_nord_load_ya_fc_max_mw__dw 2.1% (100%); ch_hydro_reservoir_mwh__lb7d 2.1% (100%); ch_precip_30d_hydro_mm__lb24h 1.8% (83%); cal_doy_sin 1.6% (100%)
+   mFRR|up|4h: cal_dow 22.4% (100%); cal_weekend_share 5.3% (95%); it_nord_load_wa_fc_max_mw__dw 4.5% (95%); tgt_prev_auction__price_bid_vwap 4.0% (100%); tgt_prev_slot__price_settle_ch 3.5% (100%); tgt_prev_auction__price_settle_ch 3.4% (100%); tgt_prev_auction__price_settle_max 2.9% (100%); tgt_prev_slot__price_bid_vwap 2.4% (100%)
+   mFRR|up|week: tgt_prev_auction__awarded_mw 3.2% (100%); tgt_prev_slot__awarded_mw 3.1% (100%); de_lu_gen_wind_off_da_fc_mw__lb7d 2.5% (100%); ch_hydro_reservoir_mwh__lb7d 1.7% (100%); it_nord_gen_biomass_mw__lb24h 1.7% (100%); tgt_prev_auction__offered_mw 1.6% (100%); tgt_prev_slot__offered_mw 1.5% (100%); ch_fr_expl_price_eur_mwh__lb24h 1.4% (67%)
+
+More detail: fold_log.csv (per fold sizes / timings / tuning), lear_coefficients.csv (signed LEAR coefficients), diagnostics/ (breakdowns, worst errors, calibration, importance, plots; see its README.txt)
+== regime window vs default (round 2, expanding window) on the same rows (window_vs_default.csv; columns *_tuned = this run); DM stat < 0 = this run better
+                          n  mae_default  mae_tuned  change_%  skill_default_%  skill_tuned_%  dm_tuned_vs_default     p  pinball_default  pinball_tuned  dm_pinball  p_pinball
+series         model                                                                                                                                                           
+mFRR|down|4h   lear    9226        4.113      4.300     4.550            7.428          3.216                3.165 0.002              NaN            NaN         NaN        NaN
+               lgbm_q  9226        4.054      4.190     3.366            8.761          5.689                2.944 0.003            1.531          1.591       4.078      0.000
+               cat_q   9226        4.053      4.163     2.704            8.780          6.313                2.560 0.010            1.525          1.595       3.773      0.000
+               qrf     9226        4.047      4.220     4.289            8.917          5.011                3.352 0.001            1.599          1.700       4.663      0.000
+               svr     9226        4.615      4.465    -3.241           -3.863         -0.497               -2.017 0.044              NaN            NaN         NaN        NaN
+mFRR|down|week lear     295        1.844      1.844     0.000           -0.215         -0.215                  NaN   NaN              NaN            NaN         NaN        NaN
+               lgbm_q   295        1.786      1.786     0.000            2.948          2.948                  NaN   NaN            0.638          0.638         NaN        NaN
+               cat_q    295        1.770      1.770     0.000            3.813          3.813                  NaN   NaN            0.648          0.648         NaN        NaN
+               qrf      295        1.726      1.726     0.000            6.214          6.214                  NaN   NaN            0.617          0.617         NaN        NaN
+               svr      295        1.851      1.851     0.000           -0.574         -0.574                  NaN   NaN              NaN            NaN         NaN        NaN
+mFRR|up|4h     lear    9958        0.977      0.987     1.075           17.407         16.519                0.615 0.538              NaN            NaN         NaN        NaN
+               lgbm_q  9958        0.888      0.949     6.833           24.890         19.757                5.245 0.000            0.338          0.359       5.810      0.000
+               cat_q   9958        0.895      0.956     6.821           24.296         19.133                5.602 0.000            0.338          0.368       6.160      0.000
+               qrf     9958        0.925      0.915    -1.097           21.737         22.596               -1.078 0.281            0.351          0.355       1.182      0.237
+               svr     9958        1.149      1.088    -5.302            2.831          7.983               -5.275 0.000              NaN            NaN         NaN        NaN
+mFRR|up|week   lear     295        0.599      0.599     0.000           -1.115         -1.115                  NaN   NaN              NaN            NaN         NaN        NaN
+               lgbm_q   295        0.578      0.578     0.000            2.460          2.460                  NaN   NaN            0.225          0.225         NaN        NaN
+               cat_q    295        0.572      0.572     0.000            3.522          3.522                  NaN   NaN            0.224          0.224         NaN        NaN
+               qrf      295        0.577      0.577     0.000            2.528          2.528                  NaN   NaN            0.226          0.226         NaN        NaN
+               svr      295        0.623      0.623     0.000           -5.124         -5.124                  NaN   NaN              NaN            NaN         NaN        NaN
+== Training window rule per series (folds)
+                                folds  median_n_train
+series         rule                                  
+mFRR|down|4h   regime_fallback      4      16,407.000
+               regime_since        16       1,562.000
+mFRR|down|week regime_fallback      6         430.500
+mFRR|up|4h     regime_fallback      3      15,580.000
+               regime_since        18       1,536.000
+mFRR|up|week   regime_fallback      6         436.500
+
+total runtime 1722s
+[2026-10-15T21:48:09] rq2_5_tier1: ok after 28 min 42 s
+[2026-10-15T21:48:10] rq2_9_regime_compare 
+variant sliding: rq2_9s_afrr, rq2_9s_fcr, rq2_9s_mfrr
+variant regime: rq2_9r_afrr, rq2_9r_fcr, rq2_9r_mfrr
+variant regime_crisis: rq2_9rc_mfrr
+RQ2 step 9 - training window (done_todo 2.2 item 7): variant vs expanding window (round 2), same rows.
+change_% = MAE change of the variant (negative = better); dm < 0 = variant better; Newey-West lags 12 (4h) / 4 (week).
+Variants: sliding (rq2_9s_afrr, rq2_9s_fcr, rq2_9s_mfrr), regime (rq2_9r_afrr, rq2_9r_fcr, rq2_9r_mfrr), regime_crisis (rq2_9rc_mfrr)
+
+== sliding: MAE skill vs naive (%) expanding -> variant, p of DM
+model                                  cat_q                        lear                        lgbm_q                         qrf                           svr
+series                                                                                                                                                          
+FCR|sym|4h              4.1 -> 3.7 (p=0.184)        4.0 -> 3.4 (p=0.056)    4.3 -> 3.3 (p=0.002) worse        4.2 -> 3.8 (p=0.055)         0.2 -> -0.4 (p=0.100)
+aFRR|down|4h              7.3 -> 7.3 (p=nan)          2.4 -> 2.4 (p=nan)            8.3 -> 8.3 (p=nan)          3.7 -> 3.7 (p=nan)            3.4 -> 3.4 (p=nan)
+aFRR|down|week         13.4 -> 8.7 (p=0.081)  8.1 -> 0.9 (p=0.005) worse        12.8 -> 14.6 (p=0.233)      16.7 -> 14.9 (p=0.254)          7.6 -> 7.8 (p=0.841)
+aFRR|up|4h                6.2 -> 6.2 (p=nan)        -0.9 -> -0.9 (p=nan)            1.6 -> 1.6 (p=nan)        -1.0 -> -1.0 (p=nan)          -1.2 -> -1.2 (p=nan)
+aFRR|up|week            3.4 -> 2.7 (p=0.585)      -0.3 -> -2.0 (p=0.056)          2.5 -> 1.5 (p=0.430)      -2.5 -> -2.5 (p=0.996)  -6.6 -> -8.7 (p=0.012) worse
+mFRR|down|4h      8.8 -> 6.0 (p=0.003) worse  7.4 -> 1.5 (p=0.000) worse    8.8 -> 4.2 (p=0.000) worse  8.9 -> 3.6 (p=0.000) worse  -3.9 -> -8.4 (p=0.003) worse
+mFRR|down|week          3.8 -> 2.4 (p=0.332)      -0.2 -> -0.6 (p=0.838)          2.9 -> 1.9 (p=0.472)        6.2 -> 2.2 (p=0.076)        -0.6 -> -4.6 (p=0.110)
+mFRR|up|4h      24.3 -> 22.6 (p=0.042) worse      17.4 -> 18.2 (p=0.391)  24.9 -> 23.1 (p=0.007) worse      21.7 -> 20.1 (p=0.186)   2.8 -> 6.7 (p=0.000) better
+mFRR|up|week            3.5 -> 2.9 (p=0.633)      -1.1 -> -1.4 (p=0.764)   2.5 -> -1.6 (p=0.015) worse        2.5 -> 3.5 (p=0.370)        -5.1 -> -7.5 (p=0.107)
+   significantly better: 1 / worse: 11 of 45 series x model pairs
+   pinball: significantly better 0 / worse 10 of 21
+   best model per series (expanding -> variant): FCR|sym|4h: lgbm_q +4.3% -> qrf +3.8%; aFRR|down|4h: lgbm_q +8.3% -> lgbm_q +8.3%; aFRR|down|week: qrf +16.7% -> qrf +14.9%; aFRR|up|4h: cat_q +6.2% -> cat_q +6.2%; aFRR|up|week: cat_q +3.4% -> cat_q +2.7%; mFRR|down|4h: qrf +8.9% -> cat_q +6.0%; mFRR|down|week: qrf +6.2% -> cat_q +2.4%; mFRR|up|4h: lgbm_q +24.9% -> lgbm_q +23.1%; mFRR|up|week: cat_q +3.5% -> qrf +3.5%
+   by period - MAE change % of the variant ((+) / (-) = Holm-significantly better / worse):
+   lear:
+   period         1_pre_crisis 2_crisis 3_post_crisis 4_post_merger
+   series                                                          
+   FCR|sym|4h              0.0  1.3 (-)          -0.4           1.3
+   aFRR|down|4h            NaN      NaN           NaN           0.0
+   aFRR|down|week          0.0  7.6 (-)      14.1 (-)          -9.5
+   aFRR|up|4h              NaN      NaN           NaN           0.0
+   aFRR|up|week            0.0      0.3           9.1          -3.0
+   mFRR|down|4h       16.6 (-)  5.6 (-)       5.5 (-)       6.6 (-)
+   mFRR|down|week          0.1      0.9          -1.5           2.3
+   mFRR|up|4h          4.8 (-)     -2.7           2.2          -6.1
+   mFRR|up|week           -3.2      0.8           4.4         -10.0
+   lgbm_q:
+   period         1_pre_crisis 2_crisis 3_post_crisis 4_post_merger
+   series                                                          
+   FCR|sym|4h              0.0  1.9 (-)           0.7          -0.2
+   aFRR|down|4h            NaN      NaN           NaN           0.0
+   aFRR|down|week          0.0     -3.6           4.5          -3.7
+   aFRR|up|4h              NaN      NaN           NaN           0.0
+   aFRR|up|week            0.0      1.2           1.1          -0.2
+   mFRR|down|4h       18.5 (-)  3.8 (-)       4.8 (-)       2.6 (-)
+   mFRR|down|week          1.3      2.1          -1.8          -1.5
+   mFRR|up|4h              3.4      2.6           1.5           1.4
+   mFRR|up|week            4.8      3.2           8.6          17.3
+   cat_q:
+   period         1_pre_crisis 2_crisis 3_post_crisis 4_post_merger
+   series                                                          
+   FCR|sym|4h              0.0     -0.2       1.6 (-)          -0.5
+   aFRR|down|4h            NaN      NaN           NaN           0.0
+   aFRR|down|week          0.0      5.4          10.1          -8.8
+   aFRR|up|4h              NaN      NaN           NaN           0.0
+   aFRR|up|week            0.0      0.0           4.4           0.0
+   mFRR|down|4h        9.3 (-)      2.2           3.3       3.1 (-)
+   mFRR|down|week          4.1      0.2           4.1           4.8
+   mFRR|up|4h              3.0      3.0           0.7          -0.7
+   mFRR|up|week       -4.7 (+)      1.4           1.5          -4.6
+   qrf:
+   period         1_pre_crisis 2_crisis 3_post_crisis 4_post_merger
+   series                                                          
+   FCR|sym|4h              0.0  0.9 (-)           0.6          -0.9
+   aFRR|down|4h            NaN      NaN           NaN           0.0
+   aFRR|down|week          0.0      1.8           4.5          -0.7
+   aFRR|up|4h              NaN      NaN           NaN           0.0
+   aFRR|up|week            0.0     -0.4           0.8           5.5
+   mFRR|down|4h       23.2 (-)  3.3 (-)       6.9 (-)       8.5 (-)
+   mFRR|down|week         -0.6      5.8           1.1           3.9
+   mFRR|up|4h             -1.8      5.3          -1.8          -3.2
+   mFRR|up|week           -2.0     -2.0          10.1           5.2
+   svr:
+   period         1_pre_crisis  2_crisis 3_post_crisis 4_post_merger
+   series                                                           
+   FCR|sym|4h              0.0       0.1       2.3 (-)      -1.7 (+)
+   aFRR|down|4h            NaN       NaN           NaN           0.0
+   aFRR|down|week          0.0      -0.1          -0.5          -0.3
+   aFRR|up|4h              NaN       NaN           NaN           0.0
+   aFRR|up|week            0.0       1.7           3.7           2.5
+   mFRR|down|4h        7.0 (-)       3.2           7.5          -1.8
+   mFRR|down|week          2.6       3.6       6.8 (-)          -0.4
+   mFRR|up|4h              0.8  -4.3 (+)      -5.5 (+)      -7.4 (+)
+   mFRR|up|week           -0.4       0.7          15.4          23.9
+
+== regime: MAE skill vs naive (%) expanding -> variant, p of DM
+model                                  cat_q                           lear                        lgbm_q                           qrf                          svr
+series                                                                                                                                                              
+FCR|sym|4h              4.1 -> 4.0 (p=0.465)     4.0 -> 1.4 (p=0.000) worse          4.3 -> 4.3 (p=0.943)          4.2 -> 3.9 (p=0.123)        0.2 -> -0.0 (p=0.352)
+aFRR|down|4h              7.3 -> 7.3 (p=nan)             2.4 -> 2.4 (p=nan)            8.3 -> 8.3 (p=nan)            3.7 -> 3.7 (p=nan)           3.4 -> 3.4 (p=nan)
+aFRR|down|week   13.4 -> 6.4 (p=0.033) worse    8.1 -> -1.6 (p=0.016) worse        12.8 -> 11.4 (p=0.326)  16.7 -> 10.2 (p=0.037) worse         7.6 -> 7.0 (p=0.491)
+aFRR|up|4h                6.2 -> 6.2 (p=nan)           -0.9 -> -0.9 (p=nan)            1.6 -> 1.6 (p=nan)          -1.0 -> -1.0 (p=nan)         -1.2 -> -1.2 (p=nan)
+aFRR|up|week            3.4 -> 1.3 (p=0.240)         -0.3 -> -2.4 (p=0.113)          2.5 -> 0.8 (p=0.161)        -2.5 -> -2.2 (p=0.744)       -6.6 -> -8.5 (p=0.163)
+mFRR|down|4h      8.8 -> 7.0 (p=0.016) worse     7.4 -> 3.2 (p=0.004) worse    8.8 -> 5.9 (p=0.006) worse    8.9 -> 6.9 (p=0.012) worse       -3.9 -> -2.8 (p=0.391)
+mFRR|down|week          3.8 -> 2.4 (p=0.209)         -0.2 -> -0.1 (p=0.959)          2.9 -> 1.8 (p=0.371)          6.2 -> 3.0 (p=0.064)       -0.6 -> -1.5 (p=0.290)
+mFRR|up|4h      24.3 -> 21.5 (p=0.001) worse  17.4 -> 19.6 (p=0.034) better  24.9 -> 22.1 (p=0.002) worse        21.7 -> 19.5 (p=0.250)  2.8 -> 7.0 (p=0.000) better
+mFRR|up|week            3.5 -> 2.1 (p=0.130)          -1.1 -> 0.5 (p=0.650)          2.5 -> 2.5 (p=0.989)          2.5 -> 2.4 (p=0.853)       -5.1 -> -6.8 (p=0.161)
+   significantly better: 2 / worse: 10 of 45 series x model pairs
+   pinball: significantly better 0 / worse 13 of 21
+   best model per series (expanding -> variant): FCR|sym|4h: lgbm_q +4.3% -> lgbm_q +4.3%; aFRR|down|4h: lgbm_q +8.3% -> lgbm_q +8.3%; aFRR|down|week: qrf +16.7% -> lgbm_q +11.4%; aFRR|up|4h: cat_q +6.2% -> cat_q +6.2%; aFRR|up|week: cat_q +3.4% -> cat_q +1.3%; mFRR|down|4h: qrf +8.9% -> cat_q +7.0%; mFRR|down|week: qrf +6.2% -> qrf +3.0%; mFRR|up|4h: lgbm_q +24.9% -> lgbm_q +22.1%; mFRR|up|week: cat_q +3.5% -> lgbm_q +2.5%
+   by period - MAE change % of the variant ((+) / (-) = Holm-significantly better / worse):
+   lear:
+   period         1_pre_crisis  2_crisis 3_post_crisis 4_post_merger
+   series                                                           
+   FCR|sym|4h              0.0       0.0           0.0      19.1 (-)
+   aFRR|down|4h            NaN       NaN           NaN           0.0
+   aFRR|down|week          0.0      11.8      11.4 (-)          -4.5
+   aFRR|up|4h              NaN       NaN           NaN           0.0
+   aFRR|up|week            0.0       2.8           0.6          -2.5
+   mFRR|down|4h           -7.4       4.2       7.3 (-)      12.0 (-)
+   mFRR|down|week          0.0       0.1          -0.4          -1.0
+   mFRR|up|4h              0.5  -6.8 (+)       6.1 (-)           0.2
+   mFRR|up|week            0.0      -2.9          11.3          -0.0
+   lgbm_q:
+   period         1_pre_crisis 2_crisis 3_post_crisis 4_post_merger
+   series                                                          
+   FCR|sym|4h              0.0      0.0           0.0          -0.1
+   aFRR|down|4h            NaN      NaN           NaN           0.0
+   aFRR|down|week          0.0      0.3       8.1 (-)           2.1
+   aFRR|up|4h              NaN      NaN           NaN           0.0
+   aFRR|up|week            0.0      1.1           5.4           0.6
+   mFRR|down|4h           -2.4  5.6 (-)          -1.2           1.2
+   mFRR|down|week          0.0      2.2          -1.3          -0.8
+   mFRR|up|4h         14.4 (-)      3.2          -1.0          -0.5
+   mFRR|up|week            0.0     -0.5           6.5           1.0
+   cat_q:
+   period         1_pre_crisis 2_crisis 3_post_crisis 4_post_merger
+   series                                                          
+   FCR|sym|4h              0.0      0.0           0.0           0.8
+   aFRR|down|4h            NaN      NaN           NaN           0.0
+   aFRR|down|week          0.0      9.0           8.8          -1.0
+   aFRR|up|4h              NaN      NaN           NaN           0.0
+   aFRR|up|week            0.0      0.6      10.5 (-)          -0.4
+   mFRR|down|4h       -7.1 (+)  2.4 (-)           2.8       4.7 (-)
+   mFRR|down|week          0.0      1.9           0.8           0.3
+   mFRR|up|4h          8.5 (-)  4.4 (-)           0.1          -1.5
+   mFRR|up|week            0.0      1.6           4.8          -4.3
+   qrf:
+   period         1_pre_crisis 2_crisis 3_post_crisis 4_post_merger
+   series                                                          
+   FCR|sym|4h              0.0      0.0           0.0           2.3
+   aFRR|down|4h            NaN      NaN           NaN           0.0
+   aFRR|down|week          0.0      8.3       8.9 (-)           0.6
+   aFRR|up|4h              NaN      NaN           NaN           0.0
+   aFRR|up|week            0.0     -0.6           0.6           1.3
+   mFRR|down|4h            4.2      2.5          -0.1       7.8 (-)
+   mFRR|down|week          0.0      3.7           4.5           1.0
+   mFRR|up|4h             -4.9      7.3          -0.7          -3.1
+   mFRR|up|week            0.0     -1.1          15.7           0.8
+   svr:
+   period         1_pre_crisis  2_crisis 3_post_crisis 4_post_merger
+   series                                                           
+   FCR|sym|4h              0.0       0.0           0.0           1.1
+   aFRR|down|4h            NaN       NaN           NaN           0.0
+   aFRR|down|week          0.0       1.0          -0.1          -0.8
+   aFRR|up|4h              NaN       NaN           NaN           0.0
+   aFRR|up|week            0.0       2.5          -0.2          -1.9
+   mFRR|down|4h      -21.7 (+)       3.0          -4.3          -0.7
+   mFRR|down|week          0.0      -0.0           4.1           0.8
+   mFRR|up|4h             -4.0  -4.2 (+)      -4.7 (+)          -3.9
+   mFRR|up|week            0.0       0.5          20.2           2.4
+
+== regime_crisis: MAE skill vs naive (%) expanding -> variant, p of DM
+model                                  cat_q                        lear                        lgbm_q                         qrf                            svr
+series                                                                                                                                                           
+mFRR|down|4h      8.8 -> 6.3 (p=0.010) worse  7.4 -> 3.2 (p=0.002) worse    8.8 -> 5.7 (p=0.003) worse  8.9 -> 5.0 (p=0.001) worse  -3.9 -> -0.5 (p=0.044) better
+mFRR|down|week            3.8 -> 3.8 (p=nan)        -0.2 -> -0.2 (p=nan)            2.9 -> 2.9 (p=nan)          6.2 -> 6.2 (p=nan)           -0.6 -> -0.6 (p=nan)
+mFRR|up|4h      24.3 -> 19.1 (p=0.000) worse      17.4 -> 16.5 (p=0.538)  24.9 -> 19.8 (p=0.000) worse      21.7 -> 22.6 (p=0.281)    2.8 -> 8.0 (p=0.000) better
+mFRR|up|week              3.5 -> 3.5 (p=nan)        -1.1 -> -1.1 (p=nan)            2.5 -> 2.5 (p=nan)          2.5 -> 2.5 (p=nan)           -5.1 -> -5.1 (p=nan)
+   significantly better: 2 / worse: 6 of 20 series x model pairs
+   pinball: significantly better 0 / worse 5 of 6
+   best model per series (expanding -> variant): mFRR|down|4h: qrf +8.9% -> cat_q +6.3%; mFRR|down|week: qrf +6.2% -> qrf +6.2%; mFRR|up|4h: lgbm_q +24.9% -> qrf +22.6%; mFRR|up|week: cat_q +3.5% -> cat_q +3.5%
+   by period - MAE change % of the variant ((+) / (-) = Holm-significantly better / worse):
+   lear:
+   period         1_pre_crisis 2_crisis 3_post_crisis 4_post_merger
+   series                                                          
+   mFRR|down|4h           -7.4  5.9 (-)           3.0      12.4 (-)
+   mFRR|down|week          0.0      0.0           0.0           0.0
+   mFRR|up|4h              0.5      1.5           0.7           0.4
+   mFRR|up|week            0.0      0.0           0.0           0.0
+   lgbm_q:
+   period         1_pre_crisis 2_crisis 3_post_crisis 4_post_merger
+   series                                                          
+   mFRR|down|4h           -2.4  4.0 (-)           3.9           1.3
+   mFRR|down|week          0.0      0.0           0.0           0.0
+   mFRR|up|4h         14.4 (-)  6.7 (-)           4.2           0.2
+   mFRR|up|week            0.0      0.0           0.0           0.0
+   cat_q:
+   period         1_pre_crisis 2_crisis 3_post_crisis 4_post_merger
+   series                                                          
+   mFRR|down|4h       -7.1 (+)  4.3 (-)           0.9       4.8 (-)
+   mFRR|down|week          0.0      0.0           0.0           0.0
+   mFRR|up|4h          8.5 (-)  9.2 (-)           2.1          -1.2
+   mFRR|up|week            0.0      0.0           0.0           0.0
+   qrf:
+   period         1_pre_crisis 2_crisis 3_post_crisis 4_post_merger
+   series                                                          
+   mFRR|down|4h            4.2      3.5           5.5       8.0 (-)
+   mFRR|down|week          0.0      0.0           0.0           0.0
+   mFRR|up|4h             -4.9     -0.7           1.6          -3.2
+   mFRR|up|week            0.0      0.0           0.0           0.0
+   svr:
+   period         1_pre_crisis  2_crisis 3_post_crisis 4_post_merger
+   series                                                           
+   mFRR|down|4h      -21.7 (+)      -2.3           0.2          -0.8
+   mFRR|down|week          0.0       0.0           0.0           0.0
+   mFRR|up|4h             -4.0  -6.1 (+)      -4.3 (+)          -4.2
+   mFRR|up|week            0.0       0.0           0.0           0.0
+
+runtime 1s
+[2026-10-15T21:48:11] rq2_9_regime_compare: ok after 1 s

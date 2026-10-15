@@ -25,6 +25,23 @@ Variants (decision round 10 Oct 2026, after the first full run):
     --test-start DATE       first test day (default 2021-01-01)
     --tag NAME              output folder suffix: Modelling/Output/rq3b_1<NAME>/
 
+Calibration variants (done_todo 2.3 item 10, 15 Oct 2026; defaults = bit-identical to the 10 Oct runs):
+    --calib platt           (default) model fitted on hours before (fold start - 6 months - embargo), logistic
+                            recalibration (Platt) on the last 6 months before the embargo.
+    --calib isotonic        same split, isotonic regression instead of Platt.
+    --calib platt_oof       CROSS-FITTED: final model on the FULL training window (no 6 months lost); the calibrator is
+    --calib isotonic_oof    fitted on out-of-fold predictions of the last --calib-blocks (default 3) 6-month blocks
+                            before the embargo, each predicted by a model trained only on hours before that block
+                            (minus embargo). Isotonic needs the larger OOF sample (rare positives).
+    --calib none            raw model on the full training window, no recalibration (shows the size of the problem).
+    --gbm-init lr           LightGBM boosted FROM the logistic model (init_score = logit of lr_d1 / lr_h1 fitted on the
+                            same training rows): the trees learn corrections to the linear model, so the forecast can
+                            still extrapolate when the spike rate leaves the training range (2021-H2 crisis onset).
+    The calibration flag applies to lr_* and gbm_* (baselines never recalibrated). LightGBM uses the plain binary
+    objective without scale_pos_weight / is_unbalance (class weights would distort the probability level).
+    New metrics: mean_pred, O/E (observed / expected), ECE (10 equal-count bins), cal_slope (logistic slope of y on
+    logit p; < 1 = over-confident). Compare variants with rq3b_2_calib_compare.py.
+
 Run from Master_Thesis with .venv active (needs rq3a_1_catalogue.py and rq3a_2_logit.py in Modelling/):
     python Modelling/rq3b_1_riskmodel.py [--fast]       # -> Modelling/Output/rq3b_1/
 --fast: refit every 12 months, fewer trees (smoke test, ~1/3 of the time).
@@ -62,6 +79,9 @@ CAP = pd.Timestamp("2025-03-03")
 EMBARGO = pd.Timedelta(days=2)
 TRAIN_FROM = pd.Timestamp("1900-01-01")
 FIXED = None            # (thr_short, thr_long) when --target fixed
+CALIB = "platt"         # platt | isotonic | platt_oof | isotonic_oof | none
+CALIB_BLOCKS = 3        # 6-month OOF blocks for the *_oof calibrators
+GBM_INIT = "none"       # none | lr
 PF = ["ch_temp_lw_degc__pf", "ch_ghi_lw_wm2__pf", "ch_ghi_ramp_lw_wm2__pf", "ch_wind_lw_ms__pf",
       "ch_hdh_lw_kh__pf", "ch_cdh_lw_kh__pf", "ch_precip_hydro_mm__pf", "ch_snow_hydro_cm__pf",
       "ch_melt_dh_hydro_kh__pf"]
@@ -196,28 +216,72 @@ def lr_fit_predict(tr, te, cols, target, lam=5.0):
     return np.clip(predict(beta, Xte), 1e-5, 1 - 1e-5)
 
 
+def lr_logits(tr, te, cols, target, lam=30.0):
+    """Same logistic model as lr_fit_predict, returning the linear predictor (logit) for train and test rows;
+    used as LightGBM init_score for --gbm-init lr."""
+    cols = [c for c in cols if tr[c].isna().mean() <= 0.30 and tr[c].nunique() > 1]
+    med = tr[cols].median()
+    mu, sd = tr[cols].fillna(med).mean(), tr[cols].fillna(med).std().replace(0, 1)
+    Xtr = ((tr[cols].fillna(med) - mu) / sd).clip(-6, 6).to_numpy()
+    Xte = ((te[cols].fillna(med) - mu) / sd).clip(-6, 6).to_numpy()
+    beta, _ = fit_logit(Xtr, tr[target].to_numpy(float), lam)
+    lin = lambda X: np.clip(np.column_stack([np.ones(len(X)), X]) @ beta, -11.5, 11.5)
+    return lin(Xtr), lin(Xte)
+
+
 IMP_LOG: list = []      # gain importance of every LightGBM fit (side, fold, model set in CTX by main)
 CTX: dict = {}
 
 
-def gbm_fit_predict(tr, te, cols, target, fast):
+def gbm_fit_predict(tr, te, cols, target, fast, init_cols=None):
+    """Plain binary objective (no scale_pos_weight / is_unbalance). init_cols: boost from the logistic model on
+    these columns (--gbm-init lr)."""
     cols = [c for c in cols if tr[c].notna().any() and tr[c].nunique() > 1]
     params = dict(objective="binary", learning_rate=0.04, num_leaves=15, min_data_in_leaf=40, bagging_fraction=0.8,
                   bagging_freq=1, feature_fraction=0.5, lambda_l2=5.0, num_threads=4, verbose=-1, seed=7)
-    ds = lgb.Dataset(tr[cols].astype("float32"), label=tr[target].to_numpy(), free_raw_data=True)
+    z_tr = z_te = None
+    if init_cols:
+        z_tr, z_te = lr_logits(tr, te, init_cols, target, 30.0)
+    ds = lgb.Dataset(tr[cols].astype("float32"), label=tr[target].to_numpy(), init_score=z_tr, free_raw_data=True)
     m = lgb.train(params, ds, num_boost_round=150 if fast else 350)
-    g = pd.Series(m.feature_importance("gain"), index=cols)
-    IMP_LOG.append({**CTX, "imp": g / g.sum() if g.sum() > 0 else g})
-    return np.clip(m.predict(te[cols].astype("float32")), 1e-5, 1 - 1e-5)
+    if not CTX.get("aux"):
+        g = pd.Series(m.feature_importance("gain"), index=cols)
+        IMP_LOG.append({k: v for k, v in CTX.items() if k != "aux"} | {"imp": g / g.sum() if g.sum() > 0 else g})
+    if z_te is None:
+        return np.clip(m.predict(te[cols].astype("float32")), 1e-5, 1 - 1e-5)
+    raw = m.predict(te[cols].astype("float32"), raw_score=True) + z_te
+    return np.clip(1 / (1 + np.exp(-raw)), 1e-5, 1 - 1e-5)
 
 
 def logloss(y, p):
     return float(-(y * np.log(p) + (1 - y) * np.log(1 - p)).mean())
 
 
+def ece(y, p, bins=10):
+    """Expected calibration error over equal-count bins of the predicted probability."""
+    if len(y) < bins:
+        return float("nan")
+    q = pd.qcut(pd.Series(p).rank(method="first"), bins, labels=False).to_numpy()
+    n = np.bincount(q, minlength=bins)
+    mp = np.bincount(q, weights=p, minlength=bins) / np.maximum(n, 1)
+    my = np.bincount(q, weights=y, minlength=bins) / np.maximum(n, 1)
+    return float((n * np.abs(mp - my)).sum() / n.sum())
+
+
+def cal_slope(y, p):
+    """Slope of a logistic regression of y on logit(p): 1 = well calibrated, < 1 = over-confident."""
+    if y.sum() < 5 or y.sum() > len(y) - 5:
+        return float("nan")
+    z = np.log(p / (1 - p))
+    beta, _ = fit_logit(((z - z.mean()) / (z.std() or 1.0))[:, None], y, 0.0)
+    return float(beta[1] / (z.std() or 1.0))
+
+
 def metrics(y, p) -> dict:
     return {"n": len(y), "pos": int(y.sum()), "Brier": float(((p - y) ** 2).mean()), "logloss": logloss(y, p),
-            "PR_AUC": avg_precision(y, p), "ROC_AUC": auc(y, p), "base_rate": float(y.mean())}
+            "PR_AUC": avg_precision(y, p), "ROC_AUC": auc(y, p), "base_rate": float(y.mean()),
+            "mean_pred": float(p.mean()), "O_E": float(y.mean() / max(p.mean(), 1e-12)), "ECE": ece(y, p),
+            "cal_slope": cal_slope(y, p)}
 
 
 def platt(fn, tr_fit, cal, te, *args):
@@ -229,11 +293,57 @@ def platt(fn, tr_fit, cal, te, *args):
     y = cal[target].to_numpy(float)
     if y.sum() < 10 or len(cal) < 500:
         return pt
+    return (_iso_map if CALIB == "isotonic" else _platt_map)(pc, y, pt)
+
+
+def _platt_map(pc, y, pt):
     z = lambda p: np.log(p / (1 - p))
     zc = z(pc)
     mu, sd = zc.mean(), zc.std() or 1.0
     beta, _ = fit_logit(((zc - mu) / sd)[:, None], y, 0.1)
     return np.clip(predict(beta, ((z(pt) - mu) / sd)[:, None]), 1e-5, 1 - 1e-5)
+
+
+def _iso_map(pc, y, pt):
+    from sklearn.isotonic import IsotonicRegression
+    ir = IsotonicRegression(y_min=1e-5, y_max=1 - 1e-5, out_of_bounds="clip", increasing=True)
+    ir.fit(pc, y)
+    return np.clip(ir.predict(pt), 1e-5, 1 - 1e-5)
+
+
+CAL_LOG: list = []      # per fit: calibration rows / positives used (OOF variants)
+
+
+def recal_oof(fn, tr, te, hk_tr, f0, *args):
+    """Cross-fitted recalibration: final model on the full training window tr; calibrator fitted on out-of-fold
+    predictions of the last CALIB_BLOCKS 6-month blocks before f0 - EMBARGO (each block predicted by a model trained
+    on hours before block start - EMBARGO). CALIB == 'none': raw model, no recalibration."""
+    target = args[1]
+    pt = fn(tr, te, *args)
+    if CALIB == "none":
+        return pt
+    end = f0 - EMBARGO
+    ytr = tr[target].to_numpy(float)
+    pcs, ys = [], []
+    CTX["aux"] = True
+    try:
+        for k in range(CALIB_BLOCKS, 0, -1):
+            b0, b1 = end - pd.DateOffset(months=6 * k), end - pd.DateOffset(months=6 * (k - 1))
+            fm = hk_tr < (b0 - EMBARGO)
+            bm = (hk_tr >= b0) & (hk_tr < b1)
+            if bm.sum() == 0 or ytr[fm].sum() < 30:
+                continue
+            pcs.append(fn(tr[fm], tr[bm], *args))
+            ys.append(ytr[bm])
+    finally:
+        CTX["aux"] = False
+    n_c = sum(len(v) for v in ys)
+    pos_c = float(sum(v.sum() for v in ys))
+    CAL_LOG.append({k: v for k, v in CTX.items() if k != "aux"} | {"fold": str(f0.date()), "n_cal": n_c,
+                                                                 "pos_cal": pos_c, "blocks": len(ys)})
+    if pos_c < 10 or n_c < 500:
+        return pt
+    return (_iso_map if CALIB == "isotonic_oof" else _platt_map)(np.concatenate(pcs), np.concatenate(ys), pt)
 
 
 def main() -> None:
@@ -245,8 +355,12 @@ def main() -> None:
     ap.add_argument("--train-from", default="1900-01-01")
     ap.add_argument("--test-start", default="2021-01-01")
     ap.add_argument("--tag", default="")
+    ap.add_argument("--calib", choices=["platt", "isotonic", "platt_oof", "isotonic_oof", "none"], default="platt")
+    ap.add_argument("--calib-blocks", type=int, default=3)
+    ap.add_argument("--gbm-init", choices=["none", "lr"], default="none")
     a = ap.parse_args()
-    global OUT, TARGETS, TEST_START, TRAIN_FROM, FIXED
+    global OUT, TARGETS, TEST_START, TRAIN_FROM, FIXED, CALIB, CALIB_BLOCKS, GBM_INIT
+    CALIB, CALIB_BLOCKS, GBM_INIT = a.calib, a.calib_blocks, a.gbm_init
     OUT = HERE / "Output" / ("rq3b_1" + a.tag)
     TEST_START = pd.Timestamp(a.test_start)
     TRAIN_FROM = pd.Timestamp(a.train_from)
@@ -260,6 +374,8 @@ def main() -> None:
     B = blocks(h)
     log(f"RQ3b: {len(h):,} complete hours {h['hk'].min()} -> {h['hk'].max()}; features d1 {len(feats['d1'])}, "
         f"h1 {len(feats['h1'])}, pf {len(feats['pf'])}; LightGBM {'yes' if lgb else 'NO (gbm skipped)'}")
+    log(f"  calibration {CALIB}" + (f" ({CALIB_BLOCKS} OOF blocks of 6 months)" if CALIB.endswith("_oof") else "")
+        + f"; LightGBM init {GBM_INIT}")
     log(f"  spike hour share: short {h[TARGETS['short']].mean():.4f}, long {h[TARGETS['long']].mean():.4f}")
     step = 12 if a.fast else 6
     folds = []
@@ -301,15 +417,26 @@ def main() -> None:
             if trf[target].sum() < 30:
                 trf, cal = tr, tr.iloc[:0]
             f_lr = lambda t, x, c, tg: lr_fit_predict(t, x, c, tg, 30.0)
-            f_gb = lambda t, x, c, tg: gbm_fit_predict(t, x, c, tg, a.fast)
             cl = B["cal"] + B["fund"] + B["hist"]
-            out["lr_d1"][te_m] = platt(f_lr, trf, cal, te, cl, target)
-            out["lr_h1"][te_m] = platt(f_lr, trf, cal, te, cl + B["now"], target)
+            hk_tr = hk[tr_m].to_numpy()
+
+            def fitcal(fn, cols_):
+                if CALIB in ("platt", "isotonic"):
+                    return platt(fn, trf, cal, te, cols_, target)
+                return recal_oof(fn, tr, te, hk_tr, f0, cols_, target)
+
+            CTX.update(side=side, fold=str(f0.date()), model="lr_d1")
+            out["lr_d1"][te_m] = fitcal(f_lr, cl)
+            CTX.update(model="lr_h1")
+            out["lr_h1"][te_m] = fitcal(f_lr, cl + B["now"])
             if lgb is not None:
-                for mk, cols_ in (("gbm_d1", feats["d1"]), ("gbm_pf_d1", feats["d1"] + feats["pf"]),
-                                  ("gbm_h1", feats["h1"]), ("gbm_pf_h1", feats["h1"] + feats["pf"])):
+                for mk, cols_, ic in (("gbm_d1", feats["d1"], cl), ("gbm_pf_d1", feats["d1"] + feats["pf"], cl),
+                                      ("gbm_h1", feats["h1"], cl + B["now"]),
+                                      ("gbm_pf_h1", feats["h1"] + feats["pf"], cl + B["now"])):
                     CTX.update(side=side, fold=str(f0.date()), model=mk)
-                    out[mk][te_m] = platt(f_gb, trf, cal, te, cols_, target)
+                    f_gb = (lambda t, x, c, tg, ic=ic: gbm_fit_predict(t, x, c, tg, a.fast,
+                                                                       ic if GBM_INIT == "lr" else None))
+                    out[mk][te_m] = fitcal(f_gb, cols_)
             log(f"  {side} fold {f0.date()} -> {f1.date()}: train {tr_m.sum():,} h ({int(tr[target].sum())} pos), "
                 f"test {te_m.sum():,} h ({int(te[target].sum())} pos)  [{time.time() - t0:.0f}s]")
         for k, v in out.items():
@@ -343,10 +470,13 @@ def main() -> None:
                   on=["side", "period", "best_baseline"], how="left")
     R["Brier_skill_vs_best_baseline"] = 1 - ref["Brier"].to_numpy() / ref["Brier_ref"].to_numpy()
     R.to_csv(OUT / "metrics.csv", index=False)
+    if CAL_LOG:
+        pd.DataFrame(CAL_LOG).to_csv(OUT / "calibration_windows.csv", index=False)
     for side in TARGETS:
         for per in ("all", "from_2023", "pre_cap", "post_cap"):
             t = R[(R["side"] == side) & (R["period"] == per)].set_index("model")[
-                ["n", "pos", "Brier", "Brier_skill_vs_best_baseline", "logloss", "PR_AUC", "ROC_AUC", "base_rate"]]
+                ["n", "pos", "Brier", "Brier_skill_vs_best_baseline", "logloss", "PR_AUC", "ROC_AUC", "base_rate",
+                 "mean_pred", "ECE", "cal_slope"]]
             log(f"\n-- {side}, test period {per}; best baseline (pooled) = {best[side]}")
             log(t.to_string(float_format=lambda x: f"{x:,.4f}"))
 
