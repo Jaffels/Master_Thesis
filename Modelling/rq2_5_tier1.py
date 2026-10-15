@@ -55,6 +55,19 @@ Seeds (--seeds n, item 6): tree models averaged over n seeds; with n > 1 the per
   p_<model>_seed<k> and seed_spread.csv / seed_mae.csv give the MAE of every seed, the spread and the gain
   of the seed average (DM seed average vs seed 1). Tuning always uses seed 1.
 
+Training window (--window, done_todo 2.2 item 7 / Tier 3 regime handling; default expanding = identical to round 2):
+  expanding  all blocks delivered before the fold start (round 2).
+  sliding    only blocks that start in the last --window-months (4h, default 24) / --window-months-week (weekly,
+             default 48) before the fold start; never fewer than MIN_TRAIN valid blocks (then the last MIN_TRAIN).
+  regime     only blocks since the latest structural break on or before the fold start, once that sub-window holds
+             >= --regime-min valid blocks (0 = MIN_TRAIN); before that the expanding window is kept (the regime
+             flags stay in the features either way). Breaks = first block where one of --break-flags takes a new
+             value (default: market-design flags of reserve procurement, announced in advance -> ex ante) plus
+             --break-extra dates (e.g. the crisis 2021-09-01 / 2023-07-01, chosen ex post -> robustness only).
+  The rule used per fold is logged in fold_log.csv (window_rule, train_from); window_vs_default.csv compares the
+  variant with the expanding-window predictions in Output/rq2_5_<product> (DM, same rows). rq2_9_regime_compare.py
+  collects all variants.
+
 Evaluation (common rows: every point model + all baselines non-missing):
   point   MAE, RMSE, sMAPE, MAE_asinh; skill vs b_prev_slot and vs LEAR; Diebold-Mariano (|error|)
           of every model vs LEAR, vs b_prev_slot and vs round-1 LightGBM
@@ -67,6 +80,8 @@ Evaluation (common rows: every point model + all baselines non-missing):
     python Modelling/rq2_5_tier1.py --models lear lgbm_q --products fcr
     python Modelling/rq2_5_tier1.py --products afrr --tune 20 --seeds 3 --out Modelling/Output/rq2_5t_afrr
     python Modelling/rq2_5_tier1.py --products afrr --tune 20 --tune-cv auto --out Modelling/Output/rq2_5cv_afrr
+    python Modelling/rq2_5_tier1.py --products fcr --window sliding --out Modelling/Output/rq2_9s_fcr
+    python Modelling/rq2_5_tier1.py --products mfrr --window regime --out Modelling/Output/rq2_9r_mfrr
 Output: Modelling/Output/rq2_5/{preds.parquet, metrics_point.csv, metrics_prob.csv, metrics_by_year.csv,
         dm.csv, fold_log.csv, lear_nonzero.csv, lear_coefficients.csv, report_rq2_5.txt, run.log,
         run_meta.json, diagnostics/ (see diagnostics/README.txt)}
@@ -340,6 +355,51 @@ def tune_model(m, a, s, f, Xd, Zt_, Zl_, yd_, trd, cv: bool = False) -> tuple[ar
     return argparse.Namespace(**{**vars(a), **cands[best]}), rows
 
 
+# ---------------------------------------------------------------- training window (done_todo 2.2 item 7, Tier 3)
+# Market-design breaks of reserve procurement (dates published before they take effect -> usable ex ante).
+# Not used: regime_imb_resolution / regime_imb_pricing (balancing-energy settlement, not capacity procurement) and
+# regime_ch_gen_reporting (a data-reporting change).
+DESIGN_BREAK_FLAGS = ["regime_afrr_dir", "regime_fcr", "regime_de_zone", "regime_mfrr_merged", "regime_afrr_daily"]
+
+
+def break_dates(g: pd.DataFrame, flags: list[str], extra: list[str]) -> list[pd.Timestamp]:
+    """Structural breaks of one series (UTC): the first block at which a regime flag takes a new value (missing
+    values ignored), plus the --break-extra dates (Europe/Zurich midnight)."""
+    out, t = [], g["block_start_utc"]
+    for c in [c for c in flags if c in g.columns]:
+        idx = np.flatnonzero(g[c].notna().to_numpy())
+        if len(idx) < 2:
+            continue
+        v = g[c].astype(str).to_numpy()
+        out += list(t.iloc[idx[1:][v[idx[1:]] != v[idx[:-1]]]])
+    out += [pd.Timestamp(d, tz=C.TZ).tz_convert("UTC") for d in extra]
+    return sorted(set(out))
+
+
+def train_window(g: pd.DataFrame, tr_all: np.ndarray, start: pd.Timestamp, s: str, a, mt: int,
+                 breaks: list[pd.Timestamp], ok: np.ndarray) -> tuple[np.ndarray, str]:
+    """Restrict the expanding training window tr_all (positions in time order) of the fold starting at `start`.
+    Returns (positions, rule). ok = rows with a valid target (the MIN_TRAIN checks count those only)."""
+    if a.window == "expanding" or len(tr_all) == 0:
+        return tr_all, "expanding"
+    t = g["block_start_utc"].iloc[tr_all]
+    if a.window == "sliding":
+        months = a.window_months_week if s.endswith("|week") else a.window_months
+        cut = (start.tz_convert(C.TZ) - pd.DateOffset(months=months)).tz_convert("UTC")
+        keep = tr_all[(t >= cut).to_numpy()]
+        if ok[keep].sum() >= mt:
+            return keep, "sliding"
+        valid = tr_all[ok[tr_all]]                     # too short: the last mt valid blocks
+        return (tr_all[tr_all >= valid[-mt]], "sliding_min") if len(valid) >= mt else (tr_all, "sliding_min")
+    past = [b for b in breaks if b <= start]
+    if not past:
+        return tr_all, "regime_none"
+    keep = tr_all[(t >= past[-1]).to_numpy()]
+    if ok[keep].sum() >= (a.regime_min or mt):
+        return keep, f"regime_since_{past[-1].tz_convert(C.TZ).date()}"
+    return tr_all, f"regime_fallback_{past[-1].tz_convert(C.TZ).date()}"
+
+
 # ---------------------------------------------------------------- evaluation helpers
 def pinball(y, q, lvl):
     d = y - q
@@ -406,14 +466,18 @@ def run_series(g: pd.DataFrame, Xg: pd.DataFrame, s: str, a, log, tlog: list | N
     rows, nz, timers = [], [], {m: 0.0 for m in a.models}
     imps: dict[str, list] = {m: [] for m in a.models}       # per model: list of per-fold importance shares
     flog: list[dict] = []                                    # one row per fold: sizes, timings, tuning results
+    breaks = break_dates(g, a.break_flags, a.break_extra) if a.window == "regime" else []
+    if a.window == "regime":
+        log(f"   {s}: breaks " + (", ".join(str(b.tz_convert(C.TZ).date()) for b in breaks) or "none"))
     for f, start, tr_all, te in C.fold_plan(g, rm, mt):
+        tr_all, wrule = train_window(g, tr_all, start, s, a, mt, breaks, ok_d)   # --window (item 7)
         trd, trl = tr_all[ok_d[tr_all]], tr_all[ok_l[tr_all]]
         if len(trd) < mt:
             continue
         r = g.iloc[te][keys].copy(); r["fold"] = f; r["n_train"] = len(trd)
         fl = {"series": s, "fold": f, "fold_start": start.date(), "train_from": g["block_start_utc"].iloc[trd].min().date(),
               "test_from": g["block_start_utc"].iloc[te].min().date(), "test_to": g["block_start_utc"].iloc[te].max().date(),
-              "n_train": len(trd), "n_test": len(te)}
+              "n_train": len(trd), "n_test": len(te), "window_rule": wrule}
         mo = start.tz_convert(C.TZ).year * 12 + start.tz_convert(C.TZ).month
         if a.tune and (last_tune is None or mo - last_tune >= a.tune_every_months):
             for m in [m for m in a.models if m in SPACE]:
@@ -604,6 +668,15 @@ def compare_default(P: pd.DataFrame, D0: pd.DataFrame, s: str, models: list[str]
     return out
 
 
+def WINDOW_TXT(a) -> str:
+    if a.window == "sliding":
+        return f"sliding window ({a.window_months} months; weekly {a.window_months_week})"
+    if a.window == "regime":
+        return (f"regime window (since the latest break of {', '.join(a.break_flags) or '-'}"
+                f"{'; extra breaks ' + ', '.join(a.break_extra) if a.break_extra else ''})")
+    return "expanding window"
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--products", nargs="+", default=C.VIEWS)
@@ -648,10 +721,21 @@ def main() -> None:
     ap.add_argument("--tune-seed", type=int, default=0, help="seed of the random candidate draw")
     ap.add_argument("--compare-default", default="auto",
                     help="untuned predictions for the tuned-vs-default table: auto (Output/rq2_5_<product>) | none | path")
+    ap.add_argument("--window", default="expanding", choices=["expanding", "sliding", "regime"],
+                    help="training window (done_todo 2.2 item 7): expanding (round 2), sliding, regime (since last break)")
+    ap.add_argument("--window-months", type=int, default=24, help="sliding window length, 4h / day series")
+    ap.add_argument("--window-months-week", type=int, default=48, help="sliding window length, weekly series")
+    ap.add_argument("--break-flags", nargs="*", default=DESIGN_BREAK_FLAGS,
+                    help="regime flags whose changes count as structural breaks (--window regime)")
+    ap.add_argument("--break-extra", nargs="*", default=[],
+                    help="extra break dates, e.g. 2021-09-01 2023-07-01 (crisis start / end; chosen ex post = robustness)")
+    ap.add_argument("--regime-min", type=int, default=0,
+                    help="valid blocks needed after the latest break before training on it alone (0 = MIN_TRAIN)")
     ap.add_argument("--threads", type=int, default=0)
     ap.add_argument("--out", default=None)
     a = ap.parse_args()
-    out = Path(a.out) if a.out else C.ROOT / "Modelling" / "Output" / ("rq2_5_tuned" if a.tune else "rq2_5")
+    out = Path(a.out) if a.out else C.ROOT / "Modelling" / "Output" / (
+        "rq2_5_tuned" if a.tune else (f"rq2_9_{a.window}" if a.window != "expanding" else "rq2_5"))
     out.mkdir(parents=True, exist_ok=True)
     RU.set_output(out)
     lines: list[str] = []
@@ -669,7 +753,7 @@ def main() -> None:
         feats, _ = feature_list(df, view, "exante")
         X = make_X(df, feats)
         log(f"{view}: {len(df):,} blocks, {len(feats)} features")
-        D0 = default_preds(view, a.compare_default) if a.tune or a.seeds > 1 else None
+        D0 = default_preds(view, a.compare_default) if a.tune or a.seeds > 1 or a.window != "expanding" else None
         for s in df["series"].unique():
             if a.only and a.only != s:
                 continue
@@ -721,7 +805,8 @@ def main() -> None:
             LS.sort_values(["series", "abs_mean"], ascending=[True, False]).to_csv(out / "lear_coefficients.csv", index=False)
     pd.DataFrame(FLOG).to_csv(out / "fold_log.csv", index=False)
     TL, SS, SM, CD = map(pd.DataFrame, (TLOG, SS, SM, CD))
-    for nm, d_ in [("tuning_log", TL), ("seed_spread", SS), ("seed_mae", SM), ("tuned_vs_default", CD)]:
+    cmp_name = "window_vs_default" if a.window != "expanding" and not a.tune else "tuned_vs_default"
+    for nm, d_ in [("tuning_log", TL), ("seed_spread", SS), ("seed_mae", SM), (cmp_name, CD)]:
         if len(d_):
             d_.to_csv(out / f"{nm}.csv", index=False)
     import ml_diagnostics as D
@@ -735,7 +820,7 @@ def main() -> None:
 
     # ---------------------------------------------------------------- report
     hdr = ["RQ2 9.2 round 2 (Tier 1, ML_Options.md) - strong baselines and probabilistic forecasts.",
-           f"Rolling origin, expanding window, refit every {a.refit_months} months (weekly {a.refit_months_week}); "
+           f"Rolling origin, {WINDOW_TXT(a)}, refit every {a.refit_months} months (weekly {a.refit_months_week}); "
            "test from 2021-01-01; errors in EUR/MWh on the common rows of all point models and baselines.",
            f"Models: {', '.join(LABEL.get(m, m) for m in a.models)}; quantiles {', '.join(QTAG)}; seeds {a.seeds}; "
            f"LEAR target {a.lear_target}{', per slot' if a.lear_per_slot else ''}.",
@@ -814,11 +899,19 @@ def main() -> None:
                 f"fold {r['fold']}: " + ", ".join(f"{c[3:]}={r[c]:.3g}" if isinstance(r[c], float) else f"{c[3:]}={r[c]}"
                                                   for c in hp) for _, r in g_.iterrows()))
     if len(CD):
-        hdr.append("== Tuned vs default (round 2) on the same rows; DM stat < 0 = tuned better")
+        what = "tuned" if a.tune else (f"{a.window} window" if a.window != "expanding" else "this run")
+        hdr.append(f"== {what} vs default (round 2, expanding window) on the same rows ({cmp_name}.csv; columns *_tuned = "
+                   f"this run); DM stat < 0 = this run better")
         hdr.append(C.fmt(CD.set_index(["series", "model"])))
         for _, r in CD.iterrows():
             if r["p"] < 0.05:
-                RU.summary(f"{r['series'].replace('|', ' ')} {r['model']}: tuning {r['change_%']:+.1f}% MAE (p={r['p']:.3f})")
+                RU.summary(f"{r['series'].replace('|', ' ')} {r['model']}: {what} {r['change_%']:+.1f}% MAE (p={r['p']:.3f})")
+    if a.window != "expanding":
+        Fw = pd.DataFrame(FLOG)
+        if "window_rule" in Fw:
+            hdr.append("== Training window rule per series (folds)")
+            Fw["rule"] = Fw["window_rule"].str.replace(r"_\d{4}-\d{2}-\d{2}$", "", regex=True)
+            hdr.append(C.fmt(Fw.groupby(["series", "rule"]).agg(folds=("fold", "count"), median_n_train=("n_train", "median"))))
     if len(SS):
         hdr.append(f"== Seed robustness ({a.seeds} seeds): MAE per seed, spread, gain of the seed average (seed_spread.csv, seed_mae.csv)")
         hdr.append(C.fmt(SS.set_index(["series", "model"])))

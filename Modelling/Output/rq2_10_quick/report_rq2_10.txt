@@ -1,0 +1,89 @@
+RQ2 step 10 - pooled (global) tree model across all capacity-price series (done_todo 2.2 item 8).
+Pool: all series; target delta asinh, scale sd; folds as rq2_5 (refit 3 months, weekly 12); models lgbm_q, cat_q; seeds 1; round-2 default hyperparameters.
+Single-series comparison: Output/rq2_5_<product>. Errors in EUR/MWh on the common rows of all models.
+2 pooled fits (QUICK - not for the thesis).
+
+== MAE skill vs same-slot-yesterday (%)
+                pool_lgbm_q  pool_cat_q   lear  lgbm_q  cat_q    qrf     svr  lgbm_l1
+series                                                                               
+FCR|sym|4h            2.393       3.944 -6.934  -3.363 -4.579 -5.594   2.228   -3.244
+aFRR|down|week        0.030      -0.703  3.544   4.968  9.605  8.744   4.427    3.609
+aFRR|up|week         -4.219      -1.066 -0.565   1.333 -0.982  2.081   1.086    1.350
+mFRR|down|4h         11.733      12.266  4.124  12.202  9.386 15.302 -27.211   11.085
+mFRR|down|week       -1.494      -0.087 -0.400   0.368  1.165  1.970   2.300    0.331
+mFRR|up|4h           10.962      17.550 15.054  27.181 26.552 24.368   3.398   27.063
+mFRR|up|week          1.209       2.860 -0.175   3.898  0.622  3.042   3.491    5.560
+
+== Diebold-Mariano |error|, pooled vs reference (stat < 0 = pooled better)
+model           pool_cat_q                    pool_lgbm_q                    
+vs             b_prev_slot  lear single_cat_q b_prev_slot  lear single_lgbm_q
+series                                                                       
+FCR|sym|4h           0.227 0.002        0.000       0.483 0.004         0.003
+aFRR|down|week       0.905 0.588        0.031       0.996 0.657         0.361
+aFRR|up|week         0.655 0.808        0.973       0.232 0.253         0.148
+mFRR|down|4h         0.004 0.035        0.171       0.000 0.066         0.877
+mFRR|down|week       0.978 0.911        0.542       0.630 0.694         0.492
+mFRR|up|4h           0.000 0.225        0.004       0.000 0.205         0.000
+mFRR|up|week         0.479 0.472        0.560       0.829 0.810         0.700
+
+== Mean pinball loss (EUR/MWh)
+model           cat_q  lgbm_q  pool_cat_q  pool_lgbm_q   qrf
+series                                                      
+FCR|sym|4h      1.031   1.032       0.964        0.961 1.037
+aFRR|down|week  1.263   1.179       1.241        1.211 1.125
+aFRR|up|week    0.510   0.481       0.488        0.498 0.469
+mFRR|down|4h    0.786   0.772       0.766        0.810 0.747
+mFRR|down|week  0.741   0.743       0.722        0.726 0.717
+mFRR|up|4h      0.363   0.373       0.401        0.429 0.359
+mFRR|up|week    0.324   0.291       0.287        0.293 0.286
+   DM pinball pooled vs single: FCR|sym|4h pool_lgbm_q stat -4.12 p 0.0000; FCR|sym|4h pool_cat_q stat -3.40 p 0.0007; aFRR|down|week pool_lgbm_q stat 0.63 p 0.5287; aFRR|down|week pool_cat_q stat -0.28 p 0.7801; aFRR|up|week pool_lgbm_q stat 1.62 p 0.1059; aFRR|up|week pool_cat_q stat -2.29 p 0.0222; mFRR|down|4h pool_lgbm_q stat 2.54 p 0.0111; mFRR|down|4h pool_cat_q stat -1.36 p 0.1728; mFRR|down|week pool_lgbm_q stat -0.42 p 0.6734; mFRR|down|week pool_cat_q stat -0.54 p 0.5909; mFRR|up|4h pool_lgbm_q stat 4.20 p 0.0000; mFRR|up|4h pool_cat_q stat 2.56 p 0.0105; mFRR|up|week pool_lgbm_q stat 0.20 p 0.8417; mFRR|up|week pool_cat_q stat -2.26 p 0.0236
+== 90 % coverage raw -> CQR (%)
+model                  cat_q        lgbm_q    pool_cat_q   pool_lgbm_q           qrf
+series                                                                              
+FCR|sym|4h      76.6 -> 95.1  93.4 -> 93.8  84.6 -> 88.3  93.6 -> 96.2  91.2 -> 81.9
+aFRR|down|week           NaN           NaN           NaN           NaN           NaN
+aFRR|up|week             NaN           NaN           NaN           NaN           NaN
+mFRR|down|4h    85.9 -> 92.9  86.8 -> 86.8  84.8 -> 86.3  87.4 -> 86.1  95.6 -> 94.7
+mFRR|down|week           NaN           NaN           NaN           NaN           NaN
+mFRR|up|4h      83.6 -> 94.5  90.4 -> 95.4  84.0 -> 92.8  90.6 -> 93.2  91.4 -> 94.5
+mFRR|up|week             NaN           NaN           NaN           NaN           NaN
+
+== MAE by year
+   FCR|sym|4h:
+   model  b_prev_slot  cat_q  lear  lgbm_l1  lgbm_q  pool_cat_q  pool_lgbm_q   qrf   svr
+   year                                                                                 
+   2021         2.785  2.913 2.978    2.875   2.879       2.675        2.718 2.941 2.723
+   aFRR|down|week:
+   model  b_prev_slot  cat_q  lear  lgbm_l1  lgbm_q  pool_cat_q  pool_lgbm_q   qrf   svr
+   year                                                                                 
+   2021         3.305  2.987 3.188    3.186   3.141       3.328        3.304 3.016 3.159
+   aFRR|up|week:
+   model  b_prev_slot  cat_q  lear  lgbm_l1  lgbm_q  pool_cat_q  pool_lgbm_q   qrf   svr
+   year                                                                                 
+   2021         1.360  1.373 1.368    1.342   1.342       1.375        1.417 1.332 1.345
+   mFRR|down|4h:
+   model  b_prev_slot  cat_q  lear  lgbm_l1  lgbm_q  pool_cat_q  pool_lgbm_q   qrf   svr
+   year                                                                                 
+   2021         2.421  2.193 2.321    2.152   2.125       2.124        2.137 2.050 3.079
+   mFRR|down|week:
+   model  b_prev_slot  cat_q  lear  lgbm_l1  lgbm_q  pool_cat_q  pool_lgbm_q   qrf   svr
+   year                                                                                 
+   2021         1.985  1.962 1.993    1.979   1.978       1.987        2.015 1.946 1.939
+   mFRR|up|4h:
+   model  b_prev_slot  cat_q  lear  lgbm_l1  lgbm_q  pool_cat_q  pool_lgbm_q   qrf   svr
+   year                                                                                 
+   2021         1.316  0.966 1.118    0.960   0.958       1.085        1.171 0.995 1.271
+   mFRR|up|week:
+   model  b_prev_slot  cat_q  lear  lgbm_l1  lgbm_q  pool_cat_q  pool_lgbm_q   qrf   svr
+   year                                                                                 
+   2021         0.809  0.804 0.810    0.764   0.777       0.786        0.799 0.784 0.781
+
+== Gain share of the series-identity features (mean over fits; id_importance.csv)
+        pool_product  pool_direction  pool_procurement  pool_series  pool_slot  pool_level  id_total
+model                                                                                               
+cat_q          0.000           0.073             0.000        0.042      0.011       0.055     0.181
+lgbm_q         0.000           0.034             0.000        0.030      0.004       0.092     0.161
+== Top features pooled lgbm_q: tgt_prev_slot__price_settle_ch 15.2%; pool_level 9.2%; cal_dow 6.6%; tgt_prev_slot__price_settle_max 3.6%; it_nord_load_wa_fc_max_mw__dw 3.5%; pool_direction 3.4%; tgt_prev_slot__awarded_mw 3.3%; pool_series 3.0%; de_lu_load_wa_fc_max_mw__dw 2.8%; tgt_prev_auction__awarded_mw 2.7%; tgt_prev_slot__price_bid_vwap 2.4%; tgt_prev_auction__price_bid_vwap 2.1%
+== Top features pooled cat_q: cal_dow 14.3%; cal_weekend_share 8.6%; pool_direction 7.3%; pool_level 5.5%; tgt_prev_slot__price_settle_ch 5.1%; pool_series 4.2%; tgt_prev_slot__price_bid_vwap 3.4%; tgt_prev_slot__price_settle_max 3.3%; tgt_prev_slot__awarded_mw 2.7%; tgt_prev_auction__awarded_mw 2.6%; tgt_prev_auction__price_settle_ch 2.5%; tgt_prev_auction__n_bids 1.7%
+
+total runtime 128s
