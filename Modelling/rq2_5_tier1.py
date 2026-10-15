@@ -25,6 +25,22 @@ ALL EARLIER test folds of the same series - those predictions are genuinely out 
 calibration data is taken from the training window. The first fold(s) with < 30 past scores are
 not adjusted and are excluded from the CQR coverage figures (raw coverage is shown on the same rows).
 
+Hyperparameter search (--tune N, done_todo 2.2 item 5; default 0 = fixed defaults, identical to round 2):
+  Equal budget: every tuned model evaluates the SAME number N of configurations at every tuning point -
+  config 0 = the round-2 defaults, configs 1..N-1 random draws from the model's search space (SPACE below;
+  the draw is fixed per series and model, --tune-seed). Tuning points: the first fold and then every
+  --tune-every-months (default 12: yearly for the 4h series, every fold for the weekly series); the chosen
+  configuration is kept until the next tuning point. Validation is time-aware and INSIDE the training
+  window: the last --tune-val (20 %) of the training rows, optionally cut into --tune-splits consecutive
+  chunks (expanding). Score: mean pinball loss at 10 / 50 / 90 % in asinh-delta space (SVR: MAE). LEAR:
+  LassoCV over N alphas on the same split(s). Boosting iterations are not searched (early stopping as before);
+  QRF is tuned with --tune-qrf-trees trees. Output: tuning_log.csv (every configuration, score, chosen,
+  gain vs default), hp columns in fold_log.csv, tuned_vs_default.csv (DM tuned vs the round-2 predictions
+  in Output/rq2_5_<product>, --compare-default).
+Seeds (--seeds n, item 6): tree models averaged over n seeds; with n > 1 the per-seed medians are kept as
+  p_<model>_seed<k> and seed_spread.csv / seed_mae.csv give the MAE of every seed, the spread and the gain
+  of the seed average (DM seed average vs seed 1). Tuning always uses seed 1.
+
 Evaluation (common rows: every point model + all baselines non-missing):
   point   MAE, RMSE, sMAPE, MAE_asinh; skill vs b_prev_slot and vs LEAR; Diebold-Mariano (|error|)
           of every model vs LEAR, vs b_prev_slot and vs round-1 LightGBM
@@ -35,6 +51,7 @@ Evaluation (common rows: every point model + all baselines non-missing):
     python Modelling/rq2_5_tier1.py --only "mFRR|up|week"            # quick check (~1 min)
     python Modelling/rq2_5_tier1.py                                   # all series, all models
     python Modelling/rq2_5_tier1.py --models lear lgbm_q --products fcr
+    python Modelling/rq2_5_tier1.py --products afrr --tune 20 --seeds 3 --out Modelling/Output/rq2_5t_afrr
 Output: Modelling/Output/rq2_5/{preds.parquet, metrics_point.csv, metrics_prob.csv, metrics_by_year.csv,
         dm.csv, fold_log.csv, lear_nonzero.csv, lear_coefficients.csv, report_rq2_5.txt, run.log,
         run_meta.json, diagnostics/ (see diagnostics/README.txt)}
@@ -113,10 +130,11 @@ def _share(v, names) -> pd.Series:
     return v / v.sum() if v.sum() > 0 else v
 
 
-def fit_lear(Atr, ytr, Ate, a, names):
+def fit_lear(Atr, ytr, Ate, a, names, cv=None):
+    """cv=None: TimeSeriesSplit(4) as in round 2; cv=list of (train, val) index pairs: the tuning splits."""
     from sklearn.linear_model import LassoCV
     from sklearn.model_selection import TimeSeriesSplit
-    kw = dict(cv=TimeSeriesSplit(n_splits=4), max_iter=5000, tol=1e-3, n_jobs=a.threads or None)
+    kw = dict(cv=cv if cv is not None else TimeSeriesSplit(n_splits=4), max_iter=5000, tol=1e-3, n_jobs=a.threads or None)
     try:
         m = LassoCV(alphas=a.lear_alphas, **kw)
     except TypeError:                                   # older scikit-learn: n_alphas
@@ -129,15 +147,18 @@ def fit_lear(Atr, ytr, Ate, a, names):
 
 def _lgb_params(n, a, seed, q):
     return dict(objective="quantile", alpha=float(q), learning_rate=a.lr, num_leaves=a.leaves,
-                min_data_in_leaf=max(5, min(20, n // 30)), feature_fraction=a.colsample,
-                bagging_fraction=0.8, bagging_freq=1, lambda_l2=1.0, verbose=-1, seed=seed,
+                min_data_in_leaf=a.min_leaf if a.min_leaf else max(5, min(20, n // 30)), feature_fraction=a.colsample,
+                bagging_fraction=a.bagging, bagging_freq=1, lambda_l2=a.l2, verbose=-1, seed=seed,
                 num_threads=a.threads)
 
 
-def fit_lgbm_q(Xtr, ytr, Xte, a, seed):
+def fit_lgbm_q(Xtr, ytr, Xte, a, seed, levels=None):
+    """levels: indices into QS to fit (tuning fits only TUNE_Q); default all 11."""
     n = len(Xtr); nv = max(10, int(0.15 * n))
-    out, iters, imp = np.empty((len(Xte), len(QS))), {}, None
+    out, iters, imp = np.full((len(Xte), len(QS)), np.nan), {}, None
     for k, q in enumerate(QS):
+        if levels is not None and k not in levels:
+            continue
         p = _lgb_params(n, a, seed, q)
         m0 = lgb.train(p, lgb.Dataset(Xtr.iloc[:-nv], ytr[:-nv]), num_boost_round=a.rounds,
                        valid_sets=[lgb.Dataset(Xtr.iloc[-nv:], ytr[-nv:])],
@@ -147,7 +168,7 @@ def fit_lgbm_q(Xtr, ytr, Xte, a, seed):
         out[:, k] = mk.predict(Xte); iters[QTAG[k]] = best
         if k == MED:
             imp = _share(mk.feature_importance("gain"), Xtr.columns)
-    return out, {"best_iter_q50": iters["50"], "best_iter_q05": iters["05"], "best_iter_q95": iters["95"], "imp": imp}
+    return out, {"best_iter_q50": iters.get("50"), "best_iter_q05": iters.get("05"), "best_iter_q95": iters.get("95"), "imp": imp}
 
 
 def _cat_frame(X: pd.DataFrame):
@@ -166,6 +187,7 @@ def fit_cat_q(Xtr, ytr, Xte, a, seed):
     kw = dict(loss_function="MultiQuantile:alpha=" + ",".join(f"{q:g}" for q in QS),
               learning_rate=a.cat_lr, depth=a.cat_depth, rsm=a.colsample if a.colsample < 1 else None,
               random_seed=seed, verbose=0, allow_writing_files=False,
+              **({"l2_leaf_reg": a.cat_l2} if a.cat_l2 is not None else {}),
               thread_count=a.threads if a.threads > 0 else -1)
     m0 = CatBoostRegressor(iterations=a.cat_iters, od_type="Iter", od_wait=50, **kw)
     m0.fit(Pool(Ztr.iloc[:-nv], ytr[:-nv], cat_features=ci),
@@ -180,7 +202,8 @@ def fit_cat_q(Xtr, ytr, Xte, a, seed):
 def fit_qrf(Atr, ytr, Ate, a, seed, names):
     from quantile_forest import RandomForestQuantileRegressor
     m = RandomForestQuantileRegressor(n_estimators=a.qrf_trees, min_samples_leaf=a.qrf_leaf,
-                                      max_features=a.colsample, n_jobs=-1 if a.threads <= 0 else a.threads,
+                                      max_features=a.colsample, max_depth=a.qrf_depth or None,
+                                      n_jobs=-1 if a.threads <= 0 else a.threads,
                                       random_state=seed)
     m.fit(Atr, ytr)
     return np.asarray(m.predict(Ate, quantiles=list(QS))).reshape(len(Ate), len(QS)), \
@@ -191,9 +214,96 @@ def fit_svr(Atr, ytr, Ate, a):
     from sklearn.svm import SVR
     if len(Atr) > a.svr_max:
         Atr, ytr = Atr[-a.svr_max:], ytr[-a.svr_max:]
-    m = SVR(kernel="rbf", C=a.svr_c, epsilon=a.svr_eps, gamma="scale", cache_size=1000)
+    gamma = "scale" if a.svr_gamma is None else a.svr_gamma / (Atr.shape[1] * Atr.var())   # multiple of 'scale'
+    m = SVR(kernel="rbf", C=a.svr_c, epsilon=a.svr_eps, gamma=gamma, cache_size=1000)
     m.fit(Atr, ytr)
     return np.clip(m.predict(Ate), ytr.min(), ytr.max()), {"n_support": int(len(m.support_)), "n_train_used": len(Atr)}
+
+
+# ---------------------------------------------------------------- hyperparameter search (done_todo 2.2 item 5)
+TUNE_Q = [int(np.flatnonzero(np.isclose(QS, q))[0]) for q in (0.1, 0.5, 0.9)]   # levels scored in tuning
+
+
+def _logu(r, lo, hi):
+    return float(np.exp(r.uniform(np.log(lo), np.log(hi))))
+
+
+# Search spaces. Config 0 of every search = the round-2 defaults (so tuning can only replace them when a
+# candidate is better on the validation window). Iterations are not searched: early stopping as before.
+SPACE = {
+    "lgbm_q": lambda r: dict(lr=_logu(r, 0.01, 0.1), leaves=int(r.choice([7, 15, 31, 63])),
+                             min_leaf=int(r.choice([5, 10, 20, 50, 100])), colsample=float(r.uniform(0.1, 0.7)),
+                             bagging=float(r.uniform(0.6, 1.0)), l2=_logu(r, 1e-3, 10.0)),
+    "cat_q": lambda r: dict(cat_lr=_logu(r, 0.01, 0.1), cat_depth=int(r.choice([4, 5, 6, 7, 8])),
+                            cat_l2=_logu(r, 1.0, 30.0), colsample=float(r.uniform(0.1, 0.7))),
+    "qrf": lambda r: dict(qrf_leaf=int(r.choice([1, 3, 5, 10, 20, 50])), colsample=float(r.uniform(0.1, 0.7)),
+                          qrf_depth=int(r.choice([0, 8, 12, 20]))),
+    "svr": lambda r: dict(svr_c=_logu(r, 0.1, 100.0), svr_eps=_logu(r, 0.005, 0.3), svr_gamma=_logu(r, 0.1, 10.0)),
+}
+DEFAULT_KEYS = {"lgbm_q": ["lr", "leaves", "min_leaf", "colsample", "bagging", "l2"],
+                "cat_q": ["cat_lr", "cat_depth", "cat_l2", "colsample"],
+                "qrf": ["qrf_leaf", "colsample", "qrf_depth"], "svr": ["svr_c", "svr_eps", "svr_gamma"]}
+
+
+def candidates(m: str, a, series: str) -> list[dict]:
+    """a.tune configurations for model m: the defaults + (a.tune - 1) random draws. The draw depends only on
+    (tune_seed, series, model), so the SAME candidates are re-evaluated at every tuning point of a series."""
+    base = {k: getattr(a, k) for k in DEFAULT_KEYS[m]}
+    seed = (a.tune_seed * 1_000_003 + sum(ord(c) * (i + 1) for i, c in enumerate(series + m))) % (2 ** 32)
+    r = np.random.default_rng(seed)
+    return [base] + [SPACE[m](r) for _ in range(a.tune - 1)]
+
+
+def tune_splits(n: int, a) -> list[tuple[np.ndarray, np.ndarray]]:
+    """Time-ordered validation splits INSIDE the training window (rows sorted by time): the last tune_val share
+    of the rows is cut into tune_splits consecutive chunks; each chunk is predicted by a model fitted on all
+    rows before it (expanding)."""
+    nv = max(20, int(a.tune_val * n))
+    edges = np.linspace(n - nv, n, a.tune_splits + 1).astype(int)
+    return [(np.arange(0, edges[j]), np.arange(edges[j], edges[j + 1])) for j in range(a.tune_splits)]
+
+
+def _val_score(y, Q, point: bool) -> float:
+    """mean pinball loss over TUNE_Q (probabilistic models) or pinball at 0.5 (= MAE / 2, point models),
+    in the model's own target space (asinh delta)."""
+    if point:
+        return float(np.mean(pinball(y, Q, 0.5)))
+    return float(np.mean([pinball(y, Q[:, k], QS[k]).mean() for k in TUNE_Q]))
+
+
+def tune_model(m, a, s, f, Xd, Zt_, Zl_, yd_, trd) -> tuple[argparse.Namespace, list[dict]]:
+    """Random search with a.tune configurations for model m on the training window trd. Returns the namespace
+    with the best configuration and one log row per configuration."""
+    cands, splits, rows = candidates(m, a, s), tune_splits(len(trd), a), []
+    for ci, cfg in enumerate(cands):
+        ac = argparse.Namespace(**{**vars(a), **cfg})
+        if m == "qrf":
+            ac.qrf_trees = a.tune_qrf_trees
+        t0, sc = time.time(), []
+        try:
+            for itr, iva in splits:
+                tr, va = trd[itr], trd[iva]
+                if m == "lgbm_q":
+                    Q, _ = fit_lgbm_q(Xd.iloc[tr], yd_[tr], Xd.iloc[va], ac, seed=1, levels=TUNE_Q)
+                elif m == "cat_q":
+                    Q, _ = fit_cat_q(Xd.iloc[tr], yd_[tr], Xd.iloc[va], ac, seed=1)
+                elif m == "qrf":
+                    A, B, cols = prep(Zt_.iloc[tr], Zt_.iloc[va], scale=False)
+                    Q, _ = fit_qrf(A, yd_[tr], B, ac, seed=1, names=cols)
+                else:
+                    A, B, _ = prep(Zl_.iloc[tr], Zl_.iloc[va], scale=True)
+                    Q, _ = fit_svr(A, yd_[tr], B, ac)
+                sc.append(_val_score(yd_[va], Q, point=(m == "svr")))
+            score = float(np.mean(sc))
+        except Exception as e:                          # a failing candidate is skipped, never stops the run
+            score = float("inf"); print(f"      tuning {s} {m} config {ci} failed: {e}")
+        rows.append({"series": s, "fold": f, "model": m, "config": ci, "is_default": ci == 0, "score": score,
+                     "seconds": round(time.time() - t0, 1), **{f"hp_{k}": v for k, v in cfg.items()}})
+    best = int(np.argmin([r["score"] for r in rows]))
+    for r in rows:
+        r["chosen"] = r["config"] == best
+        r["gain_vs_default_%"] = (1 - rows[best]["score"] / rows[0]["score"]) * 100 if np.isfinite(rows[0]["score"]) else np.nan
+    return argparse.Namespace(**{**vars(a), **cands[best]}), rows
 
 
 # ---------------------------------------------------------------- evaluation helpers
@@ -240,7 +350,7 @@ def point_order_all(models, P) -> list[str]:
     return [m for m in order if f"p_{m}" in P and P[f"p_{m}"].notna().any()]
 
 
-def run_series(g: pd.DataFrame, Xg: pd.DataFrame, s: str, a, log) -> pd.DataFrame | None:
+def run_series(g: pd.DataFrame, Xg: pd.DataFrame, s: str, a, log, tlog: list | None = None) -> pd.DataFrame | None:
     ya = np.arcsinh(g["y"].to_numpy(float))
     off = np.arcsinh(g["b_prev_slot"].to_numpy(float))
     yd = ya - off                                       # delta target (tree models, SVR)
@@ -249,6 +359,10 @@ def run_series(g: pd.DataFrame, Xg: pd.DataFrame, s: str, a, log) -> pd.DataFram
     yl = ya - offl
     ok_l = ~np.isnan(yl)
     Zt = tree_numeric(Xg) if "qrf" in a.models else None
+    tuned: dict[str, argparse.Namespace] = {}           # model -> namespace with the chosen hyperparameters
+    last_tune = None                                    # month index of the last tuning point
+    al = argparse.Namespace(**{**vars(a), "lear_alphas": a.tune}) if a.tune else a   # LEAR: same budget
+    lear_cv = (lambda n: tune_splits(n, a)) if a.tune else (lambda n: None)
     Zl = linear_frame(Xg, g) if {"lear", "svr"} & set(a.models) else None
     rm = a.refit_months_week if s.endswith("|week") else a.refit_months
     mt = C.MIN_TRAIN[s.split("|")[2]]
@@ -265,7 +379,23 @@ def run_series(g: pd.DataFrame, Xg: pd.DataFrame, s: str, a, log) -> pd.DataFram
         fl = {"series": s, "fold": f, "fold_start": start.date(), "train_from": g["block_start_utc"].iloc[trd].min().date(),
               "test_from": g["block_start_utc"].iloc[te].min().date(), "test_to": g["block_start_utc"].iloc[te].max().date(),
               "n_train": len(trd), "n_test": len(te)}
+        mo = start.tz_convert(C.TZ).year * 12 + start.tz_convert(C.TZ).month
+        if a.tune and (last_tune is None or mo - last_tune >= a.tune_every_months):
+            for m in [m for m in a.models if m in SPACE]:
+                t0 = time.time()
+                tuned[m], rows_t = tune_model(m, a, s, f, Xg, Zt, Zl, yd, trd)
+                if tlog is not None:
+                    tlog += rows_t
+                ch = next(r for r in rows_t if r["chosen"])
+                fl[f"{m}_tune_seconds"] = round(time.time() - t0, 1)
+                log(f"      {s} fold {f:2d}: tuned {m} on {len(trd):,} rows - config {ch['config']} "
+                    f"(val gain vs default {ch['gain_vs_default_%']:+.1f} %, {time.time() - t0:.0f}s)")
+            last_tune = mo
+            fl["tuning_point"] = True
+        for m in [m for m in a.models if m in tuned]:
+            fl.update({f"{m}_hp_{k}": getattr(tuned[m], k) for k in DEFAULT_KEYS[m]})
         for m in a.models:
+            am = tuned.get(m, a)
             t0 = time.time()
             if m == "lear":
                 if a.lear_per_slot and s.split("|")[2] == "4h":
@@ -273,14 +403,14 @@ def run_series(g: pd.DataFrame, Xg: pd.DataFrame, s: str, a, log) -> pd.DataFram
                     for sl in np.unique(g["slot"].to_numpy()[te]):
                         tr_s = trl[g["slot"].to_numpy()[trl] == sl]; te_s = te[g["slot"].to_numpy()[te] == sl]
                         A, B, cols = prep(Zl.iloc[tr_s], Zl.iloc[te_s], scale=True)
-                        ps, inf = fit_lear(A, yl[tr_s], B, a, cols)
+                        ps, inf = fit_lear(A, yl[tr_s], B, al, cols, cv=lear_cv(len(tr_s)))
                         p[np.isin(te, te_s)] = ps; k_nz.append(inf["nonzero"])
                         nz.append({"series": s, "fold": f, "slot": sl, "n_train": len(tr_s), "nonzero": inf["nonzero"],
                                    "alpha": inf["alpha"]})
                     fl["lear_nonzero"] = float(np.mean(k_nz))
                 else:
                     A, B, cols = prep(Zl.iloc[trl], Zl.iloc[te], scale=True)
-                    p, inf = fit_lear(A, yl[trl], B, a, cols)
+                    p, inf = fit_lear(A, yl[trl], B, al, cols, cv=lear_cv(len(trl)))
                     imps["lear"].append(_share(inf["coef"], inf["coef"].index))
                     nz.append({"series": s, "fold": f, "slot": "all", "n_train": len(trl), "nonzero": inf["nonzero"],
                                "alpha": inf["alpha"], "n_candidates": len(cols)})
@@ -289,19 +419,21 @@ def run_series(g: pd.DataFrame, Xg: pd.DataFrame, s: str, a, log) -> pd.DataFram
                 r["p_lear"] = np.sinh(p + offl[te])
             elif m == "svr":
                 A, B, _ = prep(Zl.iloc[trd], Zl.iloc[te], scale=True)
-                ps, inf = fit_svr(A, yd[trd], B, a)
+                ps, inf = fit_svr(A, yd[trd], B, am)
                 r["p_svr"] = np.sinh(ps + off[te]); fl.update({f"svr_{k}": v for k, v in inf.items()})
             else:
                 Q = np.zeros((len(te), len(QS)))
                 for sd in range(a.seeds):
                     if m == "lgbm_q":
-                        q_, inf = fit_lgbm_q(Xg.iloc[trd], yd[trd], Xg.iloc[te], a, seed=1 + sd)
+                        q_, inf = fit_lgbm_q(Xg.iloc[trd], yd[trd], Xg.iloc[te], am, seed=1 + sd)
                     elif m == "cat_q":
-                        q_, inf = fit_cat_q(Xg.iloc[trd], yd[trd], Xg.iloc[te], a, seed=1 + sd)
+                        q_, inf = fit_cat_q(Xg.iloc[trd], yd[trd], Xg.iloc[te], am, seed=1 + sd)
                     else:
                         A, B, cols = prep(Zt.iloc[trd], Zt.iloc[te], scale=False)
-                        q_, inf = fit_qrf(A, yd[trd], B, a, seed=1 + sd, names=cols)
+                        q_, inf = fit_qrf(A, yd[trd], B, am, seed=1 + sd, names=cols)
                     Q += q_
+                    if a.seeds > 1:                     # per-seed median (seed robustness, item 6)
+                        r[f"p_{m}_seed{sd + 1}"] = np.sinh(np.sort(q_, axis=1)[:, MED] + off[te])
                     if sd == 0:
                         if inf.get("imp") is not None:
                             imps[m].append(inf["imp"])
@@ -364,6 +496,76 @@ def evaluate(P: pd.DataFrame, s: str, point_models: list[str], prob_models: list
     return mp, my, dm, mq
 
 
+def seed_spread(P: pd.DataFrame, s: str, models: list[str], L: int):
+    """Seed robustness (done_todo 2.2 item 6): MAE of every single seed, spread over seeds, gain of the seed
+    average over a single seed (DM seed average vs seed 1). Uses rows where all seeds of all models exist."""
+    sc = {m: sorted([c for c in P.columns if c.startswith(f"p_{m}_seed")], key=lambda c: int(c.rsplit("seed", 1)[1]))
+          for m in models}
+    sc = {m: c for m, c in sc.items() if len(c) > 1 and f"p_{m}" in P}
+    if not sc:
+        return [], []
+    E = P.dropna(subset=["y", *[f"p_{m}" for m in sc], *[c for v in sc.values() for c in v]]).sort_values("block_start_utc")
+    y = E["y"].to_numpy(float)
+    rows, per = [], []
+    for m, cols in sc.items():
+        maes = np.array([np.abs(E[c].to_numpy(float) - y).mean() for c in cols])
+        e_avg = np.abs(E[f"p_{m}"].to_numpy(float) - y)
+        st, p = dm_loss(e_avg - np.abs(E[cols[0]].to_numpy(float) - y), L)
+        nb = np.abs(E["b_prev_slot"].to_numpy(float) - y).mean()
+        rows.append({"series": s, "model": m, "n": len(E), "n_seeds": len(cols), "mae_seed_mean": maes.mean(),
+                     "mae_seed_std": maes.std(ddof=1), "mae_seed_min": maes.min(), "mae_seed_max": maes.max(),
+                     "seed_range_%_of_mae": (maes.max() - maes.min()) / maes.mean() * 100,
+                     "skill_seed_min_%": (1 - maes.max() / nb) * 100, "skill_seed_max_%": (1 - maes.min() / nb) * 100,
+                     "mae_seed_avg": e_avg.mean(), "gain_avg_vs_mean_seed_%": (1 - e_avg.mean() / maes.mean()) * 100,
+                     "dm_avg_vs_seed1": st, "p_avg_vs_seed1": p})
+        per += [{"series": s, "model": m, "seed": int(c.rsplit("seed", 1)[1]), "MAE": v} for c, v in zip(cols, maes)]
+    return rows, per
+
+
+def default_preds(view: str, spec: str):
+    """Round-2 (untuned, 1 seed) predictions to compare a tuned run with: --compare-default auto | none | path."""
+    if spec == "none":
+        return None
+    base = C.ROOT / "Modelling" / "Output"
+    cands = [Path(spec)] if spec != "auto" else [base / f"rq2_5_{view}" / "preds.parquet", base / "rq2_5" / "preds.parquet"]
+    for p in cands:
+        p = p if p.suffix == ".parquet" else p / "preds.parquet"
+        if p.exists():
+            return pd.read_parquet(p)
+    return None
+
+
+def compare_default(P: pd.DataFrame, D0: pd.DataFrame, s: str, models: list[str], prob: list[str], L: int):
+    """Tuned (this run) vs default (round 2) on the rows both have: MAE / pinball and DM per model."""
+    d = D0[D0["series"] == s]
+    cols = [c for c in d.columns if (c.startswith("p_") and c[2:] in models)
+            or (c.startswith("q_") and c[2:].rsplit("_", 1)[0] in prob)]
+    if d.empty or not cols:
+        return []
+    M = P.merge(d[["series", "block_start_utc", *cols]], on=["series", "block_start_utc"], how="inner", suffixes=("", "__def"))
+    out = []
+    for m in models:
+        if f"p_{m}__def" not in M:
+            continue
+        E = M.dropna(subset=["y", f"p_{m}", f"p_{m}__def"]).sort_values("block_start_utc")
+        y = E["y"].to_numpy(float)
+        e1, e0 = np.abs(E[f"p_{m}"].to_numpy(float) - y), np.abs(E[f"p_{m}__def"].to_numpy(float) - y)
+        nb = np.abs(E["b_prev_slot"].to_numpy(float) - y)
+        ok = ~np.isnan(nb)
+        st, p = dm_loss(e1 - e0, L)
+        row = {"series": s, "model": m, "n": len(E), "mae_default": e0.mean(), "mae_tuned": e1.mean(),
+               "change_%": (e1.mean() / e0.mean() - 1) * 100,
+               "skill_default_%": (1 - e0[ok].mean() / nb[ok].mean()) * 100, "skill_tuned_%": (1 - e1[ok].mean() / nb[ok].mean()) * 100,
+               "dm_tuned_vs_default": st, "p": p}
+        if m in prob and all(f"q_{m}_{t}__def" in E for t in QTAG):
+            pl1 = np.mean([pinball(y, E[f"q_{m}_{t}"].to_numpy(float), q) for q, t in zip(QS, QTAG)], axis=0)
+            pl0 = np.mean([pinball(y, E[f"q_{m}_{t}__def"].to_numpy(float), q) for q, t in zip(QS, QTAG)], axis=0)
+            stq, pq = dm_loss(pl1 - pl0, L)
+            row.update(pinball_default=pl0.mean(), pinball_tuned=pl1.mean(), dm_pinball=stq, p_pinball=pq)
+        out.append(row)
+    return out
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--products", nargs="+", default=C.VIEWS)
@@ -388,10 +590,25 @@ def main() -> None:
     ap.add_argument("--svr-max", type=int, default=8000)
     ap.add_argument("--svr-c", type=float, default=1.0)
     ap.add_argument("--svr-eps", type=float, default=0.05)
+    ap.add_argument("--min-leaf", type=int, default=0, help="LightGBM min_data_in_leaf (0 = round-2 rule max(5, min(20, n/30)))")
+    ap.add_argument("--bagging", type=float, default=0.8, help="LightGBM bagging_fraction")
+    ap.add_argument("--l2", type=float, default=1.0, help="LightGBM lambda_l2")
+    ap.add_argument("--cat-l2", type=float, default=None, help="CatBoost l2_leaf_reg (default: CatBoost default)")
+    ap.add_argument("--qrf-depth", type=int, default=0, help="QRF max_depth (0 = unlimited)")
+    ap.add_argument("--svr-gamma", type=float, default=None, help="SVR gamma as a multiple of 'scale' (default: 'scale')")
+    ap.add_argument("--tune", type=int, default=0,
+                    help="hyperparameter search: n configurations per model and tuning point (0 = fixed defaults as round 2)")
+    ap.add_argument("--tune-every-months", type=int, default=12, help="re-tune when the fold start is >= n months after the last tuning point")
+    ap.add_argument("--tune-val", type=float, default=0.2, help="share of the training window used for validation")
+    ap.add_argument("--tune-splits", type=int, default=1, help="consecutive validation chunks (expanding); 1 = one hold-out")
+    ap.add_argument("--tune-qrf-trees", type=int, default=100, help="QRF trees while tuning (final fit uses --qrf-trees)")
+    ap.add_argument("--tune-seed", type=int, default=0, help="seed of the random candidate draw")
+    ap.add_argument("--compare-default", default="auto",
+                    help="untuned predictions for the tuned-vs-default table: auto (Output/rq2_5_<product>) | none | path")
     ap.add_argument("--threads", type=int, default=0)
     ap.add_argument("--out", default=None)
     a = ap.parse_args()
-    out = Path(a.out) if a.out else C.ROOT / "Modelling" / "Output" / "rq2_5"
+    out = Path(a.out) if a.out else C.ROOT / "Modelling" / "Output" / ("rq2_5_tuned" if a.tune else "rq2_5")
     out.mkdir(parents=True, exist_ok=True)
     RU.set_output(out)
     lines: list[str] = []
@@ -403,17 +620,19 @@ def main() -> None:
 
     t_all = time.time()
     allP, MP, MY, DM, MQ, NZ, FLOG, IMP = [], [], [], [], [], [], [], {}
+    TLOG, SS, SM, CD = [], [], [], []
     for view in a.products:
         df = C.load_view(view)
         feats, _ = feature_list(df, view, "exante")
         X = make_X(df, feats)
         log(f"{view}: {len(df):,} blocks, {len(feats)} features")
+        D0 = default_preds(view, a.compare_default) if a.tune or a.seeds > 1 else None
         for s in df["series"].unique():
             if a.only and a.only != s:
                 continue
             gi = np.flatnonzero((df["series"] == s).to_numpy())
             g, Xg = df.iloc[gi].reset_index(drop=True), X.iloc[gi].reset_index(drop=True)
-            P, nz, imps, flog = run_series(g, Xg, s, a, log)
+            P, nz, imps, flog = run_series(g, Xg, s, a, log, TLOG)
             NZ += nz; FLOG += flog
             for m, lst in imps.items():
                 IMP.setdefault(m, {})[s] = lst
@@ -432,6 +651,11 @@ def main() -> None:
             allP.append(P)
             mp, my, dm, mq = evaluate(P, s, point, prob)
             MP += mp; MY += my; DM += dm; MQ += mq
+            L_ = 4 if s.endswith("|week") else 12
+            ss, sm = seed_spread(P, s, [m for m in prob], L_)
+            SS += ss; SM += sm
+            if D0 is not None:
+                CD += compare_default(P, D0, s, list(a.models), prob, L_)
 
     if not MP:
         print("nothing evaluated"); return
@@ -453,6 +677,10 @@ def main() -> None:
             LS["abs_mean"] = LS["coef_mean"].abs()
             LS.sort_values(["series", "abs_mean"], ascending=[True, False]).to_csv(out / "lear_coefficients.csv", index=False)
     pd.DataFrame(FLOG).to_csv(out / "fold_log.csv", index=False)
+    TL, SS, SM, CD = map(pd.DataFrame, (TLOG, SS, SM, CD))
+    for nm, d_ in [("tuning_log", TL), ("seed_spread", SS), ("seed_mae", SM), ("tuned_vs_default", CD)]:
+        if len(d_):
+            d_.to_csv(out / f"{nm}.csv", index=False)
     import ml_diagnostics as D
     imp_tables = {m: D.importance_table(d) for m, d in IMP.items() if any(d.values())}
     Pall = pd.concat(allP)
@@ -468,6 +696,11 @@ def main() -> None:
            "test from 2021-01-01; errors in EUR/MWh on the common rows of all point models and baselines.",
            f"Models: {', '.join(LABEL.get(m, m) for m in a.models)}; quantiles {', '.join(QTAG)}; seeds {a.seeds}; "
            f"LEAR target {a.lear_target}{', per slot' if a.lear_per_slot else ''}.",
+           (f"Hyperparameter search: {a.tune} configurations per model (config 0 = round-2 defaults, rest random draws), "
+            f"re-tuned every {a.tune_every_months} months on the last {a.tune_val:.0%} of the training window "
+            f"({a.tune_splits} chunk(s)); score = mean pinball at 10/50/90 % (SVR: MAE); LEAR: LassoCV over {a.tune} alphas "
+            f"on the same split(s); QRF tuned with {a.tune_qrf_trees} trees." if a.tune else
+            "No hyperparameter search (fixed defaults; LEAR alpha by LassoCV, TimeSeriesSplit(4))."),
            "lgbm_l1 = round-1 LightGBM (rq2_2_delta), merged for comparison.", ""]
     point_order = [m for m in ["lear", "lgbm_l1", "lgbm_q", "cat_q", "qrf", "svr"] if m in set(MP.model)]
     for s, g in MP.groupby("series", sort=False):
@@ -520,6 +753,32 @@ def main() -> None:
     for i_ in S.index:
         b_ = S.loc[i_, point_order].idxmin()
         RU.summary(f"{i_.replace('|', ' ')}: {b_} {(1 - S.loc[i_, b_] / S.loc[i_, 'b_prev_slot']) * 100:+.1f}%")
+    if len(TL):
+        hdr.append("== Hyperparameter search (tuning_log.csv): per series / model - tuning points, how often the default "
+                   "config won, median validation gain of the chosen config vs default, tuning time")
+        ch = TL[TL["chosen"]]
+        S_ = ch.groupby(["series", "model"]).agg(points=("fold", "nunique"), default_chosen=("is_default", "sum"),
+                                                 median_val_gain_pct=("gain_vs_default_%", "median"))
+        S_["tune_minutes"] = TL.groupby(["series", "model"])["seconds"].sum() / 60
+        hdr.append(C.fmt(S_))
+        for (s_, m_), g_ in ch.groupby(["series", "model"], sort=False):
+            hp = [c for c in g_.columns if c.startswith("hp_") and g_[c].notna().any()]
+            hdr.append(f"   {s_} {m_}: " + " | ".join(
+                f"fold {r['fold']}: " + ", ".join(f"{c[3:]}={r[c]:.3g}" if isinstance(r[c], float) else f"{c[3:]}={r[c]}"
+                                                  for c in hp) for _, r in g_.iterrows()))
+    if len(CD):
+        hdr.append("== Tuned vs default (round 2) on the same rows; DM stat < 0 = tuned better")
+        hdr.append(C.fmt(CD.set_index(["series", "model"])))
+        for _, r in CD.iterrows():
+            if r["p"] < 0.05:
+                RU.summary(f"{r['series'].replace('|', ' ')} {r['model']}: tuning {r['change_%']:+.1f}% MAE (p={r['p']:.3f})")
+    if len(SS):
+        hdr.append(f"== Seed robustness ({a.seeds} seeds): MAE per seed, spread, gain of the seed average (seed_spread.csv, seed_mae.csv)")
+        hdr.append(C.fmt(SS.set_index(["series", "model"])))
+        if len(SM):
+            for s_, g_ in SM.groupby("series", sort=False):
+                pv = g_.pivot(index="seed", columns="model", values="MAE")
+                hdr.append(f"   {s_}: best model per seed: " + ", ".join(f"seed {i} {pv.loc[i].idxmin()}" for i in pv.index))
     hdr += lines
     hdr.append(f"\ntotal runtime {time.time() - t_all:.0f}s")
     (out / "report_rq2_5.txt").write_text("\n".join(hdr))

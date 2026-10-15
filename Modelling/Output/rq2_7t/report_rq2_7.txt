@@ -1,0 +1,454 @@
+RQ2 forecast combination / stacking (Tier 1 + Tier 2). Weights only from earlier test folds (ex ante).
+min-hist 100 rows (weekly <= 50), ridge alpha 1.0, component coverage >= 95%; best = best single component on these rows (ex post).
+
+== FCR|sym|4h   n = 12,414   components: lear lgbm_l1 lgbm_q cat_q qrf svr nhits chronos   best single: chronos
+                 MAE   RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_single_%
+model                                                                                                         
+avg_all        4.588  7.744   24.809      0.253                 7.074            7.212                  -1.182
+median_all     4.648  7.890   25.131      0.257                 5.860            5.999                  -2.505
+avg_trees      4.695  7.983   25.393      0.260                 4.921            5.062                  -3.527
+avg_lear_trees 4.709  7.951   25.551      0.261                 4.630            4.771                  -3.844
+best_past      4.538  7.663   24.237      0.247                 8.093            8.229                  -0.073
+avg_top3       4.462  7.614   24.078      0.245                 9.637            9.771                   1.608
+invmae         4.573  7.722   24.735      0.252                 7.380            7.517                  -0.850
+ridge          4.457  7.411   24.092      0.245                 9.740            9.873                   1.720
+lear           4.945  8.096   27.099      0.277                -0.148            0.000                  -9.047
+lgbm_l1        4.739  8.007   25.783      0.264                 4.015            4.157                  -4.514
+lgbm_q         4.709  8.028   25.394      0.260                 4.640            4.781                  -3.833
+cat_q          4.733  8.100   25.477      0.261                 4.139            4.281                  -4.379
+qrf            4.779  8.101   25.735      0.263                 3.203            3.347                  -5.397
+svr            5.175  8.786   27.755      0.285                -4.813           -4.658                 -14.126
+nhits          5.384  8.762   28.942      0.296                -9.032           -8.870                 -18.719
+chronos        4.535  7.664   24.184      0.246                 8.160            8.296                   0.000
+b_prev_slot    4.938  8.550   25.656      0.263                 0.000            0.148                  -8.885
+b_prev_auction 7.040 10.655   37.147      0.386               -42.582          -42.371                 -55.250
+b_roll_med     5.393  8.910   28.541      0.293                -9.216           -9.054                 -18.920
+   Diebold-Mariano |error| (stat < 0: combination better) - stat / p:
+   vs                 b_prev_slot        chronos            lear         lgbm_l1
+   model                                                                        
+   avg_all          -8.52 / 0.000   1.43 / 0.153  -13.56 / 0.000   -6.95 / 0.000
+   avg_lear_trees   -6.01 / 0.000   4.31 / 0.000   -8.66 / 0.000   -1.92 / 0.054
+   avg_top3        -12.01 / 0.000  -2.52 / 0.012  -14.15 / 0.000  -13.71 / 0.000
+   avg_trees        -6.58 / 0.000   3.96 / 0.000   -7.75 / 0.000   -3.09 / 0.002
+   best_past        -8.34 / 0.000   0.95 / 0.344   -8.36 / 0.000   -4.69 / 0.000
+   invmae           -8.98 / 0.000   1.05 / 0.292  -14.04 / 0.000   -7.87 / 0.000
+   median_all       -7.56 / 0.000   2.91 / 0.004  -10.45 / 0.000   -5.11 / 0.000
+   ridge           -10.37 / 0.000  -3.73 / 0.000  -12.21 / 0.000   -7.85 / 0.000
+   Probabilistic (pinball / CRPS EUR/MWh; coverage %):
+            pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_cqr  cov90_raw  cov90_cqr  width90_cqr
+   model                                                                                              
+   lgbm_q     1.684        3.368     79.729     81.649       15.827     88.050     90.652       23.206
+   cat_q      1.715        3.430     75.796     84.176       17.426     85.001     92.917       25.461
+   qrf        1.707        3.414     84.032     79.661       15.422     92.639     89.784       21.456
+   nhits      2.143        4.287     51.036     82.121       20.589     62.153     90.517       29.747
+   chronos    1.611        3.222     73.783     80.377       14.718     85.144     90.037       20.284
+   qavg       1.605        3.211     77.143     81.278       14.958     87.612     90.197       20.705
+   qavg_t1    1.681        3.362     80.419     81.708       15.786     89.827     91.132       22.614
+   DM pinball: qavg vs lgbm_q stat -12.81 p 0.0000; qavg vs chronos stat -0.45 p 0.6506; qavg_t1 vs lgbm_q stat -1.18 p 0.2399; qavg_t1 vs chronos stat 5.04 p 0.0000
+   ridge weights (mean over folds): chronos 0.65; nhits 0.16; (intercept) 0.10; lgbm_q 0.06; cat_q 0.05; qrf 0.04; lear 0.01; lgbm_l1 0.01; svr 0.00
+   best_past picked: chronos x22
+
+== aFRR|down|4h   n = 1,444   components: lear lgbm_l1 lgbm_q cat_q qrf svr nhits tabpfn chronos   best single: tabpfn
+                 MAE   RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_single_%
+model                                                                                                         
+avg_all        1.396  4.041   16.103      0.145                 8.515            9.256                  -2.982
+median_all     1.395  4.095   16.041      0.144                 8.603            9.342                  -2.884
+avg_trees      1.409  4.110   16.432      0.146                 7.678            8.425                  -3.925
+avg_lear_trees 1.416  4.101   16.340      0.146                 7.226            7.977                  -4.433
+best_past      1.368  3.971   15.939      0.144                10.355           11.081                  -0.911
+avg_top3       1.387  4.057   16.028      0.144                 9.148            9.884                  -2.270
+invmae         1.394  4.040   16.083      0.144                 8.646            9.386                  -2.835
+ridge          1.414  4.219   17.477      0.153                 7.365            8.115                  -4.277
+lear           1.539  4.141   18.356      0.162                -0.816            0.000                 -13.486
+lgbm_l1        1.400  4.088   16.480      0.146                 8.289            9.031                  -3.237
+lgbm_q         1.404  4.095   16.416      0.146                 7.997            8.741                  -3.566
+cat_q          1.409  4.156   16.216      0.144                 7.706            8.452                  -3.894
+qrf            1.457  4.130   17.204      0.153                 4.532            5.305                  -7.466
+svr            1.477  4.246   16.310      0.148                 3.268            4.050                  -8.890
+nhits          1.397  3.894   18.514      0.156                 8.495            9.236                  -3.005
+tabpfn         1.356  3.965   15.748      0.142                11.165           11.884                   0.000
+chronos        1.880  5.485   22.486      0.199               -23.149          -22.152                 -38.626
+b_prev_slot    1.526  4.274   16.816      0.153                 0.000            0.809                 -12.568
+b_prev_auction 6.713 11.751   84.917      0.943              -339.805         -336.246                -395.079
+b_roll_med     2.816  7.658   34.457      0.315               -84.462          -82.970                -107.645
+   Diebold-Mariano |error| (stat < 0: combination better) - stat / p:
+   vs                b_prev_slot           lear        lgbm_l1        tabpfn
+   model                                                                    
+   avg_all         -4.29 / 0.000  -4.56 / 0.000  -0.21 / 0.837  1.32 / 0.188
+   avg_lear_trees   -3.9 / 0.000  -4.25 / 0.000   1.35 / 0.178  2.01 / 0.045
+   avg_top3        -3.64 / 0.000  -4.14 / 0.000   -1.3 / 0.194  1.56 / 0.118
+   avg_trees       -3.88 / 0.000  -3.67 / 0.000   1.32 / 0.187  1.89 / 0.058
+   best_past       -3.03 / 0.002  -3.62 / 0.000  -1.25 / 0.212  2.85 / 0.004
+   invmae           -4.3 / 0.000  -4.62 / 0.000  -0.37 / 0.714  1.32 / 0.187
+   median_all       -4.3 / 0.000  -4.16 / 0.000  -0.66 / 0.507  1.43 / 0.152
+   ridge            -1.8 / 0.072  -2.09 / 0.037   0.41 / 0.679  2.06 / 0.040
+   Probabilistic (pinball / CRPS EUR/MWh; coverage %):
+            pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_cqr  cov90_raw  cov90_cqr  width90_cqr
+   model                                                                                              
+   lgbm_q     0.570        1.140     88.606     81.969        5.617     92.699     92.588        9.822
+   cat_q      0.560        1.121     85.288     83.628        4.427     91.925     94.027        9.450
+   qrf        0.577        1.154     87.942     85.177        6.210     93.916     95.133       12.821
+   nhits      0.543        1.086     81.527     75.885        3.269     89.159     91.372        6.711
+   tabpfn     0.539        1.078     90.708     64.602        4.593     95.465     84.735        9.860
+   chronos    0.735        1.470     79.425     81.969       10.630     87.942     95.022       19.647
+   qavg       0.549        1.098     89.823     82.190        5.242     94.690     94.027       10.211
+   qavg_t1    0.561        1.122     87.168     83.075        5.245     94.027     94.358       10.464
+   DM pinball: qavg vs lgbm_q stat -2.50 p 0.0124; qavg vs tabpfn stat 1.10 p 0.2712; qavg_t1 vs lgbm_q stat -2.61 p 0.0091; qavg_t1 vs tabpfn stat 2.50 p 0.0125
+   ridge weights (mean over folds): nhits 0.25; lear 0.24; tabpfn 0.14; (intercept) 0.09; cat_q 0.08; chronos 0.07; svr 0.06; lgbm_q 0.04; lgbm_l1 0.04; qrf 0.03
+   best_past picked: tabpfn x2
+
+== aFRR|down|week   n = 295   components: lear lgbm_l1 lgbm_q cat_q qrf svr nhits tabpfn chronos   best single: tabpfn
+                 MAE   RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_single_%
+model                                                                                                         
+avg_all        3.915  8.890   13.919      0.140                20.723           14.640                 -11.826
+median_all     4.089  9.238   14.446      0.145                17.200           10.846                 -16.796
+avg_trees      4.168  9.393   14.737      0.148                15.607            9.131                 -19.043
+avg_lear_trees 4.160  9.369   14.631      0.147                15.779            9.316                 -18.800
+best_past      3.535  7.782   14.121      0.142                28.434           22.943                  -0.949
+avg_top3       3.769  8.639   14.146      0.142                23.683           17.827                  -7.651
+invmae         3.898  8.851   13.902      0.140                21.080           15.024                 -11.323
+ridge          3.710  8.429   13.562      0.136                24.879           19.115                  -5.963
+lear           4.587 10.163   17.422      0.175                 7.126            0.000                 -31.005
+lgbm_l1        4.333  9.639   15.207      0.153                12.273            5.541                 -23.746
+lgbm_q         4.156  9.364   14.854      0.150                15.858            9.401                 -18.689
+cat_q          4.245  9.549   14.968      0.151                14.045            7.450                 -21.245
+qrf            4.049  9.195   14.484      0.146                18.022           11.732                 -15.636
+svr            4.533 10.190   15.681      0.158                 8.209            1.165                 -29.478
+nhits          4.231  9.239   15.767      0.158                14.340            7.767                 -20.830
+tabpfn         3.501  7.748   13.996      0.140                29.107           23.667                   0.000
+chronos        4.201  9.721   14.265      0.144                14.948            8.422                 -19.972
+b_prev_slot    4.939 10.988   16.403      0.166                 0.000           -7.673                 -41.057
+b_prev_auction 4.939 10.988   16.403      0.166                 0.000           -7.673                 -41.057
+b_roll_med     9.782 19.655   32.397      0.334               -98.055         -113.252                -179.371
+   Diebold-Mariano |error| (stat < 0: combination better) - stat / p:
+   vs                b_prev_slot           lear        lgbm_l1        tabpfn
+   model                                                                    
+   avg_all         -3.83 / 0.000  -2.71 / 0.007  -3.05 / 0.002  2.25 / 0.025
+   avg_lear_trees  -3.99 / 0.000   -1.8 / 0.071  -2.17 / 0.030  2.46 / 0.014
+   avg_top3        -3.49 / 0.000  -3.37 / 0.001  -2.47 / 0.013  2.18 / 0.029
+   avg_trees       -3.87 / 0.000  -1.49 / 0.136  -2.61 / 0.009  2.34 / 0.019
+   best_past       -3.29 / 0.001  -3.26 / 0.001  -2.64 / 0.008   2.0 / 0.045
+   invmae          -3.82 / 0.000  -2.78 / 0.005  -3.05 / 0.002  2.23 / 0.026
+   median_all      -3.92 / 0.000  -1.81 / 0.070  -2.76 / 0.006  2.31 / 0.021
+   ridge            -3.6 / 0.000  -2.95 / 0.003  -2.81 / 0.005  1.36 / 0.173
+   Probabilistic (pinball / CRPS EUR/MWh; coverage %):
+            pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_cqr  cov90_raw  cov90_cqr  width90_cqr
+   model                                                                                              
+   lgbm_q     1.561        3.123     73.251     82.716       18.375     88.889     94.239       30.609
+   cat_q      1.555        3.111     65.844     85.597       15.841     81.481     90.535       22.856
+   qrf        1.440        2.881     88.066     82.305       15.383     95.062     90.535       21.203
+   nhits      1.585        3.171     48.148     79.424       18.643     63.786     86.831       25.341
+   tabpfn     1.289        2.579     86.008     80.247       15.544     92.181     88.066       21.709
+   chronos    1.547        3.094     84.362     86.008       16.997     91.770     94.239       26.202
+   qavg       1.341        2.683     85.185     82.305       14.023     93.416     92.181       22.075
+   qavg_t1    1.478        2.957     80.247     84.774       16.187     91.770     93.827       24.399
+   DM pinball: qavg vs lgbm_q stat -3.53 p 0.0004; qavg vs tabpfn stat 1.43 p 0.1522; qavg_t1 vs lgbm_q stat -3.28 p 0.0010; qavg_t1 vs tabpfn stat 2.79 p 0.0053
+   ridge weights (mean over folds): chronos 0.31; tabpfn 0.27; lear 0.16; nhits 0.14; (intercept) 0.10; qrf 0.07; cat_q 0.01; lgbm_q 0.01; lgbm_l1 0.00; svr 0.00
+   best_past picked: tabpfn x5
+
+== aFRR|up|4h   n = 1,451   components: lear lgbm_l1 lgbm_q cat_q qrf svr nhits tabpfn chronos   best single: tabpfn
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_single_%
+model                                                                                                        
+avg_all        0.256 0.590   11.962      0.098                 6.521           16.894                  -1.592
+median_all     0.254 0.593   11.816      0.097                 6.981           17.304                  -1.092
+avg_trees      0.262 0.595   12.132      0.100                 4.379           14.990                  -3.920
+avg_lear_trees 0.262 0.592   12.339      0.101                 4.182           14.815                  -4.134
+best_past      0.254 0.592   11.869      0.097                 7.110           17.419                  -0.951
+avg_top3       0.255 0.594   11.912      0.098                 6.648           17.008                  -1.454
+invmae         0.256 0.590   11.951      0.098                 6.593           16.958                  -1.514
+ridge          0.258 0.587   12.224      0.100                 5.555           16.036                  -2.642
+lear           0.308 0.612   15.428      0.124               -12.483            0.000                 -22.245
+lgbm_l1        0.259 0.596   12.029      0.099                 5.474           15.964                  -2.730
+lgbm_q         0.295 0.606   13.873      0.113                -8.015            3.972                 -17.389
+cat_q          0.255 0.599   12.137      0.098                 6.771           17.117                  -1.320
+qrf            0.269 0.595   12.612      0.104                 1.733           12.638                  -6.795
+svr            0.258 0.600   12.047      0.098                 5.729           16.191                  -2.453
+nhits          0.266 0.595   12.684      0.104                 2.756           13.548                  -5.683
+tabpfn         0.252 0.594   11.722      0.096                 7.986           18.197                   0.000
+chronos        0.315 0.658   14.572      0.120               -15.186           -2.403                 -25.183
+b_prev_slot    0.274 0.603   12.545      0.103                 0.000           11.097                  -8.679
+b_prev_auction 0.728 1.116   31.071      0.273              -166.170         -136.632                -189.270
+b_roll_med     0.571 0.965   27.009      0.228              -108.795          -85.624                -126.915
+   Diebold-Mariano |error| (stat < 0: combination better) - stat / p:
+   vs                b_prev_slot           lear        lgbm_l1        tabpfn
+   model                                                                    
+   avg_all          -4.2 / 0.000  -5.76 / 0.000  -1.13 / 0.260  1.71 / 0.087
+   avg_lear_trees  -2.64 / 0.008  -5.24 / 0.000   1.17 / 0.242  3.31 / 0.001
+   avg_top3        -4.45 / 0.000  -5.72 / 0.000  -1.23 / 0.218  1.73 / 0.084
+   avg_trees       -3.54 / 0.000   -4.8 / 0.000   1.46 / 0.144  3.22 / 0.001
+   best_past       -4.08 / 0.000  -5.93 / 0.000  -1.48 / 0.138  1.58 / 0.114
+   invmae          -4.24 / 0.000  -5.79 / 0.000  -1.22 / 0.223  1.68 / 0.093
+   median_all       -4.7 / 0.000  -5.48 / 0.000   -2.0 / 0.045  1.77 / 0.076
+   ridge            -2.8 / 0.005  -5.19 / 0.000  -0.06 / 0.950  2.01 / 0.045
+   Probabilistic (pinball / CRPS EUR/MWh; coverage %):
+            pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_cqr  cov90_raw  cov90_cqr  width90_cqr
+   model                                                                                              
+   lgbm_q     0.113        0.225     80.900     77.827        0.903     87.596     86.937        1.457
+   cat_q      0.103        0.206     79.473     76.290        0.702     89.023     85.840        1.207
+   qrf        0.121        0.241     83.974     77.717        1.355     90.560     89.352        2.331
+   nhits      0.107        0.214     80.241     62.898        0.458     87.486     72.558        0.690
+   tabpfn     0.105        0.211     86.828     64.654        0.743     93.085     80.351        1.486
+   chronos    0.118        0.235     77.387     79.912        1.029     86.169     90.121        1.558
+   qavg       0.105        0.209     84.193     73.985        0.784     91.109     83.974        1.258
+   qavg_t1    0.109        0.219     82.547     76.509        0.948     90.450     86.828        1.566
+   DM pinball: qavg vs lgbm_q stat -6.51 p 0.0000; qavg vs cat_q stat 0.96 p 0.3362; qavg_t1 vs lgbm_q stat -4.77 p 0.0000; qavg_t1 vs cat_q stat 3.37 p 0.0007
+   ridge weights (mean over folds): chronos 0.28; lgbm_l1 0.20; lgbm_q 0.15; nhits 0.10; tabpfn 0.08; qrf 0.06; (intercept) 0.05; svr 0.04; cat_q 0.04; lear 0.03
+   best_past picked: tabpfn x2
+
+== aFRR|up|week   n = 295   components: lear lgbm_l1 lgbm_q cat_q qrf svr nhits tabpfn chronos   best single: lgbm_l1
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_single_%
+model                                                                                                        
+avg_all        1.467 3.530    9.451      0.094                 0.714            3.921                  -1.238
+median_all     1.439 3.522    9.412      0.094                 2.567            5.714                   0.652
+avg_trees      1.455 3.544    9.482      0.094                 1.508            4.689                  -0.428
+avg_lear_trees 1.460 3.544    9.528      0.095                 1.186            4.377                  -0.757
+best_past      1.532 3.665    9.614      0.096                -3.716           -0.366                  -5.755
+avg_top3       1.433 3.518    9.394      0.093                 3.007            6.139                   1.100
+invmae         1.463 3.528    9.442      0.094                 0.928            4.128                  -1.020
+ridge          1.517 3.548    9.950      0.099                -2.679            0.637                  -4.698
+lear           1.526 3.588   10.415      0.103                -3.337            0.000                  -5.369
+lgbm_l1        1.449 3.535    9.499      0.094                 1.928            5.095                   0.000
+lgbm_q         1.467 3.566    9.509      0.095                 0.674            3.882                  -1.279
+cat_q          1.460 3.535    9.629      0.096                 1.136            4.329                  -0.807
+qrf            1.517 3.606    9.645      0.096                -2.675            0.641                  -4.693
+svr            1.808 3.996   10.727      0.107               -22.402          -18.449                 -24.808
+nhits          1.681 3.738   10.782      0.107               -13.827          -10.151                 -16.065
+tabpfn         1.574 3.600   10.116      0.101                -6.551           -3.110                  -8.646
+chronos        1.592 3.808    9.565      0.095                -7.749           -4.269                  -9.867
+b_prev_slot    1.477 3.523    9.938      0.099                 0.000            3.230                  -1.966
+b_prev_auction 1.477 3.523    9.938      0.099                 0.000            3.230                  -1.966
+b_roll_med     2.634 5.599   17.715      0.177               -78.286          -72.528                 -81.791
+   Diebold-Mariano |error| (stat < 0: combination better) - stat / p:
+   vs                b_prev_slot           lear        lgbm_l1
+   model                                                      
+   avg_all         -0.22 / 0.824  -1.35 / 0.177   0.53 / 0.597
+   avg_lear_trees  -0.65 / 0.518  -2.56 / 0.010   0.75 / 0.451
+   avg_top3        -1.27 / 0.206  -2.77 / 0.006  -0.63 / 0.527
+   avg_trees       -0.74 / 0.461  -2.21 / 0.027   0.41 / 0.678
+   best_past        0.74 / 0.458   0.08 / 0.940   1.12 / 0.263
+   invmae          -0.29 / 0.770  -1.44 / 0.151   0.44 / 0.657
+   median_all      -1.12 / 0.261  -2.66 / 0.008   -0.5 / 0.617
+   ridge            0.56 / 0.578  -0.14 / 0.887   1.26 / 0.209
+   Probabilistic (pinball / CRPS EUR/MWh; coverage %):
+            pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_cqr  cov90_raw  cov90_cqr  width90_cqr
+   model                                                                                              
+   lgbm_q     0.561        1.122     77.778     86.420        5.949     88.889     93.827        8.504
+   cat_q      0.556        1.112     78.601     86.831        5.531     84.774     94.239        7.376
+   qrf        0.574        1.148     87.654     88.477        6.438     93.416     93.827       10.459
+   nhits      0.663        1.326     46.914     84.362        6.594     66.667     94.239        9.392
+   tabpfn     0.656        1.312     90.123     68.724        6.864     95.473     75.720        8.244
+   chronos    0.607        1.214     86.420     87.243        5.446     91.770     92.593        8.688
+   qavg       0.547        1.094     84.774     85.597        5.587     93.416     92.593        7.241
+   qavg_t1    0.555        1.111     83.128     88.066        6.061     92.181     93.827        8.741
+   DM pinball: qavg vs lgbm_q stat -1.05 p 0.2951; qavg vs cat_q stat -0.54 p 0.5871; qavg_t1 vs lgbm_q stat -1.44 p 0.1507; qavg_t1 vs cat_q stat -0.09 p 0.9316
+   ridge weights (mean over folds): chronos 0.21; lgbm_l1 0.13; qrf 0.12; lgbm_q 0.11; cat_q 0.11; tabpfn 0.09; svr 0.08; lear 0.07; (intercept) 0.07; nhits 0.07
+   best_past picked: lgbm_l1 x4, chronos x1
+
+== mFRR|down|4h   n = 9,226   components: lear lgbm_l1 lgbm_q cat_q qrf svr nhits chronos   best single: qrf
+                 MAE   RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_single_%
+model                                                                                                         
+avg_all        3.926  9.961   23.035      0.224                11.634            5.507                   2.515
+median_all     3.966 10.087   23.092      0.225                10.733            4.543                   1.521
+avg_trees      4.005 10.179   23.145      0.226                 9.859            3.608                   0.556
+avg_lear_trees 4.002 10.159   23.334      0.227                 9.938            3.693                   0.643
+best_past      4.113 10.523   23.655      0.231                 7.432            1.013                  -2.121
+avg_top3       4.008 10.246   23.014      0.224                 9.798            3.544                   0.490
+invmae         3.924  9.963   23.009      0.223                11.682            5.558                   2.567
+ridge          4.013  9.877   25.033      0.239                 9.677            3.415                   0.356
+lear           4.155 10.312   25.367      0.243                 6.484            0.000                  -3.166
+lgbm_l1        4.048 10.226   23.437      0.229                 8.884            2.566                  -0.519
+lgbm_q         4.049 10.276   23.426      0.229                 8.865            2.546                  -0.540
+cat_q          4.038 10.227   23.344      0.227                 9.113            2.810                  -0.267
+qrf            4.027 10.255   23.346      0.228                 9.354            3.069                   0.000
+svr            4.438 10.880   25.280      0.247                 0.106           -6.820                 -10.202
+nhits          4.466 10.893   26.482      0.257                -0.519           -7.489                 -10.892
+chronos        4.448 10.695   25.969      0.251                -0.112           -7.053                 -10.443
+b_prev_slot    4.443 10.964   24.868      0.244                 0.000           -6.934                 -10.320
+b_prev_auction 8.516 16.055   56.596      0.598               -91.664         -104.955                -111.444
+b_roll_med     7.848 18.228   43.031      0.436               -76.639          -88.888                 -94.868
+   Diebold-Mariano |error| (stat < 0: combination better) - stat / p:
+   vs                b_prev_slot           lear        lgbm_l1            qrf
+   model                                                                     
+   avg_all          -7.8 / 0.000  -6.02 / 0.000  -4.39 / 0.000  -2.21 / 0.027
+   avg_lear_trees  -6.06 / 0.000  -4.29 / 0.000  -2.17 / 0.030  -0.78 / 0.437
+   avg_top3         -6.0 / 0.000   -3.3 / 0.001  -1.92 / 0.055   -0.6 / 0.552
+   avg_trees        -5.9 / 0.000  -3.43 / 0.001  -2.03 / 0.042  -0.78 / 0.436
+   best_past       -4.03 / 0.000  -0.83 / 0.408   1.78 / 0.076    2.6 / 0.009
+   invmae          -7.83 / 0.000  -6.08 / 0.000  -4.64 / 0.000   -2.3 / 0.021
+   median_all      -7.03 / 0.000  -5.27 / 0.000  -3.74 / 0.000  -1.49 / 0.135
+   ridge            -5.6 / 0.000  -2.39 / 0.017  -0.58 / 0.559   -0.2 / 0.843
+   Probabilistic (pinball / CRPS EUR/MWh; coverage %):
+            pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_cqr  cov90_raw  cov90_cqr  width90_cqr
+   model                                                                                              
+   lgbm_q     1.530        3.061     83.663     82.466       15.096     91.158     91.883       25.055
+   cat_q      1.519        3.038     82.501     83.237       14.997     91.066     92.528       24.002
+   qrf        1.550        3.101     85.851     79.530       14.169     92.954     90.686       23.699
+   nhits      1.799        3.597     58.105     85.931       18.464     69.330     92.655       26.959
+   chronos    1.643        3.285     72.174     82.685       16.064     83.387     91.814       24.016
+   qavg       1.452        2.904     82.339     82.121       13.604     91.181     92.022       21.631
+   qavg_t1    1.516        3.032     84.964     81.349       14.073     92.632     91.711       22.950
+   DM pinball: qavg vs lgbm_q stat -6.90 p 0.0000; qavg vs cat_q stat -5.25 p 0.0000; qavg_t1 vs lgbm_q stat -2.70 p 0.0070; qavg_t1 vs cat_q stat -0.49 p 0.6269
+   ridge weights (mean over folds): chronos 0.42; cat_q 0.15; nhits 0.15; (intercept) 0.14; qrf 0.11; lgbm_q 0.10; lgbm_l1 0.04; lear 0.02; svr 0.00
+   best_past picked: cat_q x11, qrf x6, lgbm_l1 x2
+
+== mFRR|down|week   n = 295   components: lear lgbm_l1 lgbm_q cat_q qrf svr nhits tabpfn chronos   best single: tabpfn
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_single_%
+model                                                                                                        
+avg_all        1.709 2.977   12.380      0.123                 7.101            3.050                  -3.047
+median_all     1.744 3.015   12.601      0.125                 5.239            1.107                  -5.112
+avg_trees      1.769 3.015   12.809      0.127                 3.834           -0.359                  -6.671
+avg_lear_trees 1.755 2.983   12.782      0.127                 4.603            0.444                  -5.817
+best_past      1.727 3.119   12.555      0.125                 6.125            2.032                  -4.130
+avg_top3       1.682 2.952   12.242      0.122                 8.591            4.606                  -1.393
+invmae         1.707 2.974   12.368      0.123                 7.246            3.202                  -2.885
+ridge          1.682 3.008   12.778      0.127                 8.582            4.596                  -1.404
+lear           1.763 3.029   13.609      0.135                 4.178            0.000                  -6.289
+lgbm_l1        1.798 3.044   13.019      0.129                 2.306           -1.953                  -8.365
+lgbm_q         1.762 3.018   12.744      0.127                 4.247            0.073                  -6.212
+cat_q          1.777 3.060   12.887      0.128                 3.422           -0.789                  -7.127
+qrf            1.758 3.023   12.814      0.127                 4.465            0.300                  -5.971
+svr            1.887 3.212   13.501      0.134                -2.551           -7.022                 -13.753
+nhits          1.934 3.480   13.979      0.139                -5.099           -9.681                 -16.579
+tabpfn         1.659 2.814   12.504      0.124                 9.848            5.917                   0.000
+chronos        1.709 3.145   12.299      0.122                 7.126            3.076                  -3.019
+b_prev_slot    1.840 3.129   13.486      0.134                 0.000           -4.360                 -10.923
+b_prev_auction 1.840 3.129   13.486      0.134                 0.000           -4.360                 -10.923
+b_roll_med     3.217 5.184   24.938      0.252               -74.863          -82.487                 -93.964
+   Diebold-Mariano |error| (stat < 0: combination better) - stat / p:
+   vs                b_prev_slot           lear        lgbm_l1        tabpfn
+   model                                                                    
+   avg_all         -3.11 / 0.002  -0.71 / 0.475  -1.69 / 0.091  1.31 / 0.189
+   avg_lear_trees  -1.88 / 0.059   -0.1 / 0.923  -1.02 / 0.308  2.16 / 0.031
+   avg_top3        -2.31 / 0.021  -0.84 / 0.400  -2.41 / 0.016   0.5 / 0.617
+   avg_trees       -1.18 / 0.237   0.06 / 0.950  -1.08 / 0.280  1.97 / 0.049
+   best_past       -1.23 / 0.218  -0.32 / 0.746  -0.86 / 0.390  0.98 / 0.329
+   invmae          -3.12 / 0.002  -0.75 / 0.454  -1.74 / 0.081  1.26 / 0.208
+   median_all      -2.05 / 0.041  -0.23 / 0.818  -1.25 / 0.212   1.8 / 0.072
+   ridge           -1.93 / 0.053  -1.54 / 0.123  -0.87 / 0.384  0.31 / 0.759
+   Probabilistic (pinball / CRPS EUR/MWh; coverage %):
+            pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_cqr  cov90_raw  cov90_cqr  width90_cqr
+   model                                                                                              
+   lgbm_q     0.641        1.283     77.366     87.654        8.783     87.243     93.416       15.275
+   cat_q      0.653        1.306     71.605     87.243        8.856     82.716     93.416       12.751
+   qrf        0.632        1.265     85.597     85.185        8.328     94.239     93.416       14.996
+   nhits      0.822        1.645     37.037     86.420        8.157     55.144     94.650       12.737
+   tabpfn     0.647        1.293     88.477     80.658       10.639     94.650     86.008       16.657
+   chronos    0.633        1.266     80.658     82.305        6.711     88.477     93.827       10.454
+   qavg       0.607        1.214     82.305     82.305        7.639     90.535     94.239       13.569
+   qavg_t1    0.632        1.264     81.070     86.420        8.350     89.300     93.827       14.282
+   DM pinball: qavg vs lgbm_q stat -3.05 p 0.0023; qavg vs qrf stat -2.52 p 0.0116; qavg_t1 vs lgbm_q stat -2.39 p 0.0166; qavg_t1 vs qrf stat -0.03 p 0.9726
+   ridge weights (mean over folds): chronos 0.37; tabpfn 0.17; (intercept) 0.13; lear 0.12; qrf 0.11; lgbm_q 0.08; lgbm_l1 0.05; nhits 0.03; cat_q 0.02; svr 0.02
+   best_past picked: tabpfn x3, chronos x2
+
+== mFRR|up|4h   n = 9,958   components: lear lgbm_l1 lgbm_q cat_q qrf svr tft nhits chronos   best single: cat_q
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_single_%
+model                                                                                                        
+avg_all        0.867 2.650   28.475      0.198                26.699           13.407                   2.117
+median_all     0.871 2.683   27.916      0.200                26.339           12.982                   1.637
+avg_trees      0.877 2.670   28.402      0.202                25.814           12.362                   0.936
+avg_lear_trees 0.881 2.696   29.364      0.203                25.476           11.963                   0.485
+best_past      0.886 2.703   28.503      0.202                25.058           11.468                  -0.074
+avg_top3       0.883 2.691   28.389      0.201                25.318           11.775                   0.273
+invmae         0.865 2.647   28.374      0.198                26.860           13.598                   2.333
+ridge          0.920 2.681   31.051      0.212                22.237            8.136                  -3.841
+lear           1.001 2.977   35.647      0.230                15.350            0.000                 -13.037
+lgbm_l1        0.890 2.688   29.137      0.206                24.728           11.078                  -0.515
+lgbm_q         0.894 2.722   28.741      0.205                24.435           10.732                  -0.907
+cat_q          0.886 2.700   28.567      0.202                25.113           11.534                   0.000
+qrf            0.898 2.682   29.056      0.207                24.074           10.305                  -1.389
+svr            1.099 3.133   39.041      0.264                 7.066           -9.786                 -24.100
+tft            0.969 2.771   32.332      0.224                18.067            3.210                  -9.409
+nhits          1.083 2.962   34.396      0.246                 8.428           -8.177                 -22.281
+chronos        1.039 3.068   32.973      0.230                12.143           -3.789                 -17.320
+b_prev_slot    1.183 3.382   34.766      0.266                 0.000          -18.134                 -33.535
+b_prev_auction 2.286 4.992   63.882      0.548               -93.301         -128.353                -158.125
+b_roll_med     2.153 5.837   56.721      0.465               -82.038         -115.048                -143.085
+   Diebold-Mariano |error| (stat < 0: combination better) - stat / p:
+   vs                 b_prev_slot          cat_q           lear        lgbm_l1
+   model                                                                      
+   avg_all         -10.08 / 0.000  -2.24 / 0.025  -7.68 / 0.000  -2.92 / 0.004
+   avg_lear_trees   -10.0 / 0.000  -0.91 / 0.362  -7.33 / 0.000  -1.55 / 0.120
+   avg_top3         -10.1 / 0.000   -0.7 / 0.484  -6.36 / 0.000  -1.61 / 0.108
+   avg_trees       -10.26 / 0.000  -2.38 / 0.017  -6.51 / 0.000   -2.9 / 0.004
+   best_past       -10.18 / 0.000   0.51 / 0.613  -6.22 / 0.000  -0.63 / 0.527
+   invmae          -10.14 / 0.000   -2.6 / 0.009   -7.7 / 0.000  -3.31 / 0.001
+   median_all      -10.16 / 0.000  -2.09 / 0.037  -7.78 / 0.000  -3.03 / 0.002
+   ridge            -7.71 / 0.000   1.84 / 0.066  -3.05 / 0.002   1.66 / 0.097
+   Probabilistic (pinball / CRPS EUR/MWh; coverage %):
+            pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_cqr  cov90_raw  cov90_cqr  width90_cqr
+   model                                                                                              
+   lgbm_q     0.335        0.669     82.385     82.693        2.772     89.945     91.591        4.180
+   cat_q      0.335        0.670     82.045     85.634        3.041     90.614     93.650        4.745
+   qrf        0.347        0.694     84.094     82.247        3.621     92.684     92.238        5.905
+   tft        0.388        0.776     53.238     86.398        3.450     65.078     93.969        5.194
+   nhits      0.450        0.901     52.665     85.878        4.087     62.327     93.937        6.078
+   chronos    0.386        0.772     72.627     83.117        3.426     83.850     92.334        5.163
+   qavg       0.324        0.648     79.667     83.712        2.832     89.265     92.387        4.252
+   qavg_t1    0.331        0.663     84.742     83.064        2.959     92.737     92.068        4.528
+   DM pinball: qavg vs lgbm_q stat -3.25 p 0.0012; qavg_t1 vs lgbm_q stat -1.47 p 0.1413
+   ridge weights (mean over folds): chronos 0.40; tft 0.23; qrf 0.19; (intercept) 0.08; cat_q 0.07; nhits 0.06; lear 0.04; lgbm_l1 0.00; lgbm_q 0.00; svr 0.00
+   best_past picked: cat_q x20
+
+== mFRR|up|week   n = 295   components: lear lgbm_l1 lgbm_q cat_q qrf svr nhits tabpfn chronos   best single: chronos
+                 MAE  RMSE  sMAPE_%  MAE_asinh  skill_vs_prev_slot_%  skill_vs_LEAR_%  skill_vs_best_single_%
+model                                                                                                        
+avg_all        0.563 1.497    9.246      0.082                 5.032            6.225                   1.009
+median_all     0.574 1.518    9.590      0.085                 3.179            4.396                  -0.922
+avg_trees      0.576 1.521    9.783      0.087                 2.746            3.968                  -1.373
+avg_lear_trees 0.577 1.522    9.667      0.086                 2.588            3.812                  -1.538
+best_past      0.607 1.501   10.120      0.090                -2.476           -1.188                  -6.817
+avg_top3       0.575 1.495    9.584      0.085                 2.922            4.142                  -1.190
+invmae         0.562 1.497    9.229      0.082                 5.164            6.356                   1.147
+ridge          0.574 1.502   10.063      0.090                 3.124            4.342                  -0.979
+lear           0.600 1.534   10.159      0.090                -1.273            0.000                  -5.562
+lgbm_l1        0.577 1.517    9.733      0.087                 2.677            3.900                  -1.445
+lgbm_q         0.569 1.516    9.794      0.087                 3.944            5.151                  -0.125
+cat_q          0.572 1.524    9.825      0.087                 3.407            4.621                  -0.684
+qrf            0.599 1.545   10.023      0.089                -1.144            0.127                  -5.428
+svr            0.614 1.540   10.066      0.090                -3.638           -2.335                  -8.027
+nhits          0.620 1.565   12.839      0.103                -4.631           -3.315                  -9.062
+tabpfn         0.573 1.502    9.831      0.087                 3.358            4.573                  -0.735
+chronos        0.568 1.474    8.529      0.078                 4.063            5.269                   0.000
+b_prev_slot    0.592 1.526   10.225      0.091                 0.000            1.257                  -4.235
+b_prev_auction 0.592 1.526   10.225      0.091                 0.000            1.257                  -4.235
+b_roll_med     1.128 2.593   21.433      0.190               -90.405          -88.012                 -98.469
+   Diebold-Mariano |error| (stat < 0: combination better) - stat / p:
+   vs                b_prev_slot        chronos           lear        lgbm_l1
+   model                                                                     
+   avg_all         -2.42 / 0.015  -0.19 / 0.849  -2.59 / 0.009  -2.34 / 0.019
+   avg_lear_trees   -2.0 / 0.046   0.26 / 0.793  -2.28 / 0.023   0.11 / 0.915
+   avg_top3        -0.99 / 0.320   0.26 / 0.792  -1.28 / 0.202  -0.13 / 0.900
+   avg_trees        -1.7 / 0.090   0.24 / 0.811  -1.93 / 0.053   -0.1 / 0.918
+   best_past        0.47 / 0.638   2.72 / 0.006   0.22 / 0.826   1.09 / 0.276
+   invmae          -2.45 / 0.014  -0.22 / 0.827   -2.6 / 0.009  -2.38 / 0.017
+   median_all      -2.02 / 0.043   0.16 / 0.871  -2.28 / 0.023   -0.7 / 0.483
+   ridge           -0.49 / 0.627   0.17 / 0.864  -0.65 / 0.518  -0.08 / 0.939
+   Probabilistic (pinball / CRPS EUR/MWh; coverage %):
+            pinball  CRPS_approx  cov80_raw  cov80_cqr  width80_cqr  cov90_raw  cov90_cqr  width90_cqr
+   model                                                                                              
+   lgbm_q     0.224        0.447     83.951     88.066        2.061     90.535     96.296        3.218
+   cat_q      0.227        0.453     78.189     92.593        2.431     92.593     97.942        3.851
+   qrf        0.233        0.465     86.831     88.066        2.467     96.296     95.473        3.412
+   nhits      0.265        0.530     41.152     85.597        1.727     56.379     91.770        2.300
+   tabpfn     0.226        0.453     84.362     78.601        2.283     92.181     87.243        3.933
+   chronos    0.210        0.420     89.712     72.840        1.620     97.119     88.066        2.636
+   qavg       0.210        0.420     85.597     86.831        1.893     96.296     96.296        2.753
+   qavg_t1    0.225        0.450     83.951     88.889        2.285     95.062     97.119        3.457
+   DM pinball: qavg vs lgbm_q stat -2.72 p 0.0065; qavg vs chronos stat -0.01 p 0.9957; qavg_t1 vs lgbm_q stat 0.81 p 0.4168; qavg_t1 vs chronos stat 1.34 p 0.1798
+   ridge weights (mean over folds): chronos 0.48; nhits 0.15; (intercept) 0.10; tabpfn 0.07; svr 0.06; lgbm_l1 0.06; lear 0.06; lgbm_q 0.03; cat_q 0.02; qrf 0.01
+   best_past picked: chronos x3, lgbm_q x2
+
+== Summary: MAE skill vs same-slot-yesterday (%)
+                avg_all  median_all  avg_trees  avg_lear_trees  best_past  avg_top3  invmae  ridge    lear  lgbm_l1  lgbm_q  cat_q    qrf     svr    tft   nhits  tabpfn  chronos
+series                                                                                                                                                                           
+FCR|sym|4h        7.074       5.860      4.921           4.630      8.093     9.637   7.380  9.740  -0.148    4.015   4.640  4.139  3.203  -4.813    NaN  -9.032     NaN    8.160
+aFRR|down|4h      8.515       8.603      7.678           7.226     10.355     9.148   8.646  7.365  -0.816    8.289   7.997  7.706  4.532   3.268    NaN   8.495  11.165  -23.149
+aFRR|down|week   20.723      17.200     15.607          15.779     28.434    23.683  21.080 24.879   7.126   12.273  15.858 14.045 18.022   8.209    NaN  14.340  29.107   14.948
+aFRR|up|4h        6.521       6.981      4.379           4.182      7.110     6.648   6.593  5.555 -12.483    5.474  -8.015  6.771  1.733   5.729    NaN   2.756   7.986  -15.186
+aFRR|up|week      0.714       2.567      1.508           1.186     -3.716     3.007   0.928 -2.679  -3.337    1.928   0.674  1.136 -2.675 -22.402    NaN -13.827  -6.551   -7.749
+mFRR|down|4h     11.634      10.733      9.859           9.938      7.432     9.798  11.682  9.677   6.484    8.884   8.865  9.113  9.354   0.106    NaN  -0.519     NaN   -0.112
+mFRR|down|week    7.101       5.239      3.834           4.603      6.125     8.591   7.246  8.582   4.178    2.306   4.247  3.422  4.465  -2.551    NaN  -5.099   9.848    7.126
+mFRR|up|4h       26.699      26.339     25.814          25.476     25.058    25.318  26.860 22.237  15.350   24.728  24.435 25.113 24.074   7.066 18.067   8.428     NaN   12.143
+mFRR|up|week      5.032       3.179      2.746           2.588     -2.476     2.922   5.164  3.124  -1.273    2.677   3.944  3.407 -1.144  -3.638    NaN  -4.631   3.358    4.063
+
+total runtime 8 s

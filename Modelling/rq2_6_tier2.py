@@ -60,7 +60,7 @@ import run_utils as RU  # run.log, run_meta.json, run history, macOS notificatio
 
 import rq2_common as C
 from rq2_2_lightgbm import feature_list, make_X
-from rq2_5_tier1 import INTERVALS, MED, QS, QTAG, cqr, dm_loss, linear_frame, pinball, tree_numeric
+from rq2_5_tier1 import INTERVALS, MED, QS, QTAG, cqr, dm_loss, linear_frame, pinball, seed_spread, tree_numeric
 
 warnings.filterwarnings("ignore")
 
@@ -284,6 +284,8 @@ def run_series(g: pd.DataFrame, Xg: pd.DataFrame, s: str, a, log, store):
                         warm[key] = {k: v.detach().clone() for k, v in net.state_dict().items()}
                     q_, w = N.predict(net, m, data, te, L, dev, weights=(m == "tft" and sd == 0))
                     Qsum += q_
+                    if a.seeds > 1:                     # per-seed median (seed robustness, done_todo 2.2 item 6)
+                        r[f"p_{m}_seed{sd + 1}"] = np.sinh(np.sort(q_, axis=1)[:, MED] + off[te])
                     if sd == 0:
                         fl.update({f"{m}_{k}": v for k, v in info.items()})
                         fl[f"{m}_warm_start"] = is_warm
@@ -305,6 +307,9 @@ def run_series(g: pd.DataFrame, Xg: pd.DataFrame, s: str, a, log, store):
                 for sd in range(a.seeds):
                     q_, info = fit_tabpfn(Zt.iloc[tr_t], yd[tr_t], Zt.iloc[te], a, seed=1 + sd, cat_cols=cat_cols)
                     Qsum += q_
+                    if a.seeds > 1:                     # per-seed median, clipped like the average below
+                        q1 = np.clip(q_, np.nanmin(yd[tr_t]), np.nanmax(yd[tr_t]))
+                        r[f"p_{m}_seed{sd + 1}"] = np.sinh(np.sort(q1, axis=1)[:, MED] + off[te])
                 raw = Qsum / a.seeds
                 # TabPFN's predictive distribution can put a far tail beyond anything seen in training; through
                 # sinh() that becomes absurd prices (one aFRR up week quantile was 1.4 million EUR/MWh). Clip the delta
@@ -443,6 +448,7 @@ def main() -> None:
     T1 = load_tier1(a, a.products)
     t_all = time.time()
     allP, MP, MY, DM, MQ, FLOG, BEST = [], [], [], [], [], [], {}
+    SS, SM = [], []
     store = {"curves": [], "imp": {}, "att": []}
     for view in a.products:
         df = C.load_view(view)
@@ -475,6 +481,8 @@ def main() -> None:
             allP.append(P)
             mp, my, dm, mq, best = evaluate(P, s, list(a.models), t1p, prob)
             MP += mp; MY += my; DM += dm; MQ += mq; BEST[s] = best
+            ss, sm = seed_spread(P, s, list(a.models), 4 if s.endswith("|week") else 12)
+            SS += ss; SM += sm
             own = [c for c in P.columns if not any(c.endswith(f"_{m}") or f"_{m}_" in c for m in T1_POINT)]
             pd.concat([x[[c for c in own if c in x.columns]] for x in allP]).to_parquet(out / "preds_partial.parquet")
             dur = time.time() - ts
@@ -493,6 +501,9 @@ def main() -> None:
     MP.to_csv(out / "metrics_point.csv", index=False); MY.to_csv(out / "metrics_by_year.csv", index=False)
     DM.to_csv(out / "dm.csv", index=False); MQ.to_csv(out / "metrics_prob.csv", index=False)
     pd.DataFrame(FLOG).to_csv(out / "fold_log.csv", index=False)
+    SS, SM = pd.DataFrame(SS), pd.DataFrame(SM)
+    if len(SS):
+        SS.to_csv(out / "seed_spread.csv", index=False); SM.to_csv(out / "seed_mae.csv", index=False)
     if store["curves"]:
         pd.DataFrame(store["curves"]).to_csv(out / "training_curves.csv", index=False)
     if store["att"]:
@@ -580,6 +591,9 @@ def main() -> None:
             hdr.append(f"   {s_}: " + "; ".join(f"{int(k)}: {v:.3f}" for k, v in m_.head(6).items()))
     hdr.append("\nMore detail: fold_log.csv (per fold sizes / timings / epochs), training_curves.csv (+ plots/), "
                "tft_attention.csv, diagnostics/ (breakdowns, worst errors, calibration, importance, plots; see README.txt)")
+    if len(SS):
+        hdr.append(f"\n== Seed robustness ({a.seeds} seeds; MAE per seed, spread, gain of the seed average; seed_spread.csv, seed_mae.csv)")
+        hdr.append(C.fmt(SS.set_index(["series", "model"])))
     for i_ in S.index:
         t2c = [m for m in a.models if m in S.columns]
         if not t2c:
