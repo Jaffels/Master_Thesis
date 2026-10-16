@@ -1,0 +1,55 @@
+{
+  "script": "rq4_2_quantile_bids",
+  "label": "RQ4 quantile bids",
+  "status": "failed",
+  "error": "SystemExit 2",
+  "argv": [
+    "--stack",
+    "rq2_7t",
+    "--out",
+    "Modelling/Output/rq4_2t",
+    "#",
+    "optional:",
+    "tuned",
+    "+",
+    "seeded",
+    "models"
+  ],
+  "start": "2026-10-16T12:47:48",
+  "end": "2026-10-16T12:47:48",
+  "duration_s": 0.0,
+  "duration": "0 s",
+  "summary": [],
+  "output_dir": "Modelling/Output/_runs/rq4_2_quantile_bids_20261016_124748",
+  "git": {
+    "commit": "d3e8ad5",
+    "branch": "master",
+    "uncommitted_files_in_Modelling_Clean": [
+      "Modelling/Output/_runs/",
+      "Modelling/Output/rq4_2/",
+      "Modelling/rq1c_shap.py",
+      "Modelling/rq4_2_quantile_bids.py"
+    ]
+  },
+  "python": "3.14.7",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "machine": "Johans-MacBook-Air.local",
+  "cpu_count": 8,
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "pyarrow": "25.0.1",
+    "duckdb": "1.5.6",
+    "lightgbm": "4.7.0",
+    "scikit-learn": "1.9.1",
+    "catboost": "1.2.10",
+    "quantile-forest": "1.4.2",
+    "torch": "2.14.1",
+    "tabpfn": "9.2.0",
+    "chronos-forecasting": "2.3.2",
+    "transformers": "5.19.0",
+    "matplotlib": "3.11.2"
+  },
+  "files_written": []
+}

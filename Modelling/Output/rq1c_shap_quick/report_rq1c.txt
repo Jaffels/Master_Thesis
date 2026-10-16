@@ -1,0 +1,78 @@
+RQ1c - SHAP drivers of the RQ2 tree models (out-of-sample TreeSHAP on every test fold; delta target asinh(y) - asinh(same slot yesterday))
+models: lgbm, cat; folds per series as RQ2
+
+== Check: refitted models vs stored RQ2 predictions (EUR/MWh; should be ~0)
+      series model   n  max_abs_diff  mean_abs_diff  share_equal_1e6  mean_abs_stored
+mFRR|up|week  lgbm 295           0.0            0.0              1.0         4.683477
+mFRR|up|week   cat 295           0.0            0.0              1.0         4.616043
+
+== Driver families [lgbm]: share of mean |SHAP| (%)
+family        calendar  cross-market (DE prices)  lagged target  lookback (observed)  outages (ex ante)  published forecasts  regime / source  weather (MeteoSwiss)
+series                                                                                                                                                             
+mFRR|up|week       0.6                       2.8            6.3                 77.4                1.7                  6.5              0.0                   4.7
+   number of features per family (a large family can win on count alone):
+family        calendar  cross-market (DE prices)  lagged target  lookback (observed)  outages (ex ante)  published forecasts  regime / source  weather (MeteoSwiss)
+series                                                                                                                                                             
+mFRR|up|week       7.0                      27.0           12.0                607.0               19.0                 58.0             12.0                  36.0
+
+== Driver families [cat]: share of mean |SHAP| (%)
+family        calendar  cross-market (DE prices)  lagged target  lookback (observed)  outages (ex ante)  published forecasts  regime / source  weather (MeteoSwiss)
+series                                                                                                                                                             
+mFRR|up|week       1.3                       1.8            4.1                 80.2                2.0                  5.7              0.2                   4.6
+   number of features per family (a large family can win on count alone):
+family        calendar  cross-market (DE prices)  lagged target  lookback (observed)  outages (ex ante)  published forecasts  regime / source  weather (MeteoSwiss)
+series                                                                                                                                                             
+mFRR|up|week       7.0                      27.0           12.0                607.0               19.0                 58.0             12.0                  36.0
+
+== mFRR|up|week [lgbm] top 10 (share %, EUR/MWh effect, direction: + = higher value -> higher price)
+    1. fr_imb_price_short_eur_mwh__lb24h                         1.8 %      0.01  dir +0.69  [lookback (observed)]
+    2. tgt_prev_slot__offered_mw                                 1.7 %      0.01  dir -0.76  [lagged target]
+    3. it_nord_gen_other_mw__lb7d                                1.7 %      0.01  dir -0.70  [lookback (observed)]
+    4. de_lu_load_ma_fc_min_mw__dw                               1.6 %      0.01  dir +0.79  [published forecasts]
+    5. ch_cons_enduse_mw__lb24h                                  1.6 %      0.01  dir -0.67  [lookback (observed)]
+    6. ch_hydro_reservoir_mwh__lb7d                              1.3 %      0.00  dir +0.50  [lookback (observed)]
+    7. tgt_prev_auction__offered_mw                              1.1 %      0.01  dir -0.62  [lagged target]
+    8. at_load_da_fc_mw__lb7d                                    1.0 %      0.00  dir -0.41  [lookback (observed)]
+    9. it_nord_ch_expl_price_eur_mwh__lb7d                       0.9 %      0.00  dir +0.71  [lookback (observed)]
+   10. tgt_prev_slot__awarded_mw                                 0.8 %      0.01  dir +0.12  [lagged target]
+
+== mFRR|up|week [cat] top 10 (share %, EUR/MWh effect, direction: + = higher value -> higher price)
+    1. ch_tre_sa_up_offered_mw__lb24h                            2.4 %      0.00  dir -0.18  [lookback (observed)]
+    2. at_hydro_reservoir_mwh__lb7d                              2.1 %      0.00  dir +0.43  [lookback (observed)]
+    3. de_lu_gen_hydro_res_mw__lb7d                              1.6 %      0.00  dir +0.28  [lookback (observed)]
+    4. tgt_prev_auction__offered_mw                              1.4 %      0.01  dir -0.70  [lagged target]
+    5. at_gen_wind_on_id_fc_mw__lb7d                             1.2 %      0.00  dir +0.22  [lookback (observed)]
+    6. ch_price_da_eur_mwh__lb24h                                1.2 %      0.01  dir +0.57  [lookback (observed)]
+    7. at_load_da_fc_mw__lb7d                                    1.1 %      0.00  dir -0.50  [lookback (observed)]
+    8. ch_tn_vertical_feedin_mw__lb7d                            1.1 %      0.00  dir +0.04  [lookback (observed)]
+    9. ch_hydro_reservoir_mwh__lb24h                             1.1 %      0.00  dir +0.51  [lookback (observed)]
+   10. fr_gen_hydro_ror_mw__lb7d                                 1.1 %      0.01  dir -0.62  [lookback (observed)]
+
+== Driver families by period [lgbm] (%)
+family                      calendar  cross-market (DE prices)  lagged target  lookback (observed)  outages (ex ante)  published forecasts  regime / source  weather (MeteoSwiss)
+series       group                                                                                                                                                               
+mFRR|up|week 1_pre_crisis        0.0                       1.5            5.2                 79.2                1.1                  6.7              0.0                   6.2
+             2_crisis            0.2                       2.7            7.9                 76.4                1.7                  5.9              0.0                   5.2
+             3_post_crisis       1.5                       3.1            3.5                 78.9                2.2                  7.3              0.0                   3.5
+             4_post_merger       0.6                       3.4            6.6                 76.7                1.5                  6.9              0.0                   4.2
+
+== Agreement (rank correlations of feature importance; top-20 overlap of lgbm vs cat)
+      series  cat_shap_vs_gain_spearman  cat_top10_share  lgbm_shap_vs_gain_spearman  lgbm_top10_share  lgbm_vs_cat_spearman  top20_overlap
+mFRR|up|week                      0.899            0.143                       0.929             0.136                 0.593              5
+
+== mFRR up 4h: TFT variable-selection weights vs SHAP, by family (shares; TFT weights are within each encoder)
+                          TFT known / static inputs  TFT past (encoder) inputs
+family                                                                        
+calendar                                      0.038                      0.444
+cross-market (DE prices)                      0.027                        NaN
+lagged target                                 0.027                      0.484
+lookback (observed)                           0.763                        NaN
+other                                           NaN                      0.072
+outages (ex ante)                             0.022                        NaN
+published forecasts                           0.089                        NaN
+regime / source                               0.033                        NaN
+
+== Share of the lagged-target family (own price history beyond persistence), % - compare FCR with the others (Chronos-2, price history only, is the best FCR model)
+model         cat  lgbm
+series                 
+mFRR|up|week  4.1   6.3

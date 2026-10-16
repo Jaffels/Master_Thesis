@@ -1,0 +1,361 @@
+RQ1c - SHAP drivers of the RQ2 tree models (out-of-sample TreeSHAP on every test fold; delta target asinh(y) - asinh(same slot yesterday))
+models: lgbm, cat; folds per series as RQ2
+
+== Check: refitted models vs stored RQ2 predictions (EUR/MWh; should be ~0)
+        series model     n  max_abs_diff  mean_abs_diff  share_equal_1e6  mean_abs_stored
+    FCR|sym|4h  lgbm 12414           0.0            0.0         1.000000        16.994256
+    FCR|sym|4h   cat 12414           0.0            0.0         1.000000        16.876078
+  aFRR|down|4h  lgbm  1444           0.0            0.0         1.000000         7.339872
+  aFRR|down|4h   cat  1444           0.0            0.0         1.000000         7.359656
+aFRR|down|week  lgbm   295           0.0            0.0         1.000000        27.925586
+aFRR|down|week   cat   295           0.0            0.0         1.000000        28.079590
+    aFRR|up|4h  lgbm  1451           0.0            0.0         1.000000         2.069774
+    aFRR|up|4h   cat  1451           0.0            0.0         1.000000         2.056548
+  aFRR|up|week  lgbm   295           0.0            0.0         1.000000        14.996558
+  aFRR|up|week   cat   295           0.0            0.0         1.000000        14.873989
+  mFRR|down|4h  lgbm  9341           0.0            0.0         0.987689        17.066868
+  mFRR|down|4h   cat  9341           0.0            0.0         0.987689        16.932277
+mFRR|down|week  lgbm   295           0.0            0.0         1.000000        13.969550
+mFRR|down|week   cat   295           0.0            0.0         1.000000        13.633105
+    mFRR|up|4h  lgbm 10013           0.0            0.0         0.994507         3.243313
+    mFRR|up|4h   cat 10013           0.0            0.0         0.994507         3.237374
+  mFRR|up|week  lgbm   295           0.0            0.0         1.000000         4.683477
+  mFRR|up|week   cat   295           0.0            0.0         1.000000         4.616043
+
+== Driver families [lgbm]: share of mean |SHAP| (%)
+family          calendar  cross-market (DE prices)  lagged target  lookback (observed)  outages (ex ante)  published forecasts  regime / source  weather (MeteoSwiss)
+series                                                                                                                                                               
+FCR|sym|4h           4.8                      12.6           18.7                 51.7                0.5                  9.1              0.0                   2.6
+aFRR|down|4h         1.5                       2.3            7.6                 63.1                1.7                 15.7              0.0                   8.2
+aFRR|down|week       6.0                       3.8            2.4                 72.0                0.5                 10.5              0.0                   4.9
+aFRR|up|4h           0.9                       1.6            6.9                 77.4                0.7                  8.2              0.0                   4.2
+aFRR|up|week         1.8                       6.5            7.3                 74.4                0.7                  5.0              0.0                   4.2
+mFRR|down|4h        17.3                       1.7           24.1                 37.8                1.0                 16.0              0.2                   1.9
+mFRR|down|week       5.0                       2.1            2.6                 70.0                1.1                 14.9              0.0                   4.2
+mFRR|up|4h          26.5                       1.9           22.9                 27.9                1.9                 17.7              0.0                   1.1
+mFRR|up|week         0.6                       2.8            6.3                 77.4                1.7                  6.5              0.0                   4.7
+   number of features per family (a large family can win on count alone):
+family          calendar  cross-market (DE prices)  lagged target  lookback (observed)  outages (ex ante)  published forecasts  regime / source  weather (MeteoSwiss)
+series                                                                                                                                                               
+FCR|sym|4h           7.0                      27.0           12.0                608.0               19.0                 56.0             12.0                  36.0
+aFRR|down|4h         7.0                      27.0           12.0                607.0               19.0                 56.0             12.0                  36.0
+aFRR|down|week       7.0                      27.0           12.0                607.0               19.0                 56.0             12.0                  36.0
+aFRR|up|4h           7.0                      27.0           12.0                607.0               19.0                 56.0             12.0                  36.0
+aFRR|up|week         7.0                      27.0           12.0                607.0               19.0                 56.0             12.0                  36.0
+mFRR|down|4h         7.0                      27.0           12.0                607.0               19.0                 58.0             12.0                  36.0
+mFRR|down|week       7.0                      27.0           12.0                607.0               19.0                 58.0             12.0                  36.0
+mFRR|up|4h           7.0                      27.0           12.0                607.0               19.0                 58.0             12.0                  36.0
+mFRR|up|week         7.0                      27.0           12.0                607.0               19.0                 58.0             12.0                  36.0
+
+== Driver families [cat]: share of mean |SHAP| (%)
+family          calendar  cross-market (DE prices)  lagged target  lookback (observed)  outages (ex ante)  published forecasts  regime / source  weather (MeteoSwiss)
+series                                                                                                                                                               
+FCR|sym|4h           9.5                      11.7           20.6                 47.0                0.8                  7.7              0.2                   2.6
+aFRR|down|4h         5.9                       0.8            6.2                 70.4                0.7                 10.1              0.0                   6.0
+aFRR|down|week       4.9                       2.4            2.2                 75.2                1.2                  8.7              0.2                   5.4
+aFRR|up|4h           0.6                       1.9            6.8                 77.1                0.7                  8.9              0.8                   3.2
+aFRR|up|week         2.2                       3.9            6.0                 75.5                2.8                  4.8              0.2                   4.6
+mFRR|down|4h        29.8                       1.5           24.0                 31.5                1.0                  9.6              0.2                   2.5
+mFRR|down|week       7.4                       3.3            3.7                 68.0                1.4                 12.1              0.1                   3.9
+mFRR|up|4h          38.3                       1.4           24.3                 20.5                1.4                 13.0              0.1                   1.0
+mFRR|up|week         1.3                       1.8            4.1                 80.2                2.0                  5.7              0.2                   4.6
+   number of features per family (a large family can win on count alone):
+family          calendar  cross-market (DE prices)  lagged target  lookback (observed)  outages (ex ante)  published forecasts  regime / source  weather (MeteoSwiss)
+series                                                                                                                                                               
+FCR|sym|4h           7.0                      27.0           12.0                608.0               19.0                 56.0             12.0                  36.0
+aFRR|down|4h         7.0                      27.0           12.0                607.0               19.0                 56.0             12.0                  36.0
+aFRR|down|week       7.0                      27.0           12.0                607.0               19.0                 56.0             12.0                  36.0
+aFRR|up|4h           7.0                      27.0           12.0                607.0               19.0                 56.0             12.0                  36.0
+aFRR|up|week         7.0                      27.0           12.0                607.0               19.0                 56.0             12.0                  36.0
+mFRR|down|4h         7.0                      27.0           12.0                607.0               19.0                 58.0             12.0                  36.0
+mFRR|down|week       7.0                      27.0           12.0                607.0               19.0                 58.0             12.0                  36.0
+mFRR|up|4h           7.0                      27.0           12.0                607.0               19.0                 58.0             12.0                  36.0
+mFRR|up|week         7.0                      27.0           12.0                607.0               19.0                 58.0             12.0                  36.0
+
+== FCR|sym|4h [lgbm] top 10 (share %, EUR/MWh effect, direction: + = higher value -> higher price)
+    1. tgt_prev_slot__price_settle_ch                           10.6 %      0.88  dir -0.83  [lagged target]
+    2. xm_fcr_coop_settle__prevday_slot                          5.3 %      0.41  dir -0.83  [cross-market (DE prices)]
+    3. tgt_prev_slot__price_bid_vwap                             2.3 %      0.18  dir -0.89  [lagged target]
+    4. it_nord_load_wa_fc_max_mw__dw                             2.3 %      0.15  dir -0.81  [published forecasts]
+    5. de_lu_load_wa_fc_max_mw__dw                               1.9 %      0.15  dir -0.61  [published forecasts]
+    6. cal_dow                                                   1.9 %      0.13  dir +0.65  [calendar]
+    7. cal_hour_local                                            1.3 %      0.10  dir -0.36  [calendar]
+    8. cal_weekend_share                                         1.3 %      0.09  dir +0.77  [calendar]
+    9. xm_de_afrr_down_avg__prevday_slot                         1.2 %      0.10  dir +0.69  [cross-market (DE prices)]
+   10. tgt_prev_slot__n_bids                                     1.2 %      0.08  dir -0.44  [lagged target]
+
+== FCR|sym|4h [cat] top 10 (share %, EUR/MWh effect, direction: + = higher value -> higher price)
+    1. tgt_prev_slot__price_settle_ch                           15.5 %      0.92  dir -0.82  [lagged target]
+    2. xm_fcr_coop_settle__prevday_slot                          6.8 %      0.45  dir -0.86  [cross-market (DE prices)]
+    3. cal_weekend_share                                         4.7 %      0.25  dir +0.78  [calendar]
+    4. cal_dow                                                   3.5 %      0.19  dir +0.75  [calendar]
+    5. it_nord_load_wa_fc_max_mw__dw                             1.8 %      0.10  dir -0.80  [published forecasts]
+    6. tgt_prev_slot__price_bid_vwap                             1.2 %      0.07  dir -0.77  [lagged target]
+    7. de_lu_load_wa_fc_max_mw__dw                               0.9 %      0.04  dir -0.67  [published forecasts]
+    8. cal_hour_local                                            0.8 %      0.04  dir -0.26  [calendar]
+    9. tgt_prev_auction__price_settle_ch                         0.8 %      0.05  dir -0.43  [lagged target]
+   10. de_lu_gen_hydro_ps_cons_mw__lb24h                         0.8 %      0.04  dir -0.74  [lookback (observed)]
+
+== aFRR|down|4h [lgbm] top 10 (share %, EUR/MWh effect, direction: + = higher value -> higher price)
+    1. it_nord_load_wa_fc_max_mw__dw                             2.9 %      0.04  dir -0.77  [published forecasts]
+    2. ch_temp_max_lw_degc__lb7d                                 2.5 %      0.03  dir -0.53  [weather (MeteoSwiss)]
+    3. ch_it_nord_ntc_ma_mw__dw                                  2.3 %      0.02  dir -0.47  [published forecasts]
+    4. ch_tre_da_down_bids_n__lb7d                               2.2 %      0.02  dir +0.43  [lookback (observed)]
+    5. at_load_wa_fc_max_mw__dw                                  2.0 %      0.02  dir -0.75  [published forecasts]
+    6. it_nord_load_wa_fc_min_mw__dw                             1.9 %      0.02  dir -0.48  [published forecasts]
+    7. ch_tre_da_up_offered_mw__lb7d                             1.8 %      0.02  dir +0.71  [lookback (observed)]
+    8. tgt_prev_slot__price_settle_ch                            1.7 %      0.01  dir -0.78  [lagged target]
+    9. ch_snow_hydro_cm__lb7d                                    1.7 %      0.02  dir +0.59  [weather (MeteoSwiss)]
+   10. ch_it_nord_flow_phys_mw__lb7d                             1.6 %      0.02  dir -0.07  [lookback (observed)]
+
+== aFRR|down|4h [cat] top 10 (share %, EUR/MWh effect, direction: + = higher value -> higher price)
+    1. cal_dow                                                   4.3 %      0.05  dir +0.66  [calendar]
+    2. ch_it_nord_ntc_ma_mw__dw                                  4.2 %      0.04  dir -0.59  [published forecasts]
+    3. at_gen_wind_on_da_fc_mw__lb24h                            2.0 %      0.01  dir +0.53  [lookback (observed)]
+    4. at_ch_sched_total_mw__lb7d                                1.6 %      0.01  dir +0.39  [lookback (observed)]
+    5. it_nord_ch_ntc_ma_mw__dw                                  1.6 %      0.01  dir +0.08  [published forecasts]
+    6. ce_freq_out_100mhz_share__lb24h                           1.6 %      0.01  dir -0.53  [lookback (observed)]
+    7. cal_weekend_share                                         1.5 %      0.01  dir +0.66  [calendar]
+    8. de_lu_ch_outage_trans_planned_n__lb7d                     1.4 %      0.01  dir -0.59  [lookback (observed)]
+    9. fr_gen_other_mw__lb24h                                    1.4 %      0.01  dir +0.18  [lookback (observed)]
+   10. ch_tre_da_down_bids_n__lb7d                               1.3 %      0.01  dir +0.41  [lookback (observed)]
+
+== aFRR|down|week [lgbm] top 10 (share %, EUR/MWh effect, direction: + = higher value -> higher price)
+    1. cal_doy_sin                                               3.9 %      0.30  dir -0.21  [calendar]
+    2. it_nord_gen_hydro_ror_mw__lb24h                           1.7 %      0.07  dir -0.45  [lookback (observed)]
+    3. it_nord_load_ya_fc_max_mw__dw                             1.7 %      0.10  dir -0.79  [published forecasts]
+    4. it_nord_gen_gas_mw__lb7d                                  1.6 %      0.13  dir +0.71  [lookback (observed)]
+    5. ch_tn_vertical_feedin_mw__lb7d                            1.5 %      0.13  dir +0.69  [lookback (observed)]
+    6. cal_doy_cos                                               1.5 %      0.09  dir +0.35  [calendar]
+    7. at_load_ya_fc_max_mw__dw                                  1.4 %      0.07  dir +0.18  [published forecasts]
+    8. it_nord_gen_hydro_ror_mw__lb7d                            1.4 %      0.06  dir -0.43  [lookback (observed)]
+    9. fr_gen_hydro_ps_cons_mw__lb24h                            1.3 %      0.07  dir -0.80  [lookback (observed)]
+   10. ch_gen_hydro_ror_mw__lb7d                                 1.0 %      0.03  dir -0.81  [lookback (observed)]
+
+== aFRR|down|week [cat] top 10 (share %, EUR/MWh effect, direction: + = higher value -> higher price)
+    1. cal_doy_sin                                               3.0 %      0.14  dir -0.37  [calendar]
+    2. ch_tn_vertical_feedin_mw__lb7d                            2.4 %      0.18  dir +0.77  [lookback (observed)]
+    3. it_nord_load_ya_fc_max_mw__dw                             1.8 %      0.09  dir -0.76  [published forecasts]
+    4. cal_doy_cos                                               1.2 %      0.03  dir +0.47  [calendar]
+    5. ch_gen_total_da_fc_mw__lb24h                              1.1 %      0.11  dir +0.67  [lookback (observed)]
+    6. fr_gen_hydro_ror_mw__lb7d                                 1.0 %      0.08  dir -0.59  [lookback (observed)]
+    7. it_nord_gen_hydro_ror_mw__lb24h                           0.9 %      0.04  dir -0.46  [lookback (observed)]
+    8. it_nord_gen_gas_mw__lb7d                                  0.9 %      0.03  dir +0.66  [lookback (observed)]
+    9. at_gen_hydro_ror_mw__lb7d                                 0.9 %      0.06  dir -0.46  [lookback (observed)]
+   10. it_nord_gen_hydro_ror_mw__lb7d                            0.8 %      0.05  dir -0.33  [lookback (observed)]
+
+== aFRR|up|4h [lgbm] top 10 (share %, EUR/MWh effect, direction: + = higher value -> higher price)
+    1. ch_gen_hydro_res_mw__lb7d                                 4.0 %      0.01  dir +0.31  [lookback (observed)]
+    2. tgt_prev_auction__n_bids                                  2.2 %      0.01  dir -0.03  [lagged target]
+    3. fr_ch_expl_price_eur_mwh__lb24h                           1.9 %      0.00  dir +0.53  [lookback (observed)]
+    4. ch_sched_net_total_mw__lb7d                               1.9 %      0.00  dir +0.47  [lookback (observed)]
+    5. it_nord_ch_da_spread_eur_mwh__lb7d                        1.7 %      0.00  dir +0.39  [lookback (observed)]
+    6. tgt_prev_slot__price_settle_ch                            1.6 %      0.00  dir -0.76  [lagged target]
+    7. ch_tre_sa_down_price_max_eur_mwh__lb24h                   1.6 %      0.00  dir +0.15  [lookback (observed)]
+    8. de_amprion_imb_vol_mwh__lb7d                              1.6 %      0.00  dir +0.39  [lookback (observed)]
+    9. de_lu_gen_wind_on_mw__lb7d                                1.4 %      0.00  dir -0.08  [lookback (observed)]
+   10. it_nord_gen_hydro_ror_mw__lb7d                            1.4 %      0.00  dir +0.39  [lookback (observed)]
+
+== aFRR|up|4h [cat] top 10 (share %, EUR/MWh effect, direction: + = higher value -> higher price)
+    1. tgt_prev_slot__price_settle_max                           2.9 %      0.01  dir -0.32  [lagged target]
+    2. it_nord_load_wa_fc_min_mw__dw                             2.0 %      0.00  dir -0.41  [published forecasts]
+    3. tgt_prev_slot__price_bid_vwap                             1.7 %      0.00  dir -0.50  [lagged target]
+    4. ch_mfrr_bids_down_offered_mw__lb7d                        1.7 %      0.00  dir +0.76  [lookback (observed)]
+    5. de_ch_expl_price_eur_mwh__lb24h                           1.6 %      0.00  dir +0.70  [lookback (observed)]
+    6. ch_it_nord_expl_price_eur_mwh__lb24h                      1.5 %      0.00  dir +0.23  [lookback (observed)]
+    7. fr_gen_wind_on_da_fc_mw__lb24h                            1.4 %      0.00  dir -0.30  [lookback (observed)]
+    8. at_load_actual_mw__lb7d                                   1.3 %      0.00  dir -0.20  [lookback (observed)]
+    9. ch_fr_sched_total_mw__lb24h                               1.3 %      0.00  dir +0.03  [lookback (observed)]
+   10. fr_gen_total_mw__lb7d                                     1.2 %      0.00  dir +0.39  [lookback (observed)]
+
+== aFRR|up|week [lgbm] top 10 (share %, EUR/MWh effect, direction: + = higher value -> higher price)
+    1. fr_gen_hydro_ror_mw__lb24h                                4.6 %      0.08  dir -0.76  [lookback (observed)]
+    2. tgt_prev_auction__n_bids                                  3.1 %      0.04  dir +0.77  [lagged target]
+    3. tgt_prev_slot__n_bids                                     2.9 %      0.04  dir +0.77  [lagged target]
+    4. fr_gen_hydro_ror_mw__lb7d                                 2.7 %      0.05  dir -0.81  [lookback (observed)]
+    5. cal_doy_sin                                               1.4 %      0.02  dir -0.53  [calendar]
+    6. at_gen_total_da_fc_mw__lb7d                               1.2 %      0.01  dir -0.43  [lookback (observed)]
+    7. ch_imb_price_short_eur_mwh__lb7d                          1.0 %      0.02  dir +0.30  [lookback (observed)]
+    8. it_nord_gen_solar_da_fc_mw__lb24h                         0.9 %      0.02  dir -0.61  [lookback (observed)]
+    9. fr_imb_price_short_eur_mwh__lb24h                         0.9 %      0.02  dir +0.02  [lookback (observed)]
+   10. ce_fcr_up_equiv_h__lb24h                                  0.9 %      0.02  dir -0.55  [lookback (observed)]
+
+== aFRR|up|week [cat] top 10 (share %, EUR/MWh effect, direction: + = higher value -> higher price)
+    1. fr_gen_hydro_ror_mw__lb24h                                4.2 %      0.08  dir -0.77  [lookback (observed)]
+    2. ch_hydro_reservoir_mwh__lb7d                              2.4 %      0.03  dir +0.62  [lookback (observed)]
+    3. tgt_prev_auction__n_bids                                  2.3 %      0.04  dir +0.65  [lagged target]
+    4. fr_gen_hydro_ror_mw__lb7d                                 2.1 %      0.05  dir -0.66  [lookback (observed)]
+    5. tgt_prev_slot__n_bids                                     2.0 %      0.03  dir +0.80  [lagged target]
+    6. cal_doy_sin                                               1.5 %      0.01  dir -0.58  [calendar]
+    7. at_hydro_reservoir_mwh__lb7d                              1.4 %      0.02  dir +0.71  [lookback (observed)]
+    8. ch_hydro_reservoir_mwh__lb24h                             1.2 %      0.01  dir +0.66  [lookback (observed)]
+    9. fr_gen_solar_id_fc_mw__lb24h                              1.0 %      0.01  dir -0.04  [lookback (observed)]
+   10. it_nord_gen_hydro_ps_mw__lb24h                            1.0 %      0.03  dir +0.39  [lookback (observed)]
+
+== mFRR|down|4h [lgbm] top 10 (share %, EUR/MWh effect, direction: + = higher value -> higher price)
+    1. cal_dow                                                   9.8 %      0.51  dir +0.77  [calendar]
+    2. tgt_prev_slot__price_settle_ch                            6.6 %      0.31  dir -0.51  [lagged target]
+    3. cal_weekend_share                                         5.6 %      0.27  dir +0.78  [calendar]
+    4. it_nord_load_wa_fc_max_mw__dw                             3.9 %      0.19  dir -0.81  [published forecasts]
+    5. de_lu_load_wa_fc_max_mw__dw                               3.2 %      0.16  dir -0.72  [published forecasts]
+    6. tgt_prev_auction__price_settle_ch                         2.9 %      0.12  dir -0.46  [lagged target]
+    7. tgt_prev_slot__price_settle_max                           2.7 %      0.13  dir -0.65  [lagged target]
+    8. tgt_prev_auction__awarded_mw                              2.7 %      0.13  dir +0.74  [lagged target]
+    9. tgt_prev_slot__awarded_mw                                 2.4 %      0.11  dir +0.72  [lagged target]
+   10. at_gen_biomass_mw__lb24h                                  1.7 %      0.07  dir -0.83  [lookback (observed)]
+
+== mFRR|down|4h [cat] top 10 (share %, EUR/MWh effect, direction: + = higher value -> higher price)
+    1. cal_dow                                                  14.0 %      0.67  dir +0.79  [calendar]
+    2. cal_weekend_share                                        13.3 %      0.68  dir +0.78  [calendar]
+    3. tgt_prev_slot__price_settle_ch                            6.2 %      0.22  dir -0.48  [lagged target]
+    4. tgt_prev_slot__price_settle_max                           3.4 %      0.15  dir -0.64  [lagged target]
+    5. tgt_prev_auction__awarded_mw                              2.6 %      0.11  dir +0.76  [lagged target]
+    6. tgt_prev_slot__price_bid_vwap                             2.5 %      0.10  dir -0.43  [lagged target]
+    7. tgt_prev_slot__awarded_mw                                 2.4 %      0.11  dir +0.72  [lagged target]
+    8. tgt_prev_auction__price_settle_ch                         2.2 %      0.08  dir -0.23  [lagged target]
+    9. cal_hour_local                                            1.6 %      0.07  dir -0.19  [calendar]
+   10. it_nord_load_wa_fc_max_mw__dw                             1.6 %      0.05  dir -0.77  [published forecasts]
+
+== mFRR|down|week [lgbm] top 10 (share %, EUR/MWh effect, direction: + = higher value -> higher price)
+    1. de_lu_load_ya_fc_max_mw__dw                               2.6 %      0.06  dir -0.41  [published forecasts]
+    2. it_nord_load_ya_fc_max_mw__dw                             2.5 %      0.03  dir -0.68  [published forecasts]
+    3. cal_doy_sin                                               1.9 %      0.03  dir -0.44  [calendar]
+    4. cal_month                                                 1.8 %      0.03  dir +0.68  [calendar]
+    5. it_nord_load_ya_fc_min_mw__dw                             1.7 %      0.03  dir -0.76  [published forecasts]
+    6. ce_freq_mean_df_mhz__lb24h                                1.6 %      0.02  dir +0.63  [lookback (observed)]
+    7. fr_gen_hydro_ror_mw__lb7d                                 1.4 %      0.02  dir -0.75  [lookback (observed)]
+    8. ch_imb_price_long_eur_mwh__lb7d                           1.2 %      0.03  dir +0.19  [lookback (observed)]
+    9. at_gen_total_mw__lb7d                                     1.2 %      0.02  dir -0.68  [lookback (observed)]
+   10. at_gen_total_da_fc_mw__lb7d                               1.1 %      0.02  dir -0.59  [lookback (observed)]
+
+== mFRR|down|week [cat] top 10 (share %, EUR/MWh effect, direction: + = higher value -> higher price)
+    1. cal_doy_sin                                               3.4 %      0.05  dir -0.68  [calendar]
+    2. it_nord_load_ya_fc_max_mw__dw                             2.6 %      0.02  dir -0.70  [published forecasts]
+    3. cal_month                                                 2.3 %      0.02  dir +0.65  [calendar]
+    4. it_nord_load_ya_fc_min_mw__dw                             1.9 %      0.03  dir -0.72  [published forecasts]
+    5. de_lu_load_ya_fc_max_mw__dw                               1.8 %      0.02  dir -0.44  [published forecasts]
+    6. fr_gen_hydro_ror_mw__lb7d                                 1.3 %      0.02  dir -0.69  [lookback (observed)]
+    7. at_hydro_reservoir_mwh__lb7d                              1.2 %      0.02  dir +0.61  [lookback (observed)]
+    8. cal_doy_cos                                               1.0 %      0.01  dir +0.31  [calendar]
+    9. fr_gen_solar_da_fc_mw__lb7d                               1.0 %      0.01  dir -0.15  [lookback (observed)]
+   10. de_lu_load_ya_fc_min_mw__dw                               0.9 %      0.01  dir -0.53  [published forecasts]
+
+== mFRR|up|4h [lgbm] top 10 (share %, EUR/MWh effect, direction: + = higher value -> higher price)
+    1. cal_dow                                                  17.2 %      0.23  dir -0.64  [calendar]
+    2. tgt_prev_slot__price_settle_ch                            9.0 %      0.17  dir -0.77  [lagged target]
+    3. cal_weekend_share                                         7.7 %      0.12  dir -0.78  [calendar]
+    4. tgt_prev_slot__price_bid_vwap                             3.1 %      0.05  dir -0.58  [lagged target]
+    5. it_nord_load_wa_fc_max_mw__dw                             3.1 %      0.05  dir +0.78  [published forecasts]
+    6. tgt_prev_auction__price_settle_ch                         3.0 %      0.05  dir -0.73  [lagged target]
+    7. de_lu_load_wa_fc_max_mw__dw                               2.5 %      0.05  dir +0.71  [published forecasts]
+    8. it_nord_load_wa_fc_min_mw__dw                             2.3 %      0.03  dir -0.41  [published forecasts]
+    9. tgt_prev_auction__awarded_mw                              1.9 %      0.03  dir +0.64  [lagged target]
+   10. tgt_prev_slot__awarded_mw                                 1.9 %      0.03  dir +0.74  [lagged target]
+
+== mFRR|up|4h [cat] top 10 (share %, EUR/MWh effect, direction: + = higher value -> higher price)
+    1. cal_dow                                                  19.8 %      0.26  dir -0.63  [calendar]
+    2. cal_weekend_share                                        16.7 %      0.24  dir -0.78  [calendar]
+    3. tgt_prev_slot__price_settle_ch                            8.5 %      0.13  dir -0.73  [lagged target]
+    4. tgt_prev_slot__price_bid_vwap                             4.8 %      0.07  dir -0.64  [lagged target]
+    5. tgt_prev_slot__price_settle_max                           3.6 %      0.05  dir -0.61  [lagged target]
+    6. it_nord_load_wa_fc_min_mw__dw                             2.4 %      0.04  dir -0.53  [published forecasts]
+    7. tgt_prev_slot__awarded_mw                                 2.2 %      0.04  dir +0.68  [lagged target]
+    8. tgt_prev_auction__awarded_mw                              1.5 %      0.02  dir +0.57  [lagged target]
+    9. tgt_prev_auction__price_settle_ch                         1.5 %      0.02  dir -0.62  [lagged target]
+   10. it_nord_load_wa_fc_max_mw__dw                             1.3 %      0.02  dir +0.25  [published forecasts]
+
+== mFRR|up|week [lgbm] top 10 (share %, EUR/MWh effect, direction: + = higher value -> higher price)
+    1. fr_imb_price_short_eur_mwh__lb24h                         1.8 %      0.01  dir +0.69  [lookback (observed)]
+    2. tgt_prev_slot__offered_mw                                 1.7 %      0.01  dir -0.76  [lagged target]
+    3. it_nord_gen_other_mw__lb7d                                1.7 %      0.01  dir -0.70  [lookback (observed)]
+    4. de_lu_load_ma_fc_min_mw__dw                               1.6 %      0.01  dir +0.79  [published forecasts]
+    5. ch_cons_enduse_mw__lb24h                                  1.6 %      0.01  dir -0.67  [lookback (observed)]
+    6. ch_hydro_reservoir_mwh__lb7d                              1.3 %      0.00  dir +0.50  [lookback (observed)]
+    7. tgt_prev_auction__offered_mw                              1.1 %      0.01  dir -0.62  [lagged target]
+    8. at_load_da_fc_mw__lb7d                                    1.0 %      0.00  dir -0.41  [lookback (observed)]
+    9. it_nord_ch_expl_price_eur_mwh__lb7d                       0.9 %      0.00  dir +0.71  [lookback (observed)]
+   10. tgt_prev_slot__awarded_mw                                 0.8 %      0.01  dir +0.12  [lagged target]
+
+== mFRR|up|week [cat] top 10 (share %, EUR/MWh effect, direction: + = higher value -> higher price)
+    1. ch_tre_sa_up_offered_mw__lb24h                            2.4 %      0.00  dir -0.18  [lookback (observed)]
+    2. at_hydro_reservoir_mwh__lb7d                              2.1 %      0.00  dir +0.43  [lookback (observed)]
+    3. de_lu_gen_hydro_res_mw__lb7d                              1.6 %      0.00  dir +0.28  [lookback (observed)]
+    4. tgt_prev_auction__offered_mw                              1.4 %      0.01  dir -0.70  [lagged target]
+    5. at_gen_wind_on_id_fc_mw__lb7d                             1.2 %      0.00  dir +0.22  [lookback (observed)]
+    6. ch_price_da_eur_mwh__lb24h                                1.2 %      0.01  dir +0.57  [lookback (observed)]
+    7. at_load_da_fc_mw__lb7d                                    1.1 %      0.00  dir -0.50  [lookback (observed)]
+    8. ch_tn_vertical_feedin_mw__lb7d                            1.1 %      0.00  dir +0.04  [lookback (observed)]
+    9. ch_hydro_reservoir_mwh__lb24h                             1.1 %      0.00  dir +0.51  [lookback (observed)]
+   10. fr_gen_hydro_ror_mw__lb7d                                 1.1 %      0.01  dir -0.62  [lookback (observed)]
+
+== Driver families by period [lgbm] (%)
+family                        calendar  cross-market (DE prices)  lagged target  lookback (observed)  outages (ex ante)  published forecasts  regime / source  weather (MeteoSwiss)
+series         group                                                                                                                                                               
+FCR|sym|4h     1_pre_crisis        3.8                      14.7           20.2                 49.0                1.8                  7.8              0.0                   2.8
+               2_crisis            4.2                      11.3           19.4                 54.1                0.1                  7.8              0.0                   3.0
+               3_post_crisis       6.6                      13.2           15.2                 49.9                0.2                 12.9              0.0                   2.0
+               4_post_merger       5.2                      14.8           21.1                 48.0                0.5                  8.6              0.0                   1.7
+aFRR|down|4h   4_post_merger       1.5                       2.3            7.6                 63.1                1.7                 15.7              0.0                   8.2
+aFRR|down|week 1_pre_crisis        2.9                       5.4            5.3                 70.9                0.5                 13.3              0.1                   1.7
+               2_crisis            6.9                       5.8            3.4                 68.4                0.6                 10.4              0.0                   4.4
+               3_post_crisis       5.8                       2.9            1.5                 73.9                0.4                 10.8              0.0                   4.7
+               4_post_merger       5.9                       2.4            2.0                 73.0                0.7                  9.2              0.0                   6.8
+aFRR|up|4h     4_post_merger       0.9                       1.6            6.9                 77.4                0.7                  8.2              0.0                   4.2
+aFRR|up|week   1_pre_crisis        1.7                       5.1            5.7                 73.1                0.5                  8.4              0.0                   5.5
+               2_crisis            1.0                       8.7            6.5                 72.4                1.3                  5.3              0.0                   4.8
+               3_post_crisis       2.1                       5.5            8.7                 75.7                0.4                  4.0              0.0                   3.5
+               4_post_merger       3.9                       3.9            8.0                 79.0                0.2                  2.1              0.0                   2.8
+mFRR|down|4h   1_pre_crisis       13.3                       2.2           32.2                 34.7                0.9                 13.8              0.3                   2.6
+               2_crisis           17.5                       1.5           23.7                 38.5                0.9                 16.1              0.3                   1.6
+               3_post_crisis      20.5                       1.5           18.9                 39.3                0.8                 17.5              0.0                   1.6
+               4_post_merger      20.2                       1.4           16.1                 40.1                2.0                 18.3              0.2                   1.7
+mFRR|down|week 1_pre_crisis        6.8                       2.1            5.9                 68.6                0.6                 13.4              0.0                   2.6
+               2_crisis            3.9                       1.6            3.3                 73.7                1.4                 12.8              0.0                   3.4
+               3_post_crisis       5.7                       2.4            1.8                 69.8                0.8                 15.4              0.0                   4.2
+               4_post_merger       5.5                       2.8            2.0                 63.6                1.1                 18.7              0.0                   6.4
+mFRR|up|4h     1_pre_crisis       27.0                       1.9           31.1                 22.1                1.5                 14.8              0.0                   1.6
+               2_crisis           24.8                       1.9           24.0                 30.1                1.9                 16.1              0.1                   1.1
+               3_post_crisis      27.8                       2.2           18.3                 28.5                2.1                 20.0              0.0                   1.1
+               4_post_merger      29.4                       1.2           18.5                 25.7                2.1                 22.8              0.0                   0.3
+mFRR|up|week   1_pre_crisis        0.0                       1.5            5.2                 79.2                1.1                  6.7              0.0                   6.2
+               2_crisis            0.2                       2.7            7.9                 76.4                1.7                  5.9              0.0                   5.2
+               3_post_crisis       1.5                       3.1            3.5                 78.9                2.2                  7.3              0.0                   3.5
+               4_post_merger       0.6                       3.4            6.6                 76.7                1.5                  6.9              0.0                   4.2
+
+== Agreement (rank correlations of feature importance; top-20 overlap of lgbm vs cat)
+        series  cat_shap_vs_gain_spearman  cat_top10_share  lgbm_shap_vs_gain_spearman  lgbm_top10_share  lgbm_vs_cat_spearman  top20_overlap
+    FCR|sym|4h                      0.923            0.368                       0.956             0.292                 0.818             18
+  aFRR|down|4h                      0.978            0.208                       0.958             0.207                 0.305              6
+aFRR|down|week                      0.950            0.142                       0.946             0.169                 0.695             12
+    aFRR|up|4h                      0.971            0.165                       0.935             0.191                 0.258              4
+  aFRR|up|week                      0.949            0.191                       0.951             0.196                 0.517              8
+  mFRR|down|4h                      0.877            0.498                       0.893             0.415                 0.719             16
+mFRR|down|week                      0.921            0.175                       0.946             0.170                 0.570             10
+    mFRR|up|4h                      0.875            0.624                       0.885             0.517                 0.756             16
+  mFRR|up|week                      0.899            0.143                       0.929             0.136                 0.593              5
+
+== mFRR up 4h: TFT variable-selection weights vs SHAP, by family (shares; TFT weights are within each encoder)
+                          SHAP cat  SHAP lgbm  TFT known / static inputs  TFT past (encoder) inputs
+family                                                                                             
+calendar                     0.383      0.265                      0.038                      0.444
+cross-market (DE prices)     0.014      0.019                      0.027                        NaN
+lagged target                0.243      0.229                      0.027                      0.484
+lookback (observed)          0.205      0.279                      0.763                        NaN
+other                          NaN        NaN                        NaN                      0.072
+outages (ex ante)            0.014      0.019                      0.022                        NaN
+published forecasts          0.130      0.177                      0.089                        NaN
+regime / source              0.001      0.000                      0.033                        NaN
+weather (MeteoSwiss)         0.010      0.011                        NaN                        NaN
+
+== Share of the lagged-target family (own price history beyond persistence), % - compare FCR with the others (Chronos-2, price history only, is the best FCR model)
+model            cat  lgbm
+series                    
+FCR|sym|4h      20.6  18.7
+aFRR|down|4h     6.2   7.6
+aFRR|down|week   2.2   2.4
+aFRR|up|4h       6.8   6.9
+aFRR|up|week     6.0   7.3
+mFRR|down|4h    24.0  24.1
+mFRR|down|week   3.7   2.6
+mFRR|up|4h      24.3  22.9
+mFRR|up|week     4.1   6.3

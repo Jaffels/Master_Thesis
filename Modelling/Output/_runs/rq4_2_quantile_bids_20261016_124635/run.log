@@ -1,0 +1,4 @@
+[2026-10-16T12:46:35] rq4_2_quantile_bids --stack rq2_7t --out Modelling/Output/rq4_2t # optional: tuned + seeded models
+[1;34musage: [0m[1;35mrq4_2_quantile_bids.py[0m [[32m-h[0m] [[36m--stack [33mSTACK[0m] [[36m--out [33mOUT[0m]
+rq4_2_quantile_bids.py: error: unrecognized arguments: # optional: tuned + seeded models
+[2026-10-16T12:46:35] rq4_2_quantile_bids: failed after 0 s

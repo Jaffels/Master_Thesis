@@ -1,0 +1,130 @@
+{
+  "script": "rq1c_shap",
+  "label": "RQ1c SHAP",
+  "status": "ok",
+  "error": "",
+  "argv": [
+    "--only",
+    "mFRR|up|week",
+    "--out",
+    "Modelling/Output/rq1c_shap_quick"
+  ],
+  "start": "2026-10-16T12:50:10",
+  "end": "2026-10-16T12:50:34",
+  "duration_s": 23.7,
+  "duration": "24 s",
+  "summary": [
+    "mFRR up week: top fr_imb_price_short_eur_mwh__lb (2 %)"
+  ],
+  "output_dir": "Modelling/Output/rq1c_shap_quick",
+  "git": {
+    "commit": "d3e8ad5",
+    "branch": "master",
+    "uncommitted_files_in_Modelling_Clean": [
+      "Modelling/Output/_runs/",
+      "Modelling/Output/rq1c_shap_quick/",
+      "Modelling/Output/rq4_2/",
+      "Modelling/Output/rq4_2t/",
+      "Modelling/rq1c_shap.py",
+      "Modelling/rq4_2_quantile_bids.py"
+    ]
+  },
+  "python": "3.14.7",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "machine": "Johans-MacBook-Air.local",
+  "cpu_count": 8,
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "pyarrow": "25.0.1",
+    "duckdb": "1.5.6",
+    "lightgbm": "4.7.0",
+    "scikit-learn": "1.9.1",
+    "catboost": "1.2.10",
+    "quantile-forest": "1.4.2",
+    "torch": "2.14.1",
+    "tabpfn": "9.2.0",
+    "chronos-forecasting": "2.3.2",
+    "transformers": "5.19.0",
+    "matplotlib": "3.11.2"
+  },
+  "files_written": [
+    {
+      "file": "fit_check.csv",
+      "kB": 0.2
+    },
+    {
+      "file": "model_agreement.csv",
+      "kB": 0.2
+    },
+    {
+      "file": "plots/mFRR_up_week/bar_cat.png",
+      "kB": 60.0
+    },
+    {
+      "file": "plots/mFRR_up_week/bar_lgbm.png",
+      "kB": 62.6
+    },
+    {
+      "file": "plots/mFRR_up_week/beeswarm_cat.png",
+      "kB": 118.3
+    },
+    {
+      "file": "plots/mFRR_up_week/beeswarm_lgbm.png",
+      "kB": 169.5
+    },
+    {
+      "file": "plots/mFRR_up_week/dependence_cat.png",
+      "kB": 88.4
+    },
+    {
+      "file": "plots/mFRR_up_week/dependence_lgbm.png",
+      "kB": 110.8
+    },
+    {
+      "file": "plots/mFRR_up_week/family_by_year_cat.png",
+      "kB": 30.0
+    },
+    {
+      "file": "plots/mFRR_up_week/family_by_year_lgbm.png",
+      "kB": 29.9
+    },
+    {
+      "file": "report_rq1c.txt",
+      "kB": 7.6
+    },
+    {
+      "file": "shap_dependence.csv",
+      "kB": 23.5
+    },
+    {
+      "file": "shap_family.csv",
+      "kB": 0.9
+    },
+    {
+      "file": "shap_family_by_period.csv",
+      "kB": 4.4
+    },
+    {
+      "file": "shap_family_by_year.csv",
+      "kB": 5.8
+    },
+    {
+      "file": "shap_importance.csv",
+      "kB": 291.4
+    },
+    {
+      "file": "shap_values_cat.parquet",
+      "kB": 95.9
+    },
+    {
+      "file": "shap_values_lgbm.parquet",
+      "kB": 116.9
+    },
+    {
+      "file": "tft_vs_shap_family.csv",
+      "kB": 0.4
+    }
+  ]
+}
