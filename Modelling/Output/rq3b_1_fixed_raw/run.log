@@ -1,0 +1,275 @@
+[2026-10-16T10:25:06] rq3b_1_riskmodel --target fixed --calib none --tag _fixed_raw
+RQ3b: 91,344 complete hours 2016-03-30 22:00:00+00:00 -> 2026-08-31 21:00:00+00:00; features d1 159, h1 222, pf 9; LightGBM yes
+  calibration none; LightGBM init none
+  spike hour share: short 0.1015, long 0.0458
+  short fold 2021-01-01 -> 2021-07-01: train 41,642 h (104 pos), test 4,344 h (6 pos)  [8s]
+  short fold 2021-07-01 -> 2022-01-01: train 45,986 h (110 pos), test 4,416 h (692 pos)  [15s]
+  short fold 2022-01-01 -> 2022-07-01: train 50,402 h (802 pos), test 4,344 h (1384 pos)  [22s]
+  short fold 2022-07-01 -> 2023-01-01: train 54,746 h (2138 pos), test 4,416 h (3485 pos)  [31s]
+  short fold 2023-01-01 -> 2023-07-01: train 59,162 h (5671 pos), test 4,344 h (327 pos)  [39s]
+  short fold 2023-07-01 -> 2024-01-01: train 63,506 h (5998 pos), test 4,416 h (106 pos)  [47s]
+  short fold 2024-01-01 -> 2024-07-01: train 67,922 h (6104 pos), test 4,368 h (112 pos)  [57s]
+  short fold 2024-07-01 -> 2025-01-01: train 72,290 h (6214 pos), test 4,416 h (1319 pos)  [67s]
+  short fold 2025-01-01 -> 2025-07-01: train 76,706 h (7522 pos), test 4,344 h (1070 pos)  [76s]
+  short fold 2025-07-01 -> 2026-01-01: train 81,050 h (8593 pos), test 4,416 h (390 pos)  [88s]
+  short fold 2026-01-01 -> 2026-07-01: train 85,466 h (8995 pos), test 4,344 h (164 pos)  [99s]
+  short fold 2026-07-01 -> 2027-01-01: train 89,810 h (9151 pos), test 1,486 h (108 pos)  [110s]
+  long fold 2021-01-01 -> 2021-07-01: train 41,642 h (145 pos), test 4,344 h (0 pos)  [116s]
+  long fold 2021-07-01 -> 2022-01-01: train 45,986 h (145 pos), test 4,416 h (7 pos)  [123s]
+  long fold 2022-01-01 -> 2022-07-01: train 50,402 h (152 pos), test 4,344 h (5 pos)  [130s]
+  long fold 2022-07-01 -> 2023-01-01: train 54,746 h (156 pos), test 4,416 h (116 pos)  [138s]
+  long fold 2023-01-01 -> 2023-07-01: train 59,162 h (273 pos), test 4,344 h (121 pos)  [147s]
+  long fold 2023-07-01 -> 2024-01-01: train 63,506 h (394 pos), test 4,416 h (103 pos)  [156s]
+  long fold 2024-01-01 -> 2024-07-01: train 67,922 h (496 pos), test 4,368 h (355 pos)  [166s]
+  long fold 2024-07-01 -> 2025-01-01: train 72,290 h (841 pos), test 4,416 h (1282 pos)  [177s]
+  long fold 2025-01-01 -> 2025-07-01: train 76,706 h (2115 pos), test 4,344 h (1363 pos)  [189s]
+  long fold 2025-07-01 -> 2026-01-01: train 81,050 h (3495 pos), test 4,416 h (418 pos)  [201s]
+  long fold 2026-01-01 -> 2026-07-01: train 85,466 h (3914 pos), test 4,344 h (208 pos)  [212s]
+  long fold 2026-07-01 -> 2027-01-01: train 89,810 h (4119 pos), test 1,486 h (61 pos)  [224s]
+
+-- short, test period all; best baseline (pooled) = persist_h1
+                 n   pos  Brier  Brier_skill_vs_best_baseline  logloss  PR_AUC  ROC_AUC  base_rate  mean_pred    ECE  cal_slope
+model                                                                                                                          
+clim_exp     49654  9163 0.1640                       -1.0788   0.5847  0.1859   0.5199     0.1845     0.0721 0.1124     0.2191
+clim_roll    49654  9163 0.1339                       -0.6973   0.4364  0.3983   0.7529     0.1845     0.1759 0.0505     0.5320
+persist_d1   49654  9163 0.0906                       -0.1488   0.3228  0.7396   0.8852     0.1845     0.1363 0.0498     0.7498
+cal_hist_d1  49654  9163 0.0949                       -0.2027   0.3469  0.7311   0.8831     0.1845     0.1247 0.0635     0.6838
+lr_d1        49654  9163 0.0986                       -0.2502   0.3791  0.6995   0.8562     0.1845     0.1267 0.0629     0.5620
+gbm_d1       49654  9163 0.0867                       -0.0994   0.3599  0.7352   0.8506     0.1845     0.1366 0.0480     0.5463
+gbm_pf_d1    49654  9163 0.0864                       -0.0953   0.3587  0.7385   0.8528     0.1845     0.1378 0.0467     0.5488
+persist_h1   49654  9163 0.0789                        0.0000   0.2837  0.7914   0.9060     0.1845     0.1522 0.0416     0.7238
+lr_h1        49654  9163 0.0851                       -0.0792   0.3149  0.7618   0.8944     0.1845     0.1454 0.0479     0.6315
+gbm_h1       49654  9163 0.0812                       -0.0299   0.3331  0.7633   0.8679     0.1845     0.1427 0.0418     0.5793
+gbm_pf_h1    49654  9163 0.0799                       -0.0125   0.3236  0.7707   0.8741     0.1845     0.1447 0.0398     0.5905
+
+-- short, test period from_2023; best baseline (pooled) = persist_h1
+                 n   pos  Brier  Brier_skill_vs_best_baseline  logloss  PR_AUC  ROC_AUC  base_rate  mean_pred    ECE  cal_slope
+model                                                                                                                          
+clim_exp     32135  3596 0.0977                       -0.1030   0.3407  0.1597   0.6443     0.1119     0.0970 0.0239     1.6703
+clim_roll    32135  3596 0.1120                       -0.2644   0.3714  0.1970   0.6792     0.1119     0.1769 0.0765     0.4391
+persist_d1   32135  3596 0.0937                       -0.0578   0.3298  0.3028   0.7768     0.1119     0.0737 0.0498     0.6510
+cal_hist_d1  32135  3596 0.0918                       -0.0371   0.3257  0.3332   0.7982     0.1119     0.0730 0.0491     0.6056
+lr_d1        32135  3596 0.0914                       -0.0319   0.3328  0.3204   0.7772     0.1119     0.0885 0.0461     0.5136
+gbm_d1       32135  3596 0.0904                       -0.0205   0.3148  0.3075   0.7796     0.1119     0.0791 0.0380     0.6725
+gbm_pf_d1    32135  3596 0.0893                       -0.0087   0.3090  0.3203   0.7906     0.1119     0.0833 0.0378     0.6747
+persist_h1   32135  3596 0.0885                        0.0000   0.3123  0.3670   0.8087     0.1119     0.0768 0.0469     0.6756
+lr_h1        32135  3596 0.0881                        0.0045   0.3166  0.3712   0.8123     0.1119     0.0964 0.0456     0.5338
+gbm_h1       32135  3596 0.0840                        0.0507   0.2852  0.3834   0.8246     0.1119     0.0875 0.0269     0.7797
+gbm_pf_h1    32135  3596 0.0826                        0.0665   0.2800  0.3962   0.8334     0.1119     0.0891 0.0260     0.7841
+
+-- short, test period pre_cap; best baseline (pooled) = persist_h1
+                 n   pos  Brier  Brier_skill_vs_best_baseline  logloss  PR_AUC  ROC_AUC  base_rate  mean_pred    ECE  cal_slope
+model                                                                                                                          
+clim_exp     36527  7838 0.1910                       -1.4889   0.6812  0.2415   0.5636     0.2146     0.0606 0.1540     0.3063
+clim_roll    36527  7838 0.1500                       -0.9548   0.4812  0.4305   0.7607     0.2146     0.1846 0.0658     0.4810
+persist_d1   36527  7838 0.0908                       -0.1833   0.3211  0.8078   0.9162     0.2146     0.1615 0.0590     0.7466
+cal_hist_d1  36527  7838 0.0968                       -0.2621   0.3563  0.7997   0.9097     0.2146     0.1467 0.0725     0.6754
+lr_d1        36527  7838 0.1020                       -0.3297   0.4040  0.7827   0.8919     0.2146     0.1349 0.0797     0.5872
+gbm_d1       36527  7838 0.0877                       -0.1433   0.3860  0.8036   0.8791     0.2146     0.1498 0.0648     0.5384
+gbm_pf_d1    36527  7838 0.0878                       -0.1445   0.3865  0.8037   0.8788     0.2146     0.1493 0.0652     0.5418
+persist_h1   36527  7838 0.0767                        0.0000   0.2755  0.8501   0.9319     0.2146     0.1829 0.0407     0.7096
+lr_h1        36527  7838 0.0853                       -0.1112   0.3234  0.8291   0.9200     0.2146     0.1605 0.0602     0.6312
+gbm_h1       36527  7838 0.0814                       -0.0612   0.3547  0.8235   0.8900     0.2146     0.1578 0.0568     0.5593
+gbm_pf_h1    36527  7838 0.0804                       -0.0475   0.3442  0.8280   0.8953     0.2146     0.1598 0.0548     0.5684
+
+-- short, test period post_cap; best baseline (pooled) = persist_h1
+                 n   pos  Brier  Brier_skill_vs_best_baseline  logloss  PR_AUC  ROC_AUC  base_rate  mean_pred    ECE  cal_slope
+model                                                                                                                          
+clim_exp     13127  1325 0.0889                       -0.0474   0.3163  0.1397   0.6383     0.1009     0.1041 0.0170     1.6252
+clim_roll    13127  1325 0.0891                       -0.0496   0.3115  0.2210   0.7269     0.1009     0.1517 0.0549     0.7988
+persist_d1   13127  1325 0.0902                       -0.0623   0.3274  0.2096   0.6887     0.1009     0.0663 0.0439     0.5931
+cal_hist_d1  13127  1325 0.0894                       -0.0533   0.3205  0.2316   0.7371     0.1009     0.0636 0.0442     0.6046
+lr_d1        13127  1325 0.0892                       -0.0503   0.3098  0.2532   0.7488     0.1009     0.1039 0.0369     0.5577
+gbm_d1       13127  1325 0.0839                        0.0111   0.2872  0.2582   0.7699     0.1009     0.0997 0.0199     0.7965
+gbm_pf_d1    13127  1325 0.0825                        0.0285   0.2813  0.2869   0.7851     0.1009     0.1058 0.0215     0.7843
+persist_h1   13127  1325 0.0849                        0.0000   0.3062  0.2833   0.7500     0.1009     0.0668 0.0418     0.7149
+lr_h1        13127  1325 0.0848                        0.0012   0.2911  0.3080   0.7883     0.1009     0.1034 0.0333     0.6298
+gbm_h1       13127  1325 0.0808                        0.0487   0.2729  0.3027   0.8033     0.1009     0.1008 0.0161     0.8563
+gbm_pf_h1    13127  1325 0.0785                        0.0753   0.2663  0.3365   0.8146     0.1009     0.1028 0.0123     0.8627
+
+-- long, test period all; best baseline (pooled) = persist_h1
+                 n   pos  Brier  Brier_skill_vs_best_baseline  logloss  PR_AUC  ROC_AUC  base_rate  mean_pred    ECE  cal_slope
+model                                                                                                                          
+clim_exp     49654  4039 0.0762                       -0.2150   0.3135  0.1994   0.7807     0.0813     0.0172 0.0642     0.7732
+clim_roll    49654  4039 0.0667                       -0.0633   0.2355  0.2635   0.8324     0.0813     0.0680 0.0251     0.6056
+persist_d1   49654  4039 0.0649                       -0.0343   0.2384  0.3363   0.8424     0.0813     0.0485 0.0333     0.7230
+cal_hist_d1  49654  4039 0.0642                       -0.0237   0.2438  0.3731   0.8451     0.0813     0.0419 0.0395     0.7026
+lr_d1        49654  4039 0.0615                        0.0190   0.2364  0.4072   0.8494     0.0813     0.0536 0.0278     0.6111
+gbm_d1       49654  4039 0.0667                       -0.0631   0.2620  0.3473   0.8503     0.0813     0.0339 0.0475     0.6078
+gbm_pf_d1    49654  4039 0.0650                       -0.0368   0.2529  0.3733   0.8584     0.0813     0.0373 0.0441     0.6165
+persist_h1   49654  4039 0.0627                        0.0000   0.2266  0.3863   0.8643     0.0813     0.0652 0.0347     0.6365
+lr_h1        49654  4039 0.0575                        0.0829   0.2169  0.4706   0.8771     0.0813     0.0601 0.0249     0.6204
+gbm_h1       49654  4039 0.0615                        0.0188   0.2378  0.4249   0.8700     0.0813     0.0418 0.0396     0.6293
+gbm_pf_h1    49654  4039 0.0608                        0.0308   0.2338  0.4433   0.8758     0.0813     0.0410 0.0403     0.6542
+
+-- long, test period from_2023; best baseline (pooled) = persist_h1
+                 n   pos  Brier  Brier_skill_vs_best_baseline  logloss  PR_AUC  ROC_AUC  base_rate  mean_pred    ECE  cal_slope
+model                                                                                                                          
+clim_exp     32135  3911 0.1138                       -0.2315   0.4578  0.2046   0.6890     0.1217     0.0248 0.0969     0.6337
+clim_roll    32135  3911 0.0992                       -0.0731   0.3385  0.2683   0.7571     0.1217     0.1038 0.0360     0.6015
+persist_d1   32135  3911 0.0963                       -0.0422   0.3455  0.3378   0.7787     0.1217     0.0729 0.0488     0.6488
+cal_hist_d1  32135  3911 0.0952                       -0.0304   0.3468  0.3849   0.7959     0.1217     0.0629 0.0588     0.6771
+lr_d1        32135  3911 0.0905                        0.0201   0.3344  0.4262   0.8008     0.1217     0.0795 0.0466     0.6023
+gbm_d1       32135  3911 0.0991                       -0.0720   0.3724  0.3549   0.7867     0.1217     0.0522 0.0695     0.6256
+gbm_pf_d1    32135  3911 0.0965                       -0.0444   0.3592  0.3817   0.7994     0.1217     0.0574 0.0643     0.6341
+persist_h1   32135  3911 0.0924                        0.0000   0.3248  0.4007   0.8142     0.1217     0.0968 0.0530     0.6003
+lr_h1        32135  3911 0.0846                        0.0850   0.3045  0.4881   0.8351     0.1217     0.0905 0.0421     0.6388
+gbm_h1       32135  3911 0.0911                        0.0139   0.3361  0.4348   0.8171     0.1217     0.0644 0.0573     0.6605
+gbm_pf_h1    32135  3911 0.0900                        0.0264   0.3302  0.4538   0.8266     0.1217     0.0632 0.0585     0.6906
+
+-- long, test period pre_cap; best baseline (pooled) = persist_h1
+                 n   pos  Brier  Brier_skill_vs_best_baseline  logloss  PR_AUC  ROC_AUC  base_rate  mean_pred    ECE  cal_slope
+model                                                                                                                          
+clim_exp     36527  2265 0.0594                       -0.1692   0.2648  0.2899   0.8420     0.0620     0.0076 0.0544     1.2753
+clim_roll    36527  2265 0.0517                       -0.0174   0.1936  0.2761   0.8663     0.0620     0.0334 0.0287     0.6751
+persist_d1   36527  2265 0.0519                       -0.0209   0.1983  0.2881   0.8587     0.0620     0.0292 0.0335     0.7787
+cal_hist_d1  36527  2265 0.0529                       -0.0420   0.2141  0.3043   0.8436     0.0620     0.0227 0.0393     0.7203
+lr_d1        36527  2265 0.0521                       -0.0264   0.2183  0.3205   0.8525     0.0620     0.0251 0.0369     0.6146
+gbm_d1       36527  2265 0.0551                       -0.0839   0.2397  0.3465   0.8754     0.0620     0.0123 0.0497     0.7092
+gbm_pf_d1    36527  2265 0.0543                       -0.0692   0.2330  0.3876   0.8841     0.0620     0.0123 0.0497     0.7618
+persist_h1   36527  2265 0.0508                        0.0000   0.1904  0.3228   0.8745     0.0620     0.0488 0.0302     0.6124
+lr_h1        36527  2265 0.0484                        0.0472   0.1967  0.3900   0.8807     0.0620     0.0344 0.0276     0.5806
+gbm_h1       36527  2265 0.0534                       -0.0509   0.2249  0.3594   0.8866     0.0620     0.0157 0.0463     0.6740
+gbm_pf_h1    36527  2265 0.0530                       -0.0424   0.2214  0.3972   0.8937     0.0620     0.0146 0.0474     0.7305
+
+-- long, test period post_cap; best baseline (pooled) = persist_h1
+                 n   pos  Brier  Brier_skill_vs_best_baseline  logloss  PR_AUC  ROC_AUC  base_rate  mean_pred    ECE  cal_slope
+model                                                                                                                          
+clim_exp     13127  1774 0.1230                       -0.2825   0.4489  0.2065   0.6309     0.1351     0.0438 0.0913     0.8410
+clim_roll    13127  1774 0.1084                       -0.1310   0.3521  0.2856   0.7500     0.1351     0.1644 0.0321     0.8225
+persist_d1   13127  1774 0.1011                       -0.0540   0.3501  0.3852   0.7750     0.1351     0.1022 0.0484     0.6878
+cal_hist_d1  13127  1774 0.0956                        0.0033   0.3263  0.4538   0.8251     0.1351     0.0953 0.0419     0.7827
+lr_d1        13127  1774 0.0876                        0.0860   0.2866  0.5250   0.8593     0.1351     0.1328 0.0204     0.8652
+gbm_d1       13127  1774 0.0990                       -0.0324   0.3241  0.4104   0.8272     0.1351     0.0938 0.0430     0.8661
+gbm_pf_d1    13127  1774 0.0948                        0.0110   0.3082  0.4473   0.8423     0.1351     0.1068 0.0334     0.8646
+persist_h1   13127  1774 0.0959                        0.0000   0.3273  0.4644   0.8225     0.1351     0.1109 0.0480     0.6929
+lr_h1        13127  1774 0.0829                        0.1355   0.2732  0.5753   0.8764     0.1351     0.1314 0.0216     0.8417
+gbm_h1       13127  1774 0.0842                        0.1217   0.2736  0.5517   0.8773     0.1351     0.1144 0.0223     1.0013
+gbm_pf_h1    13127  1774 0.0826                        0.1388   0.2685  0.5693   0.8829     0.1351     0.1144 0.0223     1.0165
+
+-- Brier gain over the best baseline (positive = model better), day-block bootstrap 95 % CI
+     side      model best_baseline   dBrier    ci_lo    ci_hi
+0   short      lr_d1    persist_h1 -0.01974 -0.02487 -0.01491
+1   short     gbm_d1    persist_h1 -0.00784 -0.01245 -0.00344
+2   short  gbm_pf_d1    persist_h1 -0.00752 -0.01186 -0.00334
+3   short      lr_h1    persist_h1 -0.00625 -0.00958 -0.00316
+4   short     gbm_h1    persist_h1 -0.00236 -0.00630  0.00180
+5   short  gbm_pf_h1    persist_h1 -0.00099 -0.00520  0.00363
+6    long      lr_d1    persist_h1  0.00119 -0.00051  0.00280
+7    long     gbm_d1    persist_h1 -0.00396 -0.00622 -0.00188
+8    long  gbm_pf_d1    persist_h1 -0.00231 -0.00436 -0.00021
+9    long      lr_h1    persist_h1  0.00520  0.00394  0.00669
+10   long     gbm_h1    persist_h1  0.00118 -0.00066  0.00284
+11   long  gbm_pf_h1    persist_h1  0.00193  0.00007  0.00379
+
+-- reliability (decile of predicted probability: mean prediction vs observed rate)
+ decile  side      model  mean_pred  obs_rate    n
+      0 short persist_h1     0.0013    0.0012 4966
+      1 short persist_h1     0.0033    0.0316 4965
+      2 short persist_h1     0.0096    0.0312 4965
+      3 short persist_h1     0.0110    0.0230 4966
+      4 short persist_h1     0.0170    0.0592 4965
+      5 short persist_h1     0.0222    0.0491 4965
+      6 short persist_h1     0.0346    0.1067 4966
+      7 short persist_h1     0.0850    0.2244 4965
+      8 short persist_h1     0.3889    0.4163 4965
+      9 short persist_h1     0.9489    0.9025 4966
+      0 short      lr_d1     0.0002    0.0240 4966
+      1 short      lr_d1     0.0008    0.0248 4965
+      2 short      lr_d1     0.0022    0.0383 4965
+      3 short      lr_d1     0.0054    0.0646 4966
+      4 short      lr_d1     0.0117    0.0796 4965
+      5 short      lr_d1     0.0232    0.0973 4965
+      6 short      lr_d1     0.0446    0.1297 4966
+      7 short      lr_d1     0.0940    0.2133 4965
+      8 short      lr_d1     0.2539    0.3686 4965
+      9 short      lr_d1     0.8306    0.8053 4966
+      0 short     gbm_d1     0.0001    0.0111 4966
+      1 short     gbm_d1     0.0006    0.0912 4965
+      2 short     gbm_d1     0.0024    0.0626 4965
+      3 short     gbm_d1     0.0068    0.0300 4966
+      4 short     gbm_d1     0.0151    0.0526 4965
+      5 short     gbm_d1     0.0285    0.0884 4965
+      6 short     gbm_d1     0.0527    0.1152 4966
+      7 short     gbm_d1     0.1058    0.1930 4965
+      8 short     gbm_d1     0.2591    0.3053 4965
+      9 short     gbm_d1     0.8944    0.8959 4966
+      0 short     gbm_h1     0.0001    0.0054 4966
+      1 short     gbm_h1     0.0007    0.1019 4965
+      2 short     gbm_h1     0.0026    0.0463 4965
+      3 short     gbm_h1     0.0065    0.0242 4966
+      4 short     gbm_h1     0.0138    0.0367 4965
+      5 short     gbm_h1     0.0273    0.0663 4965
+      6 short     gbm_h1     0.0543    0.1116 4966
+      7 short     gbm_h1     0.1165    0.1899 4965
+      8 short     gbm_h1     0.2933    0.3462 4965
+      9 short     gbm_h1     0.9120    0.9168 4966
+      0  long persist_h1     0.0014    0.0081 4966
+      1  long persist_h1     0.0014    0.0018 4965
+      2  long persist_h1     0.0016    0.0000 4965
+      3  long persist_h1     0.0026    0.0238 4966
+      4  long persist_h1     0.0042    0.0163 4965
+      5  long persist_h1     0.0100    0.0451 4965
+      6  long persist_h1     0.0172    0.0385 4966
+      7  long persist_h1     0.0316    0.0906 4965
+      8  long persist_h1     0.0984    0.1968 4965
+      9  long persist_h1     0.4839    0.3925 4966
+      0  long      lr_d1     0.0000    0.0030 4966
+      1  long      lr_d1     0.0002    0.0073 4965
+      2  long      lr_d1     0.0007    0.0105 4965
+      3  long      lr_d1     0.0019    0.0197 4966
+      4  long      lr_d1     0.0043    0.0254 4965
+      5  long      lr_d1     0.0088    0.0403 4965
+      6  long      lr_d1     0.0167    0.0654 4966
+      7  long      lr_d1     0.0333    0.0961 4965
+      8  long      lr_d1     0.0850    0.1559 4965
+      9  long      lr_d1     0.3845    0.3899 4966
+      0  long     gbm_d1     0.0000    0.0010 4966
+      1  long     gbm_d1     0.0001    0.0026 4965
+      2  long     gbm_d1     0.0002    0.0111 4965
+      3  long     gbm_d1     0.0007    0.0121 4966
+      4  long     gbm_d1     0.0023    0.0185 4965
+      5  long     gbm_d1     0.0052    0.0487 4965
+      6  long     gbm_d1     0.0111    0.0711 4966
+      7  long     gbm_d1     0.0232    0.1154 4965
+      8  long     gbm_d1     0.0547    0.1791 4965
+      9  long     gbm_d1     0.2412    0.3538 4966
+      0  long     gbm_h1     0.0000    0.0002 4966
+      1  long     gbm_h1     0.0000    0.0014 4965
+      2  long     gbm_h1     0.0001    0.0093 4965
+      3  long     gbm_h1     0.0006    0.0137 4966
+      4  long     gbm_h1     0.0020    0.0157 4965
+      5  long     gbm_h1     0.0047    0.0268 4965
+      6  long     gbm_h1     0.0105    0.0747 4966
+      7  long     gbm_h1     0.0247    0.1118 4965
+      8  long     gbm_h1     0.0684    0.1615 4965
+      9  long     gbm_h1     0.3067    0.3983 4966
+   diagnostics written: /Users/johan/Master_Thesis/Modelling/Output/rq3b_1_fixed_raw/diagnostics
+
+-- LightGBM gain importance (mean share over fits; share of fits in the top 20)
+   short gbm_d1: ch_price_da_eur_mwh__fc_d1 27.5% (100%); fixhist_short__lb24h_d1 13.7% (83%); ch_afrr_up_act_price_eur_mwh__lb24h_d1 6.1% (75%); fr_price_da_eur_mwh__fc_d1 5.0% (100%); it_nord_price_da_eur_mwh__fc_d1 5.0% (100%); ch_imb_price_short_max_eur_mwh__lb24h_d1 4.1% (100%); ch_imb_price_short_eur_mwh__lb24h_d1 3.3% (83%); ch_imb_price_short_eur_mwh__lag2d_d1 2.7% (83%); ch_afrr_up_act_price_eur_mwh__lb7d_d1 2.0% (58%); ch_gen_total_da_fc_mw__fc_d1 1.3% (83%)
+   short gbm_pf_d1: ch_price_da_eur_mwh__fc_d1 18.2% (100%); it_nord_price_da_eur_mwh__fc_d1 11.6% (100%); fixhist_short__lb24h_d1 11.2% (83%); ch_imb_price_short_eur_mwh__lb24h_d1 6.0% (75%); ch_afrr_up_act_price_eur_mwh__lb24h_d1 5.1% (83%); fr_price_da_eur_mwh__fc_d1 5.0% (100%); ch_imb_price_short_max_eur_mwh__lb24h_d1 4.8% (100%); at_price_da_eur_mwh__fc_d1 4.4% (83%); ch_afrr_up_act_price_eur_mwh__lb7d_d1 2.1% (67%); ch_imb_price_short_eur_mwh__lag2d_d1 1.9% (75%)
+   short gbm_h1: fixhist_short__lb4h_h1 24.4% (100%); ch_price_da_eur_mwh__fc_d1 13.4% (83%); ch_imb_price_short_eur_mwh__last_h1 6.6% (100%); ch_imb_price_short_eur_mwh__lag1d_h1 5.7% (92%); ch_imb_price_short_eur_mwh__lb1h_h1 5.3% (92%); fr_price_da_eur_mwh__fc_d1 5.0% (83%); fixhist_short__lb24h_d1 4.2% (83%); it_nord_price_da_eur_mwh__fc_d1 3.4% (100%); ch_imb_price_short_max_eur_mwh__lb24h_d1 2.6% (100%); ch_imb_vol_mwh__last_h1 2.1% (83%)
+   short gbm_pf_h1: ch_price_da_eur_mwh__fc_d1 21.8% (83%); fixhist_short__lb4h_h1 19.3% (100%); ch_imb_price_short_eur_mwh__last_h1 6.2% (100%); fixhist_short__lb24h_d1 6.2% (75%); ch_imb_price_short_eur_mwh__lb1h_h1 6.1% (92%); ch_imb_price_short_eur_mwh__lag1d_h1 4.5% (92%); it_nord_price_da_eur_mwh__fc_d1 2.5% (100%); ch_imb_vol_mwh__last_h1 2.1% (75%); ch_imb_price_short_max_eur_mwh__lb24h_d1 2.0% (83%); fr_price_da_eur_mwh__fc_d1 1.8% (83%)
+   long gbm_d1: ch_imb_price_long_min_eur_mwh__lb24h_d1 8.9% (100%); ch_imb_price_long_min_eur_mwh__lb7d_d1 5.5% (100%); ch_imb_price_long_eur_mwh__lb24h_d1 5.5% (83%); ch_afrr_down_act_price_eur_mwh__lb7d_d1 4.3% (42%); fixhist_long__lb24h_d1 3.7% (50%); ch_afrr_down_act_price_eur_mwh__lb24h_d1 2.6% (25%); de_lu_resid_load_da_fc_mw__fc_d1 2.0% (100%); ch_gen_total_da_fc_mw__fc_d1 1.9% (67%); de_lu_resid_load_da_fc_mw_ramp__fc_d1 1.8% (100%); ch_gen_solar_da_fc_mw__fc_d1 1.6% (42%)
+   long gbm_pf_d1: ch_imb_price_long_min_eur_mwh__lb24h_d1 9.9% (100%); ch_imb_price_long_min_eur_mwh__lb7d_d1 7.1% (100%); ch_afrr_down_act_price_eur_mwh__lb7d_d1 6.5% (50%); ch_afrr_down_act_price_eur_mwh__lb24h_d1 3.2% (33%); ch_imb_price_long_eur_mwh__lb24h_d1 3.1% (42%); ch_ghi_lw_wm2__pf 2.0% (58%); ch_gen_total_da_fc_mw__fc_d1 1.9% (67%); fixhist_long__lb24h_d1 1.8% (33%); de_lu_resid_load_da_fc_mw__fc_d1 1.6% (100%); de_lu_resid_load_da_fc_mw_ramp__fc_d1 1.6% (100%)
+   long gbm_h1: ch_imb_price_long_eur_mwh__last_h1 7.6% (100%); fixhist_long__lb4h_h1 6.5% (100%); ch_afrr_down_act_price_eur_mwh__lb7d_d1 5.7% (42%); ch_imb_price_long_min_eur_mwh__lb24h_d1 5.6% (100%); ch_imb_price_long_min_eur_mwh__lb7d_d1 5.0% (83%); ch_imb_price_long_eur_mwh__lb1h_h1 4.9% (92%); ch_imb_vol_mwh__last_h1 4.2% (83%); ch_imb_vol_mwh__lb1h_h1 2.2% (67%); ch_afrr_down_act_price_eur_mwh__lb24h_d1 2.0% (33%); fixhist_long__lb24h_d1 1.9% (33%)
+   long gbm_pf_h1: ch_imb_price_long_eur_mwh__last_h1 7.7% (100%); fixhist_long__lb4h_h1 6.1% (100%); ch_afrr_down_act_price_eur_mwh__lb7d_d1 4.8% (58%); ch_imb_price_long_min_eur_mwh__lb24h_d1 4.7% (100%); ch_imb_vol_mwh__last_h1 4.5% (83%); ch_imb_price_long_eur_mwh__lb1h_h1 4.3% (100%); ch_imb_price_long_min_eur_mwh__lb7d_d1 4.2% (92%); spikehist_long_q010__lb4h_h1 3.0% (50%); fixhist_long__lb24h_d1 2.4% (33%); regime_imb_resolution 1.8% (67%)
+
+-- share of all spike hours inside the top 5 % riskiest hours (capture rate)
+group        long  short
+model                   
+cal_hist_d1 0.284  0.257
+clim_exp    0.163  0.046
+clim_roll   0.195  0.145
+gbm_d1      0.269  0.270
+gbm_h1      0.316  0.271
+gbm_pf_d1   0.281  0.270
+gbm_pf_h1   0.325  0.271
+lr_d1       0.305  0.264
+lr_h1       0.342  0.265
+persist_d1  0.247  0.267
+persist_h1  0.301  0.269
+
+written: /Users/johan/Master_Thesis/Modelling/Output/rq3b_1_fixed_raw  (228s)
+[2026-10-16T10:28:55] rq3b_1_riskmodel: ok after 3 min 48 s
