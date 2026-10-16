@@ -1,0 +1,206 @@
+RQ2 step 9 - training window (done_todo 2.2 item 7): variant vs expanding window (round 2), same rows.
+change_% = MAE change of the variant (negative = better); dm < 0 = variant better; Newey-West lags 12 (4h) / 4 (week).
+Variants: sliding (rq2_9s_afrr, rq2_9s_fcr, rq2_9s_mfrr), regime (rq2_9r_afrr, rq2_9r_fcr, rq2_9r_mfrr), regime_crisis (rq2_9rc_mfrr)
+
+== sliding: MAE skill vs naive (%) expanding -> variant, p of DM
+model                                  cat_q                        lear                        lgbm_q                         qrf                           svr
+series                                                                                                                                                          
+FCR|sym|4h              4.1 -> 3.7 (p=0.184)        4.0 -> 3.4 (p=0.056)    4.3 -> 3.3 (p=0.002) worse        4.2 -> 3.8 (p=0.055)         0.2 -> -0.4 (p=0.100)
+aFRR|down|4h              7.3 -> 7.3 (p=nan)          2.4 -> 2.4 (p=nan)            8.3 -> 8.3 (p=nan)          3.7 -> 3.7 (p=nan)            3.4 -> 3.4 (p=nan)
+aFRR|down|week         13.4 -> 8.7 (p=0.081)  8.1 -> 0.9 (p=0.005) worse        12.8 -> 14.6 (p=0.233)      16.7 -> 14.9 (p=0.254)          7.6 -> 7.8 (p=0.841)
+aFRR|up|4h                6.2 -> 6.2 (p=nan)        -0.9 -> -0.9 (p=nan)            1.6 -> 1.6 (p=nan)        -1.0 -> -1.0 (p=nan)          -1.2 -> -1.2 (p=nan)
+aFRR|up|week            3.4 -> 2.7 (p=0.585)      -0.3 -> -2.0 (p=0.056)          2.5 -> 1.5 (p=0.430)      -2.5 -> -2.5 (p=0.996)  -6.6 -> -8.7 (p=0.012) worse
+mFRR|down|4h      8.8 -> 6.0 (p=0.003) worse  7.4 -> 1.5 (p=0.000) worse    8.8 -> 4.2 (p=0.000) worse  8.9 -> 3.6 (p=0.000) worse  -3.9 -> -8.4 (p=0.003) worse
+mFRR|down|week          3.8 -> 2.4 (p=0.332)      -0.2 -> -0.6 (p=0.838)          2.9 -> 1.9 (p=0.472)        6.2 -> 2.2 (p=0.076)        -0.6 -> -4.6 (p=0.110)
+mFRR|up|4h      24.3 -> 22.6 (p=0.042) worse      17.4 -> 18.2 (p=0.391)  24.9 -> 23.1 (p=0.007) worse      21.7 -> 20.1 (p=0.186)   2.8 -> 6.7 (p=0.000) better
+mFRR|up|week            3.5 -> 2.9 (p=0.633)      -1.1 -> -1.4 (p=0.764)   2.5 -> -1.6 (p=0.015) worse        2.5 -> 3.5 (p=0.370)        -5.1 -> -7.5 (p=0.107)
+   significantly better: 1 / worse: 11 of 45 series x model pairs
+   pinball: significantly better 0 / worse 10 of 21
+   best model per series (expanding -> variant): FCR|sym|4h: lgbm_q +4.3% -> qrf +3.8%; aFRR|down|4h: lgbm_q +8.3% -> lgbm_q +8.3%; aFRR|down|week: qrf +16.7% -> qrf +14.9%; aFRR|up|4h: cat_q +6.2% -> cat_q +6.2%; aFRR|up|week: cat_q +3.4% -> cat_q +2.7%; mFRR|down|4h: qrf +8.9% -> cat_q +6.0%; mFRR|down|week: qrf +6.2% -> cat_q +2.4%; mFRR|up|4h: lgbm_q +24.9% -> lgbm_q +23.1%; mFRR|up|week: cat_q +3.5% -> qrf +3.5%
+   by period - MAE change % of the variant ((+) / (-) = Holm-significantly better / worse):
+   lear:
+   period         1_pre_crisis 2_crisis 3_post_crisis 4_post_merger
+   series                                                          
+   FCR|sym|4h              0.0  1.3 (-)          -0.4           1.3
+   aFRR|down|4h            NaN      NaN           NaN           0.0
+   aFRR|down|week          0.0  7.6 (-)      14.1 (-)          -9.5
+   aFRR|up|4h              NaN      NaN           NaN           0.0
+   aFRR|up|week            0.0      0.3           9.1          -3.0
+   mFRR|down|4h       16.6 (-)  5.6 (-)       5.5 (-)       6.6 (-)
+   mFRR|down|week          0.1      0.9          -1.5           2.3
+   mFRR|up|4h          4.8 (-)     -2.7           2.2          -6.1
+   mFRR|up|week           -3.2      0.8           4.4         -10.0
+   lgbm_q:
+   period         1_pre_crisis 2_crisis 3_post_crisis 4_post_merger
+   series                                                          
+   FCR|sym|4h              0.0  1.9 (-)           0.7          -0.2
+   aFRR|down|4h            NaN      NaN           NaN           0.0
+   aFRR|down|week          0.0     -3.6           4.5          -3.7
+   aFRR|up|4h              NaN      NaN           NaN           0.0
+   aFRR|up|week            0.0      1.2           1.1          -0.2
+   mFRR|down|4h       18.5 (-)  3.8 (-)       4.8 (-)       2.6 (-)
+   mFRR|down|week          1.3      2.1          -1.8          -1.5
+   mFRR|up|4h              3.4      2.6           1.5           1.4
+   mFRR|up|week            4.8      3.2           8.6          17.3
+   cat_q:
+   period         1_pre_crisis 2_crisis 3_post_crisis 4_post_merger
+   series                                                          
+   FCR|sym|4h              0.0     -0.2       1.6 (-)          -0.5
+   aFRR|down|4h            NaN      NaN           NaN           0.0
+   aFRR|down|week          0.0      5.4          10.1          -8.8
+   aFRR|up|4h              NaN      NaN           NaN           0.0
+   aFRR|up|week            0.0      0.0           4.4           0.0
+   mFRR|down|4h        9.3 (-)      2.2           3.3       3.1 (-)
+   mFRR|down|week          4.1      0.2           4.1           4.8
+   mFRR|up|4h              3.0      3.0           0.7          -0.7
+   mFRR|up|week       -4.7 (+)      1.4           1.5          -4.6
+   qrf:
+   period         1_pre_crisis 2_crisis 3_post_crisis 4_post_merger
+   series                                                          
+   FCR|sym|4h              0.0  0.9 (-)           0.6          -0.9
+   aFRR|down|4h            NaN      NaN           NaN           0.0
+   aFRR|down|week          0.0      1.8           4.5          -0.7
+   aFRR|up|4h              NaN      NaN           NaN           0.0
+   aFRR|up|week            0.0     -0.4           0.8           5.5
+   mFRR|down|4h       23.2 (-)  3.3 (-)       6.9 (-)       8.5 (-)
+   mFRR|down|week         -0.6      5.8           1.1           3.9
+   mFRR|up|4h             -1.8      5.3          -1.8          -3.2
+   mFRR|up|week           -2.0     -2.0          10.1           5.2
+   svr:
+   period         1_pre_crisis  2_crisis 3_post_crisis 4_post_merger
+   series                                                           
+   FCR|sym|4h              0.0       0.1       2.3 (-)      -1.7 (+)
+   aFRR|down|4h            NaN       NaN           NaN           0.0
+   aFRR|down|week          0.0      -0.1          -0.5          -0.3
+   aFRR|up|4h              NaN       NaN           NaN           0.0
+   aFRR|up|week            0.0       1.7           3.7           2.5
+   mFRR|down|4h        7.0 (-)       3.2           7.5          -1.8
+   mFRR|down|week          2.6       3.6       6.8 (-)          -0.4
+   mFRR|up|4h              0.8  -4.3 (+)      -5.5 (+)      -7.4 (+)
+   mFRR|up|week           -0.4       0.7          15.4          23.9
+
+== regime: MAE skill vs naive (%) expanding -> variant, p of DM
+model                                  cat_q                           lear                        lgbm_q                           qrf                          svr
+series                                                                                                                                                              
+FCR|sym|4h              4.1 -> 4.0 (p=0.465)     4.0 -> 1.4 (p=0.000) worse          4.3 -> 4.3 (p=0.943)          4.2 -> 3.9 (p=0.123)        0.2 -> -0.0 (p=0.352)
+aFRR|down|4h              7.3 -> 7.3 (p=nan)             2.4 -> 2.4 (p=nan)            8.3 -> 8.3 (p=nan)            3.7 -> 3.7 (p=nan)           3.4 -> 3.4 (p=nan)
+aFRR|down|week   13.4 -> 6.4 (p=0.033) worse    8.1 -> -1.6 (p=0.016) worse        12.8 -> 11.4 (p=0.326)  16.7 -> 10.2 (p=0.037) worse         7.6 -> 7.0 (p=0.491)
+aFRR|up|4h                6.2 -> 6.2 (p=nan)           -0.9 -> -0.9 (p=nan)            1.6 -> 1.6 (p=nan)          -1.0 -> -1.0 (p=nan)         -1.2 -> -1.2 (p=nan)
+aFRR|up|week            3.4 -> 1.3 (p=0.240)         -0.3 -> -2.4 (p=0.113)          2.5 -> 0.8 (p=0.161)        -2.5 -> -2.2 (p=0.744)       -6.6 -> -8.5 (p=0.163)
+mFRR|down|4h      8.8 -> 7.0 (p=0.016) worse     7.4 -> 3.2 (p=0.004) worse    8.8 -> 5.9 (p=0.006) worse    8.9 -> 6.9 (p=0.012) worse       -3.9 -> -2.8 (p=0.391)
+mFRR|down|week          3.8 -> 2.4 (p=0.209)         -0.2 -> -0.1 (p=0.959)          2.9 -> 1.8 (p=0.371)          6.2 -> 3.0 (p=0.064)       -0.6 -> -1.5 (p=0.290)
+mFRR|up|4h      24.3 -> 21.5 (p=0.001) worse  17.4 -> 19.6 (p=0.034) better  24.9 -> 22.1 (p=0.002) worse        21.7 -> 19.5 (p=0.250)  2.8 -> 7.0 (p=0.000) better
+mFRR|up|week            3.5 -> 2.1 (p=0.130)          -1.1 -> 0.5 (p=0.650)          2.5 -> 2.5 (p=0.989)          2.5 -> 2.4 (p=0.853)       -5.1 -> -6.8 (p=0.161)
+   significantly better: 2 / worse: 10 of 45 series x model pairs
+   pinball: significantly better 0 / worse 13 of 21
+   best model per series (expanding -> variant): FCR|sym|4h: lgbm_q +4.3% -> lgbm_q +4.3%; aFRR|down|4h: lgbm_q +8.3% -> lgbm_q +8.3%; aFRR|down|week: qrf +16.7% -> lgbm_q +11.4%; aFRR|up|4h: cat_q +6.2% -> cat_q +6.2%; aFRR|up|week: cat_q +3.4% -> cat_q +1.3%; mFRR|down|4h: qrf +8.9% -> cat_q +7.0%; mFRR|down|week: qrf +6.2% -> qrf +3.0%; mFRR|up|4h: lgbm_q +24.9% -> lgbm_q +22.1%; mFRR|up|week: cat_q +3.5% -> lgbm_q +2.5%
+   by period - MAE change % of the variant ((+) / (-) = Holm-significantly better / worse):
+   lear:
+   period         1_pre_crisis  2_crisis 3_post_crisis 4_post_merger
+   series                                                           
+   FCR|sym|4h              0.0       0.0           0.0      19.1 (-)
+   aFRR|down|4h            NaN       NaN           NaN           0.0
+   aFRR|down|week          0.0      11.8      11.4 (-)          -4.5
+   aFRR|up|4h              NaN       NaN           NaN           0.0
+   aFRR|up|week            0.0       2.8           0.6          -2.5
+   mFRR|down|4h           -7.4       4.2       7.3 (-)      12.0 (-)
+   mFRR|down|week          0.0       0.1          -0.4          -1.0
+   mFRR|up|4h              0.5  -6.8 (+)       6.1 (-)           0.2
+   mFRR|up|week            0.0      -2.9          11.3          -0.0
+   lgbm_q:
+   period         1_pre_crisis 2_crisis 3_post_crisis 4_post_merger
+   series                                                          
+   FCR|sym|4h              0.0      0.0           0.0          -0.1
+   aFRR|down|4h            NaN      NaN           NaN           0.0
+   aFRR|down|week          0.0      0.3       8.1 (-)           2.1
+   aFRR|up|4h              NaN      NaN           NaN           0.0
+   aFRR|up|week            0.0      1.1           5.4           0.6
+   mFRR|down|4h           -2.4  5.6 (-)          -1.2           1.2
+   mFRR|down|week          0.0      2.2          -1.3          -0.8
+   mFRR|up|4h         14.4 (-)      3.2          -1.0          -0.5
+   mFRR|up|week            0.0     -0.5           6.5           1.0
+   cat_q:
+   period         1_pre_crisis 2_crisis 3_post_crisis 4_post_merger
+   series                                                          
+   FCR|sym|4h              0.0      0.0           0.0           0.8
+   aFRR|down|4h            NaN      NaN           NaN           0.0
+   aFRR|down|week          0.0      9.0           8.8          -1.0
+   aFRR|up|4h              NaN      NaN           NaN           0.0
+   aFRR|up|week            0.0      0.6      10.5 (-)          -0.4
+   mFRR|down|4h       -7.1 (+)  2.4 (-)           2.8       4.7 (-)
+   mFRR|down|week          0.0      1.9           0.8           0.3
+   mFRR|up|4h          8.5 (-)  4.4 (-)           0.1          -1.5
+   mFRR|up|week            0.0      1.6           4.8          -4.3
+   qrf:
+   period         1_pre_crisis 2_crisis 3_post_crisis 4_post_merger
+   series                                                          
+   FCR|sym|4h              0.0      0.0           0.0           2.3
+   aFRR|down|4h            NaN      NaN           NaN           0.0
+   aFRR|down|week          0.0      8.3       8.9 (-)           0.6
+   aFRR|up|4h              NaN      NaN           NaN           0.0
+   aFRR|up|week            0.0     -0.6           0.6           1.3
+   mFRR|down|4h            4.2      2.5          -0.1       7.8 (-)
+   mFRR|down|week          0.0      3.7           4.5           1.0
+   mFRR|up|4h             -4.9      7.3          -0.7          -3.1
+   mFRR|up|week            0.0     -1.1          15.7           0.8
+   svr:
+   period         1_pre_crisis  2_crisis 3_post_crisis 4_post_merger
+   series                                                           
+   FCR|sym|4h              0.0       0.0           0.0           1.1
+   aFRR|down|4h            NaN       NaN           NaN           0.0
+   aFRR|down|week          0.0       1.0          -0.1          -0.8
+   aFRR|up|4h              NaN       NaN           NaN           0.0
+   aFRR|up|week            0.0       2.5          -0.2          -1.9
+   mFRR|down|4h      -21.7 (+)       3.0          -4.3          -0.7
+   mFRR|down|week          0.0      -0.0           4.1           0.8
+   mFRR|up|4h             -4.0  -4.2 (+)      -4.7 (+)          -3.9
+   mFRR|up|week            0.0       0.5          20.2           2.4
+
+== regime_crisis: MAE skill vs naive (%) expanding -> variant, p of DM
+model                                  cat_q                        lear                        lgbm_q                         qrf                            svr
+series                                                                                                                                                           
+mFRR|down|4h      8.8 -> 6.3 (p=0.010) worse  7.4 -> 3.2 (p=0.002) worse    8.8 -> 5.7 (p=0.003) worse  8.9 -> 5.0 (p=0.001) worse  -3.9 -> -0.5 (p=0.044) better
+mFRR|down|week            3.8 -> 3.8 (p=nan)        -0.2 -> -0.2 (p=nan)            2.9 -> 2.9 (p=nan)          6.2 -> 6.2 (p=nan)           -0.6 -> -0.6 (p=nan)
+mFRR|up|4h      24.3 -> 19.1 (p=0.000) worse      17.4 -> 16.5 (p=0.538)  24.9 -> 19.8 (p=0.000) worse      21.7 -> 22.6 (p=0.281)    2.8 -> 8.0 (p=0.000) better
+mFRR|up|week              3.5 -> 3.5 (p=nan)        -1.1 -> -1.1 (p=nan)            2.5 -> 2.5 (p=nan)          2.5 -> 2.5 (p=nan)           -5.1 -> -5.1 (p=nan)
+   significantly better: 2 / worse: 6 of 20 series x model pairs
+   pinball: significantly better 0 / worse 5 of 6
+   best model per series (expanding -> variant): mFRR|down|4h: qrf +8.9% -> cat_q +6.3%; mFRR|down|week: qrf +6.2% -> qrf +6.2%; mFRR|up|4h: lgbm_q +24.9% -> qrf +22.6%; mFRR|up|week: cat_q +3.5% -> cat_q +3.5%
+   by period - MAE change % of the variant ((+) / (-) = Holm-significantly better / worse):
+   lear:
+   period         1_pre_crisis 2_crisis 3_post_crisis 4_post_merger
+   series                                                          
+   mFRR|down|4h           -7.4  5.9 (-)           3.0      12.4 (-)
+   mFRR|down|week          0.0      0.0           0.0           0.0
+   mFRR|up|4h              0.5      1.5           0.7           0.4
+   mFRR|up|week            0.0      0.0           0.0           0.0
+   lgbm_q:
+   period         1_pre_crisis 2_crisis 3_post_crisis 4_post_merger
+   series                                                          
+   mFRR|down|4h           -2.4  4.0 (-)           3.9           1.3
+   mFRR|down|week          0.0      0.0           0.0           0.0
+   mFRR|up|4h         14.4 (-)  6.7 (-)           4.2           0.2
+   mFRR|up|week            0.0      0.0           0.0           0.0
+   cat_q:
+   period         1_pre_crisis 2_crisis 3_post_crisis 4_post_merger
+   series                                                          
+   mFRR|down|4h       -7.1 (+)  4.3 (-)           0.9       4.8 (-)
+   mFRR|down|week          0.0      0.0           0.0           0.0
+   mFRR|up|4h          8.5 (-)  9.2 (-)           2.1          -1.2
+   mFRR|up|week            0.0      0.0           0.0           0.0
+   qrf:
+   period         1_pre_crisis 2_crisis 3_post_crisis 4_post_merger
+   series                                                          
+   mFRR|down|4h            4.2      3.5           5.5       8.0 (-)
+   mFRR|down|week          0.0      0.0           0.0           0.0
+   mFRR|up|4h             -4.9     -0.7           1.6          -3.2
+   mFRR|up|week            0.0      0.0           0.0           0.0
+   svr:
+   period         1_pre_crisis  2_crisis 3_post_crisis 4_post_merger
+   series                                                           
+   mFRR|down|4h      -21.7 (+)      -2.3           0.2          -0.8
+   mFRR|down|week          0.0       0.0           0.0           0.0
+   mFRR|up|4h             -4.0  -6.1 (+)      -4.3 (+)          -4.2
+   mFRR|up|week            0.0       0.0           0.0           0.0
+
+runtime 1s

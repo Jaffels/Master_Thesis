@@ -1,0 +1,172 @@
+{
+  "script": "rq3b_1_riskmodel",
+  "label": "RQ3b risk model",
+  "status": "ok",
+  "error": "",
+  "argv": [
+    "--calib",
+    "isotonic_oof",
+    "--tag",
+    "_isooof"
+  ],
+  "start": "2026-10-15T22:52:25",
+  "end": "2026-10-15T23:06:40",
+  "duration_s": 854.4,
+  "duration": "14 min 14 s",
+  "summary": [
+    "short: best lr_h1, Brier skill +0.041 vs cal_hist_d1",
+    "long: best lr_h1, Brier skill +0.010 vs clim_roll"
+  ],
+  "output_dir": "Modelling/Output/rq3b_1_isooof",
+  "git": {
+    "commit": "64ea39c",
+    "branch": "4th-run",
+    "uncommitted_files_in_Modelling_Clean": [
+      "Modelling/Output/rq3b_1_iso/",
+      "Modelling/Output/rq3b_1_isooof/",
+      "Modelling/Output/rq3b_1_plattoof/"
+    ]
+  },
+  "python": "3.14.7",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "machine": "Johans-MacBook-Air.local",
+  "cpu_count": 8,
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "pyarrow": "25.0.1",
+    "duckdb": "1.5.6",
+    "lightgbm": "4.7.0",
+    "scikit-learn": "1.9.1",
+    "catboost": "1.2.10",
+    "quantile-forest": "1.4.2",
+    "torch": "2.14.1",
+    "tabpfn": "9.2.0",
+    "chronos-forecasting": "2.3.2",
+    "transformers": "5.19.0",
+    "matplotlib": "3.11.2"
+  },
+  "files_written": [
+    {
+      "file": "brier_gain_bootstrap.csv",
+      "kB": 1.1
+    },
+    {
+      "file": "calibration_windows.csv",
+      "kB": 5.4
+    },
+    {
+      "file": "diagnostics/README.txt",
+      "kB": 0.8
+    },
+    {
+      "file": "diagnostics/calibration_bins.csv",
+      "kB": 26.4
+    },
+    {
+      "file": "diagnostics/capture_rate.csv",
+      "kB": 9.8
+    },
+    {
+      "file": "diagnostics/importance_gbm.csv",
+      "kB": 200.7
+    },
+    {
+      "file": "diagnostics/metrics_by_year.csv",
+      "kB": 20.6
+    },
+    {
+      "file": "diagnostics/monthly_rates.csv",
+      "kB": 99.6
+    },
+    {
+      "file": "diagnostics/plots/long/brier_by_year.png",
+      "kB": 28.9
+    },
+    {
+      "file": "diagnostics/plots/long/capture_rate.png",
+      "kB": 31.5
+    },
+    {
+      "file": "diagnostics/plots/long/importance_gbm_d1.png",
+      "kB": 55.7
+    },
+    {
+      "file": "diagnostics/plots/long/importance_gbm_h1.png",
+      "kB": 55.6
+    },
+    {
+      "file": "diagnostics/plots/long/importance_gbm_pf_d1.png",
+      "kB": 55.3
+    },
+    {
+      "file": "diagnostics/plots/long/importance_gbm_pf_h1.png",
+      "kB": 54.4
+    },
+    {
+      "file": "diagnostics/plots/long/monthly_rates.png",
+      "kB": 161.2
+    },
+    {
+      "file": "diagnostics/plots/long/pr_curve.png",
+      "kB": 70.7
+    },
+    {
+      "file": "diagnostics/plots/long/reliability.png",
+      "kB": 96.2
+    },
+    {
+      "file": "diagnostics/plots/short/brier_by_year.png",
+      "kB": 28.5
+    },
+    {
+      "file": "diagnostics/plots/short/capture_rate.png",
+      "kB": 32.6
+    },
+    {
+      "file": "diagnostics/plots/short/importance_gbm_d1.png",
+      "kB": 54.9
+    },
+    {
+      "file": "diagnostics/plots/short/importance_gbm_h1.png",
+      "kB": 57.0
+    },
+    {
+      "file": "diagnostics/plots/short/importance_gbm_pf_d1.png",
+      "kB": 55.0
+    },
+    {
+      "file": "diagnostics/plots/short/importance_gbm_pf_h1.png",
+      "kB": 56.5
+    },
+    {
+      "file": "diagnostics/plots/short/monthly_rates.png",
+      "kB": 146.2
+    },
+    {
+      "file": "diagnostics/plots/short/pr_curve.png",
+      "kB": 98.0
+    },
+    {
+      "file": "diagnostics/plots/short/reliability.png",
+      "kB": 91.1
+    },
+    {
+      "file": "metrics.csv",
+      "kB": 20.9
+    },
+    {
+      "file": "predictions.csv",
+      "kB": 23573.3
+    },
+    {
+      "file": "reliability.csv",
+      "kB": 4.7
+    },
+    {
+      "file": "report_rq3b_1.txt",
+      "kB": 25.0
+    }
+  ]
+}

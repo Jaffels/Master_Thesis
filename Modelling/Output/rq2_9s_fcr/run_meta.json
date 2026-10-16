@@ -1,0 +1,183 @@
+{
+  "script": "rq2_5_tier1",
+  "label": "RQ2 Tier 1 models",
+  "status": "ok",
+  "error": "",
+  "argv": [
+    "--products",
+    "fcr",
+    "--window",
+    "sliding",
+    "--out",
+    "Modelling/Output/rq2_9s_fcr"
+  ],
+  "start": "2026-10-15T19:24:12",
+  "end": "2026-10-15T19:46:20",
+  "duration_s": 1328.5,
+  "duration": "22 min 09 s",
+  "summary": [
+    "FCR sym 4h: lgbm_l1 +4.0%",
+    "FCR sym 4h lgbm_q: sliding window +1.1% MAE (p=0.002)"
+  ],
+  "output_dir": "Modelling/Output/rq2_9s_fcr",
+  "git": {
+    "commit": "01679a0",
+    "branch": "4th-run",
+    "uncommitted_files_in_Modelling_Clean": [
+      "Modelling/Output/overnight_15oct.log",
+      "Modelling/Output/rq2_10/",
+      "Modelling/Output/rq2_9s_afrr/",
+      "Modelling/Output/rq2_9s_fcr/"
+    ]
+  },
+  "python": "3.14.7",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "machine": "Johans-MacBook-Air.local",
+  "cpu_count": 8,
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "pyarrow": "25.0.1",
+    "duckdb": "1.5.6",
+    "lightgbm": "4.7.0",
+    "scikit-learn": "1.9.1",
+    "catboost": "1.2.10",
+    "quantile-forest": "1.4.2",
+    "torch": "2.14.1",
+    "tabpfn": "9.2.0",
+    "chronos-forecasting": "2.3.2",
+    "transformers": "5.19.0",
+    "matplotlib": "3.11.2"
+  },
+  "files_written": [
+    {
+      "file": "diagnostics/README.txt",
+      "kB": 1.5
+    },
+    {
+      "file": "diagnostics/error_breakdown.csv",
+      "kB": 46.8
+    },
+    {
+      "file": "diagnostics/fold_metrics.csv",
+      "kB": 21.9
+    },
+    {
+      "file": "diagnostics/importance_cat_q.csv",
+      "kB": 84.7
+    },
+    {
+      "file": "diagnostics/importance_lear.csv",
+      "kB": 52.1
+    },
+    {
+      "file": "diagnostics/importance_lgbm_q.csv",
+      "kB": 83.7
+    },
+    {
+      "file": "diagnostics/importance_qrf.csv",
+      "kB": 93.3
+    },
+    {
+      "file": "diagnostics/plots/FCR_sym_4h/error_hist.png",
+      "kB": 27.9
+    },
+    {
+      "file": "diagnostics/plots/FCR_sym_4h/importance_cat_q.png",
+      "kB": 57.4
+    },
+    {
+      "file": "diagnostics/plots/FCR_sym_4h/importance_lear.png",
+      "kB": 54.9
+    },
+    {
+      "file": "diagnostics/plots/FCR_sym_4h/importance_lgbm_q.png",
+      "kB": 58.0
+    },
+    {
+      "file": "diagnostics/plots/FCR_sym_4h/importance_qrf.png",
+      "kB": 59.5
+    },
+    {
+      "file": "diagnostics/plots/FCR_sym_4h/mae_by_slot.png",
+      "kB": 23.0
+    },
+    {
+      "file": "diagnostics/plots/FCR_sym_4h/mae_by_year.png",
+      "kB": 24.2
+    },
+    {
+      "file": "diagnostics/plots/FCR_sym_4h/quantile_calibration.png",
+      "kB": 46.0
+    },
+    {
+      "file": "diagnostics/plots/FCR_sym_4h/rolling_mae.png",
+      "kB": 128.1
+    },
+    {
+      "file": "diagnostics/plots/FCR_sym_4h/scatter.png",
+      "kB": 105.1
+    },
+    {
+      "file": "diagnostics/plots/FCR_sym_4h/timeseries.png",
+      "kB": 154.3
+    },
+    {
+      "file": "diagnostics/plots/FCR_sym_4h/zoom_last_8w.png",
+      "kB": 190.7
+    },
+    {
+      "file": "diagnostics/quantile_calibration.csv",
+      "kB": 12.1
+    },
+    {
+      "file": "diagnostics/summary_by_model.csv",
+      "kB": 2.7
+    },
+    {
+      "file": "diagnostics/worst_errors.csv",
+      "kB": 5.1
+    },
+    {
+      "file": "dm.csv",
+      "kB": 1.2
+    },
+    {
+      "file": "fold_log.csv",
+      "kB": 4.2
+    },
+    {
+      "file": "lear_coefficients.csv",
+      "kB": 9.9
+    },
+    {
+      "file": "lear_nonzero.csv",
+      "kB": 1.2
+    },
+    {
+      "file": "metrics_by_year.csv",
+      "kB": 5.5
+    },
+    {
+      "file": "metrics_point.csv",
+      "kB": 0.9
+    },
+    {
+      "file": "metrics_prob.csv",
+      "kB": 0.8
+    },
+    {
+      "file": "preds.parquet",
+      "kB": 6214.1
+    },
+    {
+      "file": "report_rq2_5.txt",
+      "kB": 7.9
+    },
+    {
+      "file": "window_vs_default.csv",
+      "kB": 1.1
+    }
+  ]
+}

@@ -1,0 +1,334 @@
+{
+  "script": "rq2_10_pooled",
+  "label": "RQ2 pooled global model",
+  "status": "ok",
+  "error": "",
+  "argv": [
+    "--quick"
+  ],
+  "start": "2026-10-15T17:52:43",
+  "end": "2026-10-15T17:54:50",
+  "duration_s": 127.6,
+  "duration": "2 min 08 s",
+  "summary": [
+    "FCR sym 4h pool_lgbm_q vs single_lgbm_q: better (p=0.003)",
+    "FCR sym 4h pool_cat_q vs single_cat_q: better (p=0.000)",
+    "aFRR down week pool_lgbm_q vs single_lgbm_q: n.s. (p=0.361)",
+    "aFRR down week pool_cat_q vs single_cat_q: worse (p=0.031)",
+    "aFRR up week pool_lgbm_q vs single_lgbm_q: n.s. (p=0.148)",
+    "aFRR up week pool_cat_q vs single_cat_q: n.s. (p=0.973)",
+    "mFRR down 4h pool_lgbm_q vs single_lgbm_q: n.s. (p=0.877)",
+    "mFRR down 4h pool_cat_q vs single_cat_q: n.s. (p=0.171)",
+    "mFRR down week pool_lgbm_q vs single_lgbm_q: n.s. (p=0.492)",
+    "mFRR down week pool_cat_q vs single_cat_q: n.s. (p=0.542)",
+    "mFRR up 4h pool_lgbm_q vs single_lgbm_q: worse (p=0.000)",
+    "mFRR up 4h pool_cat_q vs single_cat_q: worse (p=0.004)",
+    "mFRR up week pool_lgbm_q vs single_lgbm_q: n.s. (p=0.700)",
+    "mFRR up week pool_cat_q vs single_cat_q: n.s. (p=0.560)"
+  ],
+  "output_dir": "Modelling/Output/rq2_10_quick",
+  "git": {
+    "commit": "1e7bc47",
+    "branch": "4th-run",
+    "uncommitted_files_in_Modelling_Clean": [
+      "odelling/rq2_5_tier1.py",
+      "Modelling/Output/rq2_10_quick/",
+      "Modelling/rq2_10_pooled.py",
+      "Modelling/rq2_9_regime_compare.py"
+    ]
+  },
+  "python": "3.14.7",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "machine": "Johans-MacBook-Air.local",
+  "cpu_count": 8,
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "pyarrow": "25.0.1",
+    "duckdb": "1.5.6",
+    "lightgbm": "4.7.0",
+    "scikit-learn": "1.9.1",
+    "catboost": "1.2.10",
+    "quantile-forest": "1.4.2",
+    "torch": "2.14.1",
+    "tabpfn": "9.2.0",
+    "chronos-forecasting": "2.3.2",
+    "transformers": "5.19.0",
+    "matplotlib": "3.11.2"
+  },
+  "files_written": [
+    {
+      "file": "diagnostics/README.txt",
+      "kB": 1.5
+    },
+    {
+      "file": "diagnostics/error_breakdown.csv",
+      "kB": 141.1
+    },
+    {
+      "file": "diagnostics/fold_metrics.csv",
+      "kB": 11.4
+    },
+    {
+      "file": "diagnostics/plots/FCR_sym_4h/error_hist.png",
+      "kB": 31.6
+    },
+    {
+      "file": "diagnostics/plots/FCR_sym_4h/mae_by_slot.png",
+      "kB": 28.8
+    },
+    {
+      "file": "diagnostics/plots/FCR_sym_4h/mae_by_year.png",
+      "kB": 23.9
+    },
+    {
+      "file": "diagnostics/plots/FCR_sym_4h/quantile_calibration.png",
+      "kB": 42.5
+    },
+    {
+      "file": "diagnostics/plots/FCR_sym_4h/rolling_mae.png",
+      "kB": 123.6
+    },
+    {
+      "file": "diagnostics/plots/FCR_sym_4h/scatter.png",
+      "kB": 58.3
+    },
+    {
+      "file": "diagnostics/plots/FCR_sym_4h/timeseries.png",
+      "kB": 123.7
+    },
+    {
+      "file": "diagnostics/plots/FCR_sym_4h/zoom_last_8w.png",
+      "kB": 156.5
+    },
+    {
+      "file": "diagnostics/plots/aFRR_down_week/error_hist.png",
+      "kB": 27.3
+    },
+    {
+      "file": "diagnostics/plots/aFRR_down_week/mae_by_year.png",
+      "kB": 20.8
+    },
+    {
+      "file": "diagnostics/plots/aFRR_down_week/quantile_calibration.png",
+      "kB": 43.1
+    },
+    {
+      "file": "diagnostics/plots/aFRR_down_week/rolling_mae.png",
+      "kB": 96.0
+    },
+    {
+      "file": "diagnostics/plots/aFRR_down_week/scatter.png",
+      "kB": 27.6
+    },
+    {
+      "file": "diagnostics/plots/aFRR_down_week/timeseries.png",
+      "kB": 83.3
+    },
+    {
+      "file": "diagnostics/plots/aFRR_down_week/zoom_last_8w.png",
+      "kB": 102.7
+    },
+    {
+      "file": "diagnostics/plots/aFRR_up_week/error_hist.png",
+      "kB": 26.4
+    },
+    {
+      "file": "diagnostics/plots/aFRR_up_week/mae_by_year.png",
+      "kB": 24.1
+    },
+    {
+      "file": "diagnostics/plots/aFRR_up_week/quantile_calibration.png",
+      "kB": 41.0
+    },
+    {
+      "file": "diagnostics/plots/aFRR_up_week/rolling_mae.png",
+      "kB": 78.5
+    },
+    {
+      "file": "diagnostics/plots/aFRR_up_week/scatter.png",
+      "kB": 26.3
+    },
+    {
+      "file": "diagnostics/plots/aFRR_up_week/timeseries.png",
+      "kB": 68.6
+    },
+    {
+      "file": "diagnostics/plots/aFRR_up_week/zoom_last_8w.png",
+      "kB": 83.9
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_4h/error_hist.png",
+      "kB": 30.0
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_4h/mae_by_slot.png",
+      "kB": 23.9
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_4h/mae_by_year.png",
+      "kB": 22.9
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_4h/quantile_calibration.png",
+      "kB": 43.6
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_4h/rolling_mae.png",
+      "kB": 150.1
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_4h/scatter.png",
+      "kB": 51.6
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_4h/timeseries.png",
+      "kB": 98.5
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_4h/zoom_last_8w.png",
+      "kB": 114.3
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_week/error_hist.png",
+      "kB": 27.1
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_week/mae_by_year.png",
+      "kB": 22.8
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_week/quantile_calibration.png",
+      "kB": 42.7
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_week/rolling_mae.png",
+      "kB": 78.7
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_week/scatter.png",
+      "kB": 26.9
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_week/timeseries.png",
+      "kB": 77.9
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_week/zoom_last_8w.png",
+      "kB": 96.0
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_4h/error_hist.png",
+      "kB": 28.3
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_4h/mae_by_slot.png",
+      "kB": 27.0
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_4h/mae_by_year.png",
+      "kB": 20.6
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_4h/quantile_calibration.png",
+      "kB": 43.8
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_4h/rolling_mae.png",
+      "kB": 125.0
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_4h/scatter.png",
+      "kB": 56.7
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_4h/timeseries.png",
+      "kB": 152.4
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_4h/zoom_last_8w.png",
+      "kB": 143.2
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_week/error_hist.png",
+      "kB": 26.1
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_week/mae_by_year.png",
+      "kB": 23.1
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_week/quantile_calibration.png",
+      "kB": 43.4
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_week/rolling_mae.png",
+      "kB": 71.6
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_week/scatter.png",
+      "kB": 27.1
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_week/timeseries.png",
+      "kB": 69.1
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_week/zoom_last_8w.png",
+      "kB": 79.2
+    },
+    {
+      "file": "diagnostics/quantile_calibration.csv",
+      "kB": 19.9
+    },
+    {
+      "file": "diagnostics/summary_by_model.csv",
+      "kB": 22.3
+    },
+    {
+      "file": "diagnostics/worst_errors.csv",
+      "kB": 46.4
+    },
+    {
+      "file": "dm.csv",
+      "kB": 4.4
+    },
+    {
+      "file": "fold_log.csv",
+      "kB": 0.8
+    },
+    {
+      "file": "id_importance.csv",
+      "kB": 0.6
+    },
+    {
+      "file": "importance_pool_cat_q.csv",
+      "kB": 80.6
+    },
+    {
+      "file": "importance_pool_lgbm_q.csv",
+      "kB": 79.0
+    },
+    {
+      "file": "metrics_by_year.csv",
+      "kB": 8.0
+    },
+    {
+      "file": "metrics_point.csv",
+      "kB": 7.6
+    },
+    {
+      "file": "metrics_prob.csv",
+      "kB": 5.2
+    },
+    {
+      "file": "preds.parquet",
+      "kB": 2371.9
+    },
+    {
+      "file": "report_rq2_10.txt",
+      "kB": 7.2
+    }
+  ]
+}

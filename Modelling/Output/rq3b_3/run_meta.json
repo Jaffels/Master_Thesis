@@ -1,0 +1,126 @@
+{
+  "script": "rq3b_3_evt",
+  "label": "RQ3 EVT spike size",
+  "status": "ok",
+  "error": "",
+  "argv": [],
+  "start": "2026-10-16T10:52:47",
+  "end": "2026-10-16T10:53:15",
+  "duration_s": 27.6,
+  "duration": "28 s",
+  "summary": [
+    "short: xi pre_crisis +1.60, crisis +0.77, calm +0.39, post_cap +0.21",
+    "short OOS best CRPS gpd_365",
+    "long: xi pre_crisis -0.06, crisis +0.72, calm +0.47, post_cap +0.82",
+    "long OOS best CRPS emp_365"
+  ],
+  "output_dir": "Modelling/Output/rq3b_3",
+  "git": {
+    "commit": "e7f7037",
+    "branch": "4th-run",
+    "uncommitted_files_in_Modelling_Clean": [
+      "Modelling/Output/rq3b_3/",
+      "Modelling/rq3b_3_evt.py",
+      "Modelling/rq3b_4_hawkes.py",
+      "Modelling/rq3b_5_quantile.py"
+    ]
+  },
+  "python": "3.14.7",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "machine": "Johans-MacBook-Air.local",
+  "cpu_count": 8,
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "pyarrow": "25.0.1",
+    "duckdb": "1.5.6",
+    "lightgbm": "4.7.0",
+    "scikit-learn": "1.9.1",
+    "catboost": "1.2.10",
+    "quantile-forest": "1.4.2",
+    "torch": "2.14.1",
+    "tabpfn": "9.2.0",
+    "chronos-forecasting": "2.3.2",
+    "transformers": "5.19.0",
+    "matplotlib": "3.11.2"
+  },
+  "files_written": [
+    {
+      "file": "clusters.csv",
+      "kB": 208.5
+    },
+    {
+      "file": "desc_period.csv",
+      "kB": 0.9
+    },
+    {
+      "file": "desc_year.csv",
+      "kB": 2.4
+    },
+    {
+      "file": "gpd_period.csv",
+      "kB": 3.1
+    },
+    {
+      "file": "gpd_stability.csv",
+      "kB": 8.8
+    },
+    {
+      "file": "oos_bootstrap.csv",
+      "kB": 2.7
+    },
+    {
+      "file": "oos_fits.csv",
+      "kB": 7.3
+    },
+    {
+      "file": "oos_predictions.csv",
+      "kB": 1094.1
+    },
+    {
+      "file": "oos_scores.csv",
+      "kB": 3.5
+    },
+    {
+      "file": "plots/mrl_long.png",
+      "kB": 33.7
+    },
+    {
+      "file": "plots/mrl_short.png",
+      "kB": 33.0
+    },
+    {
+      "file": "plots/pit_long.png",
+      "kB": 25.5
+    },
+    {
+      "file": "plots/pit_short.png",
+      "kB": 32.0
+    },
+    {
+      "file": "plots/qq_long.png",
+      "kB": 70.9
+    },
+    {
+      "file": "plots/qq_short.png",
+      "kB": 63.9
+    },
+    {
+      "file": "plots/xi_stability_long.png",
+      "kB": 48.0
+    },
+    {
+      "file": "plots/xi_stability_short.png",
+      "kB": 41.3
+    },
+    {
+      "file": "report_rq3b_3.txt",
+      "kB": 10.4
+    },
+    {
+      "file": "xi_equality_test.csv",
+      "kB": 0.5
+    }
+  ]
+}

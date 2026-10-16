@@ -1,0 +1,95 @@
+{
+  "script": "rq3b_2_calib_compare",
+  "label": "RQ3b calibration comparison",
+  "status": "ok",
+  "error": "",
+  "argv": [],
+  "start": "2026-10-15T23:30:08",
+  "end": "2026-10-15T23:30:18",
+  "duration_s": 10.1,
+  "duration": "10 s",
+  "summary": [
+    "long: best gbm lrinit_oof/gbm_pf_h1 skill +0.014 (default -0.030)",
+    "short: best gbm lrinit/gbm_h1 skill +0.049 (default -0.267)"
+  ],
+  "output_dir": "Modelling/Output/rq3b_2_calib",
+  "git": {
+    "commit": "64ea39c",
+    "branch": "4th-run",
+    "uncommitted_files_in_Modelling_Clean": [
+      "Modelling/Output/rq3b_1_iso/",
+      "Modelling/Output/rq3b_1_isooof/",
+      "Modelling/Output/rq3b_1_lrinit/",
+      "Modelling/Output/rq3b_1_lrinit_isooof/",
+      "Modelling/Output/rq3b_1_plattoof/",
+      "Modelling/Output/rq3b_1_raw/",
+      "Modelling/Output/rq3b_2_calib/"
+    ]
+  },
+  "python": "3.14.7",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "machine": "Johans-MacBook-Air.local",
+  "cpu_count": 8,
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "pyarrow": "25.0.1",
+    "duckdb": "1.5.6",
+    "lightgbm": "4.7.0",
+    "scikit-learn": "1.9.1",
+    "catboost": "1.2.10",
+    "quantile-forest": "1.4.2",
+    "torch": "2.14.1",
+    "tabpfn": "9.2.0",
+    "chronos-forecasting": "2.3.2",
+    "transformers": "5.19.0",
+    "matplotlib": "3.11.2"
+  },
+  "files_written": [
+    {
+      "file": "brier_gain_vs_default.csv",
+      "kB": 67.9
+    },
+    {
+      "file": "compare_metrics.csv",
+      "kB": 105.7
+    },
+    {
+      "file": "plots/reliability_long_gbm_d1.png",
+      "kB": 71.3
+    },
+    {
+      "file": "plots/reliability_long_gbm_h1.png",
+      "kB": 75.3
+    },
+    {
+      "file": "plots/reliability_long_lr_h1.png",
+      "kB": 64.6
+    },
+    {
+      "file": "plots/reliability_short_gbm_d1.png",
+      "kB": 75.7
+    },
+    {
+      "file": "plots/reliability_short_gbm_h1.png",
+      "kB": 74.6
+    },
+    {
+      "file": "plots/reliability_short_lr_h1.png",
+      "kB": 71.4
+    },
+    {
+      "file": "reliability_bins.csv",
+      "kB": 28.2
+    },
+    {
+      "file": "report_rq3b_2.txt",
+      "kB": 33.2
+    },
+    {
+      "file": "summary_skill.csv",
+      "kB": 7.5
+    }
+  ]
+}
