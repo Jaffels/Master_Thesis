@@ -1,0 +1,390 @@
+{
+  "script": "rq1c_shap",
+  "label": "RQ1c SHAP",
+  "status": "ok",
+  "error": "",
+  "argv": [],
+  "start": "2026-10-16T13:23:10",
+  "end": "2026-10-16T13:46:54",
+  "duration_s": 1423.7,
+  "duration": "23 min 44 s",
+  "summary": [
+    "FCR sym 4h: top tgt_prev_slot__price_settle_ch (11 %)",
+    "aFRR down 4h: top it_nord_load_wa_fc_max_mw__dw (3 %)",
+    "aFRR down week: top cal_doy_sin (4 %)",
+    "aFRR up 4h: top ch_gen_hydro_res_mw__lb7d (4 %)",
+    "aFRR up week: top fr_gen_hydro_ror_mw__lb24h (5 %)",
+    "mFRR down 4h: top cal_dow (10 %)",
+    "mFRR down week: top de_lu_load_ya_fc_max_mw__dw (3 %)",
+    "mFRR up 4h: top cal_dow (17 %)",
+    "mFRR up week: top fr_imb_price_short_eur_mwh__lb (2 %)"
+  ],
+  "output_dir": "Modelling/Output/rq1c_shap",
+  "git": {
+    "commit": "d3e8ad5",
+    "branch": "5th-run",
+    "uncommitted_files_in_Modelling_Clean": [
+      "Modelling/Output/_runs/",
+      "Modelling/Output/rq1c_shap/",
+      "Modelling/Output/rq1c_shap_quick/",
+      "Modelling/Output/rq4_2/",
+      "Modelling/Output/rq4_2t/",
+      "Modelling/rq1c_shap.py",
+      "Modelling/rq4_2_quantile_bids.py"
+    ]
+  },
+  "python": "3.14.7",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "machine": "Johans-MacBook-Air.local",
+  "cpu_count": 8,
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "pyarrow": "25.0.1",
+    "duckdb": "1.5.6",
+    "lightgbm": "4.7.0",
+    "scikit-learn": "1.9.1",
+    "catboost": "1.2.10",
+    "quantile-forest": "1.4.2",
+    "torch": "2.14.1",
+    "tabpfn": "9.2.0",
+    "chronos-forecasting": "2.3.2",
+    "transformers": "5.19.0",
+    "matplotlib": "3.11.2"
+  },
+  "files_written": [
+    {
+      "file": "fit_check.csv",
+      "kB": 1.1
+    },
+    {
+      "file": "model_agreement.csv",
+      "kB": 1.1
+    },
+    {
+      "file": "plots/FCR_sym_4h/bar_cat.png",
+      "kB": 60.4
+    },
+    {
+      "file": "plots/FCR_sym_4h/bar_lgbm.png",
+      "kB": 59.6
+    },
+    {
+      "file": "plots/FCR_sym_4h/beeswarm_cat.png",
+      "kB": 135.4
+    },
+    {
+      "file": "plots/FCR_sym_4h/beeswarm_lgbm.png",
+      "kB": 148.2
+    },
+    {
+      "file": "plots/FCR_sym_4h/dependence_cat.png",
+      "kB": 156.3
+    },
+    {
+      "file": "plots/FCR_sym_4h/dependence_lgbm.png",
+      "kB": 182.6
+    },
+    {
+      "file": "plots/FCR_sym_4h/family_by_year_cat.png",
+      "kB": 30.0
+    },
+    {
+      "file": "plots/FCR_sym_4h/family_by_year_lgbm.png",
+      "kB": 29.9
+    },
+    {
+      "file": "plots/aFRR_down_4h/bar_cat.png",
+      "kB": 58.4
+    },
+    {
+      "file": "plots/aFRR_down_4h/bar_lgbm.png",
+      "kB": 59.9
+    },
+    {
+      "file": "plots/aFRR_down_4h/beeswarm_cat.png",
+      "kB": 173.1
+    },
+    {
+      "file": "plots/aFRR_down_4h/beeswarm_lgbm.png",
+      "kB": 220.4
+    },
+    {
+      "file": "plots/aFRR_down_4h/dependence_cat.png",
+      "kB": 93.6
+    },
+    {
+      "file": "plots/aFRR_down_4h/dependence_lgbm.png",
+      "kB": 126.3
+    },
+    {
+      "file": "plots/aFRR_down_4h/family_by_year_cat.png",
+      "kB": 25.8
+    },
+    {
+      "file": "plots/aFRR_down_4h/family_by_year_lgbm.png",
+      "kB": 25.9
+    },
+    {
+      "file": "plots/aFRR_down_week/bar_cat.png",
+      "kB": 61.1
+    },
+    {
+      "file": "plots/aFRR_down_week/bar_lgbm.png",
+      "kB": 61.7
+    },
+    {
+      "file": "plots/aFRR_down_week/beeswarm_cat.png",
+      "kB": 169.5
+    },
+    {
+      "file": "plots/aFRR_down_week/beeswarm_lgbm.png",
+      "kB": 192.8
+    },
+    {
+      "file": "plots/aFRR_down_week/dependence_cat.png",
+      "kB": 114.1
+    },
+    {
+      "file": "plots/aFRR_down_week/dependence_lgbm.png",
+      "kB": 108.7
+    },
+    {
+      "file": "plots/aFRR_down_week/family_by_year_cat.png",
+      "kB": 30.0
+    },
+    {
+      "file": "plots/aFRR_down_week/family_by_year_lgbm.png",
+      "kB": 30.1
+    },
+    {
+      "file": "plots/aFRR_up_4h/bar_cat.png",
+      "kB": 60.0
+    },
+    {
+      "file": "plots/aFRR_up_4h/bar_lgbm.png",
+      "kB": 62.3
+    },
+    {
+      "file": "plots/aFRR_up_4h/beeswarm_cat.png",
+      "kB": 165.4
+    },
+    {
+      "file": "plots/aFRR_up_4h/beeswarm_lgbm.png",
+      "kB": 179.2
+    },
+    {
+      "file": "plots/aFRR_up_4h/dependence_cat.png",
+      "kB": 109.1
+    },
+    {
+      "file": "plots/aFRR_up_4h/dependence_lgbm.png",
+      "kB": 121.6
+    },
+    {
+      "file": "plots/aFRR_up_4h/family_by_year_cat.png",
+      "kB": 25.6
+    },
+    {
+      "file": "plots/aFRR_up_4h/family_by_year_lgbm.png",
+      "kB": 25.5
+    },
+    {
+      "file": "plots/aFRR_up_week/bar_cat.png",
+      "kB": 65.5
+    },
+    {
+      "file": "plots/aFRR_up_week/bar_lgbm.png",
+      "kB": 60.8
+    },
+    {
+      "file": "plots/aFRR_up_week/beeswarm_cat.png",
+      "kB": 160.7
+    },
+    {
+      "file": "plots/aFRR_up_week/beeswarm_lgbm.png",
+      "kB": 182.0
+    },
+    {
+      "file": "plots/aFRR_up_week/dependence_cat.png",
+      "kB": 111.2
+    },
+    {
+      "file": "plots/aFRR_up_week/dependence_lgbm.png",
+      "kB": 113.8
+    },
+    {
+      "file": "plots/aFRR_up_week/family_by_year_cat.png",
+      "kB": 29.8
+    },
+    {
+      "file": "plots/aFRR_up_week/family_by_year_lgbm.png",
+      "kB": 30.0
+    },
+    {
+      "file": "plots/mFRR_down_4h/bar_cat.png",
+      "kB": 56.9
+    },
+    {
+      "file": "plots/mFRR_down_4h/bar_lgbm.png",
+      "kB": 57.1
+    },
+    {
+      "file": "plots/mFRR_down_4h/beeswarm_cat.png",
+      "kB": 181.6
+    },
+    {
+      "file": "plots/mFRR_down_4h/beeswarm_lgbm.png",
+      "kB": 190.1
+    },
+    {
+      "file": "plots/mFRR_down_4h/dependence_cat.png",
+      "kB": 118.9
+    },
+    {
+      "file": "plots/mFRR_down_4h/dependence_lgbm.png",
+      "kB": 154.9
+    },
+    {
+      "file": "plots/mFRR_down_4h/family_by_year_cat.png",
+      "kB": 30.3
+    },
+    {
+      "file": "plots/mFRR_down_4h/family_by_year_lgbm.png",
+      "kB": 30.4
+    },
+    {
+      "file": "plots/mFRR_down_week/bar_cat.png",
+      "kB": 59.3
+    },
+    {
+      "file": "plots/mFRR_down_week/bar_lgbm.png",
+      "kB": 58.1
+    },
+    {
+      "file": "plots/mFRR_down_week/beeswarm_cat.png",
+      "kB": 174.4
+    },
+    {
+      "file": "plots/mFRR_down_week/beeswarm_lgbm.png",
+      "kB": 209.0
+    },
+    {
+      "file": "plots/mFRR_down_week/dependence_cat.png",
+      "kB": 107.1
+    },
+    {
+      "file": "plots/mFRR_down_week/dependence_lgbm.png",
+      "kB": 117.0
+    },
+    {
+      "file": "plots/mFRR_down_week/family_by_year_cat.png",
+      "kB": 30.1
+    },
+    {
+      "file": "plots/mFRR_down_week/family_by_year_lgbm.png",
+      "kB": 30.2
+    },
+    {
+      "file": "plots/mFRR_up_4h/bar_cat.png",
+      "kB": 55.5
+    },
+    {
+      "file": "plots/mFRR_up_4h/bar_lgbm.png",
+      "kB": 58.4
+    },
+    {
+      "file": "plots/mFRR_up_4h/beeswarm_cat.png",
+      "kB": 147.2
+    },
+    {
+      "file": "plots/mFRR_up_4h/beeswarm_lgbm.png",
+      "kB": 157.4
+    },
+    {
+      "file": "plots/mFRR_up_4h/dependence_cat.png",
+      "kB": 128.0
+    },
+    {
+      "file": "plots/mFRR_up_4h/dependence_lgbm.png",
+      "kB": 140.4
+    },
+    {
+      "file": "plots/mFRR_up_4h/family_by_year_cat.png",
+      "kB": 29.8
+    },
+    {
+      "file": "plots/mFRR_up_4h/family_by_year_lgbm.png",
+      "kB": 29.8
+    },
+    {
+      "file": "plots/mFRR_up_week/bar_cat.png",
+      "kB": 60.0
+    },
+    {
+      "file": "plots/mFRR_up_week/bar_lgbm.png",
+      "kB": 62.6
+    },
+    {
+      "file": "plots/mFRR_up_week/beeswarm_cat.png",
+      "kB": 118.3
+    },
+    {
+      "file": "plots/mFRR_up_week/beeswarm_lgbm.png",
+      "kB": 169.5
+    },
+    {
+      "file": "plots/mFRR_up_week/dependence_cat.png",
+      "kB": 88.4
+    },
+    {
+      "file": "plots/mFRR_up_week/dependence_lgbm.png",
+      "kB": 110.8
+    },
+    {
+      "file": "plots/mFRR_up_week/family_by_year_cat.png",
+      "kB": 30.0
+    },
+    {
+      "file": "plots/mFRR_up_week/family_by_year_lgbm.png",
+      "kB": 29.9
+    },
+    {
+      "file": "report_rq1c.txt",
+      "kB": 39.5
+    },
+    {
+      "file": "shap_dependence.csv",
+      "kB": 195.1
+    },
+    {
+      "file": "shap_family.csv",
+      "kB": 8.2
+    },
+    {
+      "file": "shap_family_by_period.csv",
+      "kB": 33.5
+    },
+    {
+      "file": "shap_family_by_year.csv",
+      "kB": 43.5
+    },
+    {
+      "file": "shap_importance.csv",
+      "kB": 2586.4
+    },
+    {
+      "file": "shap_values_cat.parquet",
+      "kB": 3757.6
+    },
+    {
+      "file": "shap_values_lgbm.parquet",
+      "kB": 5177.0
+    },
+    {
+      "file": "tft_vs_shap_family.csv",
+      "kB": 0.7
+    }
+  ]
+}

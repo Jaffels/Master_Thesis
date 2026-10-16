@@ -1,0 +1,271 @@
+RQ4 extension - quantile bids and best forecast per series  (forecasts: rq2_7; price-taker 1 MW; pay-as-bid; c = highest accepted bid)
+common rows per series: {'aFRR|down|4h': 1444, 'aFRR|up|4h': 1451, 'mFRR|down|4h': 9226, 'mFRR|up|4h': 9958}
+
+check vs rq4_1 (same rows and revenue for the rq4_1 strategies): max |diff| per block = 1.78e-15, rows equal: True
+
+== aFRR|up|4h  (n = 1,451)
+               rev_per_block  rev_per_mw_year  win_rate  share_of_oracle  mae_vs_y  mae_vs_c  mean_bid
+strategy                                                                                              
+oracle                 2.482       21,738.867     1.000            1.000     0.363     0.000     2.482
+naive                  1.085        9,502.714     0.543            0.437     0.274     0.506     2.129
+naive_off              1.499       13,131.647     0.853            0.604     0.335     0.645     1.901
+lgbm                   1.364       11,947.727     0.682            0.550     0.259     0.512     2.070
+lgbm_off               1.624       14,227.746     0.884            0.654     0.316     0.626     1.899
+invmae                 1.289       11,291.498     0.629            0.519     0.257     0.507     2.081
+invmae_off             1.611       14,116.650     0.868            0.649     0.308     0.618     1.908
+tabpfn                 1.451       12,713.243     0.702            0.585     0.252     0.515     2.052
+tabpfn_off             1.666       14,596.223     0.895            0.671     0.321     0.635     1.882
+best_past_off          1.611       14,113.971     0.870            0.649     0.317     0.630     1.896
+best                   1.451       12,713.243     0.702            0.585     0.252     0.515     2.052
+best_off               1.666       14,596.223     0.895            0.671     0.321     0.635     1.882
+qavg_qsel              1.616       14,155.887     0.873            0.651     0.313     0.624     1.900
+qavg_qk                1.615       14,147.731     0.870            0.651     0.314     0.630     1.893
+qavg_off               1.626       14,246.283     0.877            0.655     0.314     0.626     1.897
+lgbmq_qsel             1.582       13,860.397     0.873            0.638     0.315     0.625     1.906
+lgbmq_qk               1.575       13,800.057     0.869            0.635     0.329     0.642     1.888
+lgbmq_off              1.559       13,660.495     0.859            0.628     0.339     0.653     1.878
+tabpfnq_qsel           1.654       14,490.918     0.891            0.667     0.308     0.622     1.896
+tabpfnq_qk             1.628       14,265.304     0.845            0.656     0.318     0.631     1.894
+tabpfnq_off            1.666       14,596.223     0.895            0.671     0.321     0.635     1.882
+bestq_qsel             1.654       14,490.918     0.891            0.667     0.308     0.622     1.896
+bestq_qk               1.628       14,265.304     0.845            0.656     0.318     0.631     1.894
+bestq_off              1.666       14,596.223     0.895            0.671     0.321     0.635     1.882
+
+paired revenue difference per block (moving-block bootstrap 7 days, 95 % CI):
+     strategy          vs  mean_diff_per_block  diff_per_mw_year  ci_lo  ci_hi  rel_diff_pct  significant
+   bestq_qsel    lgbm_off                0.030           263.172 -0.013  0.130         1.850        False
+     best_off    lgbm_off                0.042           368.476 -0.004  0.131         2.590        False
+    qavg_qsel    lgbm_off               -0.008           -71.859 -0.041  0.057        -0.505        False
+   invmae_off    lgbm_off               -0.013          -111.096 -0.033  0.038        -0.781        False
+   tabpfn_off    lgbm_off                0.042           368.476 -0.005  0.130         2.590        False
+best_past_off    lgbm_off               -0.013          -113.775 -0.035  0.042        -0.800        False
+     bestq_qk    lgbm_off                0.004            37.558 -0.045  0.100         0.264        False
+   lgbmq_qsel    lgbm_off               -0.042          -367.349 -0.058 -0.002        -2.582         True
+    qavg_qsel    qavg_off               -0.010           -90.396 -0.032  0.018        -0.635        False
+   lgbmq_qsel   lgbmq_off                0.023           199.903  0.003  0.045         1.463         True
+ tabpfnq_qsel tabpfnq_off               -0.012          -105.305 -0.034  0.004        -0.721        False
+   bestq_qsel   bestq_off               -0.012          -105.305 -0.032  0.004        -0.721        False
+   bestq_qsel    best_off               -0.012          -105.305 -0.033  0.004        -0.721        False
+   bestq_qsel   naive_off                0.155         1,359.271  0.043  0.268        10.351         True
+     best_off   naive_off                0.167         1,464.575  0.055  0.272        11.153         True
+         best        lgbm                0.087           765.516  0.034  0.182         6.407         True
+
+chosen k / tau (share of months): best_off: 0.9 88%, 1.0 12%; bestq_qsel: 0.2 88%, 0.5 12%; lgbm_off: 0.9 88%, 1.0 12%; qavg_qsel: 0.2 75%, 0.5 12%, 0.1 12%
+
+ex-post revenue share of oracle for every FIXED tau (diagnostic only, not a strategy):
+model  lgbm_q   qavg  tabpfn
+tau                         
+0.050  67.300 65.300  61.800
+0.100  69.600 69.200  68.100
+0.200  68.800 69.700  69.600
+0.300  62.800 67.100  67.800
+0.400  57.300 61.900  63.500
+0.500  50.300 54.000  58.500
+0.600  39.100 42.600  48.300
+0.700  33.800 33.200  38.000
+0.800  26.800 26.200  28.500
+0.900  19.800 19.800  18.300
+0.950  16.800 14.100  10.900
+
+== aFRR|down|4h  (n = 1,444)
+               rev_per_block  rev_per_mw_year  win_rate  share_of_oracle  mae_vs_y  mae_vs_c  mean_bid
+strategy                                                                                              
+oracle                 9.726       85,197.673     1.000            1.000     2.071     0.000     9.726
+naive                  4.251       37,242.450     0.562            0.437     1.526     2.793     7.687
+naive_off              5.426       47,534.838     0.835            0.558     1.573     3.240     6.872
+lgbm                   5.226       45,782.291     0.738            0.537     1.400     2.892     7.340
+lgbm_off               5.754       50,404.999     0.882            0.592     1.552     3.317     6.709
+invmae                 5.093       44,614.060     0.684            0.524     1.395     2.848     7.413
+invmae_off             5.743       50,311.635     0.867            0.591     1.520     3.261     6.775
+tabpfn                 5.408       47,374.302     0.702            0.556     1.350     2.952     7.198
+tabpfn_off             5.730       50,190.627     0.880            0.589     1.578     3.404     6.579
+best_past_off          5.666       49,634.508     0.877            0.583     1.596     3.415     6.586
+best                   5.408       47,374.302     0.702            0.556     1.350     2.952     7.198
+best_off               5.730       50,190.627     0.880            0.589     1.578     3.404     6.579
+qavg_qsel              5.752       50,383.778     0.859            0.591     1.478     3.216     6.826
+qavg_qk                5.729       50,182.932     0.861            0.589     1.497     3.240     6.798
+qavg_off               5.746       50,331.999     0.867            0.591     1.525     3.273     6.760
+lgbmq_qsel             5.609       49,137.490     0.870            0.577     1.536     3.275     6.773
+lgbmq_qk               5.710       50,021.242     0.884            0.587     1.575     3.347     6.675
+lgbmq_off              5.741       50,289.893     0.879            0.590     1.549     3.312     6.714
+tabpfnq_qsel           5.796       50,771.817     0.872            0.596     1.528     3.338     6.651
+tabpfnq_qk             5.769       50,538.579     0.870            0.593     1.502     3.307     6.686
+tabpfnq_off            5.730       50,190.627     0.880            0.589     1.578     3.404     6.579
+bestq_qsel             5.796       50,771.817     0.872            0.596     1.528     3.338     6.651
+bestq_qk               5.769       50,538.579     0.870            0.593     1.502     3.307     6.686
+bestq_off              5.730       50,190.627     0.880            0.589     1.578     3.404     6.579
+
+paired revenue difference per block (moving-block bootstrap 7 days, 95 % CI):
+     strategy          vs  mean_diff_per_block  diff_per_mw_year  ci_lo  ci_hi  rel_diff_pct  significant
+   bestq_qsel    lgbm_off                0.042           366.818 -0.039  0.228         0.728        False
+     best_off    lgbm_off               -0.024          -214.372 -0.129  0.156        -0.425        False
+    qavg_qsel    lgbm_off               -0.002           -21.221 -0.073  0.174        -0.042        False
+   invmae_off    lgbm_off               -0.011           -93.364 -0.046  0.162        -0.185        False
+   tabpfn_off    lgbm_off               -0.024          -214.372 -0.121  0.163        -0.425        False
+best_past_off    lgbm_off               -0.088          -770.491 -0.163  0.115        -1.529        False
+     bestq_qk    lgbm_off                0.015           133.580 -0.084  0.210         0.265        False
+   lgbmq_qsel    lgbm_off               -0.145        -1,267.509 -0.282 -0.022        -2.515         True
+    qavg_qsel    qavg_off                0.006            51.779 -0.060  0.061         0.103        False
+   lgbmq_qsel   lgbmq_off               -0.132        -1,152.403 -0.279 -0.023        -2.292         True
+ tabpfnq_qsel tabpfnq_off                0.066           581.190  0.010  0.140         1.158         True
+   bestq_qsel   bestq_off                0.066           581.190  0.007  0.140         1.158         True
+   bestq_qsel    best_off                0.066           581.190  0.003  0.143         1.158         True
+   bestq_qsel   naive_off                0.370         3,236.979  0.140  0.612         6.810         True
+     best_off   naive_off                0.303         2,655.789  0.065  0.515         5.587         True
+         best        lgbm                0.182         1,592.011  0.016  0.450         3.477         True
+
+chosen k / tau (share of months): best_off: 0.9 88%, 1.0 12%; bestq_qsel: 0.3 88%, 0.5 12%; lgbm_off: 0.9 88%, 1.0 12%; qavg_qsel: 0.3 88%, 0.5 12%
+
+ex-post revenue share of oracle for every FIXED tau (diagnostic only, not a strategy):
+model  lgbm_q   qavg  tabpfn
+tau                         
+0.050  52.000 50.000  45.100
+0.100  56.300 56.100  53.100
+0.200  59.500 60.100  59.200
+0.300  60.100 61.300  61.700
+0.400  57.700 58.100  59.200
+0.500  53.300 52.400  55.600
+0.600  39.900 43.400  50.500
+0.700  34.000 34.700  44.200
+0.800  25.800 23.300  34.000
+0.900  19.600 18.300  20.200
+0.950  17.100 15.200  12.300
+
+== mFRR|up|4h  (n = 9,958)
+               rev_per_block  rev_per_mw_year  win_rate  share_of_oracle  mae_vs_y  mae_vs_c  mean_bid
+strategy                                                                                              
+oracle                 5.236       45,870.669     1.000            1.000     1.709     0.000     5.236
+naive                  1.971       17,265.920     0.586            0.376     1.183     2.327     3.535
+naive_off              2.391       20,945.799     0.818            0.457     1.147     2.522     3.021
+lgbm                   2.419       21,186.516     0.732            0.462     0.890     2.263     3.243
+lgbm_off               2.487       21,789.644     0.836            0.475     0.943     2.424     2.976
+invmae                 2.461       21,560.406     0.705            0.470     0.871     2.258     3.238
+invmae_off             2.518       22,060.403     0.803            0.481     0.915     2.374     3.034
+best_past_off          2.487       21,782.361     0.824            0.475     0.949     2.406     3.049
+best                   2.461       21,560.406     0.705            0.470     0.871     2.258     3.238
+best_off               2.518       22,060.403     0.803            0.481     0.915     2.374     3.034
+qavg_qsel              2.504       21,933.149     0.801            0.478     0.909     2.316     3.117
+qavg_qk                2.499       21,891.839     0.779            0.477     0.942     2.312     3.194
+qavg_off               2.514       22,018.465     0.807            0.480     0.917     2.374     3.037
+lgbmq_qsel             2.462       21,562.773     0.825            0.470     0.947     2.390     3.050
+lgbmq_qk               2.506       21,948.815     0.808            0.478     0.945     2.365     3.123
+lgbmq_off              2.492       21,826.831     0.837            0.476     0.938     2.417     2.985
+bestq_qsel             2.504       21,933.149     0.801            0.478     0.909     2.316     3.117
+bestq_qk               2.499       21,891.839     0.779            0.477     0.942     2.312     3.194
+bestq_off              2.514       22,018.465     0.807            0.480     0.917     2.374     3.037
+
+paired revenue difference per block (moving-block bootstrap 7 days, 95 % CI):
+     strategy        vs  mean_diff_per_block  diff_per_mw_year  ci_lo  ci_hi  rel_diff_pct  significant
+   bestq_qsel  lgbm_off                0.016           143.505 -0.034  0.065         0.659        False
+     best_off  lgbm_off                0.031           270.759 -0.012  0.075         1.243        False
+    qavg_qsel  lgbm_off                0.016           143.505 -0.032  0.066         0.659        False
+   invmae_off  lgbm_off                0.031           270.759 -0.011  0.075         1.243        False
+best_past_off  lgbm_off               -0.001            -7.282 -0.034  0.033        -0.033        False
+     bestq_qk  lgbm_off                0.012           102.195 -0.052  0.075         0.469        False
+   lgbmq_qsel  lgbm_off               -0.026          -226.870 -0.069  0.013        -1.041        False
+    qavg_qsel  qavg_off               -0.010           -85.316 -0.041  0.018        -0.387        False
+   lgbmq_qsel lgbmq_off               -0.030          -264.058 -0.071  0.008        -1.210        False
+   bestq_qsel bestq_off               -0.010           -85.316 -0.039  0.019        -0.387        False
+   bestq_qsel  best_off               -0.015          -127.254 -0.051  0.019        -0.577        False
+   bestq_qsel naive_off                0.113           987.350  0.047  0.186         4.714         True
+     best_off naive_off                0.127         1,114.604  0.059  0.199         5.321         True
+         best      lgbm                0.043           373.890  0.007  0.080         1.765         True
+
+chosen k / tau (share of months): best_off: 0.9 50%, 1.0 24%, 0.8 17%, 1.1 7%; bestq_qsel: 0.3 31%, 0.5 21%, 0.4 14%, 0.2 14%; lgbm_off: 0.9 60%, 1.0 22%, 0.8 17%; qavg_qsel: 0.3 31%, 0.5 21%, 0.4 14%, 0.2 14%
+
+ex-post revenue share of oracle for every FIXED tau (diagnostic only, not a strategy):
+model  lgbm_q   qavg
+tau                 
+0.050  36.800 38.600
+0.100  41.600 43.000
+0.200  45.500 46.700
+0.300  47.000 47.900
+0.400  47.300 48.200
+0.500  46.500 47.500
+0.600  43.900 45.600
+0.700  41.300 42.600
+0.800  38.000 38.000
+0.900  28.000 30.300
+0.950  22.300 24.600
+
+== mFRR|down|4h  (n = 9,226)
+               rev_per_block  rev_per_mw_year  win_rate  share_of_oracle  mae_vs_y  mae_vs_c  mean_bid
+strategy                                                                                              
+oracle                23.566      206,439.389     1.000            1.000     5.807     0.000    23.566
+naive                 10.606       92,908.132     0.624            0.450     4.443     8.541    17.672
+naive_off             12.284      107,611.557     0.846            0.521     4.834     9.851    15.021
+lgbm                  11.676      102,281.303     0.723            0.495     4.048     8.447    17.067
+lgbm_off              12.748      111,671.663     0.861            0.541     4.369     9.393    15.276
+invmae                11.850      103,803.889     0.695            0.503     3.935     8.492    16.866
+invmae_off            12.615      110,506.901     0.826            0.535     4.311     9.371    15.310
+best_past_off         12.537      109,819.748     0.848            0.532     4.475     9.455    15.349
+best                  11.850      103,803.889     0.695            0.503     3.935     8.492    16.866
+best_off              12.615      110,506.901     0.826            0.535     4.311     9.371    15.310
+qavg_qsel             12.368      108,345.483     0.824            0.525     4.135     9.168    15.513
+qavg_qk               12.246      107,275.579     0.809            0.520     4.300     9.236    15.703
+qavg_off              12.673      111,015.946     0.846            0.538     4.290     9.434    15.112
+lgbmq_qsel            12.641      110,737.552     0.846            0.536     4.266     9.284    15.352
+lgbmq_qk              12.514      109,623.173     0.851            0.531     4.408     9.431    15.334
+lgbmq_off             12.675      111,032.740     0.859            0.538     4.384     9.384    15.309
+bestq_qsel            12.368      108,345.483     0.824            0.525     4.135     9.168    15.513
+bestq_qk              12.246      107,275.579     0.809            0.520     4.300     9.236    15.703
+bestq_off             12.673      111,015.946     0.846            0.538     4.290     9.434    15.112
+
+paired revenue difference per block (moving-block bootstrap 7 days, 95 % CI):
+     strategy        vs  mean_diff_per_block  diff_per_mw_year  ci_lo  ci_hi  rel_diff_pct  significant
+   bestq_qsel  lgbm_off               -0.380        -3,326.180 -0.627 -0.144        -2.979         True
+     best_off  lgbm_off               -0.133        -1,164.763 -0.340  0.038        -1.043        False
+    qavg_qsel  lgbm_off               -0.380        -3,326.180 -0.652 -0.154        -2.979         True
+   invmae_off  lgbm_off               -0.133        -1,164.763 -0.332  0.029        -1.043        False
+best_past_off  lgbm_off               -0.211        -1,851.916 -0.438 -0.027        -1.658         True
+     bestq_qk  lgbm_off               -0.502        -4,396.084 -0.786 -0.237        -3.937         True
+   lgbmq_qsel  lgbm_off               -0.107          -934.112 -0.287  0.072        -0.836        False
+    qavg_qsel  qavg_off               -0.305        -2,670.463 -0.531 -0.106        -2.405         True
+   lgbmq_qsel lgbmq_off               -0.034          -295.189 -0.229  0.149        -0.266        False
+   bestq_qsel bestq_off               -0.305        -2,670.463 -0.550 -0.112        -2.405         True
+   bestq_qsel  best_off               -0.247        -2,161.418 -0.479 -0.052        -1.956         True
+   bestq_qsel naive_off                0.084           733.926 -0.254  0.448         0.682        False
+     best_off naive_off                0.331         2,895.344  0.036  0.640         2.691         True
+         best      lgbm                0.174         1,522.586 -0.011  0.368         1.489        False
+
+chosen k / tau (share of months): best_off: 0.9 63%, 1.0 16%, 0.8 16%, 1.1 5%; bestq_qsel: 0.2 32%, 0.3 25%, 0.5 23%, 0.4 19%; lgbm_off: 0.9 81%, 1.0 12%, 0.8 7%; qavg_qsel: 0.2 32%, 0.3 25%, 0.5 23%, 0.4 19%
+
+ex-post revenue share of oracle for every FIXED tau (diagnostic only, not a strategy):
+model  lgbm_q   qavg
+tau                 
+0.050  42.300 43.400
+0.100  47.500 48.400
+0.200  52.400 52.800
+0.300  53.800 53.600
+0.400  52.400 52.500
+0.500  49.600 50.000
+0.600  45.700 46.300
+0.700  39.500 41.900
+0.800  32.600 34.600
+0.900  25.600 26.400
+0.950  20.200 20.700
+
+== Decision rule (declared before the run): candidate replaces lgbm_off if significantly better in >= 2 of 4 series and not significantly worse in any
+   bestq_qsel     better in 0, worse in 1 of 4 series -> does not meet the rule   aFRR down 4h +0.7%  aFRR up 4h +1.8%  mFRR down 4h -3.0%*  mFRR up 4h +0.7%
+   best_off       better in 0, worse in 0 of 4 series -> does not meet the rule   aFRR down 4h -0.4%  aFRR up 4h +2.6%  mFRR down 4h -1.0%  mFRR up 4h +1.2%
+   qavg_qsel      better in 0, worse in 1 of 4 series -> does not meet the rule   aFRR down 4h -0.0%  aFRR up 4h -0.5%  mFRR down 4h -3.0%*  mFRR up 4h +0.7%
+   bestq_qk       better in 0, worse in 1 of 4 series -> does not meet the rule   aFRR down 4h +0.3%  aFRR up 4h +0.3%  mFRR down 4h -3.9%*  mFRR up 4h +0.5%
+   best_past_off  better in 0, worse in 1 of 4 series -> does not meet the rule   aFRR down 4h -1.5%  aFRR up 4h -0.8%  mFRR down 4h -1.7%*  mFRR up 4h -0.0%
+
+== share of oracle revenue by year (selected strategies)
+strategy           best_off  bestq_qsel  lgbm_off  naive_off  qavg_qsel
+series       year                                                      
+aFRR|down|4h 2026     0.589       0.596     0.592      0.558      0.591
+aFRR|up|4h   2026     0.671       0.667     0.654      0.604      0.651
+mFRR|down|4h 2021     0.523       0.507     0.521      0.485      0.507
+             2022     0.542       0.527     0.541      0.518      0.527
+             2023     0.499       0.481     0.512      0.485      0.481
+             2024     0.581       0.564     0.561      0.593      0.564
+             2025     0.558       0.561     0.583      0.582      0.561
+             2026     0.496       0.512     0.514      0.505      0.512
+mFRR|up|4h   2021     0.443       0.451     0.444      0.424      0.451
+             2022     0.473       0.463     0.461      0.441      0.463
+             2023     0.566       0.560     0.559      0.523      0.560
+             2024     0.502       0.495     0.474      0.463      0.495
+             2025     0.509       0.499     0.509      0.503      0.499
+             2026     0.522       0.528     0.517      0.518      0.528

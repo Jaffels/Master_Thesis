@@ -1,0 +1,197 @@
+{
+  "script": "rq4_2_quantile_bids",
+  "label": "RQ4 quantile bids",
+  "status": "ok",
+  "error": "",
+  "argv": [
+    "--stack",
+    "rq2_7t",
+    "--out",
+    "Modelling/Output/rq4_2t"
+  ],
+  "start": "2026-10-16T12:51:48",
+  "end": "2026-10-16T12:52:00",
+  "duration_s": 12.1,
+  "duration": "12 s",
+  "summary": [
+    "aFRR up 4h: lgbm_off 65% -> bestq_qsel 67%, best_off 67%",
+    "aFRR down 4h: lgbm_off 59% -> bestq_qsel 60%, best_off 59%",
+    "mFRR up 4h: lgbm_off 48% -> bestq_qsel 48%, best_off 48%",
+    "mFRR down 4h: lgbm_off 54% -> bestq_qsel 53%, best_off 54%"
+  ],
+  "output_dir": "Modelling/Output/rq4_2t",
+  "git": {
+    "commit": "d3e8ad5",
+    "branch": "master",
+    "uncommitted_files_in_Modelling_Clean": [
+      "Modelling/Output/_runs/",
+      "Modelling/Output/rq1c_shap_quick/",
+      "Modelling/Output/rq4_2/",
+      "Modelling/Output/rq4_2t/",
+      "Modelling/rq1c_shap.py",
+      "Modelling/rq4_2_quantile_bids.py"
+    ]
+  },
+  "python": "3.14.7",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "machine": "Johans-MacBook-Air.local",
+  "cpu_count": 8,
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "pyarrow": "25.0.1",
+    "duckdb": "1.5.6",
+    "lightgbm": "4.7.0",
+    "scikit-learn": "1.9.1",
+    "catboost": "1.2.10",
+    "quantile-forest": "1.4.2",
+    "torch": "2.14.1",
+    "tabpfn": "9.2.0",
+    "chronos-forecasting": "2.3.2",
+    "transformers": "5.19.0",
+    "matplotlib": "3.11.2"
+  },
+  "files_written": [
+    {
+      "file": "blocks.parquet",
+      "kB": 7226.7
+    },
+    {
+      "file": "check_vs_rq4_1.csv",
+      "kB": 1.5
+    },
+    {
+      "file": "choices.csv",
+      "kB": 72.2
+    },
+    {
+      "file": "diagnostics/bid_vs_clearing.csv",
+      "kB": 10.5
+    },
+    {
+      "file": "diagnostics/plots/aFRR_down_4h/bid_ratio_hist.png",
+      "kB": 27.8
+    },
+    {
+      "file": "diagnostics/plots/aFRR_down_4h/chosen_tau.png",
+      "kB": 26.7
+    },
+    {
+      "file": "diagnostics/plots/aFRR_down_4h/cumulative_revenue.png",
+      "kB": 62.2
+    },
+    {
+      "file": "diagnostics/plots/aFRR_down_4h/offset_k.png",
+      "kB": 25.5
+    },
+    {
+      "file": "diagnostics/plots/aFRR_down_4h/share_of_oracle_by_year.png",
+      "kB": 21.8
+    },
+    {
+      "file": "diagnostics/plots/aFRR_down_4h/win_rate_monthly.png",
+      "kB": 63.9
+    },
+    {
+      "file": "diagnostics/plots/aFRR_up_4h/bid_ratio_hist.png",
+      "kB": 31.2
+    },
+    {
+      "file": "diagnostics/plots/aFRR_up_4h/chosen_tau.png",
+      "kB": 26.1
+    },
+    {
+      "file": "diagnostics/plots/aFRR_up_4h/cumulative_revenue.png",
+      "kB": 78.3
+    },
+    {
+      "file": "diagnostics/plots/aFRR_up_4h/offset_k.png",
+      "kB": 25.3
+    },
+    {
+      "file": "diagnostics/plots/aFRR_up_4h/share_of_oracle_by_year.png",
+      "kB": 21.4
+    },
+    {
+      "file": "diagnostics/plots/aFRR_up_4h/win_rate_monthly.png",
+      "kB": 71.2
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_4h/bid_ratio_hist.png",
+      "kB": 29.0
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_4h/chosen_tau.png",
+      "kB": 28.9
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_4h/cumulative_revenue.png",
+      "kB": 53.0
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_4h/offset_k.png",
+      "kB": 26.7
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_4h/share_of_oracle_by_year.png",
+      "kB": 25.2
+    },
+    {
+      "file": "diagnostics/plots/mFRR_down_4h/win_rate_monthly.png",
+      "kB": 155.9
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_4h/bid_ratio_hist.png",
+      "kB": 28.9
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_4h/chosen_tau.png",
+      "kB": 28.3
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_4h/cumulative_revenue.png",
+      "kB": 52.6
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_4h/offset_k.png",
+      "kB": 27.1
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_4h/share_of_oracle_by_year.png",
+      "kB": 24.2
+    },
+    {
+      "file": "diagnostics/plots/mFRR_up_4h/win_rate_monthly.png",
+      "kB": 158.1
+    },
+    {
+      "file": "diagnostics/plots/quantile_curve.png",
+      "kB": 124.9
+    },
+    {
+      "file": "diagnostics/revenue_monthly.csv",
+      "kB": 306.3
+    },
+    {
+      "file": "quantile_curve.csv",
+      "kB": 9.2
+    },
+    {
+      "file": "report_rq4_2.txt",
+      "kB": 21.2
+    },
+    {
+      "file": "revenue_by_year.csv",
+      "kB": 23.1
+    },
+    {
+      "file": "revenue_diff_bootstrap.csv",
+      "kB": 8.1
+    },
+    {
+      "file": "revenue_summary.csv",
+      "kB": 14.6
+    }
+  ]
+}
