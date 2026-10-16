@@ -1,0 +1,133 @@
+RQ3 EVT: 356,542 QH with prices, 2016-03-30 22:00:00 -> 2026-08-31 21:45:00 (UTC); declustering run = 4 QH; bootstrap 500
+
+== A  clusters over the rolling threshold (RQ3b spike definition); excess in EUR/MWh (long: below threshold)
+    period  side  clusters   qh  mean_len_qh  mean_excess  median_excess  max_excess  mean_thr
+pre_crisis short       252 3233         12.8        287.4           16.8     8,037.4     137.5
+    crisis short       342 4629         13.5        248.1           57.0     6,262.9     563.7
+      calm short       367  914          2.5        859.0          353.7    14,464.7     675.9
+  post_cap short        73  143          2.0        201.7           93.9     2,115.4     498.5
+pre_crisis  long       132 1856         14.1         86.7           54.2       524.8      95.9
+    crisis  long       386  914          2.4        438.8          132.8     5,716.1      53.3
+      calm  long       288  902          3.1      1,355.6          505.9    16,320.6     603.4
+  post_cap  long        81  264          3.3        850.7          254.7     6,246.3     701.2
+
+per year:
+ year  side  clusters   qh  mean_len_qh  mean_excess  median_excess  max_excess  mean_thr
+ 2016 short        63  859         13.6         19.2            8.1       305.2     103.6
+ 2017 short        39  641         16.4        163.0           31.7     2,108.9     169.7
+ 2018 short        18  389         21.6        809.1          280.4     5,411.8     197.4
+ 2019 short        14  160         11.4        988.0          402.6     4,989.9     155.2
+ 2020 short        57  659         11.6        586.1           24.6     8,037.4     114.3
+ 2021 short       216 3614         16.7         59.1           25.9       773.2     269.1
+ 2022 short       167 1509          9.0        282.9          100.4     5,615.8     746.4
+ 2023 short        33   73          2.2      1,345.5          631.4     6,262.9     901.2
+ 2024 short       327  825          2.5        838.1          325.0    14,464.7     633.4
+ 2025 short        32   56          1.8        882.1          591.3     4,406.4   1,089.2
+ 2026 short        68  134          2.0        164.8           89.1     1,154.3     470.5
+ 2016  long        18  187         10.4         55.7           31.1       167.3      50.0
+ 2017  long        33  628         19.0         98.9           55.5       346.4     135.8
+ 2018  long        21  396         18.9         95.2           99.8       204.2     174.9
+ 2019  long        11  130         11.8         77.8           37.9       257.7     146.3
+ 2020  long        20  174          8.7        102.3           49.7       428.7      66.7
+ 2021  long        32  358         11.2         81.0           49.2       524.8      23.8
+ 2022  long       240  607          2.5        356.6          107.0     3,240.9      16.1
+ 2023  long       216  476          2.2        711.0          199.7    16,320.6     149.8
+ 2024  long       201  688          3.4      1,538.1          589.7    15,505.8     696.3
+ 2025  long        40  130          3.2      1,087.7          504.6     5,894.9   1,177.8
+ 2026  long        55  162          2.9        664.7          227.5     6,246.3     504.6
+
+== B  GPD tail per period, FIXED threshold = quantile of x inside the period (cluster peaks)
+ side     period  threshold  clusters  clusters_per_year  mean_excess   sigma     xi  xi_at_bound  xi_lo  xi_hi  p_xi0  KS_p  return_level_1y       rl_lo       rl_hi
+short pre_crisis    166.400       128             23.612      550.459  46.123  1.596        False  1.252  1.937  0.000 0.766        4,629.041   2,233.794   9,650.131
+short     crisis    907.266       121             66.161      546.688 191.015  0.774        False  0.510  1.030  0.000 0.914        6,999.300   3,980.436  13,154.694
+short       calm    900.141       252            150.633    1,079.286 668.777  0.394        False  0.237  0.539  0.000 0.459       11,441.512   7,632.578  17,236.610
+short   post_cap    521.893       243            162.272      147.882 115.300  0.207        False  0.020  0.346  0.000 0.329        1,562.392   1,172.609   2,076.720
+ long pre_crisis   -126.700       116             21.398       95.739 101.313 -0.058        False -0.265  0.139  0.630 0.516         -411.219    -456.713    -368.247
+ long     crisis    -93.966       313            171.143      512.908 220.834  0.715        False  0.543  0.894  0.000 0.230      -11,997.390 -20,671.128  -7,253.746
+ long       calm   -997.382       207            123.734    1,668.677 952.899  0.470        False  0.268  0.629  0.000 0.939      -18,467.776 -27,287.270 -11,464.945
+ long   post_cap   -630.672       145             96.829      600.568 201.263  0.822        False  0.573  1.041  0.000 0.803      -10,883.136 -22,505.209  -5,578.178
+
+threshold stability (xi at q97.5 / q99 / q99.5):
+q                 0.975  0.990  0.995
+side  period                         
+short pre_crisis +1.307 +1.596 +1.568
+      crisis     +0.744 +0.774 +0.860
+      calm       +0.558 +0.394 +0.638
+      post_cap   +0.152 +0.207 +0.353
+long  pre_crisis +0.108 -0.058 -0.298
+      crisis     +0.916 +0.715 +0.302
+      calm       +0.710 +0.470 +0.379
+      post_cap   +0.611 +0.822 +0.728
+
+LR test 'same xi in all periods' (and calm vs post-cap):
+ side      q  periods  xi_common  loglik_common  loglik_separate      LR  df      p             test
+short 0.9900        4     0.6466    -5,142.8769      -5,110.5351 64.6836   3 0.0000              NaN
+short 0.9900        2     0.2959    -3,439.0938      -3,437.6020  2.9837   1 0.0841 calm_vs_post_cap
+ long 0.9900        4     0.5817    -5,639.3398      -5,628.7188 21.2421   3 0.0001              NaN
+ long 0.9900        2     0.6333    -2,759.2585      -2,757.4660  3.5850   1 0.0583 calm_vs_post_cap
+
+== C  out-of-sample forecast of the cluster peak excess (rolling threshold), refit every 6 months from 2021
+ side    period    model   n    CRPS  tail_QS  cov50  cov90  cov99  logscore  PIT_KS_p
+short       all  gpd_exp 843 196.915  215.078  0.216  0.784  0.995    -6.956     0.000
+short       all  gpd_365 843 183.376  209.492  0.458  0.879  0.982    -6.748     0.051
+short       all  gpd_rel 843 185.681  220.905  0.412  0.885  0.995    -6.742     0.000
+short       all expo_exp 843 194.140  229.561  0.622  0.848  0.926    -7.347     0.000
+short       all  emp_exp 843 194.991  205.664  0.211  0.823  0.989       NaN     0.000
+short       all  emp_365 843 185.203  205.567  0.447  0.886  0.974       NaN     0.007
+short from_2023  gpd_exp 460 309.594  323.352  0.148  0.717  0.993    -7.922     0.000
+short from_2023  gpd_365 460 283.501  302.286  0.557  0.922  0.989    -7.529     0.000
+short from_2023  gpd_rel 460 288.859  309.657  0.274  0.813  0.991    -7.651     0.000
+short from_2023 expo_exp 460 288.217  359.291  0.485  0.772  0.883    -8.231     0.000
+short from_2023  emp_exp 460 305.156  302.101  0.150  0.765  0.983       NaN     0.000
+short from_2023  emp_365 460 284.683  276.531  0.561  0.922  0.985       NaN     0.000
+ long       all  gpd_exp 784 312.633  326.882  0.316  0.698  0.932    -7.584     0.000
+ long       all  gpd_365 784 295.782  286.692  0.392  0.773  0.967    -7.415     0.000
+ long       all  gpd_rel 784 310.309  379.273  0.430  0.783  0.931    -7.501     0.000
+ long       all expo_exp 784 307.307  394.233  0.457  0.696  0.821    -8.363     0.000
+ long       all  emp_exp 784 310.566  335.368  0.309  0.726  0.885       NaN     0.000
+ long       all  emp_365 784 294.192  292.046  0.376  0.783  0.936       NaN     0.000
+ long from_2023  gpd_exp 512 409.100  405.392  0.277  0.723  0.988    -7.914     0.000
+ long from_2023  gpd_365 512 384.340  357.557  0.416  0.822  0.998    -7.774     0.000
+ long from_2023  gpd_rel 512 404.352  481.423  0.488  0.863  0.998    -7.763     0.085
+ long from_2023 expo_exp 512 401.122  503.617  0.477  0.723  0.840    -8.537     0.000
+ long from_2023  emp_exp 512 405.649  415.377  0.273  0.768  0.934       NaN     0.000
+ long from_2023  emp_365 512 381.338  360.020  0.408  0.844  0.959       NaN     0.000
+
+CRPS / tail quantile score gain vs empirical-expanding (positive = better), day-block bootstrap 95 % CI:
+ side    period    model  dCRPS_vs_emp_exp  ci_lo  ci_hi  dTailQS_vs_emp_exp  tail_ci_lo  tail_ci_hi
+short       all  gpd_exp             -1.92  -2.41  -1.43               -9.41      -12.14       -6.22
+short       all  gpd_365             11.61   1.93  22.02               -3.83      -30.96       27.01
+short       all  gpd_rel              9.31   6.19  12.24              -15.24      -26.17       -3.78
+short       all expo_exp              0.85  -3.38   5.16              -23.90      -37.43      -11.29
+short       all  emp_365              9.79   0.62  20.43                0.10      -23.04       25.31
+short from_2023  gpd_exp             -4.44  -5.15  -3.70              -21.25      -25.00      -16.13
+short from_2023  gpd_365             21.65   3.08  40.71               -0.19      -51.08       51.48
+short from_2023  gpd_rel             16.30  12.07  20.97               -7.56      -24.67       10.80
+short from_2023 expo_exp             16.94  11.74  22.54              -57.19      -82.80      -34.77
+short from_2023  emp_365             20.47   2.16  38.62               25.57      -21.89       77.10
+ long       all  gpd_exp             -2.07  -2.90  -1.18                8.49        1.45       16.47
+ long       all  gpd_365             14.78   9.37  20.32               48.68       22.52       75.77
+ long       all  gpd_rel              0.26 -14.60  13.84              -43.91      -91.43        5.58
+ long       all expo_exp              3.26   0.45   6.04              -58.86      -73.90      -44.29
+ long       all  emp_365             16.37   9.82  22.96               43.32       25.00       63.24
+ long from_2023  gpd_exp             -3.45  -4.83  -2.04                9.99       -1.01       22.28
+ long from_2023  gpd_365             21.31  11.56  30.85               57.82       20.17       96.40
+ long from_2023  gpd_rel              1.30 -19.20  24.71              -66.05     -137.69       14.77
+ long from_2023 expo_exp              4.53   0.45   8.92              -88.24     -111.20      -66.73
+ long from_2023  emp_365             24.31  14.31  34.44               55.36       30.10       85.86
+
+GPD shape of the expanding fit by fold:
+side         long  short
+fold                    
+2021-01-01 +0.002 +1.665
+2021-07-01 +0.012 +1.565
+2022-01-01 +0.109 +1.113
+2022-07-01 +0.271 +1.134
+2023-01-01 +0.836 +1.147
+2023-07-01 +0.917 +1.225
+2024-01-01 +0.975 +1.277
+2024-07-01 +1.124 +1.403
+2025-01-01 +1.144 +1.348
+2025-07-01 +1.120 +1.344
+2026-01-01 +1.120 +1.340
+2026-07-01 +1.097 +1.306
