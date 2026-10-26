@@ -205,7 +205,33 @@ AREAS: dict[str, list[str]] = {
     "DE": ["DE_LU", "DE", "DE_AT_LU", "DE_AMPRION", "DE_TENNET", "DE_50HZ", "DE_TRANSNET"],  # DE_AT_LU: pre-Oct-2018 zone
     "FR": ["FR"],
     "IT": ["IT", "IT_NORD"],
+    # 2026-10-26: the FCR Cooperation members not yet covered (AT was never in the
+    # balancing probe). FCR series only, see FCR_ONLY_AREAS below.
+    #   DK_1 = West Denmark, the only Danish zone in the FCR Cooperation. DK_CA
+    #   (Energinet control area) is a fallback because 17.1.x is often published
+    #   per control area, but it spans DK1 AND DK2 (Nordic FCR-N / FCR-D): if the
+    #   probe answers on DK_CA, check the volumes before pinning it.
+    "AT": ["AT"],
+    "BE": ["BE"],
+    "NL": ["NL"],
+    "DK_1": ["DK_1", "DK_CA"],
+    "SI": ["SI"],
+    "CZ": ["CZ"],
 }
+
+# Areas for which only the FCR capacity series are probed (and therefore pulled:
+# the pull is driven by the coverage CSV). Imbalance, activation prices and
+# aFRR / mFRR are not needed for these countries. Remove an area to probe all.
+FCR_ONLY_AREAS: set[str] = {"AT", "BE", "NL", "DK_1", "SI", "CZ"}
+FCR_DATASETS: set[str] = {"contracted_reserve_amount", "contracted_reserve_prices",
+                          "procured_balancing_capacity"}
+
+
+def task_applies(task: "Task", area_label: str) -> bool:
+    """False for (task, area) combinations that are deliberately not probed."""
+    if area_label in FCR_ONLY_AREAS:
+        return task.dataset in FCR_DATASETS and "FCR" in task.variant
+    return True
 
 # Which area code actually serves each dataset, as established by the
 # 2026-08 probe. A pinned code is the ONLY one tried — no fallback, no silent
@@ -746,6 +772,8 @@ def main() -> int:
     for task in tasks:
         outcomes: list[dict[str, Any]] = []  # one per area, for the summary line
         for area_label, codes in AREAS.items():
+            if not task_applies(task, area_label):
+                continue  # FCR-only area (2026-10-26)
             state_key = f"{task.key}__{area_label}__{stamp}"
             prior = state.get(state_key)
             if prior and not (args.retry_errors and prior == "error"):

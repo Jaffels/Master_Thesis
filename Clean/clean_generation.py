@@ -5,7 +5,9 @@ Run from Master_Thesis with .venv active:
     python Clean/clean_generation.py --write    # also write Clean/Data/generation/
 
 Output (Clean/Data/generation/), each with <name>_dictionary.csv
-  generation.parquet          15-min grid, per zone (ch, de_lu, fr, it_nord, at):
+  generation.parquet          15-min grid, per zone (ch, de_lu, fr, it_nord, at; FCR
+                              Cooperation members be, nl, dk1, si, cz from 26 Oct 2026,
+                              optional: skipped with a notice until their pull has run):
       actual generation by group (16.1.B/C), pumped-storage consumption,
       day-ahead total generation forecast (14.1.C), wind/solar day-ahead and
       intraday forecasts (14.1.D), weekly hydro reservoir level (16.1.D, step)
@@ -50,7 +52,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import common as K  # noqa: E402
 import config as C  # noqa: E402
 
-AREAS = {"CH": "ch", "DE_LU": "de_lu", "FR": "fr", "IT_NORD": "it_nord", "AT": "at"}
+AREAS = {"CH": "ch", "DE_LU": "de_lu", "FR": "fr", "IT_NORD": "it_nord", "AT": "at", **K.FCR_MEMBERS}
+OPTIONAL = set(K.FCR_MEMBERS)                # missing on disk -> skipped with a notice
 SRC = "ENTSO-E Transparency Platform"
 DE_NOTE = "DE_LU until 30 Sep 2018 = code DE (Germany without LU)"
 GROUP = {"Solar": "solar", "Wind Onshore": "wind_on", "Wind Offshore": "wind_off", "Nuclear": "nuclear",
@@ -99,7 +102,13 @@ def build():
     out, dic = pd.DataFrame(index=g), []
     for code, a in AREAS.items():
         dn = DE_NOTE if code == "DE_LU" else ""
-        gen, ps = actual_per_type(code)
+        try:
+            gen, ps = actual_per_type(code)
+        except FileNotFoundError:
+            if code not in OPTIONAL:
+                raise
+            print(f"notice: no ENTSO-E generation on disk for {code} (FCR member) - skipped")
+            continue
         res = str(K.native_step(K.trim(gen).index))
         q = K.hourly_to_qh(gen, "repeat")
         for grp in gen.columns:
@@ -115,14 +124,21 @@ def build():
             dic.append(entry(f"{a}_gen_hydro_ps_cons_mw", f"16.1.B/C pumped storage, Actual Consumption, {code}", "MW",
                              res, "mean", "ex post", "pumping consumption (positive)"))
         # day-ahead total generation forecast (14.1.C)
-        f = K.read_entsoe("Generation", "generation_forecast", "day_ahead", code)
-        s = f["generation_forecast"] if "generation_forecast" in f else None
-        if "Scheduled Aggregated" in f:
-            s = f["Scheduled Aggregated"] if s is None else s.combine_first(f["Scheduled Aggregated"])
-        out[f"{a}_gen_total_da_fc_mw"] = K.hourly_to_qh(s.astype("float64"), "repeat")
-        dic.append(entry(f"{a}_gen_total_da_fc_mw", f"14.1.C day-ahead aggregated generation forecast, {code}", "MW",
-                         str(K.native_step(K.trim(s.to_frame()).index)), "mean", "D-1 (by 18:00)",
-                         (dn + "; " if dn else "") + "column 'generation_forecast' or 'Scheduled Aggregated' depending on year"))
+        try:
+            f = K.read_entsoe("Generation", "generation_forecast", "day_ahead", code)
+        except FileNotFoundError:
+            if code not in OPTIONAL:
+                raise
+            print(f"notice: no ENTSO-E day-ahead generation forecast on disk for {code} (FCR member) - skipped")
+            f = None
+        if f is not None:
+            s = f["generation_forecast"] if "generation_forecast" in f else None
+            if "Scheduled Aggregated" in f:
+                s = f["Scheduled Aggregated"] if s is None else s.combine_first(f["Scheduled Aggregated"])
+            out[f"{a}_gen_total_da_fc_mw"] = K.hourly_to_qh(s.astype("float64"), "repeat")
+            dic.append(entry(f"{a}_gen_total_da_fc_mw", f"14.1.C day-ahead aggregated generation forecast, {code}", "MW",
+                             str(K.native_step(K.trim(s.to_frame()).index)), "mean", "D-1 (by 18:00)",
+                             (dn + "; " if dn else "") + "column 'generation_forecast' or 'Scheduled Aggregated' depending on year"))
         # wind / solar forecasts (14.1.D)
         for var, tag, avail in (("day_ahead", "da_fc", "D-1 (by 18:00)"), ("intraday", "id_fc", "intraday (updated during the day)")):
             try:
@@ -195,7 +211,13 @@ def build():
 def installed_capacity():
     rows = []
     for code, a in AREAS.items():
-        d = K.read_entsoe("Generation", "installed_capacity", "per_type", code)
+        try:
+            d = K.read_entsoe("Generation", "installed_capacity", "per_type", code)
+        except FileNotFoundError:
+            if code not in OPTIONAL:
+                raise
+            print(f"notice: no ENTSO-E installed capacity on disk for {code} (FCR member) - skipped")
+            continue
         for ts, row in d.iterrows():
             for t, v in row.items():
                 if pd.notna(v):

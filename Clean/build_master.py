@@ -99,6 +99,8 @@ OPTIONAL_TABLES = [
 GRID_TABLES += [t for t in OPTIONAL_TABLES if (C.DATA_DIR / t[0] / f"{t[1]}.parquet").exists()]
 NOT_IN_MASTER = {
     "balancing/contracted_reserves_ch": "block products: cross-check columns in auction_blocks",
+    "balancing/contracted_reserves_fcr": "block products (FCR Cooperation members, 26 Oct 2026); "
+                                         "regelleistung.net auction_blocks_rl is the primary source",
     "generation/installed_capacity": "long table (zone x year), stays in Clean/Data/generation/",
     "outages/outage_events": "long table (events with created_utc), stays in Clean/Data/outages/",
 }
@@ -620,7 +622,8 @@ def nan_reports(m: pd.DataFrame, rep: Report) -> tuple[pd.DataFrame, pd.DataFram
             runs.append((c, a, b))
     rows = []
     area_tok = {"ch": "CH", "de_lu": "DE_LU", "de": "DE", "de_at_lu": "DE_AT_LU", "at": "AT", "fr": "FR",
-                "it_nord": "IT_NORD", "it": "IT", "de_amprion": "DE", "ce": ""}
+                "it_nord": "IT_NORD", "it": "IT", "de_amprion": "DE", "ce": "",
+                "be": "BE", "nl": "NL", "dk1": "DK_1", "si": "SI", "cz": "CZ"}   # FCR members, 26 Oct 2026
     series = gl["series"].astype(str).to_numpy()
     srcs = gl["source"].astype(str).to_numpy()
     for c, a, b in runs:

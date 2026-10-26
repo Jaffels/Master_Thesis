@@ -15,6 +15,13 @@ Output (Clean/Data/balancing/), each with <name>_dictionary.csv, 15-min grid
     ch_{afrr,mfrr}_bids_{up,down}_{offered,act}_mw   CH aggregated bids (12.3.E), 2021 ->
   contracted_reserves_ch.parquet        CH contracted reserves (17.1.B/C), cross-check only
     ch_{fcr,afrr,mfrr}_{weekly,daily}_{sym,up,down}_{price,amount}  (block values on the grid)
+  contracted_reserves_fcr.parquet       (26 Oct 2026) FCR contracted reserves (17.1.B/C) of the
+                                        other FCR Cooperation members de, fr, at, be, nl, dk1, si, cz
+    <zone>_fcr_{weekly,daily,monthly,hourly}_<direction>_{price_eur_mw,amount_mw}
+                                        whatever is on disk; a member without files is skipped
+                                        with a notice. Not in the master (block products, like
+                                        contracted_reserves_ch); regelleistung.net auction_blocks_rl
+                                        stays the primary per-country FCR source from Jul 2019.
 
 Rules
 - Areas are named after what the series covers: DE prices = DE_LU, DE volumes =
@@ -143,17 +150,56 @@ def contracted():
     return out, dic
 
 
+# 26 Oct 2026: FCR Cooperation members other than CH (ENTSO-E Balancing folder label -> token).
+# DE amount = sum of the four TSO control areas (probe SUM_AREAS), DE price = TenneT (identical
+# across TSOs, see probe). DK_1 = West Denmark.
+FCR_COOP = {"DE": "de", "FR": "fr", "AT": "at", **K.FCR_MEMBERS}
+FCR_VARIANTS = ("FCR_A02_weekly", "FCR_A01_daily", "FCR_A03_monthly", "FCR_A13_hourly")
+
+
+def contracted_fcr():
+    g = K.grid().index
+    out, dic = pd.DataFrame(index=g), []
+    for area, tok in FCR_COOP.items():
+        found = False
+        for kind, unit in (("prices", "EUR/MW (as published)"), ("amount", "MW")):
+            for var in FCR_VARIANTS:
+                d = read(f"contracted_reserve_{kind}", var, area)
+                if d is None:
+                    continue
+                found = True
+                per = var.split("_")[2]
+                for src in d.columns:
+                    col = f"{tok}_fcr_{per}_{src.lower()}_{'price_eur_mw' if kind == 'prices' else 'amount_mw'}"
+                    out[col] = to_grid(d[src])
+                    note = "block value repeated on the grid (D5); regelleistung.net is primary from Jul 2019"
+                    if area == "DE":
+                        note += ("; sum of the four German TSO control areas" if kind == "amount"
+                                 else "; TenneT control area (price identical across the German TSOs)")
+                    if area == "DK_1":
+                        note += "; West Denmark (check the code used in the probe coverage: DK_1 or DK_CA)"
+                    dic.append(entry(col, f"17.1.B/C contracted reserve {kind}, {area}, {var}, {src}", unit,
+                                     "block (week/day/4h)", "mean", "after the auction", note))
+        if not found:
+            print(f"notice: no ENTSO-E FCR contracted reserves on disk for {area} - skipped")
+    return out, dic
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--write", action="store_true")
     a = ap.parse_args()
     pd.set_option("display.width", 220)
-    res = {"balancing": balancing(), "contracted_reserves_ch": contracted()}
+    res = {"balancing": balancing(), "contracted_reserves_ch": contracted(),
+           "contracted_reserves_fcr": contracted_fcr()}
     for name, (df, dic) in res.items():
         bad = K.check_names(df.columns)
         assert not bad, (name, bad)
         assert len(df) == 409_052
         num = df.select_dtypes(include="number")
+        if num.empty:
+            print(f"\n=== {name} === no columns (nothing on disk yet)")
+            continue
         fv, lv = num.apply(lambda c: c.first_valid_index()), num.apply(lambda c: c.last_valid_index())
         s = pd.DataFrame({"first": fv.dt.tz_convert(K.TZ).dt.strftime("%Y-%m-%d"), "last": lv.dt.tz_convert(K.TZ).dt.strftime("%Y-%m-%d"),
                           "median": num.median().round(2), "min": num.min().round(1), "max": num.max().round(1),
@@ -174,6 +220,9 @@ def main() -> None:
               f"median ratio {(j.iloc[:, 0] / j.iloc[:, 1]).replace([np.inf, -np.inf], np.nan).median():.3f}")
     if a.write:
         for name, (df, dic) in res.items():
+            if df.empty or len(df.columns) == 0:
+                print(f"not written (no columns): {name}")
+                continue
             print("written:", K.write_clean(df, "balancing", name, dic))
 
 

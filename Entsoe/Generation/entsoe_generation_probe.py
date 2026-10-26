@@ -164,6 +164,15 @@ AREAS: dict[str, list[str]] = {
     "FR": ["FR"],
     "IT_NORD": ["IT_NORD", "IT"],
     "AT": ["AT"],
+    # 2026-10-26: remaining FCR Cooperation members (completeness for the FCR
+    # analysis). One code each, no fallback. DK_1 = West Denmark only: DK2 is in
+    # the Nordic synchronous area and not in the FCR Cooperation, and the
+    # national "DK" code would mix both zones.
+    "BE": ["BE"],
+    "NL": ["NL"],
+    "DK_1": ["DK_1"],
+    "SI": ["SI"],
+    "CZ": ["CZ"],
 }
 
 # Which area code actually serves each dataset, as established by the first
@@ -171,6 +180,15 @@ AREAS: dict[str, list[str]] = {
 # level-mixing. Fill this in from the coverage CSV's "Pin these" hint before the
 # production pull. Empty for now.
 PINNED_AREA_CODE: dict[tuple[str, str], str] = {}
+
+# 2026-10-26: datasets NOT probed (and therefore never pulled, the pull is
+# driven by the coverage CSV) for the FCR Cooperation members added above.
+# Per-unit data (14.1.B / 16.1.A) is plant-level, not needed at FCR level, and
+# 16.1.A is the endpoint that 400s on DST days. Remove an entry to include it.
+SKIP_AREA_DATASETS: dict[str, set[str]] = {
+    a: {"installed_capacity_unit", "actual_generation_unit"}
+    for a in ("BE", "NL", "DK_1", "SI", "CZ")
+}
 
 # ENTSO-E code reminders (Generation domain)
 #   documentType:  A68=Installed capacity aggregated  A71=Gen forecast
@@ -535,6 +553,8 @@ def main() -> int:
 
         outcomes: list[dict[str, Any]] = []  # one per area, for the summary line
         for area_label, codes in AREAS.items():
+            if task.dataset in SKIP_AREA_DATASETS.get(area_label, ()):
+                continue  # not wanted for this area (2026-10-26)
             state_key = f"{task.key}__{area_label}__{stamp}"
             prior = state.get(state_key)
             if prior and not (args.retry_errors and prior == "error"):

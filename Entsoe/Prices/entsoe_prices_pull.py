@@ -12,6 +12,8 @@ Areas (one parquet per area and calendar year, raw, reconciled later in Clean/):
     DE         DE_AT_LU before 1 Oct 2018, DE_LU from then (Entsoe/pre_split.py)
     AT         from 1 Oct 2018 only (before: part of DE_AT_LU -> use the DE series)
     FR, IT_NORD
+    BE, NL, DK_1, SI, CZ   remaining FCR Cooperation members (added 26 Oct 2026; DK_1 = West
+                           Denmark, the only Danish zone in the FCR Cooperation)
 Resolution is kept as published: hourly, and 15 min where the zone switched with the SDAC
 15-min MTU (1 Oct 2025). The manifest records the resolution per area-year.
 
@@ -57,6 +59,14 @@ AREAS: dict[str, tuple[str | None, str | None]] = {
     "AT": (None, "AT"),
     "FR": ("FR", "FR"),
     "IT_NORD": ("IT_NORD", "IT_NORD"),
+    # 2026-10-26: remaining FCR Cooperation members (completeness for the FCR analysis).
+    # DK_1 = West Denmark only: DK2 is in the Nordic synchronous area, not in the FCR
+    # Cooperation, so the national code would mix the two.
+    "BE": ("BE", "BE"),
+    "NL": ("NL", "NL"),
+    "DK_1": ("DK_1", "DK_1"),
+    "SI": ("SI", "SI"),
+    "CZ": ("CZ", "CZ"),
 }
 # probe months: one before and one after the split, one after the 15-min MTU switch
 PROBE_MONTHS = ["2015-01", "2018-06", "2019-06", "2025-11"]
@@ -133,8 +143,9 @@ def check(out_root: Path) -> int:
     rows = []
     for f in sorted((out_root / DATASET).glob("*/*.parquet")):
         df = pd.read_parquet(f)
-        loc = df.index.tz_convert(TZ)
-        hours = loc.floor("h").unique()
+        # floor in UTC, not local time: a local floor is ambiguous in the DST fall-back
+        # hour (02:00 twice) and raises. Fixed 26 Oct 2026.
+        hours = df.index.tz_convert("UTC").floor("h").unique().tz_convert(TZ)
         y = int(f.stem)
         exp = pd.date_range(f"{y}-01-01", f"{y + 1}-01-01", freq="h", tz=TZ, inclusive="left")
         exp = exp[exp < pd.Timestamp.now(tz=TZ).normalize().replace(day=1)]

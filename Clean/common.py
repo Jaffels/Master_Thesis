@@ -36,7 +36,15 @@ ENTSOE_TREES = ("production_pre2021", "production")
 
 # ---------------------------------------------------------------- names
 AREAS = ("ch", "de_lu", "de", "de_at_lu", "at", "fr", "it_nord", "it",
-         "de_amprion", "de_transnet", "ce")
+         "de_amprion", "de_transnet", "ce",
+         "be", "nl", "dk1", "si", "cz")   # FCR Cooperation members, added 26 Oct 2026
+
+# Remaining FCR Cooperation members added to the ENTSO-E pulls on 26 Oct 2026
+# (prices, load, generation, FCR balancing series): ENTSO-E folder label -> column
+# token. DK_1 = West Denmark, the only Danish zone in the FCR Cooperation.
+# The clean scripts treat these as OPTIONAL: a series not (yet) on disk is skipped
+# with a notice instead of stopping the build, so nothing breaks before the pulls ran.
+FCR_MEMBERS = {"BE": "be", "NL": "nl", "DK_1": "dk1", "SI": "si", "CZ": "cz"}
 UNITS = ("mw", "mwh", "eur_mwh", "chf_mwh", "eur_mw_h", "chf_mw_h", "eur", "chf",
          "mhz", "hz", "degc", "wm2", "mm", "cm", "share", "n", "h", "kwh",
          "pct", "ms", "kh")   # kh = degree-hours (K*h); ms = m/s
