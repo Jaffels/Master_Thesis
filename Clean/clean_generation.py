@@ -42,6 +42,7 @@ Rules
 from __future__ import annotations
 
 import argparse
+import ast
 import sys
 from pathlib import Path
 
@@ -72,6 +73,28 @@ def entry(col, series, unit, res, agg, avail, note=""):
                 aggregation_rule=agg, availability_rule=avail, notes=note)
 
 
+def merge_tuple_columns(raw: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series | None]:
+    """Wide layout with mixed columns (found 27 Oct 2026: DK_1 2019/2021, SI 2020/2021).
+
+    For parts of some years ENTSO-E returns (type, 'Actual Aggregated' | 'Actual Consumption')
+    pairs; tidy() stores them as tuple-string columns next to the plain type columns. Here:
+    'Actual Aggregated' is merged into the plain type column (combine_first), pumped-storage
+    'Actual Consumption' becomes the pumping consumption, other 'Actual Consumption' columns
+    (self-consumption of non-storage types) are not carried."""
+    tup = [c for c in raw.columns if str(c).startswith("(")]
+    plain = raw[[c for c in raw.columns if c not in tup]].copy()
+    ps = None
+    for c in tup:
+        typ, kind = ast.literal_eval(str(c))
+        if kind == "Actual Aggregated":
+            plain[typ] = plain[typ].combine_first(raw[c]) if typ in plain else raw[c]
+        elif kind == "Actual Consumption" and typ == "Hydro Pumped Storage":
+            ps = raw[c] if ps is None else ps.combine_first(raw[c])
+    if ps is not None and not ps.notna().any():
+        ps = None
+    return plain, ps
+
+
 def actual_per_type(code: str) -> tuple[pd.DataFrame, pd.Series | None]:
     """Generation per group (wide) and pumped-storage consumption, native resolution, UTC."""
     raw = K.read_entsoe("Generation", "actual_generation", "per_type", code, dedup=False)
@@ -86,13 +109,14 @@ def actual_per_type(code: str) -> tuple[pd.DataFrame, pd.Series | None]:
                .unstack("grp"))
         ps = raw[raw.level_0 == "Hydro Pumped Storage"].set_index("ts_utc")["Actual Consumption"]
         ps = ps if ps.notna().any() else None
-    else:                                              # wide layout (CH)
+    else:                                              # wide layout (CH, DK_1, SI)
         raw = raw[~raw.index.duplicated(keep="last")]
+        raw, ps_wide = merge_tuple_columns(raw)
         unknown = set(raw.columns) - set(GROUP)
         if unknown:
             raise ValueError(f"{code}: unknown production types {sorted(unknown)}")
         gen = raw.T.groupby(raw.columns.map(GROUP)).sum(min_count=1).T
-        ps = None
+        ps = ps_wide
     gen = gen[[g for g in ORDER if g in gen.columns]].astype("float64")
     return gen, ps
 
@@ -193,6 +217,26 @@ def build():
     ph = out["at_gen_wind_on_id_fc_mw"] == 10000
     out["flag_at_gen_wind_on_id_fc_placeholder"] = ph.to_numpy()
     out.loc[ph, "at_gen_wind_on_id_fc_mw"] = np.nan
+    # ---- day-ahead total generation forecast above installed capacity (27 Oct 2026) ----
+    # Physically impossible values: SI 2016 / 2019 (up to 6.6 GW, ~3.7 GW installed) and CZ on
+    # 7 Feb 2020 (up to 51 GW, ~21 GW installed). Bound = the zone's 14.1.A installed capacity
+    # (all types) of that year, published at the start of the year, so the rule is ex ante.
+    # Value -> NaN + flag (as the AT placeholder). Checked: no other zone and no actual exceeds it.
+    cap, _ = installed_capacity()
+    cap_tot = cap.groupby(["zone", "year"])["capacity_mw"].sum()
+    yr = pd.Series(out.index.tz_convert(K.TZ).year, index=out.index)
+    for a in AREAS.values():
+        col = f"{a}_gen_total_da_fc_mw"
+        if col not in out:
+            continue
+        bound = yr.map({y: cap_tot.get((a, y), np.nan) for y in yr.unique()})
+        bad = (out[col] > bound).fillna(False).to_numpy()
+        fl = f"flag_{a}_gen_total_da_fc_above_capacity"
+        out[fl] = bad
+        out.loc[bad, col] = np.nan
+        dic.append(entry(fl, "derived", "bool", "15min", "any", "-",
+                         f"{col} above the zone's installed capacity of that year (14.1.A, all types); "
+                         f"value set to NaN ({int(bad.sum())} QH)"))
     dic += [entry("flag_ch_gen_partial_2015h1", "derived", "bool", "15min", "any", "-",
                   "CH actual generation Jan-Jun 2015 mostly unreported (total 11-180 MW); set to NaN"),
             entry("regime_ch_gen_reporting", "derived", "category", "15min", "mode", "-",

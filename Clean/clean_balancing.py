@@ -182,6 +182,28 @@ def contracted_fcr():
                                      "block (week/day/4h)", "mean", "after the auction", note))
         if not found:
             print(f"notice: no ENTSO-E FCR contracted reserves on disk for {area} - skipped")
+    # NL weekly price (found 27 Oct 2026): published as the TOTAL cost of the week, not per MW
+    # (median 133,762). Total / contracted MW / 168 h gives 9-32 EUR/MW/h (median 17.6), the same
+    # level as the CH weekly price in the same common auction. Raw kept as *_cost_eur.
+    raw_c, amt_c = "nl_fcr_weekly_symmetric_price_eur_mw", "nl_fcr_weekly_symmetric_amount_mw"
+    if raw_c in out and amt_c in out:
+        cost_c, new_c = "nl_fcr_weekly_symmetric_cost_eur", "nl_fcr_weekly_symmetric_price_eur_mw_h"
+        out[new_c] = out[raw_c] / out[amt_c] / 168.0
+        out = out.rename(columns={raw_c: cost_c})
+        for d in dic:
+            if d["column"] == raw_c:
+                d["column"], d["unit"] = cost_c, "EUR per week (total, as published)"
+                d["notes"] += "; published as the total cost of the week, not per MW; see " + new_c
+        dic.append(entry(new_c, "derived: nl_fcr_weekly_symmetric_cost_eur / nl_fcr_weekly_symmetric_amount_mw / 168 h",
+                         "EUR/MW/h", "block (week)", "mean", "after the auction",
+                         "converted 27 Oct 2026; DST weeks have 167 / 169 h (< 0.6 % error); "
+                         "level matches the CH weekly FCR price"))
+    # AT weekly price: unit as published, NOT verified. Its level (median 3.6) is about 1/4 - 1/5 of
+    # the CH and NL weekly prices of the same common auction (2016-2019); do not compare across zones.
+    for d in dic:
+        if d["column"] == "at_fcr_weekly_symmetric_price_eur_mw":
+            d["notes"] += ("; unit unverified: level about 1/4-1/5 of the CH / NL weekly price in the same "
+                           "common auction, do not compare across zones")
     return out, dic
 
 
