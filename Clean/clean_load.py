@@ -5,7 +5,8 @@ Run from Master_Thesis with .venv active:
     python Clean/clean_load.py --write    # also write Clean/Data/load/
 
 Output (Clean/Data/load/)
-  load.parquet               actual load + day-ahead forecast, 5 zones, 15-min grid
+  load.parquet               actual load + day-ahead forecast, 5 zones + FCR Cooperation
+                             members be / nl / dk1 / si / cz (26 Oct 2026), 15-min grid
   load_fc_long.parquet       week- / month- / year-ahead forecasts (min / max),
                              as daily / weekly step functions; kept for optional use
   <table>_dictionary.csv     one row per column (source, unit, resolution, rules,
@@ -41,7 +42,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import common as K  # noqa: E402
 import config as C  # noqa: E402
 
-AREAS = {"CH": "ch", "DE_LU": "de_lu", "FR": "fr", "IT_NORD": "it_nord", "AT": "at"}
+AREAS = {"CH": "ch", "DE_LU": "de_lu", "FR": "fr", "IT_NORD": "it_nord", "AT": "at", **K.FCR_MEMBERS}
+OPTIONAL = set(K.FCR_MEMBERS)                # missing on disk -> skipped with a notice
 DOMAIN = "load"
 SRC = "ENTSO-E Transparency Platform"
 SUSPECT_LO, SUSPECT_HI = 0.5, 1.6
@@ -81,19 +83,33 @@ def build():
     for code, a in AREAS.items():
         note_de = DE_NOTE if code == "DE_LU" else ""
         # actual load (6.1.A)
-        s = one_col(K.read_entsoe("Load", "actual_load", "A16_realised", code), "Actual Load", f"actual {code}")
+        try:
+            s = one_col(K.read_entsoe("Load", "actual_load", "A16_realised", code), "Actual Load", f"actual {code}")
+        except FileNotFoundError:
+            if code not in OPTIONAL:
+                raise
+            print(f"notice: no ENTSO-E load on disk for {code} (FCR member) - skipped")
+            continue
         main[f"{a}_load_actual_mw"] = K.hourly_to_qh(s, "repeat")
         dmain.append(dict(column=f"{a}_load_actual_mw", source=SRC, source_series=f"6.1.A actual total load, {code}",
                           unit="MW", resolution_native=str(K.native_step(K.trim(s.to_frame()).index)),
                           aggregation_rule="mean", availability_rule="ex post (about 1 h after delivery)",
                           notes=note_de))
         # day-ahead forecast (6.1.B)
-        s = one_col(K.read_entsoe("Load", "load_forecast", "day_ahead_A01", code), "Forecasted Load", f"da {code}")
-        main[f"{a}_load_da_fc_mw"] = K.hourly_to_qh(s, "repeat")
-        dmain.append(dict(column=f"{a}_load_da_fc_mw", source=SRC, source_series=f"6.1.B day-ahead total load forecast, {code}",
-                          unit="MW", resolution_native=str(K.native_step(K.trim(s.to_frame()).index)),
-                          aggregation_rule="mean", availability_rule="D-1, before day-ahead gate closure (12:00)",
-                          notes=note_de + ("; Q4 2018: 57 days filled from code DE, see flag" if code == "DE_LU" else "")))
+        try:
+            s = one_col(K.read_entsoe("Load", "load_forecast", "day_ahead_A01", code), "Forecasted Load", f"da {code}")
+        except FileNotFoundError:
+            if code not in OPTIONAL:
+                raise
+            print(f"notice: no ENTSO-E day-ahead load forecast on disk for {code} (FCR member) - skipped")
+            s = None
+        if s is not None:
+            main[f"{a}_load_da_fc_mw"] = K.hourly_to_qh(s, "repeat")
+            dmain.append(dict(column=f"{a}_load_da_fc_mw", source=SRC,
+                              source_series=f"6.1.B day-ahead total load forecast, {code}",
+                              unit="MW", resolution_native=str(K.native_step(K.trim(s.to_frame()).index)),
+                              aggregation_rule="mean", availability_rule="D-1, before day-ahead gate closure (12:00)",
+                              notes=note_de + ("; Q4 2018: 57 days filled from code DE, see flag" if code == "DE_LU" else "")))
         # longer horizons (6.1.C / 6.1.D / 6.1.E): min / max
         for var, h, days, avail, art in [("week_ahead_A31", "wa", 1, "week W-1", "6.1.C"),
                                          ("month_ahead_A32", "ma", 7, "month M-1", "6.1.D"),
@@ -114,6 +130,8 @@ def build():
                                   availability_rule=avail, notes=note_de))
     # suspect actual-load values: < 50 % or > 160 % of the centred 7-day rolling median
     for code, a in AREAS.items():
+        if f"{a}_load_actual_mw" not in main:
+            continue
         x = main[f"{a}_load_actual_mw"]
         med = x.rolling(96 * 7, center=True, min_periods=96).median()
         r = x / med

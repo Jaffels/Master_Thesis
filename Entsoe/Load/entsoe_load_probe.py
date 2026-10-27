@@ -218,6 +218,15 @@ AREAS: dict[str, list[str]] = {
     "FR": ["FR"],
     "IT_NORD": ["IT_NORD", "IT"],
     "AT": ["AT"],
+    # 2026-10-26: remaining FCR Cooperation members (completeness for the FCR
+    # analysis). One code each, no fallback. DK_1 = West Denmark only: DK2 is in
+    # the Nordic synchronous area and not in the FCR Cooperation, and the
+    # national "DK" code would mix both zones.
+    "BE": ["BE"],
+    "NL": ["NL"],
+    "DK_1": ["DK_1"],
+    "SI": ["SI"],
+    "CZ": ["CZ"],
 }
 
 # Which area code actually serves each dataset, as established by the first

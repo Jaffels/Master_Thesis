@@ -99,6 +99,8 @@ OPTIONAL_TABLES = [
 GRID_TABLES += [t for t in OPTIONAL_TABLES if (C.DATA_DIR / t[0] / f"{t[1]}.parquet").exists()]
 NOT_IN_MASTER = {
     "balancing/contracted_reserves_ch": "block products: cross-check columns in auction_blocks",
+    "balancing/contracted_reserves_fcr": "block products (FCR Cooperation members, 26 Oct 2026); "
+                                         "regelleistung.net auction_blocks_rl is the primary source",
     "generation/installed_capacity": "long table (zone x year), stays in Clean/Data/generation/",
     "outages/outage_events": "long table (events with created_utc), stays in Clean/Data/outages/",
 }
@@ -155,9 +157,14 @@ REGIME_FIRST = ["regime_afrr_dir", "regime_fcr", "regime_afrr_daily", "regime_mf
 
 # flag -> regex of the data columns it qualifies (data dictionary column `flags`)
 FLAG_LINKS = {
-    **{f"flag_{z}_load_actual_suspect": rf"^{z}_load_actual_mw$" for z in ("ch", "de_lu", "fr", "it_nord", "at")},
+    **{f"flag_{z}_load_actual_suspect": rf"^{z}_load_actual_mw$"
+       for z in ("ch", "de_lu", "fr", "it_nord", "at", "be", "nl", "dk1", "si", "cz")},
     "flag_de_lu_load_da_fc_q4_2018_patch": r"^de_lu_load_da_fc_mw$",
-    **{f"flag_{z}_price_da_suspect": rf"^{z}_price_da_eur_mwh$" for z in ("ch", "de_lu", "fr", "it_nord", "at")},
+    **{f"flag_{z}_price_da_suspect": rf"^{z}_price_da_eur_mwh$"
+       for z in ("ch", "de_lu", "fr", "it_nord", "at", "be", "nl", "dk1", "si", "cz")},
+    # 27 Oct 2026: forecast above installed capacity (set to NaN in clean_generation.py)
+    **{f"flag_{z}_gen_total_da_fc_above_capacity": rf"^{z}_gen_total_da_fc_mw$"
+       for z in ("ch", "de_lu", "fr", "it_nord", "at", "be", "nl", "dk1", "si", "cz")},
     "flag_at_price_da_from_de_at_lu": r"^at_price_da_eur_mwh$",
     "flag_ch_gen_partial_2015h1": r"^ch_gen_.*(?<!_xchk_swissgrid)$",
     "flag_at_gen_wind_on_id_fc_placeholder": r"^at_gen_wind_on_id_fc_mw$",
@@ -620,7 +627,8 @@ def nan_reports(m: pd.DataFrame, rep: Report) -> tuple[pd.DataFrame, pd.DataFram
             runs.append((c, a, b))
     rows = []
     area_tok = {"ch": "CH", "de_lu": "DE_LU", "de": "DE", "de_at_lu": "DE_AT_LU", "at": "AT", "fr": "FR",
-                "it_nord": "IT_NORD", "it": "IT", "de_amprion": "DE", "ce": ""}
+                "it_nord": "IT_NORD", "it": "IT", "de_amprion": "DE", "ce": "",
+                "be": "BE", "nl": "NL", "dk1": "DK_1", "si": "SI", "cz": "CZ"}   # FCR members, 26 Oct 2026
     series = gl["series"].astype(str).to_numpy()
     srcs = gl["source"].astype(str).to_numpy()
     for c, a, b in runs:

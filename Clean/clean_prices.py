@@ -11,6 +11,8 @@ build_views_exante.py / build_view_rq3.py use it through the data dictionary.
 
 Output (Clean/Data/prices/)
   day_ahead.parquet            <zone>_price_da_eur_mwh for ch, de_lu, at, fr, it_nord
+                               + FCR Cooperation members be, nl, dk1, si, cz (26 Oct 2026;
+                               optional: skipped with a notice until their pull has run)
   day_ahead_dictionary.csv
 
 Rules
@@ -42,7 +44,8 @@ import config as C  # noqa: E402
 DOMAIN, TABLE = "prices", "day_ahead"
 SRC = "ENTSO-E Transparency Platform"
 IN_DIR = C.ROOT / "Entsoe" / "Prices" / "Data" / "production" / "day_ahead_price"
-AREAS = {"CH": "ch", "DE": "de_lu", "AT": "at", "FR": "fr", "IT_NORD": "it_nord"}
+AREAS = {"CH": "ch", "DE": "de_lu", "AT": "at", "FR": "fr", "IT_NORD": "it_nord", **K.FCR_MEMBERS}
+OPTIONAL = set(K.FCR_MEMBERS)                # missing on disk -> skipped, not an error
 LIMIT_LO, LIMIT_HI = -500.0, 4000.0          # SDAC harmonised min / max clearing price (since 2022)
 SPLIT = pd.Timestamp("2018-10-01", tz=K.TZ).tz_convert("UTC")
 
@@ -64,7 +67,14 @@ def build():
     out = pd.DataFrame(index=g.index)
     dd, info = [], {}
     for area, a in AREAS.items():
-        raw = read_area(area)
+        try:
+            raw = read_area(area)
+        except FileNotFoundError:
+            if area not in OPTIONAL:
+                raise
+            print(f"notice: no day-ahead prices on disk for {area} (FCR member) - skipped; "
+                  f"run Entsoe/Prices/entsoe_prices_pull.py --areas {area}")
+            continue
         s = raw["price_eur_mwh"].astype("float64")
         col = f"{a}_price_da_eur_mwh"
         out[col] = K.hourly_to_qh(s, "repeat")
@@ -88,6 +98,8 @@ def build():
                    notes="True where the AT price is the DE_AT_LU zone price (before 1 Oct 2018)"))
     for a in AREAS.values():
         col, fl = f"{a}_price_da_eur_mwh", f"flag_{a}_price_da_suspect"
+        if col not in out:
+            continue
         out[fl] = ((out[col] < LIMIT_LO) | (out[col] > LIMIT_HI)).fillna(False).astype(bool)
         dd.append(dict(column=fl, source="derived", source_series=col, unit="bool", resolution_native="15min",
                        aggregation_rule="any", availability_rule="-",
