@@ -1,0 +1,204 @@
+[2026-10-30T10:31:38] _seedtest --sets exante --out Modelling/Output/refresh_check/rq2_2_seed2
+fcr exante             FCR|sym|4h       folds= 23 skipped=0   28.2s
+fcr exante             FCR|sym|day      folds=  0 skipped=0    0.0s
+fcr exante             FCR|sym|week     folds=  0 skipped=0    0.0s
+afrr exante             aFRR|down|4h     folds=  3 skipped=0    0.9s
+afrr exante             aFRR|down|week   folds=  6 skipped=0    3.2s
+afrr exante             aFRR|sym|week    folds=  0 skipped=0    0.0s
+afrr exante             aFRR|up|4h       folds=  3 skipped=0    1.4s
+afrr exante             aFRR|up|week     folds=  6 skipped=0    2.1s
+mfrr exante             mFRR|down|4h     folds= 20 skipped=0   48.9s
+mfrr exante             mFRR|down|week   folds=  6 skipped=0    3.0s
+mfrr exante             mFRR|up|4h       folds= 21 skipped=0   51.1s
+mfrr exante             mFRR|up|week     folds=  6 skipped=0    2.8s
+   diagnostics written: Modelling/Output/refresh_check/rq2_2_seed2/diagnostics_exante
+RQ2 9.2b/c - LightGBM, rolling origin, expanding window; errors in EUR/MWh on the common rows of the model and all three baselines.
+mode=delta, objective=l1 on asinh(price), lr=0.05, leaves=15, colsample=0.3, refit every 3 months (weekly: 12), test from blocks >= 2021-01-01
+
+== FCR|sym|day [exante]: no fold with >= 200 training blocks
+== FCR|sym|week [exante]: no fold with >= 100 training blocks
+== aFRR|sym|week [exante]: no fold with >= 100 training blocks
+== FCR|sym|4h [exante]   n = 12,414, folds = 23, first test block 2020-12-31
+                 MAE   RMSE  sMAPE_%  MAE_asinh
+model                                          
+lgbm           4.699  7.997   25.359      0.259
+b_prev_slot    4.938  8.550   25.656      0.263
+b_prev_auction 7.040 10.655   37.147      0.386
+b_roll_med     5.393  8.910   28.541      0.293
+   MAE skill vs best baseline (b_prev_slot): +4.8 %   vs b_prev_slot: +4.8 %
+   Diebold-Mariano (|error|, NW lags 12): vs b_prev_slot stat -6.85 p 0.0000; vs b_prev_slot stat -6.85 p 0.0000   (stat < 0: LightGBM better)
+   MAE by year:
+model  lgbm  b_prev_slot  b_prev_auction  b_roll_med  skill_vs_prev_slot_%
+year                                                                      
+2021  4.696        4.832           5.300       5.077                 2.820
+2022  7.454        8.110           9.458       8.455                 8.091
+2023  3.687        3.833           4.738       4.115                 3.823
+2024  3.610        3.799           6.407       4.144                 4.962
+2025  4.124        4.278           7.535       5.204                 3.617
+2026  4.591        4.696           9.689       5.348                 2.236
+
+== aFRR|down|4h [exante]   n = 1,444, folds = 3, first test block 2025-12-31
+                 MAE   RMSE  sMAPE_%  MAE_asinh
+model                                          
+lgbm           1.469  4.214   16.623      0.149
+b_prev_slot    1.526  4.274   16.816      0.153
+b_prev_auction 6.713 11.751   84.917      0.943
+b_roll_med     2.816  7.658   34.457      0.315
+   MAE skill vs best baseline (b_prev_slot): +3.7 %   vs b_prev_slot: +3.7 %
+   Diebold-Mariano (|error|, NW lags 12): vs b_prev_slot stat -3.25 p 0.0011; vs b_prev_slot stat -3.25 p 0.0011   (stat < 0: LightGBM better)
+   MAE by year:
+model  lgbm  b_prev_slot  b_prev_auction  b_roll_med  skill_vs_prev_slot_%
+year                                                                      
+2026  1.469        1.526           6.713       2.816                 3.731
+
+== aFRR|down|week [exante]   n = 295, folds = 6, first test block 2021-01-03
+                 MAE   RMSE  sMAPE_%  MAE_asinh
+model                                          
+lgbm           4.285  9.794   14.893      0.150
+b_prev_slot    4.939 10.988   16.403      0.166
+b_prev_auction 4.939 10.988   16.403      0.166
+b_roll_med     9.782 19.655   32.397      0.334
+   MAE skill vs best baseline (b_prev_slot): +13.2 %   vs b_prev_slot: +13.2 %
+   Diebold-Mariano (|error|, NW lags 4): vs b_prev_slot stat -3.54 p 0.0004; vs b_prev_slot stat -3.54 p 0.0004   (stat < 0: LightGBM better)
+   MAE by year:
+model  lgbm  b_prev_slot  b_prev_auction  b_roll_med  skill_vs_prev_slot_%
+year                                                                      
+2021  2.977        3.305           3.305       6.222                 9.926
+2022  8.140        9.162           9.162      16.513                11.158
+2023  9.260       11.061          11.061      23.688                16.288
+2024  1.653        1.927           1.927       3.856                14.257
+2025  1.565        1.831           1.831       3.969                14.535
+2026  1.046        1.062           1.062       1.788                 1.494
+
+== aFRR|up|4h [exante]   n = 1,451, folds = 3, first test block 2025-12-31
+                 MAE  RMSE  sMAPE_%  MAE_asinh
+model                                         
+lgbm           0.273 0.601   12.933      0.105
+b_prev_slot    0.274 0.603   12.545      0.103
+b_prev_auction 0.728 1.116   31.071      0.273
+b_roll_med     0.571 0.965   27.009      0.228
+   MAE skill vs best baseline (b_prev_slot): +0.1 %   vs b_prev_slot: +0.1 %
+   Diebold-Mariano (|error|, NW lags 12): vs b_prev_slot stat -0.06 p 0.9541; vs b_prev_slot stat -0.06 p 0.9541   (stat < 0: LightGBM better)
+   MAE by year:
+model  lgbm  b_prev_slot  b_prev_auction  b_roll_med  skill_vs_prev_slot_%
+year                                                                      
+2026  0.273        0.274           0.728       0.571                 0.132
+
+== aFRR|up|week [exante]   n = 295, folds = 6, first test block 2021-01-03
+                 MAE  RMSE  sMAPE_%  MAE_asinh
+model                                         
+lgbm           1.492 3.566    9.711      0.097
+b_prev_slot    1.477 3.523    9.938      0.099
+b_prev_auction 1.477 3.523    9.938      0.099
+b_roll_med     2.634 5.599   17.715      0.177
+   MAE skill vs best baseline (b_prev_slot): -1.0 %   vs b_prev_slot: -1.0 %
+   Diebold-Mariano (|error|, NW lags 4): vs b_prev_slot stat 0.36 p 0.7224; vs b_prev_slot stat 0.36 p 0.7224   (stat < 0: LightGBM better)
+   MAE by year:
+model  lgbm  b_prev_slot  b_prev_auction  b_roll_med  skill_vs_prev_slot_%
+year                                                                      
+2021  1.364        1.360           1.360       2.047                -0.286
+2022  1.960        1.848           1.848       3.493                -6.055
+2023  3.727        3.689           3.689       6.852                -1.029
+2024  0.754        0.784           0.784       1.301                 3.879
+2025  0.433        0.459           0.459       0.886                 5.672
+2026  0.328        0.344           0.344       0.515                 4.633
+
+== mFRR|down|4h [exante]   n = 9,226, folds = 20, first test block 2020-12-31
+                 MAE   RMSE  sMAPE_%  MAE_asinh
+model                                          
+lgbm           4.040 10.163   23.499      0.229
+b_prev_slot    4.443 10.964   24.868      0.244
+b_prev_auction 8.516 16.055   56.596      0.598
+b_roll_med     7.848 18.228   43.031      0.436
+   MAE skill vs best baseline (b_prev_slot): +9.1 %   vs b_prev_slot: +9.1 %
+   Diebold-Mariano (|error|, NW lags 12): vs b_prev_slot stat -5.46 p 0.0000; vs b_prev_slot stat -5.46 p 0.0000   (stat < 0: LightGBM better)
+   MAE by year:
+model  lgbm  b_prev_slot  b_prev_auction  b_roll_med  skill_vs_prev_slot_%
+year                                                                      
+2021  3.566        3.933           6.731       5.905                 9.348
+2022  9.274       10.451          18.269      18.636                11.265
+2023  2.690        3.025           4.917       4.698                11.087
+2024  7.367        6.431           7.173      19.500               -14.561
+2025  2.671        2.833           6.822       5.595                 5.711
+2026  1.293        1.365           5.555       2.469                 5.309
+
+== mFRR|down|week [exante]   n = 295, folds = 6, first test block 2021-01-03
+                 MAE  RMSE  sMAPE_%  MAE_asinh
+model                                         
+lgbm           1.804 3.102   12.949      0.129
+b_prev_slot    1.840 3.129   13.486      0.134
+b_prev_auction 1.840 3.129   13.486      0.134
+b_roll_med     3.217 5.184   24.938      0.252
+   MAE skill vs best baseline (b_prev_slot): +1.9 %   vs b_prev_slot: +1.9 %
+   Diebold-Mariano (|error|, NW lags 4): vs b_prev_slot stat -0.49 p 0.6231; vs b_prev_slot stat -0.49 p 0.6231   (stat < 0: LightGBM better)
+   MAE by year:
+model  lgbm  b_prev_slot  b_prev_auction  b_roll_med  skill_vs_prev_slot_%
+year                                                                      
+2021  1.948        1.985           1.985       3.730                 1.851
+2022  4.058        3.894           3.894       6.533                -4.206
+2023  1.995        2.188           2.188       3.629                 8.823
+2024  0.677        0.731           0.731       1.186                 7.398
+2025  1.027        1.091           1.091       2.319                 5.946
+2026  0.793        0.818           0.818       1.274                 3.087
+
+== mFRR|up|4h [exante]   n = 9,958, folds = 21, first test block 2020-12-31
+                 MAE  RMSE  sMAPE_%  MAE_asinh
+model                                         
+lgbm           0.896 2.730   29.154      0.205
+b_prev_slot    1.183 3.382   34.766      0.266
+b_prev_auction 2.286 4.992   63.882      0.548
+b_roll_med     2.153 5.837   56.721      0.465
+   MAE skill vs best baseline (b_prev_slot): +24.2 %   vs b_prev_slot: +24.2 %
+   Diebold-Mariano (|error|, NW lags 12): vs b_prev_slot stat -10.12 p 0.0000; vs b_prev_slot stat -10.12 p 0.0000   (stat < 0: LightGBM better)
+   MAE by year:
+model  lgbm  b_prev_slot  b_prev_auction  b_roll_med  skill_vs_prev_slot_%
+year                                                                      
+2021  1.523        2.046           3.801       3.507                25.559
+2022  1.398        1.971           4.055       4.199                29.085
+2023  0.486        0.649           1.327       0.975                25.090
+2024  1.137        1.325           2.410       2.402                14.213
+2025  0.567        0.670           1.182       0.989                15.452
+2026  0.303        0.320           0.607       0.671                 5.310
+
+== mFRR|up|week [exante]   n = 295, folds = 6, first test block 2021-01-03
+                 MAE  RMSE  sMAPE_%  MAE_asinh
+model                                         
+lgbm           0.593 1.519    9.986      0.089
+b_prev_slot    0.592 1.526   10.225      0.091
+b_prev_auction 0.592 1.526   10.225      0.091
+b_roll_med     1.128 2.593   21.433      0.190
+   MAE skill vs best baseline (b_prev_slot): -0.0 %   vs b_prev_slot: -0.0 %
+   Diebold-Mariano (|error|, NW lags 4): vs b_prev_slot stat 0.01 p 0.9947; vs b_prev_slot stat 0.01 p 0.9947   (stat < 0: LightGBM better)
+   MAE by year:
+model  lgbm  b_prev_slot  b_prev_auction  b_roll_med  skill_vs_prev_slot_%
+year                                                                      
+2021  0.809        0.809           0.809       1.577                 0.030
+2022  0.781        0.730           0.730       1.377                -6.979
+2023  1.465        1.493           1.493       2.671                 1.866
+2024  0.091        0.092           0.092       0.215                 1.483
+2025  0.117        0.123           0.123       0.288                 4.783
+2026  0.148        0.172           0.172       0.407                13.501
+
+== Gain importance [exante] (share of total gain, mean over folds)
+   family shares (%):
+                          FCR|sym|4h  aFRR|down|4h  aFRR|down|week  aFRR|up|4h  aFRR|up|week  mFRR|down|4h  mFRR|down|week  mFRR|up|4h  mFRR|up|week
+calendar                       4.235         0.927           4.391       1.422         0.837        15.462           4.180      17.889         0.393
+cross-market (DE prices)      12.334         2.858           2.744       6.366         4.203         0.880           0.965       0.936         1.265
+lagged target                 15.505         8.851           1.554       9.214         4.229        27.101           2.151      33.368         2.492
+lookback (observed)           55.096        62.052          75.206      70.894        80.448        35.132          72.330      26.399        80.892
+outages (ex ante)              0.255         0.499           0.784       0.758         0.361         0.846           1.299       0.773         1.337
+published forecasts           10.800        20.707          11.447       8.909         6.565        19.178          15.989      19.665         9.961
+regime / source                0.000         0.000           0.001       0.000         0.004         0.086           0.000       0.019         0.000
+weather (MeteoSwiss)           1.774         4.106           3.872       2.438         3.353         1.314           3.085       0.952         3.659
+   FCR|sym|4h top 10: tgt_prev_slot__price_settle_ch 9.7%; xm_fcr_coop_settle__prevday_slot 5.9%; cal_dow 2.6%; tgt_prev_slot__price_bid_vwap 1.8%; de_lu_load_wa_fc_max_mw__dw 1.6%; it_nord_load_wa_fc_max_mw__dw 1.4%; tgt_prev_auction__price_settle_ch 1.3%; xm_fcr_coop_settle__prevday 1.2%; tgt_prev_slot__n_bids 1.0%; be_gen_hydro_ps_cons_mw__lb24h 0.9%
+   aFRR|down|4h top 10: it_nord_load_wa_fc_min_mw__dw 2.5%; tgt_prev_slot__price_bid_vwap 2.3%; it_nord_load_wa_fc_max_mw__dw 2.1%; ch_snow_hydro_cm__lb7d 2.0%; dk1_load_wa_fc_max_mw__dw 1.7%; ch_fr_countertrade_mw__lb7d 1.7%; tgt_prev_slot__price_settle_max 1.7%; tgt_prev_slot__price_settle_ch 1.6%; at_ch_ntc_ma_mw__dw 1.5%; tgt_prev_auction__price_bid_vwap 1.3%
+   aFRR|down|week top 10: cal_doy_sin 2.7%; cal_doy_cos 1.6%; it_nord_gen_hydro_ror_mw__lb7d 1.3%; it_nord_gen_hydro_ror_mw__lb24h 1.0%; it_nord_load_ya_fc_max_mw__dw 0.9%; ch_tn_vertical_feedin_mw__lb7d 0.8%; nl_load_ya_fc_max_mw__dw 0.8%; it_nord_gen_gas_mw__lb7d 0.6%; it_nord_load_ma_fc_min_mw__dw 0.6%; it_nord_load_ya_fc_min_mw__dw 0.6%
+   aFRR|up|4h top 10: tgt_prev_slot__price_settle_ch 2.6%; tgt_prev_auction__price_settle_ch 2.4%; tgt_prev_auction__price_bid_vwap 2.0%; fr_ch_expl_price_eur_mwh__lb24h 1.2%; fr_price_da_eur_mwh__lb24h 1.1%; ch_fr_sched_total_mw__lb24h 1.1%; cal_dow 1.1%; dk1_load_ma_fc_min_mw__dw 1.1%; xm_de_afrr_down_avg__prevday_slot 1.0%; tgt_prev_slot__price_bid_vwap 0.9%
+   aFRR|up|week top 10: fr_gen_hydro_ror_mw__lb7d 2.3%; tgt_prev_slot__n_bids 2.0%; tgt_prev_auction__n_bids 1.4%; fr_gen_hydro_ror_mw__lb24h 1.2%; si_gen_nuclear_mw__lb24h 0.9%; ce_freq_out_50mhz_share__lb7d 0.9%; cz_gen_gas_mw__lb7d 0.7%; cal_doy_sin 0.6%; cz_gen_gas_mw__lb24h 0.6%; at_gen_total_mw__lb7d 0.6%
+   mFRR|down|4h top 10: cal_dow 8.6%; tgt_prev_slot__price_settle_ch 6.6%; cal_weekend_share 5.5%; tgt_prev_slot__price_bid_vwap 4.6%; tgt_prev_slot__price_settle_max 2.9%; de_lu_load_wa_fc_max_mw__dw 2.7%; it_nord_load_wa_fc_max_mw__dw 2.6%; tgt_prev_auction__price_settle_ch 2.6%; tgt_prev_slot__awarded_mw 2.4%; tgt_prev_auction__awarded_mw 2.2%
+   mFRR|down|week top 10: cz_load_ya_fc_min_mw__dw 2.8%; cal_doy_sin 2.5%; de_lu_load_ya_fc_max_mw__dw 1.0%; it_nord_load_ya_fc_max_mw__dw 1.0%; cal_month 0.9%; at_gen_total_mw__lb7d 0.8%; ch_hydro_reservoir_mwh__lb7d 0.8%; de_lu_load_ya_fc_min_mw__dw 0.7%; it_nord_load_ya_fc_min_mw__dw 0.7%; nl_load_ma_fc_min_mw__dw 0.7%
+   mFRR|up|4h top 10: cal_dow 12.0%; tgt_prev_slot__price_settle_ch 10.2%; tgt_prev_slot__price_bid_vwap 7.1%; tgt_prev_slot__price_settle_max 4.5%; cal_weekend_share 3.4%; tgt_prev_slot__awarded_mw 3.0%; tgt_prev_auction__price_settle_ch 2.8%; tgt_prev_auction__awarded_mw 2.1%; it_nord_load_wa_fc_max_mw__dw 1.8%; fr_load_wa_fc_max_mw__dw 1.7%
+   mFRR|up|week top 10: it_nord_gen_other_mw__lb7d 0.9%; de_lu_load_ma_fc_min_mw__dw 0.9%; at_hydro_reservoir_mwh__lb24h 0.7%; ch_wind_lw_ms__lb24h 0.7%; dk1_load_ma_fc_max_mw__dw 0.7%; ch_cons_enduse_mw__lb24h 0.6%; ch_transit_mw__lb24h 0.6%; cz_gen_biomass_mw__lb24h 0.6%; tgt_prev_slot__offered_mw 0.6%; cz_gen_hydro_ps_mw__lb7d 0.6%
+
+total 148s
+[2026-10-30T10:34:06] _seedtest: ok after 2 min 28 s

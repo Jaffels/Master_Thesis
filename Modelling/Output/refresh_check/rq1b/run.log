@@ -1,0 +1,172 @@
+[2026-10-30T10:16:33] rq1b_regimes --out Modelling/Output/refresh_check/rq1b
+/Users/johan/Master_Thesis/Modelling/rq1b_regimes.py:84: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  per = loc.dt.to_period("Q").astype(str) if weekly else (loc.dt.strftime("%Y-%m") + "_" + loc.dt.hour.astype(str))
+/Users/johan/Master_Thesis/Modelling/rq1b_regimes.py:84: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  per = loc.dt.to_period("Q").astype(str) if weekly else (loc.dt.strftime("%Y-%m") + "_" + loc.dt.hour.astype(str))
+/Users/johan/Master_Thesis/Modelling/rq1b_regimes.py:84: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  per = loc.dt.to_period("Q").astype(str) if weekly else (loc.dt.strftime("%Y-%m") + "_" + loc.dt.hour.astype(str))
+/Users/johan/Master_Thesis/Modelling/rq1b_regimes.py:84: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  per = loc.dt.to_period("Q").astype(str) if weekly else (loc.dt.strftime("%Y-%m") + "_" + loc.dt.hour.astype(str))
+/Users/johan/Master_Thesis/Modelling/rq1b_regimes.py:84: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  per = loc.dt.to_period("Q").astype(str) if weekly else (loc.dt.strftime("%Y-%m") + "_" + loc.dt.hour.astype(str))
+/Users/johan/Master_Thesis/Modelling/rq1b_regimes.py:84: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  per = loc.dt.to_period("Q").astype(str) if weekly else (loc.dt.strftime("%Y-%m") + "_" + loc.dt.hour.astype(str))
+/Users/johan/Master_Thesis/Modelling/rq1b_regimes.py:84: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  per = loc.dt.to_period("Q").astype(str) if weekly else (loc.dt.strftime("%Y-%m") + "_" + loc.dt.hour.astype(str))
+/Users/johan/Master_Thesis/Modelling/rq1b_regimes.py:84: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  per = loc.dt.to_period("Q").astype(str) if weekly else (loc.dt.strftime("%Y-%m") + "_" + loc.dt.hour.astype(str))
+/Users/johan/Master_Thesis/Modelling/rq1b_regimes.py:84: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  per = loc.dt.to_period("Q").astype(str) if weekly else (loc.dt.strftime("%Y-%m") + "_" + loc.dt.hour.astype(str))
+/Users/johan/Master_Thesis/Modelling/rq1b_regimes.py:84: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  per = loc.dt.to_period("Q").astype(str) if weekly else (loc.dt.strftime("%Y-%m") + "_" + loc.dt.hour.astype(str))
+/Users/johan/Master_Thesis/Modelling/rq1b_regimes.py:84: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  per = loc.dt.to_period("Q").astype(str) if weekly else (loc.dt.strftime("%Y-%m") + "_" + loc.dt.hour.astype(str))
+/Users/johan/Master_Thesis/Modelling/rq1b_regimes.py:84: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  per = loc.dt.to_period("Q").astype(str) if weekly else (loc.dt.strftime("%Y-%m") + "_" + loc.dt.hour.astype(str))
+/Users/johan/Master_Thesis/Modelling/rq1b_regimes.py:84: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  per = loc.dt.to_period("Q").astype(str) if weekly else (loc.dt.strftime("%Y-%m") + "_" + loc.dt.hour.astype(str))
+
+== fcr|4h|de_zone_split|sym: not testable - data-limited (pre 2, post 1105 blocks, need 150) ==
+
+== fcr|4h|fcr_daily|sym: not testable - data-limited (pre 2, post 2711 blocks, need 150) ==
+
+== fcr|4h|fcr_4h|sym: pre 293 / post 3,045 blocks, R2 pre 0.39 post 0.25, joint test p = 0.2229 (F = 1.3); 1/8 coefficients differ (p<0.05) ==
+                   feature  coef_pre  coef_post   diff  t_diff  p_diff
+          de_lu_gen_gas_mw    -0.034      0.038  0.072   1.549   0.121
+       fr_gen_hydro_res_mw    -0.075     -0.065  0.010   0.334   0.738
+            cz_gen_coal_mw     0.014     -0.084 -0.098  -2.381   0.017
+de_lu_gen_wind_on_da_fc_mw     0.061      0.085  0.024   0.929   0.353
+      ch_tn_net_outflow_mw     0.105      0.039 -0.066  -1.941   0.052
+             cz_gen_gas_mw    -0.033     -0.055 -0.022  -0.632   0.528
+it_nord_gen_total_da_fc_mw    -0.002     -0.036 -0.034  -1.022   0.307
+     cz_gen_total_da_fc_mw    -0.001      0.039  0.039   1.142   0.254
+   placebo -12m [sym]: not testable - data-limited (pre 2, post 335 blocks, need 150)
+   placebo -24m [sym]: not testable - data-limited (pre 2, post 367 blocks, need 150)
+
+== fcr|weekly|de_zone_split|sym: not testable - data-limited (pre 102, post 33 blocks, need 60) ==
+
+== fcr|weekly|fcr_daily|sym: not testable - data-limited (pre 102, post 0 blocks, need 60) ==
+
+== fcr|weekly|fcr_4h|sym: not testable - data-limited (pre 51, post 0 blocks, need 60) ==
+
+== afrr|4h|de_zone_split|down: not testable - data-limited (pre 0, post 2 blocks, need 150) ==
+
+== afrr|4h|de_zone_split|sym: not testable - data-limited (pre 2, post 0 blocks, need 150) ==
+
+== afrr|4h|de_zone_split|up: not testable - data-limited (pre 0, post 2 blocks, need 150) ==
+
+== afrr|4h|afrr_split|all: not testable - data-limited (pre 2, post 4 blocks, need 150) ==
+
+== afrr|4h|afrr_fallback|down: not testable - data-limited (pre 2, post 914 blocks, need 150) ==
+
+== afrr|4h|afrr_fallback|up: not testable - data-limited (pre 2, post 914 blocks, need 150) ==
+
+== afrr|4h|afrr_daily|down: not testable - data-limited (pre 2, post 1997 blocks, need 150) ==
+
+== afrr|4h|afrr_daily|up: not testable - data-limited (pre 2, post 2004 blocks, need 150) ==
+
+== afrr|weekly|de_zone_split|down: not testable - data-limited (pre 16, post 102 blocks, need 60) ==
+
+== afrr|weekly|de_zone_split|sym: not testable - data-limited (pre 86, post 0 blocks, need 60) ==
+
+== afrr|weekly|de_zone_split|up: not testable - data-limited (pre 16, post 102 blocks, need 60) ==
+
+== afrr|weekly|afrr_split|all: pre 68 / post 174 blocks, R2 pre 0.70 post 0.35, joint test p = 0.0000 (F = 7.5); 1/4 coefficients differ (p<0.05) ==
+                    feature  coef_pre  coef_post  diff  t_diff  p_diff
+it_nord_hydro_reservoir_mwh    -0.089     -0.070 0.019   0.404   0.686
+       it_nord_ch_ntc_da_mw     0.060      0.079 0.019   0.545   0.586
+        ch_gen_hydro_res_mw    -0.207     -0.032 0.176   4.809   0.000
+         dk1_gen_biomass_mw     0.018      0.058 0.041   1.102   0.270
+   placebo -12m [all]: not testable - data-limited (pre 103, post 47 blocks, need 60)
+   placebo -24m [all]: not testable - too few complete rows (pre 58, post 82)
+
+== afrr|weekly|afrr_fallback|down: pre 81 / post 81 blocks, R2 pre 0.64 post 0.68, joint test p = 0.1731 (F = 1.6); 0/4 coefficients differ (p<0.05) ==
+                feature  coef_pre  coef_post  diff  t_diff  p_diff
+ fr_hydro_reservoir_mwh    -0.194     -0.180 0.013   0.134   0.893
+      ch_fr_sched_da_mw    -0.219     -0.077 0.143   1.933   0.053
+ce_freq_out_50mhz_share     0.110      0.180 0.070   1.120   0.263
+   it_nord_ch_ntc_ma_mw     0.115      0.149 0.034   0.480   0.631
+
+== afrr|weekly|afrr_fallback|up: pre 81 / post 81 blocks, R2 pre 0.58 post 0.42, joint test p = 0.4886 (F = 0.9); 0/4 coefficients differ (p<0.05) ==
+                feature  coef_pre  coef_post   diff  t_diff  p_diff
+ ch_melt_dh_7d_hydro_kh    -0.108     -0.131 -0.022  -0.495   0.621
+        be_gen_other_mw     0.131      0.033 -0.098  -1.198   0.231
+ce_freq_mean_abs_df_mhz     0.036      0.075  0.039   0.818   0.413
+        cz_gen_other_mw     0.074     -0.011 -0.085  -1.628   0.104
+   placebo -12m [down]: not testable - data-limited (pre 103, post 47 blocks, need 60)
+   placebo -12m [up]: not testable - data-limited (pre 103, post 47 blocks, need 60)
+   placebo -24m [down]: pre 91 / post 82, joint p = 0.0027 (F = 4.2) -> placebo is as large or larger
+   placebo -24m [up]: pre 91 / post 82, joint p = 0.0000 (F = 7.5) -> placebo is as large or larger
+
+== afrr|weekly|afrr_daily|down: not testable - data-limited (pre 102, post 46 blocks, need 60) ==
+
+== afrr|weekly|afrr_daily|up: not testable - data-limited (pre 102, post 46 blocks, need 60) ==
+
+== mfrr|4h|de_zone_split|down: pre 2,862 / post 3,302 blocks, R2 pre 0.08 post 0.17, joint test p = 0.0483 (F = 2.0); 1/8 coefficients differ (p<0.05) ==
+                     feature  coef_pre  coef_post   diff  t_diff  p_diff
+        cz_load_ma_fc_min_mw    -0.083     -0.119 -0.036  -0.555   0.579
+   it_nord_load_wa_fc_min_mw    -0.077     -0.125 -0.048  -0.981   0.327
+ch_fr_outage_trans_planned_n    -0.152     -0.089  0.063   1.366   0.172
+   it_nord_load_ya_fc_min_mw    -0.020     -0.129 -0.109  -1.958   0.050
+         ch_gen_hydro_res_mw    -0.096     -0.096  0.000   0.006   0.995
+        it_nord_gen_total_mw     0.068      0.086  0.019   0.289   0.773
+        nl_load_ma_fc_min_mw    -0.128      0.003  0.131   2.028   0.043
+              si_gen_coal_mw     0.006     -0.082 -0.088  -1.588   0.112
+
+== mfrr|4h|de_zone_split|up: pre 2,545 / post 3,247 blocks, R2 pre 0.45 post 0.28, joint test p = 0.0000 (F = 10.5); 5/8 coefficients differ (p<0.05) ==
+                 feature  coef_pre  coef_post   diff  t_diff  p_diff
+    de_lu_load_actual_mw     0.270     -0.042 -0.312  -2.868   0.004
+     ch_price_da_eur_mwh     0.212      0.033 -0.179  -2.697   0.007
+   dk1_load_wa_fc_max_mw     0.009      0.424  0.416   5.556   0.000
+it_nord_price_da_eur_mwh     0.081      0.026 -0.056  -0.916   0.360
+      ch_gen_hydro_ps_mw     0.097      0.081 -0.016  -0.294   0.769
+        nl_load_da_fc_mw     0.100      0.098 -0.002  -0.026   0.979
+    fr_load_wa_fc_max_mw     0.319     -0.070 -0.389  -5.273   0.000
+      it_nord_gen_gas_mw    -0.214      0.107  0.321   3.372   0.001
+   placebo -12m [down]: pre 2,184 / post 1,603, joint p = 0.0000 (F = 6.4) -> placebo is as large or larger
+   placebo -12m [up]: pre 2,123 / post 1,385, joint p = 0.0000 (F = 6.8) -> real break EXCEEDS placebo
+   placebo -24m [down]: pre 1,469 / post 2,569, joint p = 0.0003 (F = 3.7) -> placebo is as large or larger
+   placebo -24m [up]: pre 1,231 / post 2,198, joint p = 0.0783 (F = 1.8) -> real break EXCEEDS placebo
+
+== mfrr|4h|mfrr_merged|all: pre 2,875 / post 2,867 blocks, R2 pre 0.21 post 0.13, joint test p = 0.0000 (F = 13.2); 5/8 coefficients differ (p<0.05) ==
+                 feature  coef_pre  coef_post   diff  t_diff  p_diff
+   dk1_load_wa_fc_max_mw     0.102      0.068 -0.034  -1.188   0.235
+    cz_load_ya_fc_max_mw    -0.179     -0.017  0.162   5.593   0.000
+    be_load_ya_fc_min_mw     0.122      0.000 -0.121  -4.291   0.000
+       si_gen_biomass_mw     0.036      0.111  0.074   1.437   0.151
+ch_outage_gen_planned_mw     0.177      0.045 -0.132  -3.706   0.000
+  fr_hydro_reservoir_mwh    -0.115     -0.004  0.111   3.142   0.002
+    de_lu_gen_biomass_mw    -0.120     -0.037  0.082   3.378   0.001
+      de_lu_gen_other_mw     0.059      0.087  0.028   0.978   0.328
+   placebo -12m [all]: pre 4,312 / post 2,566, joint p = 0.0000 (F = 6.7) -> real break EXCEEDS placebo
+   placebo -24m [all]: pre 5,312 / post 3,278, joint p = 0.0008 (F = 3.4) -> real break EXCEEDS placebo
+
+== mfrr|weekly|de_zone_split|down: pre 74 / post 82 blocks, R2 pre 0.67 post 0.34, joint test p = 0.4091 (F = 1.0); 0/4 coefficients differ (p<0.05) ==
+                      feature  coef_pre  coef_post   diff  t_diff  p_diff
+       ch_melt_dh_7d_hydro_kh    -0.155     -0.137  0.018   0.296   0.767
+         nl_load_wa_fc_min_mw    -0.128     -0.111  0.017   0.278   0.781
+    ch_outage_prod_planned_mw     0.165      0.020 -0.145  -1.827   0.068
+it_nord_outage_gen_planned_mw     0.065      0.116  0.051   0.810   0.418
+
+== mfrr|weekly|de_zone_split|up: pre 74 / post 82 blocks, R2 pre 0.59 post 0.27, joint test p = 0.0000 (F = 7.1); 2/4 coefficients differ (p<0.05) ==
+              feature  coef_pre  coef_post   diff  t_diff  p_diff
+      cz_gen_other_mw     0.157      0.001 -0.156  -4.074   0.000
+ nl_load_wa_fc_min_mw    -0.089     -0.123 -0.034  -0.889   0.374
+nl_gen_total_da_fc_mw     0.159      0.060 -0.099  -2.076   0.038
+    si_gen_nuclear_mw    -0.045     -0.075 -0.030  -0.918   0.358
+   placebo -12m [down]: not testable - data-limited (pre 102, post 46 blocks, need 60)
+   placebo -12m [up]: not testable - data-limited (pre 102, post 46 blocks, need 60)
+   placebo -24m [down]: pre 64 / post 79, joint p = 0.0700 (F = 2.2) -> placebo is as large or larger
+   placebo -24m [up]: pre 68 / post 79, joint p = 0.1386 (F = 1.8) -> real break EXCEEDS placebo
+
+== mfrr|weekly|mfrr_merged|all: pre 186 / post 70 blocks, R2 pre 0.55 post 0.66, joint test p = 0.0007 (F = 5.0); 1/4 coefficients differ (p<0.05) ==
+                 feature  coef_pre  coef_post  diff  t_diff  p_diff
+  ch_hydro_reservoir_mwh    -0.104     -0.084 0.020   0.570   0.568
+ ce_freq_out_50mhz_share     0.062      0.108 0.046   1.158   0.247
+  ch_melt_dh_7d_hydro_kh    -0.131     -0.071 0.060   1.613   0.107
+fr_outage_gen_planned_mw     0.053      0.136 0.083   2.529   0.011
+   placebo -12m [all]: pre 184 / post 90, joint p = 0.1799 (F = 1.6) -> real break EXCEEDS placebo
+   placebo -24m [all]: pre 158 / post 188, joint p = 0.7645 (F = 0.5) -> real break EXCEEDS placebo
+
+written to Modelling/Output/refresh_check/rq1b
+[2026-10-30T10:16:39] rq1b_regimes: ok after 6 s
