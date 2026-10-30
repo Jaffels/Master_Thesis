@@ -1,0 +1,61 @@
+{
+  "script": "rq1a_3_weekly_granger",
+  "label": "RQ1a weekly Granger",
+  "status": "ok",
+  "error": "",
+  "argv": [
+    "--out",
+    "Modelling/Output/refresh_check/rq1a_3"
+  ],
+  "start": "2026-10-30T10:15:39",
+  "end": "2026-10-30T10:15:43",
+  "duration_s": 4.2,
+  "duration": "4 s",
+  "summary": [],
+  "output_dir": "Modelling/Output/refresh_check/rq1a_3",
+  "git": {
+    "commit": "34a9bc2",
+    "branch": "Last_Data_Update",
+    "uncommitted_files_in_Modelling_Clean": [
+      "Modelling/Output/refresh_check/"
+    ]
+  },
+  "python": "3.14.7",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "machine": "Johans-MacBook-Air.local",
+  "cpu_count": 8,
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "pyarrow": "25.0.1",
+    "duckdb": "1.5.6",
+    "lightgbm": "4.7.0",
+    "scikit-learn": "1.9.1",
+    "catboost": "1.2.10",
+    "quantile-forest": "1.4.2",
+    "torch": "2.14.1",
+    "tabpfn": "9.2.0",
+    "chronos-forecasting": "2.3.2",
+    "transformers": "5.19.0",
+    "matplotlib": "3.11.2"
+  },
+  "files_written": [
+    {
+      "file": "granger_afrr.csv",
+      "kB": 138.9
+    },
+    {
+      "file": "granger_mfrr.csv",
+      "kB": 138.6
+    },
+    {
+      "file": "reg_weekly.csv",
+      "kB": 1.9
+    },
+    {
+      "file": "report_rq1a_3.txt",
+      "kB": 6.0
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+
+== afrr|down|week: 288 weekly changes, 404 drivers; x->y significant at q<0.05 (lag 2): 40; y->x: 8 ==
+                    feature   n  p_x2y_L1  p_x2y_L2  p_x2y_L4  q_x2y_L2  p_y2x_L2   corr0
+          si_load_actual_mw 284    0.0886    0.0000    0.0000    0.0002    0.2116 -0.3024
+     fr_hydro_reservoir_mwh 277    0.0001    0.0000    0.0000    0.0002    0.1044 -0.1898
+           si_load_da_fc_mw 284    0.2752    0.0000    0.0000    0.0007    0.0361 -0.3005
+        fr_price_da_eur_mwh 284    0.0384    0.0001    0.0003    0.0090    0.1203 -0.2021
+        ch_price_da_eur_mwh 284    0.4332    0.0001    0.0006    0.0090    0.4858 -0.2625
+         it_nord_gen_gas_mw 284    0.0530    0.0001    0.0004    0.0090    0.1672 -0.2603
+            dk1_gen_coal_mw 284    0.0006    0.0002    0.0024    0.0109    0.2215 -0.0466
+          at_load_actual_mw 284    0.5004    0.0004    0.0027    0.0184    0.0519 -0.3217
+        si_price_da_eur_mwh 284    0.1513    0.0004    0.0019    0.0184    0.4185 -0.2590
+       cz_load_ma_fc_max_mw 214    0.0033    0.0005    0.0006    0.0184    0.2251 -0.2729
+        at_price_da_eur_mwh 284    0.1386    0.0007    0.0014    0.0263    0.2267 -0.2330
+it_nord_hydro_reservoir_mwh 284    0.0024    0.0008    0.0026    0.0263    0.5003 -0.2204
+-- differenced regression afrr|down|week: n=288 R2=0.169
+              feature   coef    se      t
+it_nord_load_da_fc_mw -0.058 0.016 -3.627
+        si_gen_gas_mw -0.037 0.013 -2.952
+     be_load_da_fc_mw -0.039 0.013 -2.951
+
+== afrr|up|week: 288 weekly changes, 404 drivers; x->y significant at q<0.05 (lag 2): 0; y->x: 0 ==
+                    feature   n  p_x2y_L1  p_x2y_L2  p_x2y_L4  q_x2y_L2  p_y2x_L2   corr0
+       nl_load_wa_fc_max_mw 284    0.0015    0.0004    0.0000    0.1624    0.2563 -0.0125
+         ch_gen_hydro_ps_mw 284    0.7572    0.0026    0.0115    0.3047    0.8443  0.0719
+       at_ch_sched_total_mw 284    0.0032    0.0028    0.0100    0.3047    0.7037 -0.0699
+       it_nord_ch_ntc_da_mw 284    0.0010    0.0036    0.0140    0.3047    0.7724  0.0166
+        at_gen_hydro_res_mw 284    0.0148    0.0038    0.0016    0.3047    0.9857 -0.0215
+      dk1_load_ma_fc_min_mw 214    0.0661    0.0052    0.0188    0.3469    0.5698 -0.1336
+         cz_gen_hydro_ps_mw 284    0.0506    0.0070    0.0139    0.3796    0.9143 -0.0376
+           de_lu_gen_oil_mw 284    0.4928    0.0075    0.0269    0.3796    0.0821  0.0414
+        dk1_gen_wind_off_mw 284    0.0915    0.0090    0.0437    0.3978    0.8840 -0.1054
+     fr_hydro_reservoir_mwh 277    0.0032    0.0098    0.0014    0.3978    0.7213 -0.1641
+          at_ch_sched_da_mw 284    0.0094    0.0114    0.0241    0.4179    0.8555 -0.0456
+it_nord_hydro_reservoir_mwh 284    0.0106    0.0128    0.0223    0.4202    0.5286 -0.1562
+-- differenced regression afrr|up|week: n=279 R2=0.155
+                     feature   coef    se      t
+      it_nord_gen_wind_on_mw  0.069 0.017  4.162
+ it_nord_hydro_reservoir_mwh -0.030 0.009 -3.189
+          si_gen_hydro_ps_mw  0.024 0.016  1.525
+             be_gen_other_mw  0.026 0.019  1.408
+it_nord_gen_wind_on_da_fc_mw -0.038 0.013 -2.871
+
+== mfrr|down|week: 288 weekly changes, 404 drivers; x->y significant at q<0.05 (lag 2): 4; y->x: 5 ==
+                 feature   n  p_x2y_L1  p_x2y_L2  p_x2y_L4  q_x2y_L2  p_y2x_L2   corr0
+     cz_gen_hydro_ror_mw 284    0.8586    0.0000    0.0006    0.0135    0.1455  0.0132
+    cz_load_ya_fc_max_mw 218    0.0001    0.0001    0.0006    0.0135    0.1190 -0.0649
+    cz_load_ma_fc_min_mw 214    0.0001    0.0002    0.0005    0.0277    0.2454 -0.1025
+       cz_load_actual_mw 284    0.0008    0.0003    0.0000    0.0277    0.0051 -0.1190
+    cz_load_wa_fc_max_mw 284    0.0011    0.0006    0.0001    0.0515    0.0081 -0.1463
+ de_lu_load_ya_fc_max_mw 218    0.0027    0.0010    0.0113    0.0559    0.1771 -0.1445
+        cz_load_da_fc_mw 284    0.0035    0.0012    0.0001    0.0559    0.0023 -0.1406
+it_nord_gen_hydro_res_mw 284    0.0003    0.0012    0.0001    0.0559    0.8242 -0.1088
+    cz_load_wa_fc_min_mw 284    0.0052    0.0012    0.0000    0.0559    0.0002 -0.0997
+    cz_load_ma_fc_max_mw 214    0.0008    0.0014    0.0166    0.0575    0.1466 -0.1100
+         dk1_gen_coal_mw 284    0.0012    0.0017    0.0094    0.0620    0.2667 -0.0538
+  fr_hydro_reservoir_mwh 277    0.0028    0.0024    0.0036    0.0803    0.7112 -0.1442
+-- differenced regression mfrr|down|week: n=288 R2=0.178
+               feature   coef    se      t
+         si_gen_gas_mw -0.045 0.015 -3.094
+ch_precip_30d_hydro_mm  0.035 0.011  3.123
+  fr_load_wa_fc_max_mw -0.033 0.009 -3.507
+  ch_it_nord_ntc_da_mw -0.030 0.012 -2.465
+
+== mfrr|up|week: 288 weekly changes, 404 drivers; x->y significant at q<0.05 (lag 2): 0; y->x: 0 ==
+                    feature   n  p_x2y_L1  p_x2y_L2  p_x2y_L4  q_x2y_L2  p_y2x_L2   corr0
+    de_lu_load_ya_fc_max_mw 218    0.0006    0.0009    0.0081    0.3598    0.4371  0.1962
+    de_lu_load_ma_fc_min_mw 190    0.0064    0.0025    0.0046    0.4797    0.0062  0.0699
+       nl_load_ya_fc_max_mw 218    0.0016    0.0036    0.0395    0.4797    0.4819  0.0601
+       nl_load_wa_fc_max_mw 284    0.1733    0.0049    0.0000    0.4839    0.3304 -0.0014
+       it_nord_gen_other_mw 284    0.0073    0.0060    0.0172    0.4839    0.2373  0.0706
+       cz_load_ya_fc_min_mw 218    0.0011    0.0095    0.0646    0.5778    0.0233  0.0675
+      ch_de_countertrade_mw 284    0.0156    0.0100    0.0362    0.5778    0.2180  0.1326
+it_nord_hydro_reservoir_mwh 284    0.0049    0.0143    0.0210    0.5873    0.9151 -0.2001
+    de_lu_load_ya_fc_min_mw 218    0.0391    0.0151    0.0150    0.5873    0.0091  0.0594
+           dk1_gen_other_mw 284    0.2619    0.0171    0.0272    0.5873    0.5817  0.0184
+       cz_load_ma_fc_min_mw 214    0.0025    0.0182    0.1653    0.5873    0.0391  0.0740
+     ch_melt_dh_7d_hydro_kh 284    0.0339    0.0196    0.0247    0.5873    0.0169 -0.1212
+-- differenced regression mfrr|up|week: n=283 R2=0.152
+               feature   coef    se      t
+at_hydro_reservoir_mwh -0.045 0.012 -3.887
+   de_lu_load_da_fc_mw  0.034 0.011  3.061
+       be_gen_other_mw  0.031 0.025  1.258
+    si_gen_hydro_ps_mw  0.027 0.022  1.232
