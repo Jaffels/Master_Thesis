@@ -1,0 +1,144 @@
+{
+  "script": "rq3b_6_epex",
+  "label": "RQ3b EPEX A/B",
+  "status": "ok",
+  "error": "",
+  "argv": [
+    "--set",
+    "curves"
+  ],
+  "start": "2026-11-16T21:15:04",
+  "end": "2026-11-16T21:19:00",
+  "duration_s": 235.1,
+  "duration": "3 min 55 s",
+  "summary": [
+    "[curves] short gbm_d1: dBrier +2.0% [+0.00007, +0.00169], dPR-AUC +0.032",
+    "[curves] short gbm_h1: dBrier +6.0% [+0.00179, +0.00351], dPR-AUC +0.047",
+    "[curves] long gbm_d1: dBrier -2.1% [-0.00089, -0.00020], dPR-AUC -0.007",
+    "[curves] long gbm_h1: dBrier +0.1% [-0.00022, +0.00024], dPR-AUC -0.008"
+  ],
+  "output_dir": "Modelling/Output/rq3b_6_epex_curves",
+  "git": {
+    "commit": "0a1d8bc",
+    "branch": "EpexSpot",
+    "uncommitted_files_in_Modelling_Clean": [
+      "lean/Data/views/build_epex_features_report.txt",
+      "Clean/build_epex_features.py",
+      "Modelling/rq3b_6_epex.py",
+      "Clean/Data/epex/clean_epex_curves_report.txt",
+      "Clean/clean_epex_curves.py",
+      "Modelling/Output/rq3b_6_epex_curves/",
+      "Modelling/rq2_11_curves.py"
+    ]
+  },
+  "python": "3.14.7",
+  "platform": "macOS-27.2.1-arm64-arm-64bit-Mach-O",
+  "machine": "Johans-MacBook-Air.local",
+  "cpu_count": 8,
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "pyarrow": "25.0.1",
+    "duckdb": "1.5.6",
+    "lightgbm": "4.7.0",
+    "scikit-learn": "1.9.1",
+    "catboost": "1.2.10",
+    "quantile-forest": "1.4.2",
+    "torch": "2.14.1",
+    "tabpfn": "9.2.0",
+    "chronos-forecasting": "2.3.2",
+    "transformers": "5.19.0",
+    "matplotlib": "3.11.2"
+  },
+  "files_written": [
+    {
+      "file": "diagnostics/README.txt",
+      "kB": 0.8
+    },
+    {
+      "file": "diagnostics/calibration_bins.csv",
+      "kB": 29.6
+    },
+    {
+      "file": "diagnostics/capture_rate.csv",
+      "kB": 10.7
+    },
+    {
+      "file": "diagnostics/importance_gbm.csv",
+      "kB": 206.7
+    },
+    {
+      "file": "diagnostics/metrics_by_year.csv",
+      "kB": 18.7
+    },
+    {
+      "file": "diagnostics/monthly_rates.csv",
+      "kB": 96.1
+    },
+    {
+      "file": "diagnostics/plots/long/brier_by_year.png",
+      "kB": 28.3
+    },
+    {
+      "file": "diagnostics/plots/long/capture_rate.png",
+      "kB": 31.7
+    },
+    {
+      "file": "diagnostics/plots/long/monthly_rates.png",
+      "kB": 161.0
+    },
+    {
+      "file": "diagnostics/plots/long/pr_curve.png",
+      "kB": 70.3
+    },
+    {
+      "file": "diagnostics/plots/long/reliability.png",
+      "kB": 92.0
+    },
+    {
+      "file": "diagnostics/plots/short/brier_by_year.png",
+      "kB": 29.5
+    },
+    {
+      "file": "diagnostics/plots/short/capture_rate.png",
+      "kB": 32.6
+    },
+    {
+      "file": "diagnostics/plots/short/monthly_rates.png",
+      "kB": 157.8
+    },
+    {
+      "file": "diagnostics/plots/short/pr_curve.png",
+      "kB": 99.3
+    },
+    {
+      "file": "diagnostics/plots/short/reliability.png",
+      "kB": 86.2
+    },
+    {
+      "file": "epex_gain_share.csv",
+      "kB": 1.9
+    },
+    {
+      "file": "epex_vs_baseline_bootstrap.csv",
+      "kB": 7.5
+    },
+    {
+      "file": "metrics.csv",
+      "kB": 24.9
+    },
+    {
+      "file": "predictions.csv",
+      "kB": 24016.4
+    },
+    {
+      "file": "reliability.csv",
+      "kB": 5.0
+    },
+    {
+      "file": "report_rq3b_6_epex.txt",
+      "kB": 24.0
+    }
+  ]
+}

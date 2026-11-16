@@ -19,9 +19,17 @@ Only the feature set differs, so any difference in skill is the contribution of 
     the Brier and PR-AUC differences (EPEX - baseline), share of LightGBM gain from EPEX features, reliability,
     standard classifier diagnostics (ml_diagnostics), run.log / run_meta.json, macOS notification at the end.
 
+Feature sets (--set, added 16 Nov 2026 for the day-ahead aggregated curves):
+  intraday (default)  intraday auctions + continuous trades + DA volume (the first run, 2019-2025 window)
+  curves              only the day-ahead curve features ch_da_curve_*__fc_d1 (Clean/clean_epex_curves.py);
+                      curves exist from 2016, so training starts at the RQ3 window start (31 Mar 2016)
+  all                 both, on the intraday window (from 18 Apr 2019)
+Output folder: rq3b_6_epex (intraday), rq3b_6_epex_curves, rq3b_6_epex_all (+ --tag).
+
 Run from Master_Thesis with .venv active (after Clean/build_epex_features.py --write):
     python Modelling/rq3b_6_epex.py --fast     # smoke test (12-month refits, fewer trees), ~ a few minutes
     python Modelling/rq3b_6_epex.py            # full run -> Modelling/Output/rq3b_6_epex/
+    python Modelling/rq3b_6_epex.py --set curves   # -> Modelling/Output/rq3b_6_epex_curves/
 Options: --calib (same choices as rq3b_1, default platt), --test-start, --tag.
 Read-only on Clean/Data; writes only Modelling/Output/rq3b_6_epex<tag>/.
 """
@@ -48,7 +56,9 @@ warnings.filterwarnings("ignore")
 
 EPEX_FILE = V.VIEWS_DIR / "rq3_epex.parquet"
 EPEX_DICT = V.VIEWS_DIR / "_rq3_epex_dictionary.csv"
-WIN_START = pd.Timestamp("2019-04-18")          # local
+WIN_START = pd.Timestamp("2019-04-18")          # local (intraday / all); curves: CURVES_START
+CURVES_START = pd.Timestamp("2016-03-31")       # RQ3 window start (curves file from 1 Jan 2016)
+FSET = "intraday"
 WIN_END = pd.Timestamp("2026-01-01")            # local, exclusive (licence)
 SPARSE_D1 = ["ch_idc_vwap_pre_eur_mwh__fc_d1", "ch_idc_spread_pre_da_eur_mwh__fc_d1",
              "ch_idc_vol_pre_mwh__fc_d1", "ch_idc_ntrades_pre_n__fc_d1"]
@@ -59,6 +69,15 @@ LR_EPEX = {
            "ch_idc_spread_pre_da_eur_mwh__nc_h1", "ch_idc_range_pre_eur_mwh__nc_h1",
            "ch_idc_mkt_spread_eur_mwh__lb1h_h1", "ch_idc_vol_pre_mwh__nc_h1"],
 }
+LR_CURVES = {"d1": ["ch_da_curve_dp_up500_eur_mwh__fc_d1", "ch_da_curve_dp_down500_eur_mwh__fc_d1",
+                    "ch_da_curve_head_sell_mw__fc_d1", "ch_da_curve_head_buy_mw__fc_d1",
+                    "ch_da_curve_inel_sell_mw__fc_d1", "ch_da_curve_inel_buy_mw__fc_d1"],
+             "h1": []}
+
+
+def in_set(c: str) -> bool:
+    cur = c.startswith("ch_da_curve_")
+    return {"curves": cur, "intraday": not cur, "all": True}[FSET]
 PAIRS = [("lr_d1", "lr_d1_epex"), ("gbm_d1", "gbm_d1_epex"), ("lr_h1", "lr_h1_epex"), ("gbm_h1", "gbm_h1_epex")]
 PERIODS = {"all": (None, None), "2021_2022": ("2021-01-01", "2023-01-01"), "2023_2025": ("2023-01-01", "2026-01-01"),
            "pre_cap": (None, str(M.CAP.date())), "post_cap": (str(M.CAP.date()), None)}
@@ -71,7 +90,7 @@ def epex_columns(origin: str) -> list[str]:
     ok = d["role"].isin(["forecast", "lookback", "lag", "nowcast"])
     orig = {"d1": {"d1"}, "h1": {"d1", "h1"}}[origin]
     cols = d.loc[ok & d["origin"].isin(orig), "column"].tolist()
-    return [c for c in cols if c not in SPARSE_D1]
+    return [c for c in cols if c not in SPARSE_D1 and in_set(c)]
 
 
 def build() -> tuple[pd.DataFrame, dict, dict]:
@@ -95,9 +114,15 @@ def build() -> tuple[pd.DataFrame, dict, dict]:
     finally:
         V.load_rq3 = orig_load
     loc = h["date"]
-    h = h[(loc >= WIN_START) & (loc < WIN_END)].reset_index(drop=True)
+    start = CURVES_START if FSET == "curves" else WIN_START
+    h = h[(loc >= start) & (loc < WIN_END)].reset_index(drop=True)
     ep = {o: [c for c in epex_columns(o) if c in h.columns] for o in ("d1", "h1")}
-    lr_ep = {o: [c for c in LR_EPEX[o] if c in h.columns] for o in ("d1", "h1")}
+    lr_src = {"intraday": LR_EPEX, "curves": LR_CURVES,
+              "all": {o: LR_EPEX[o] + LR_CURVES[o] for o in ("d1", "h1")}}[FSET]
+    lr_ep = {o: [c for c in lr_src[o] if c in h.columns] for o in ("d1", "h1")}
+    if not ep["d1"]:
+        raise SystemExit(f"no EPEX features for set '{FSET}' in {EPEX_FILE.name}: run Clean/clean_epex_curves.py --write "
+                         "and Clean/build_epex_features.py --write first")
     # baseline sets must not contain EPEX columns (they are not in _rq3_dictionary.csv, so they never are)
     allep = set(ep["h1"])
     assert not (set(feats["d1"]) | set(feats["h1"])) & allep
@@ -148,18 +173,20 @@ def main() -> None:
     ap.add_argument("--calib-blocks", type=int, default=3)
     ap.add_argument("--test-start", default="2021-01-01")
     ap.add_argument("--tag", default="")
+    ap.add_argument("--set", default="intraday", choices=["intraday", "curves", "all"])
     a = ap.parse_args()
-    global OUT
+    global OUT, FSET
+    FSET = a.set
     M.CALIB, M.CALIB_BLOCKS, M.GBM_INIT = a.calib, a.calib_blocks, "none"
     test_start = pd.Timestamp(a.test_start)
-    OUT = HERE / "Output" / ("rq3b_6_epex" + a.tag)
+    OUT = HERE / "Output" / ("rq3b_6_epex" + ("" if FSET == "intraday" else f"_{FSET}") + a.tag)
     OUT.mkdir(parents=True, exist_ok=True)
     RU.set_output(OUT)
     t0 = time.time()
 
     h, feats, EP = build()
     B = M.blocks(h)
-    log(f"RQ3b EPEX A/B: {len(h):,} complete hours {h['hk'].min()} -> {h['hk'].max()} (EPEX window)")
+    log(f"RQ3b EPEX A/B [{FSET}]: {len(h):,} complete hours {h['hk'].min()} -> {h['hk'].max()} (EPEX window)")
     log(f"  baseline features: d1 {len(feats['d1'])}, h1 {len(feats['h1'])}; EPEX add-on: gbm d1 +{len(EP['gbm']['d1'])}, "
         f"gbm h1 +{len(EP['gbm']['h1'])}, lr d1 +{len(EP['lr']['d1'])}, lr h1 +{len(EP['lr']['h1'])}")
     log(f"  calibration {M.CALIB}; LightGBM {'yes' if M.lgb else 'NO (gbm skipped)'}; test from {test_start.date()}")
@@ -330,7 +357,7 @@ def main() -> None:
         t = BT[(BT["side"] == side) & (BT["period"] == "all")]
         for r in t.itertuples():
             if r.base.startswith("gbm"):
-                RU.summary(f"{side} {r.base}: dBrier {r.dBrier_rel:+.1%} "
+                RU.summary(f"[{FSET}] {side} {r.base}: dBrier {r.dBrier_rel:+.1%} "
                            f"[{r.dBrier_lo:+.5f}, {r.dBrier_hi:+.5f}], dPR-AUC {r.dPR_AUC:+.3f}")
     (OUT / "report_rq3b_6_epex.txt").write_text("\n".join(M.lines), encoding="utf-8")
     print(f"\nwritten: {OUT}  ({time.time() - t0:.0f}s)")

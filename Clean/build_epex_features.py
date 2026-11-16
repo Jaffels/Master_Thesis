@@ -10,6 +10,7 @@ EPEX window (meta_epex_window = 1): 18 Apr 2019 (first CH intraday auction; trad
 All features are NaN outside their source coverage - nothing is imputed, nothing for 2026.
 
 Input  Clean/Data/epex/{da,ida,idc_trades}.parquet          (clean_epex.py --write)
+       Clean/Data/epex/da_curves.parquet                    (clean_epex_curves.py --write; optional)
        Clean/Data/epex/{idc_results,idc_index}.parquet      (optional, descriptive columns)
        Clean/Data/views/rq3_15min.parquet                   (optional: row set + spike check)
 Output (only with --write), Clean/Data/views/:
@@ -35,6 +36,11 @@ Features (roles as in _rq3_dictionary.csv, so the same selection logic applies)
                   ch_idc_spread_{pre_da,last_da,pre_ida1}_eur_mwh__nc_h1
                   ch_idc_da_spread / _absspread __{lb1h,lb4h}_h1, ch_idc_vol_mwh__lb4h_h1
                   ch_idc_mkt_spread_eur_mwh__lb1h_h1, ch_idc_mkt_vol_mwh__lb1h_h1
+  forecast  (d1)  ch_da_curve_*__fc_d1 (added 16 Nov 2026): shape of the Swiss day-ahead order book of
+                  the hour itself from the aggregated curves (clean_epex_curves.py): price change for
+                  +/-100 and +/-500 MW, spare sell / purchase volume, price-taking volumes, curve volume.
+                  Published with the day-ahead result (D-1 ~11:10 to 13:00), so known at the d1 origin.
+                  Available from 2016 (curves file), i.e. for the whole RQ3 window to 2025.
   descriptive     ex-post values for RQ3a (mechanisms) and figures - NEVER features:
                   ch_idc_{vwap,da_spread,vol}_*__expost (trades), ch_idc_h_*__expost (EOD results,
                   from 2015), ch_idc_{id1,id3}_h_eur_mwh__expost (indices, from Jul 2020)
@@ -233,6 +239,18 @@ def build():
     da = da_t["ch_price_da_epex_eur_mwh"].to_numpy("float64")
     put("ch_vol_da_epex_mw__fc_d1", da_t["ch_vol_da_epex_mw"], "forecast", "d1", "ch_vol_da_epex_mw",
         "DA auction volume of the QH (results D-1 ~11:10)")
+
+    # --- day-ahead aggregated curves (optional table) --------------------------------------
+    CURVE = ["dp_up100_eur_mwh", "dp_up500_eur_mwh", "dp_down100_eur_mwh", "dp_down500_eur_mwh", "head_sell_mw",
+             "head_buy_mw", "inel_sell_mw", "inel_buy_mw", "q_mw"]
+    cv = read_grid_table("da_curves", [f"ch_da_curve_{c}" for c in CURVE])
+    if cv is None:
+        print("notice: Clean/Data/epex/da_curves.parquet missing - curve features skipped "
+              "(run python Clean/clean_epex_curves.py --write)")
+    else:
+        for c in CURVE:
+            put(f"ch_da_curve_{c}__fc_d1", cv[f"ch_da_curve_{c}"], "forecast", "d1", f"ch_da_curve_{c}",
+                "day-ahead aggregated curves of the QH's hour (published with the D-1 auction result)")
 
     # --- intraday auctions ---------------------------------------------------------------
     ida = read_grid_table("ida")

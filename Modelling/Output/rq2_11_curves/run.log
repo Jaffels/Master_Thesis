@@ -1,0 +1,68 @@
+[2026-11-16T21:19:01] rq2_11_curves 
+fcr FCR|sym|4h       done  168.5s
+fcr FCR|sym|day      done    0.0s
+fcr FCR|sym|week     done    0.0s
+afrr aFRR|down|4h     done    6.7s
+afrr aFRR|down|week   done   18.0s
+afrr aFRR|sym|week    done    0.0s
+afrr aFRR|up|4h       done   10.0s
+afrr aFRR|up|week     done   13.4s
+mfrr mFRR|down|4h     done  280.2s
+mfrr mFRR|down|week   done   17.3s
+mfrr mFRR|up|4h       done  321.6s
+mfrr mFRR|up|week     done   16.2s
+RQ2 sensitivity: EPEX day-ahead aggregated curves as lookback features (A/B, reference LightGBM)
+seeds [1, 2, 3]; thesis feature set without be, nl, dk1, si, cz; evaluation on test blocks 2021-01-01 to 2025-12-31 (seed-1 base also over the full test period)
+
+[fcr] base features 777, curve features 18; curve coverage per delivery year (mean over columns): 2015 0.00, 2016 0.98, 2017 1.00, 2018 1.00, 2019 1.00, 2020 1.00, 2021 1.00, 2022 1.00, 2023 1.00, 2024 1.00, 2025 1.00, 2026 0.00
+[afrr] base features 776, curve features 18; curve coverage per delivery year (mean over columns): 2015 0.00, 2016 0.98, 2017 1.00, 2018 1.00, 2019 1.00, 2020 1.00, 2021 1.00, 2022 1.00, 2023 1.00, 2024 1.00, 2025 1.00, 2026 0.00
+[mfrr] base features 778, curve features 18; curve coverage per delivery year (mean over columns): 2015 0.00, 2016 1.00, 2017 1.00, 2018 1.00, 2019 1.00, 2020 1.00, 2021 1.00, 2022 1.00, 2023 1.00, 2024 1.00, 2025 1.00, 2026 0.00
+
+== MAE skill vs same slot previous day (%), test blocks 2021-2025, per seed
+arm              base               curves              
+seed                1      2      3      1      2      3
+series                                                  
+FCR|sym|4h      4.310  3.379  5.041  5.015  5.516  4.136
+aFRR|down|week 12.640 15.208 11.444 16.495 13.485 15.717
+aFRR|up|week    1.845 -0.597  1.865 -0.419  0.348  1.525
+mFRR|down|4h    9.092  8.604  8.265  8.334  9.218  8.898
+mFRR|down|week  2.772  3.112  2.491  2.081  3.374  2.126
+mFRR|up|4h     25.078 25.927 25.853 25.172 25.599 24.615
+mFRR|up|week    2.252  2.852  1.722 -0.717  0.499  2.235
+
+== Summary: base_full_seed1 = base over the full test period (compare Table 5); means over seeds on 2021-2025; diff = curves - base (pp); DM on seed-averaged forecasts (stat < 0: curves more accurate)
+                base_full_seed1  base_mean  curves_mean  diff_pp  seed_spread_base_pp  DM_stat     p
+series                                                                                              
+FCR|sym|4h                4.015      4.243        4.889    0.646                1.662   -3.863 0.000
+aFRR|down|4h              8.289        NaN          NaN      NaN                  NaN      NaN   NaN
+aFRR|down|week           12.273     13.098       15.233    2.135                3.764   -1.775 0.076
+aFRR|up|4h                5.474        NaN          NaN      NaN                  NaN      NaN   NaN
+aFRR|up|week              1.928      1.038        0.485   -0.553                2.462    0.686 0.492
+mFRR|down|4h              8.913      8.654        8.817    0.163                0.826   -0.848 0.396
+mFRR|down|week            2.802      2.792        2.527   -0.265                0.622    0.305 0.760
+mFRR|up|4h               24.215     25.619       25.128   -0.491                0.849    1.762 0.078
+mFRR|up|week              2.676      2.275        0.672   -1.603                1.130    1.673 0.094
+
+== Gain share of the curve features in the curves arm (mean over folds and seeds)
+                mean   min   max
+series                          
+FCR|sym|4h     0.031 0.012 0.075
+aFRR|down|4h   0.022 0.006 0.043
+aFRR|down|week 0.022 0.003 0.042
+aFRR|up|4h     0.025 0.005 0.038
+aFRR|up|week   0.041 0.025 0.052
+mFRR|down|4h   0.016 0.000 0.033
+mFRR|down|week 0.037 0.013 0.056
+mFRR|up|4h     0.014 0.002 0.028
+mFRR|up|week   0.053 0.032 0.074
+   FCR|sym|4h: head_buy_mw__lb24h 0.4%; dp_up500_eur_mwh__max24h 0.3%; dp_up500_eur_mwh__lb24h 0.3%; dp_up500_eur_mwh__lb7d 0.3%; head_sell_mw__lb24h 0.3%
+   aFRR|down|4h: inel_buy_mw__lb24h 0.6%; inel_buy_mw__lb7d 0.5%; dp_down500_eur_mwh__lb24h 0.2%; dp_up500_eur_mwh__max24h 0.2%; dp_up100_eur_mwh__lb7d 0.1%
+   aFRR|down|week: inel_sell_mw__lb7d 0.3%; head_sell_mw__lb24h 0.2%; inel_buy_mw__lb7d 0.2%; dp_down500_eur_mwh__lb24h 0.2%; inel_sell_mw__lb24h 0.1%
+   aFRR|up|4h: inel_buy_mw__lb7d 1.3%; inel_sell_mw__lb7d 0.4%; head_sell_mw__lb24h 0.1%; dp_down500_eur_mwh__min24h 0.1%; inel_sell_mw__lb24h 0.1%
+   aFRR|up|week: head_sell_mw__lb24h 0.4%; inel_sell_mw__lb7d 0.4%; inel_buy_mw__lb7d 0.3%; head_sell_mw__lb7d 0.3%; dp_up100_eur_mwh__lb24h 0.3%
+   mFRR|down|4h: head_sell_mw__lb7d 0.2%; head_sell_mw__lb24h 0.2%; inel_sell_mw__lb24h 0.1%; inel_buy_mw__lb7d 0.1%; dp_up100_eur_mwh__lb24h 0.1%
+   mFRR|down|week: head_sell_mw__lb7d 0.4%; inel_sell_mw__lb7d 0.3%; head_sell_mw__lb24h 0.3%; inel_buy_mw__lb7d 0.2%; dp_up500_eur_mwh__lb7d 0.2%
+   mFRR|up|4h: head_buy_mw__lb24h 0.5%; dp_down500_eur_mwh__lb24h 0.1%; head_sell_mw__lb24h 0.1%; inel_sell_mw__lb7d 0.1%; head_sell_mw__lb7d 0.1%
+   mFRR|up|week: dp_up100_eur_mwh__lb24h 0.6%; dp_down500_eur_mwh__min24h 0.5%; inel_buy_mw__lb24h 0.5%; dp_down100_eur_mwh__lb24h 0.4%; dp_up500_eur_mwh__max24h 0.4%
+total 854s
+[2026-11-16T21:33:15] rq2_11_curves: ok after 14 min 14 s

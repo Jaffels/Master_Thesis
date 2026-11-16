@@ -1,0 +1,75 @@
+{
+  "script": "rq2_11_curves",
+  "label": "RQ2 curves A/B",
+  "status": "ok",
+  "error": "",
+  "argv": [],
+  "start": "2026-11-16T21:19:01",
+  "end": "2026-11-16T21:33:15",
+  "duration_s": 853.9,
+  "duration": "14 min 14 s",
+  "summary": [
+    "curves - base (pp): FCR sym 4h +0.6, aFRR down 4h +nan, aFRR down week +2.1, aFRR up 4h +nan, aFRR up week -0.6, mFRR down 4h +0.2, mFRR down week -0.3, mFRR up 4h -0.5, mFRR up week -1.6"
+  ],
+  "output_dir": "Modelling/Output/rq2_11_curves",
+  "git": {
+    "commit": "0a1d8bc",
+    "branch": "EpexSpot",
+    "uncommitted_files_in_Modelling_Clean": [
+      "lean/Data/views/build_epex_features_report.txt",
+      "Clean/build_epex_features.py",
+      "Modelling/rq3b_6_epex.py",
+      "Clean/Data/epex/clean_epex_curves_report.txt",
+      "Clean/clean_epex_curves.py",
+      "Modelling/Output/rq2_11_curves/",
+      "Modelling/Output/rq3b_6_epex_curves/",
+      "Modelling/rq2_11_curves.py"
+    ]
+  },
+  "python": "3.14.7",
+  "platform": "macOS-27.2.1-arm64-arm-64bit-Mach-O",
+  "machine": "Johans-MacBook-Air.local",
+  "cpu_count": 8,
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "pyarrow": "25.0.1",
+    "duckdb": "1.5.6",
+    "lightgbm": "4.7.0",
+    "scikit-learn": "1.9.1",
+    "catboost": "1.2.10",
+    "quantile-forest": "1.4.2",
+    "torch": "2.14.1",
+    "tabpfn": "9.2.0",
+    "chronos-forecasting": "2.3.2",
+    "transformers": "5.19.0",
+    "matplotlib": "3.11.2"
+  },
+  "files_written": [
+    {
+      "file": "dm_curves_vs_base.csv",
+      "kB": 0.8
+    },
+    {
+      "file": "importance_curves.csv",
+      "kB": 85.2
+    },
+    {
+      "file": "preds.parquet",
+      "kB": 3847.1
+    },
+    {
+      "file": "report_rq2_11.txt",
+      "kB": 4.6
+    },
+    {
+      "file": "skill.csv",
+      "kB": 8.3
+    },
+    {
+      "file": "summary.csv",
+      "kB": 1.2
+    }
+  ]
+}
