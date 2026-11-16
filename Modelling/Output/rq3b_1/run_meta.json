@@ -4,33 +4,28 @@
   "status": "ok",
   "error": "",
   "argv": [],
-  "start": "2026-10-12T19:30:38",
-  "end": "2026-10-12T19:34:05",
-  "duration_s": 207.0,
-  "duration": "3 min 27 s",
+  "start": "2026-11-16T20:12:15",
+  "end": "2026-11-16T20:15:53",
+  "duration_s": 217.9,
+  "duration": "3 min 38 s",
   "summary": [
     "short: best lr_h1, Brier skill +0.097 vs cal_hist_d1",
     "long: best clim_roll, Brier skill +0.000 vs clim_roll"
   ],
   "output_dir": "Modelling/Output/rq3b_1",
   "git": {
-    "commit": "67ffb66",
-    "branch": "loose-ends",
+    "commit": "5224e64",
+    "branch": "EpexSpot",
     "uncommitted_files_in_Modelling_Clean": [
-      "Modelling/Output/rq2_2_delta/",
-      "Modelling/Output/rq2_3/",
-      "Modelling/Output/rq2_4/",
-      "Modelling/Output/rq2_5_afrr/",
-      "Modelling/Output/rq2_5_fcr/",
-      "Modelling/Output/rq2_5_mfrr/",
-      "Modelling/Output/rq3a_1/",
-      "Modelling/Output/rq3a_2/",
-      "Modelling/Output/rq3b_1/",
-      "Modelling/Output/rq3c_1/"
+      "odelling/Output/rq3a_1/run.log",
+      "Modelling/Output/rq3a_1/run_meta.json",
+      "Modelling/Output/rq3a_2/run.log",
+      "Modelling/Output/rq3a_2/run_meta.json",
+      "Modelling/Output/rq3b_1/report_rq3b_1.txt"
     ]
   },
   "python": "3.14.7",
-  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "platform": "macOS-27.2.1-arm64-arm-64bit-Mach-O",
   "machine": "Johans-MacBook-Air.local",
   "cpu_count": 8,
   "packages": {
@@ -43,16 +38,16 @@
     "scikit-learn": "1.9.1",
     "catboost": "1.2.10",
     "quantile-forest": "1.4.2",
+    "torch": "2.14.1",
+    "tabpfn": "9.2.0",
+    "chronos-forecasting": "2.3.2",
+    "transformers": "5.19.0",
     "matplotlib": "3.11.2"
   },
   "files_written": [
     {
       "file": "brier_gain_bootstrap.csv",
       "kB": 1.1
-    },
-    {
-      "file": "diagnostics/README.txt",
-      "kB": 0.8
     },
     {
       "file": "diagnostics/calibration_bins.csv",
@@ -64,11 +59,11 @@
     },
     {
       "file": "diagnostics/importance_gbm.csv",
-      "kB": 199.7
+      "kB": 200.1
     },
     {
       "file": "diagnostics/metrics_by_year.csv",
-      "kB": 20.6
+      "kB": 20.5
     },
     {
       "file": "diagnostics/monthly_rates.csv",
@@ -76,7 +71,7 @@
     },
     {
       "file": "diagnostics/plots/long/brier_by_year.png",
-      "kB": 27.6
+      "kB": 27.7
     },
     {
       "file": "diagnostics/plots/long/capture_rate.png",
@@ -84,23 +79,23 @@
     },
     {
       "file": "diagnostics/plots/long/importance_gbm_d1.png",
-      "kB": 55.7
+      "kB": 55.9
     },
     {
       "file": "diagnostics/plots/long/importance_gbm_h1.png",
-      "kB": 57.3
+      "kB": 56.6
     },
     {
       "file": "diagnostics/plots/long/importance_gbm_pf_d1.png",
-      "kB": 54.5
+      "kB": 54.4
     },
     {
       "file": "diagnostics/plots/long/importance_gbm_pf_h1.png",
-      "kB": 53.9
+      "kB": 54.0
     },
     {
       "file": "diagnostics/plots/long/monthly_rates.png",
-      "kB": 146.0
+      "kB": 148.1
     },
     {
       "file": "diagnostics/plots/long/pr_curve.png",
@@ -108,7 +103,7 @@
     },
     {
       "file": "diagnostics/plots/long/reliability.png",
-      "kB": 82.1
+      "kB": 82.2
     },
     {
       "file": "diagnostics/plots/short/brier_by_year.png",
@@ -124,11 +119,11 @@
     },
     {
       "file": "diagnostics/plots/short/importance_gbm_h1.png",
-      "kB": 56.1
+      "kB": 56.2
     },
     {
       "file": "diagnostics/plots/short/importance_gbm_pf_d1.png",
-      "kB": 54.9
+      "kB": 55.0
     },
     {
       "file": "diagnostics/plots/short/importance_gbm_pf_h1.png",
@@ -136,23 +131,23 @@
     },
     {
       "file": "diagnostics/plots/short/monthly_rates.png",
-      "kB": 147.5
+      "kB": 145.9
     },
     {
       "file": "diagnostics/plots/short/pr_curve.png",
-      "kB": 88.5
+      "kB": 87.8
     },
     {
       "file": "diagnostics/plots/short/reliability.png",
-      "kB": 78.6
+      "kB": 79.1
     },
     {
       "file": "metrics.csv",
-      "kB": 14.1
+      "kB": 20.9
     },
     {
       "file": "predictions.csv",
-      "kB": 25235.0
+      "kB": 25233.5
     },
     {
       "file": "reliability.csv",
@@ -160,7 +155,7 @@
     },
     {
       "file": "report_rq3b_1.txt",
-      "kB": 22.0
+      "kB": 25.0
     }
   ]
 }

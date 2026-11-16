@@ -1,4 +1,4 @@
-[2026-10-12T19:30:26] rq3a_2_logit 
+[2026-11-16T20:12:10] rq3a_2_logit 
 RQ3a step 2: QH regime 149,088 rows; train 90,724 (to 2025-01-01), test 58,364; lambda 5.0
   block cal: 19 features
   block fund: 13 features
@@ -73,4 +73,4 @@ features significant (|z|>3) on both sides with opposite sign: ['da_ch_rel30', '
    diagnostics written: /Users/johan/Master_Thesis/Modelling/Output/rq3a_2/diagnostics
 
 written: /Users/johan/Master_Thesis/Modelling/Output/rq3a_2
-[2026-10-12T19:30:30] rq3a_2_logit: ok after 4 s
+[2026-11-16T20:12:14] rq3a_2_logit: ok after 4 s

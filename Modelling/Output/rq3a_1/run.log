@@ -1,4 +1,4 @@
-[2026-10-12T19:30:24] rq3a_1_catalogue 
+[2026-11-16T20:12:08] rq3a_1_catalogue 
 RQ3a step 1: 365,376 quarter-hours, 2016-03-31 00:00:00+02:00 -> 2026-08-31 23:45:00+02:00
 ==========================================================================================
 A. Catalogue (quarter-hours flagged, episodes, severity)
@@ -214,4 +214,4 @@ ch_net_export_mw         -0.238  0.459                 -0.696
 cal_school_holiday_share  0.130 -0.526                  0.656
 
 written: /Users/johan/Master_Thesis/Modelling/Output/rq3a_1
-[2026-10-12T19:30:25] rq3a_1_catalogue: ok after 1 s
+[2026-11-16T20:12:09] rq3a_1_catalogue: ok after 1 s
