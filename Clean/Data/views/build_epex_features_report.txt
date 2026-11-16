@@ -1,0 +1,146 @@
+
+==========================================================================================
+Coverage
+==========================================================================================
+rows 365,376 (RQ3 window from 2016-03-31); trades 1,546,564 -> 5,840,979 trade x QH rows
+IDA1 published QH known at the d1 origin: 1.000
+IDA2 published QH known at the h1 origin: 1.000
+IDA1 published QH with >= 1.0 MW (price kept): 0.411
+IDA2 published QH with >= 1.0 MW (price kept): 0.291
+non-NaN share per year:
+ts_utc                                 2016  2017  2018  2019  2020  2021  2022  2023  2024  2025  2026
+ch_vol_da_epex_mw__fc_d1               1.00  1.00  1.00  1.00  1.00  1.00  1.00  1.00  1.00  1.00   0.0
+ch_price_ida1_eur_mwh__fc_d1           0.00  0.00  0.00  0.48  0.85  0.67  0.32  0.19  0.14  0.11   0.0
+ch_vol_ida1_mw__fc_d1                  0.00  0.00  0.00  0.71  1.00  1.00  1.00  1.00  1.00  1.00   0.0
+ch_spread_ida1_da_eur_mwh__fc_d1       0.00  0.00  0.00  0.48  0.85  0.67  0.32  0.19  0.14  0.11   0.0
+ch_price_ida2_eur_mwh__nc_h1           0.00  0.00  0.00  0.12  0.24  0.19  0.02  0.01  0.15  0.12   0.0
+ch_vol_ida2_mw__nc_h1                  0.00  0.00  0.00  0.24  0.33  0.38  0.50  0.50  0.50  0.50   0.0
+ch_spread_ida2_da_eur_mwh__nc_h1       0.00  0.00  0.00  0.12  0.24  0.19  0.02  0.01  0.15  0.12   0.0
+ch_idc_vwap_pre_eur_mwh__fc_d1         0.00  0.00  0.00  0.05  0.00  0.03  0.02  0.00  0.03  0.08   0.0
+ch_idc_spread_pre_da_eur_mwh__fc_d1    0.00  0.00  0.00  0.05  0.00  0.03  0.02  0.00  0.03  0.08   0.0
+ch_idc_vol_pre_mwh__fc_d1              0.00  0.00  0.00  1.00  1.00  1.00  1.00  1.00  1.00  1.00   0.0
+ch_idc_ntrades_pre_n__fc_d1            0.00  0.00  0.00  1.00  1.00  1.00  1.00  1.00  1.00  1.00   0.0
+ch_idc_da_spread_eur_mwh__lb24h_d1     0.00  0.00  0.00  0.99  0.99  1.00  1.00  1.00  1.00  1.00   0.0
+ch_idc_da_absspread_eur_mwh__lb24h_d1  0.00  0.00  0.00  0.99  0.99  1.00  1.00  1.00  1.00  1.00   0.0
+ch_idc_da_spread_eur_mwh__lb7d_d1      0.00  0.00  0.00  0.99  1.00  1.00  1.00  1.00  1.00  1.00   0.0
+ch_idc_da_absspread_eur_mwh__lb7d_d1   0.00  0.00  0.00  0.99  1.00  1.00  1.00  1.00  1.00  1.00   0.0
+ch_idc_vol_mwh__lb24h_d1               0.00  0.00  0.00  0.99  1.00  1.00  1.00  1.00  1.00  1.00   0.0
+ch_idc_mkt_spread_eur_mwh__lb3h_d1     0.00  0.00  0.00  0.95  0.94  1.00  1.00  1.00  1.00  1.00   0.0
+ch_idc_mkt_vol_mwh__lb3h_d1            0.00  0.00  0.00  1.00  1.00  1.00  1.00  1.00  1.00  1.00   0.0
+ch_idc_vwap_pre_eur_mwh__nc_h1         0.00  0.00  0.00  0.74  0.69  0.96  0.99  0.98  0.99  1.00   0.0
+ch_idc_last_pre_eur_mwh__nc_h1         0.00  0.00  0.00  0.74  0.69  0.96  0.99  0.98  0.99  1.00   0.0
+ch_idc_vwap_3h_eur_mwh__nc_h1          0.00  0.00  0.00  0.48  0.52  0.87  0.90  0.93  0.96  0.99   0.0
+ch_idc_range_pre_eur_mwh__nc_h1        0.00  0.00  0.00  0.74  0.69  0.96  0.99  0.98  0.99  1.00   0.0
+ch_idc_vol_pre_mwh__nc_h1              0.00  0.00  0.00  1.00  1.00  1.00  1.00  1.00  1.00  1.00   0.0
+ch_idc_ntrades_pre_n__nc_h1            0.00  0.00  0.00  1.00  1.00  1.00  1.00  1.00  1.00  1.00   0.0
+ch_idc_spread_pre_da_eur_mwh__nc_h1    0.00  0.00  0.00  0.74  0.69  0.96  0.99  0.98  0.99  1.00   0.0
+ch_idc_spread_last_da_eur_mwh__nc_h1   0.00  0.00  0.00  0.74  0.69  0.96  0.99  0.98  0.99  1.00   0.0
+ch_idc_spread_pre_ida1_eur_mwh__nc_h1  0.00  0.00  0.00  0.35  0.59  0.64  0.32  0.18  0.14  0.11   0.0
+ch_idc_da_spread_eur_mwh__lb1h_h1      0.00  0.00  0.00  0.83  0.79  0.98  1.00  0.99  1.00  1.00   0.0
+ch_idc_da_absspread_eur_mwh__lb1h_h1   0.00  0.00  0.00  0.83  0.79  0.98  1.00  0.99  1.00  1.00   0.0
+ch_idc_da_spread_eur_mwh__lb4h_h1      0.00  0.00  0.00  0.92  0.88  1.00  1.00  1.00  1.00  1.00   0.0
+ch_idc_da_absspread_eur_mwh__lb4h_h1   0.00  0.00  0.00  0.92  0.88  1.00  1.00  1.00  1.00  1.00   0.0
+ch_idc_vol_mwh__lb4h_h1                0.00  0.00  0.00  1.00  1.00  1.00  1.00  1.00  1.00  1.00   0.0
+ch_idc_mkt_spread_eur_mwh__lb1h_h1     0.00  0.00  0.00  0.62  0.64  0.96  0.97  0.98  0.99  1.00   0.0
+ch_idc_mkt_vol_mwh__lb1h_h1            0.00  0.00  0.00  1.00  1.00  1.00  1.00  1.00  1.00  1.00   0.0
+ch_idc_vwap_eur_mwh__expost            0.00  0.00  0.00  0.75  0.72  0.97  0.99  0.99  1.00  1.00   0.0
+ch_idc_da_spread_eur_mwh__expost       0.00  0.00  0.00  0.75  0.72  0.97  0.99  0.99  1.00  1.00   0.0
+ch_idc_vol_mwh__expost                 0.00  0.00  0.00  1.00  1.00  1.00  1.00  1.00  1.00  1.00   0.0
+ch_idc_h_vwap_eur_mwh__expost          0.97  0.98  0.89  0.75  0.71  0.97  0.99  0.99  1.00  1.00   0.0
+ch_idc_h_da_spread_eur_mwh__expost     0.97  0.98  0.89  0.75  0.71  0.97  0.99  0.99  1.00  1.00   0.0
+ch_idc_h_vol_mw__expost                1.00  1.00  1.00  1.00  1.00  1.00  1.00  1.00  1.00  1.00   0.0
+ch_idc_id1_h_eur_mwh__expost           0.00  0.00  0.00  0.00  0.45  1.00  1.00  1.00  1.00  1.00   0.0
+ch_idc_id3_h_eur_mwh__expost           0.00  0.00  0.00  0.00  0.45  1.00  1.00  1.00  1.00  1.00   0.0
+
+licence check: non-NaN values in 2026 = 0 (must be 0)
+
+==========================================================================================
+Distribution inside the EPEX window
+==========================================================================================
+                                          count     mean      std      min       1%      50%      99%      max
+ch_vol_da_epex_mw__fc_d1               235204.0  2952.03   865.02   952.90  1576.60  2770.90  5670.80  7835.90
+ch_price_ida1_eur_mwh__fc_d1            96728.0    92.20   101.50  -226.55     4.95    52.74   484.33  3000.00
+ch_vol_ida1_mw__fc_d1                  235108.0    33.90    82.75     0.00     0.00     0.40   402.19  1503.60
+ch_spread_ida1_da_eur_mwh__fc_d1        96728.0     0.76    21.06  -161.82   -29.03     0.32    31.94  2945.61
+ch_price_ida2_eur_mwh__nc_h1            30032.0    83.23   128.38  -500.00    -5.98    60.02   335.02  4000.00
+ch_vol_ida2_mw__nc_h1                  103360.0    21.88    67.13     0.00     0.00     0.00   339.00   844.40
+ch_spread_ida2_da_eur_mwh__nc_h1        30032.0     2.46   112.37  -665.80   -33.15    -0.03    32.14  3910.75
+ch_idc_vwap_pre_eur_mwh__fc_d1           6294.0   111.11    82.73   -68.95   -15.14    96.00   404.60   537.00
+ch_idc_spread_pre_da_eur_mwh__fc_d1      6294.0    -1.01    27.18  -197.02   -80.89     0.02    72.81   128.67
+ch_idc_vol_pre_mwh__fc_d1              235204.0     0.08     0.82     0.00     0.00     0.00     2.50    46.38
+ch_idc_ntrades_pre_n__fc_d1            235204.0     0.08     0.74     0.00     0.00     0.00     2.00    62.00
+ch_idc_da_spread_eur_mwh__lb24h_d1     234916.0    -0.03     7.74   -55.14   -23.58    -0.03    22.55    69.72
+ch_idc_da_absspread_eur_mwh__lb24h_d1  234916.0     8.32     6.37     1.05     2.10     6.49    34.05    72.18
+ch_idc_da_spread_eur_mwh__lb7d_d1      235204.0    -0.03     3.89   -23.60   -12.58     0.12    10.74    22.57
+ch_idc_da_absspread_eur_mwh__lb7d_d1   235204.0     8.31     4.75     2.53     3.21     7.14    26.58    40.28
+ch_idc_vol_mwh__lb24h_d1               235204.0  1728.44  1095.71    36.00   147.60  1514.40  5136.55  8349.70
+ch_idc_mkt_spread_eur_mwh__lb3h_d1     231844.0     0.70    17.24  -129.40   -44.23    -0.00    50.93   268.50
+ch_idc_mkt_vol_mwh__lb3h_d1            235204.0   240.25   224.16     0.00     0.00   175.70  1084.30  2184.60
+ch_idc_vwap_pre_eur_mwh__nc_h1         214208.0   117.18   103.23  -336.83    -5.62    90.74   505.58  1568.91
+ch_idc_last_pre_eur_mwh__nc_h1         214208.0   117.52   104.57  -630.00    -9.68    90.00   510.00  2212.00
+ch_idc_vwap_3h_eur_mwh__nc_h1          192832.0   120.48   102.19  -354.57    -7.85    94.30   502.32  1828.18
+ch_idc_range_pre_eur_mwh__nc_h1        214208.0    25.23    58.49     0.00     0.00    16.90   136.39  9945.74
+ch_idc_vol_pre_mwh__nc_h1              235204.0    16.38    20.73     0.00     0.00     9.38    97.50   272.10
+ch_idc_ntrades_pre_n__nc_h1            235204.0    23.15    26.63     0.00     0.00    14.00   119.00   480.00
+ch_idc_spread_pre_da_eur_mwh__nc_h1    214208.0    -0.12    15.62  -336.74   -43.41    -0.10    42.08  1340.51
+ch_idc_spread_last_da_eur_mwh__nc_h1   214208.0     0.22    22.18  -629.91   -55.05     0.00    54.31  1983.60
+ch_idc_spread_pre_ida1_eur_mwh__nc_h1   81433.0    -0.34    25.06 -2950.65   -38.76    -0.46    43.39   380.33
+ch_idc_da_spread_eur_mwh__lb1h_h1      221902.0    -0.08    14.21  -331.88   -40.04    -0.12    39.48   492.58
+ch_idc_da_absspread_eur_mwh__lb1h_h1   221902.0     8.50    11.62     0.00     0.19     5.28    52.50   492.58
+ch_idc_da_spread_eur_mwh__lb4h_h1      228446.0    -0.07    11.96  -149.99   -35.38    -0.12    34.46   182.32
+ch_idc_da_absspread_eur_mwh__lb4h_h1   228446.0     8.42     9.51     0.00     0.79     5.74    45.81   182.32
+ch_idc_vol_mwh__lb4h_h1                235204.0   288.32   279.91     0.00     0.00   205.80  1300.07  4051.60
+ch_idc_mkt_spread_eur_mwh__lb1h_h1     209284.0     0.18    15.80  -318.28   -42.00     0.00    42.88  1355.58
+ch_idc_mkt_vol_mwh__lb1h_h1            235204.0    72.09   102.63     0.00     0.00    36.50   489.10  2504.60
+ch_idc_vwap_eur_mwh__expost            216308.0   116.70   103.08  -335.62    -5.84    90.23   505.25  1568.91
+ch_idc_da_spread_eur_mwh__expost       216308.0    -0.08    15.48  -335.53   -42.26    -0.11    41.47  1340.51
+ch_idc_vol_mwh__expost                 235204.0    18.02    21.65     0.00     0.00    11.05   102.28   272.10
+ch_idc_h_vwap_eur_mwh__expost          216168.0   116.72   103.01  -336.70    -5.84    90.25   505.08   952.90
+ch_idc_h_da_spread_eur_mwh__expost     216168.0    -0.12    15.15  -336.61   -42.29    -0.12    41.13   495.12
+ch_idc_h_vol_mw__expost                235204.0    71.09    85.74     0.00     0.00    43.50   405.20  1088.40
+ch_idc_id1_h_eur_mwh__expost           191044.0   128.42   105.43  -479.15    -9.67    99.23   519.36   964.60
+ch_idc_id3_h_eur_mwh__expost           191044.0   128.35   105.08  -346.41    -7.89    99.24   517.45   964.60
+
+==========================================================================================
+Univariate check vs RQ3 spike targets (EPEX window, rank AUC; 0.5 = no signal)
+==========================================================================================
+rows with targets: 235,204; spike rates: spike_short_q990 0.0289, spike_long_q010 0.0107
+                              feature origin  non_nan  auc_spike_short_q990  auc_spike_long_q010
+       ch_idc_vwap_pre_eur_mwh__fc_d1     d1    0.027                 0.743                0.131
+         ch_price_ida1_eur_mwh__fc_d1     d1    0.411                 0.842                0.337
+       ch_idc_vwap_pre_eur_mwh__nc_h1     h1    0.911                 0.792                0.312
+       ch_idc_last_pre_eur_mwh__nc_h1     h1    0.911                 0.790                0.313
+        ch_idc_vwap_3h_eur_mwh__nc_h1     h1    0.820                 0.779                0.306
+         ch_price_ida2_eur_mwh__nc_h1     h1    0.128                 0.769                0.368
+     ch_spread_ida2_da_eur_mwh__nc_h1     h1    0.128                 0.536                0.319
+ch_idc_da_absspread_eur_mwh__lb24h_d1     d1    0.999                 0.671                0.580
+ ch_idc_da_absspread_eur_mwh__lb7d_d1     d1    1.000                 0.668                0.548
+ ch_idc_da_absspread_eur_mwh__lb4h_h1     h1    0.971                 0.665                0.574
+ ch_idc_da_absspread_eur_mwh__lb1h_h1     h1    0.943                 0.651                0.556
+      ch_idc_range_pre_eur_mwh__nc_h1     h1    0.911                 0.639                0.563
+  ch_idc_spread_pre_da_eur_mwh__fc_d1     d1    0.027                 0.618                0.441
+     ch_idc_da_spread_eur_mwh__expost      -    0.920                 0.545                0.386
+  ch_idc_spread_pre_da_eur_mwh__nc_h1     h1    0.911                 0.547                0.387
+   ch_idc_h_da_spread_eur_mwh__expost      -    0.919                 0.545                0.388
+   ch_idc_mkt_spread_eur_mwh__lb1h_h1     h1    0.890                 0.519                0.404
+     ch_spread_ida1_da_eur_mwh__fc_d1     d1    0.411                 0.567                0.408
+    ch_idc_da_spread_eur_mwh__lb7d_d1     d1    1.000                 0.591                0.439
+            ch_idc_vol_pre_mwh__nc_h1     h1    1.000                 0.590                0.537
+                ch_vol_ida1_mw__fc_d1     d1    1.000                 0.545                0.412
+ ch_idc_spread_last_da_eur_mwh__nc_h1     h1    0.911                 0.514                0.414
+                ch_vol_ida2_mw__nc_h1     h1    0.439                 0.507                0.415
+             ch_vol_da_epex_mw__fc_d1     d1    1.000                 0.530                0.418
+    ch_idc_da_spread_eur_mwh__lb1h_h1     h1    0.943                 0.540                0.419
+    ch_idc_da_spread_eur_mwh__lb4h_h1     h1    0.971                 0.524                0.426
+          ch_idc_ntrades_pre_n__nc_h1     h1    1.000                 0.573                0.542
+   ch_idc_da_spread_eur_mwh__lb24h_d1     d1    0.999                 0.559                0.443
+          ch_idc_mkt_vol_mwh__lb1h_h1     h1    1.000                 0.550                0.541
+              ch_idc_vol_mwh__lb4h_h1     h1    1.000                 0.548                0.501
+ch_idc_spread_pre_ida1_eur_mwh__nc_h1     h1    0.346                 0.546                0.465
+   ch_idc_mkt_spread_eur_mwh__lb3h_d1     d1    0.986                 0.521                0.477
+          ch_idc_mkt_vol_mwh__lb3h_d1     d1    1.000                 0.490                0.491
+             ch_idc_vol_mwh__lb24h_d1     d1    1.000                 0.504                0.510
+            ch_idc_vol_pre_mwh__fc_d1     d1    1.000                 0.492                0.496
+          ch_idc_ntrades_pre_n__fc_d1     d1    1.000                 0.492                0.496
+AUC < 0.5 = higher values go with fewer spikes (sign matters, e.g. long spikes with negative spreads).
+Univariate screening only; the decision comes from the A/B model comparison.

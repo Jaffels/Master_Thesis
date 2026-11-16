@@ -25,6 +25,13 @@ Rules
 - availability_rule "D-1 after day-ahead coupling" -> D-1 13:00 local in the ex-ante
   plan: after every CH capacity gate closure (so only lookbacks / __pf in the block
   views), before the RQ3 D-1 18:00 origin (so __fc_d1 in the RQ3 view).
+- CH: EPEX SPOT CH day-ahead prices (Clean/Data/epex/da.parquet, clean_epex.py) replace the
+  ENTSO-E values up to 30 Sep 2025 (decided 16 Nov 2026). ENTSO-E 12.1.D CH is shifted by one
+  hour against EPEX on 28 Apr - 29 Oct 2017 (94 % of days; EPEX lines up better with FR / DE)
+  and differs on ~11 days in 2015 and 1 day in 2018; identical otherwise. From 1 Oct 2025
+  (15-min SDAC MTU; EPEX file is hourly) and in 2026 (EPEX not licensed) ENTSO-E stays.
+  No new column (feature sets unchanged); the replacement is printed and noted in the dictionary.
+  Without Clean/Data/epex/da.parquet the script stops (run clean_epex.py --write first).
 - Negative prices are valid values. Suspect: outside the SDAC harmonised limits
   [-500, +4000] EUR/MWh (only possible by error) -> flag_<zone>_price_da_suspect, kept.
 """
@@ -48,6 +55,17 @@ AREAS = {"CH": "ch", "DE": "de_lu", "AT": "at", "FR": "fr", "IT_NORD": "it_nord"
 OPTIONAL = set(K.FCR_MEMBERS)                # missing on disk -> skipped, not an error
 LIMIT_LO, LIMIT_HI = -500.0, 4000.0          # SDAC harmonised min / max clearing price (since 2022)
 SPLIT = pd.Timestamp("2018-10-01", tz=K.TZ).tz_convert("UTC")
+EPEX_DA = C.DATA_DIR / "epex" / "da.parquet"
+EPEX_UNTIL = pd.Timestamp("2025-10-01", tz=K.TZ).tz_convert("UTC")   # exclusive: 15-min DA from here
+
+
+def epex_ch(index: pd.DatetimeIndex) -> pd.Series:
+    """EPEX CH day-ahead price on the grid (NaN from EPEX_UNTIL on)."""
+    if not EPEX_DA.exists():
+        raise FileNotFoundError(f"{EPEX_DA} missing: run python Clean/clean_epex.py --write first")
+    e = pd.read_parquet(EPEX_DA, columns=["ts_utc", "ch_price_da_epex_eur_mwh"])
+    s = e.set_index(K.to_utc(e.pop("ts_utc")))["ch_price_da_epex_eur_mwh"].astype("float64").reindex(index)
+    return s.where(s.index < EPEX_UNTIL)
 
 
 def read_area(area: str) -> pd.DataFrame:
@@ -86,6 +104,19 @@ def build():
                        resolution_native=str(K.native_step(K.trim(s.to_frame()).index)),
                        aggregation_rule="mean", availability_rule="D-1 after day-ahead coupling", notes=note))
         info[a] = raw
+    # CH: EPEX replaces ENTSO-E where available (see docstring)
+    ep = epex_ch(out.index)
+    ent = out["ch_price_da_eur_mwh"].copy()
+    use = ep.notna()
+    changed = use & ~(np.isclose(ep, ent, atol=0.01) & ent.notna())
+    out.loc[use, "ch_price_da_eur_mwh"] = ep[use]
+    info["ch_epex"] = dict(replaced=int(use.sum()), changed=changed,
+                           filled=int((use & ent.isna()).sum()))
+    i_ch = [r["column"] for r in dd].index("ch_price_da_eur_mwh")
+    dd[i_ch]["source"] = "EPEX SPOT (to 30 Sep 2025) / ENTSO-E Transparency Platform (from 1 Oct 2025)"
+    dd[i_ch]["source_series"] = "EPEX CH Day-Ahead Auction hourly prices; ENTSO-E 12.1.D CH from 1 Oct 2025"
+    dd[i_ch]["notes"] = ("EPEX replaces ENTSO-E up to 30 Sep 2025 (decided 16 Nov 2026): ENTSO-E CH shifted by "
+                         "1 h on 28 Apr - 29 Oct 2017, minor differences 2015 / 2018")
     # AT before the split = DE_AT_LU price
     pre = out.index < SPLIT
     fill = pre & out["at_price_da_eur_mwh"].isna() & out["de_lu_price_da_eur_mwh"].notna()
@@ -104,7 +135,7 @@ def build():
         dd.append(dict(column=fl, source="derived", source_series=col, unit="bool", resolution_native="15min",
                        aggregation_rule="any", availability_rule="-",
                        notes=f"price outside the SDAC limits [{LIMIT_LO:.0f}, {LIMIT_HI:.0f}] EUR/MWh; value kept"))
-    return out, dd, int(fill.sum())
+    return out, dd, int(fill.sum()), info["ch_epex"]
 
 
 def main_() -> None:
@@ -112,7 +143,7 @@ def main_() -> None:
     ap.add_argument("--write", action="store_true")
     a = ap.parse_args()
     pd.set_option("display.width", 200)
-    df, dd, n_fill = build()
+    df, dd, n_fill, ch_ep = build()
     bad = K.check_names(list(df.columns))
     assert not bad, bad
     assert len(df) == len(K.grid()) and not df.index.duplicated().any()
@@ -124,6 +155,13 @@ def main_() -> None:
     print(df[prices].groupby(yr).mean().round(1).to_string())
     print("\n=== checks ===")
     print(f"AT filled from DE_AT_LU before the split: {n_fill:,} QH")
+    ch_changed = ch_ep["changed"]
+    print(f"CH: EPEX values used for {ch_ep['replaced']:,} QH (to 30 Sep 2025), of which changed vs ENTSO-E "
+          f"{int(ch_changed.sum()):,}, filled ENTSO-E gaps {ch_ep['filled']:,}")
+    if ch_changed.any():
+        loc = ch_changed[ch_changed].index.tz_convert(K.TZ)
+        print("CH changed QH per year-month:\n"
+              + pd.Series(1, index=loc).groupby([loc.year, loc.month]).sum().unstack(fill_value=0).to_string())
     for c in prices:
         fl = "flag_" + c.split("_price")[0] + "_price_da_suspect"
         print(f"{c}: min {df[c].min():.1f}, max {df[c].max():.1f}, suspect {int(df[fl].sum())}")
