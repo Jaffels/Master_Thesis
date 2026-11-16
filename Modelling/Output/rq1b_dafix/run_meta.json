@@ -1,0 +1,61 @@
+{
+  "script": "rq1b_regimes",
+  "label": "RQ1b regimes",
+  "status": "ok",
+  "error": "",
+  "argv": [
+    "--exclude-areas",
+    "be",
+    "nl",
+    "dk1",
+    "si",
+    "cz",
+    "--out",
+    "Modelling/Output/rq1b_dafix"
+  ],
+  "start": "2026-11-16T20:37:25",
+  "end": "2026-11-16T20:37:30",
+  "duration_s": 5.2,
+  "duration": "5 s",
+  "summary": [],
+  "output_dir": "Modelling/Output/rq1b_dafix",
+  "git": {
+    "commit": "d73f55d",
+    "branch": "EpexSpot",
+    "uncommitted_files_in_Modelling_Clean": [
+      "odelling/rq1b_regimes.py",
+      "Modelling/Output/refresh_check/rq2_2_dafix/",
+      "Modelling/Output/rq1b_dafix/"
+    ]
+  },
+  "python": "3.14.7",
+  "platform": "macOS-27.2.1-arm64-arm-64bit-Mach-O",
+  "machine": "Johans-MacBook-Air.local",
+  "cpu_count": 8,
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "pyarrow": "25.0.1",
+    "duckdb": "1.5.6",
+    "lightgbm": "4.7.0",
+    "scikit-learn": "1.9.1",
+    "catboost": "1.2.10",
+    "quantile-forest": "1.4.2",
+    "torch": "2.14.1",
+    "tabpfn": "9.2.0",
+    "chronos-forecasting": "2.3.2",
+    "transformers": "5.19.0",
+    "matplotlib": "3.11.2"
+  },
+  "files_written": [
+    {
+      "file": "regimes.csv",
+      "kB": 23.0
+    },
+    {
+      "file": "report_rq1b.txt",
+      "kB": 9.6
+    }
+  ]
+}
