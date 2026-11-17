@@ -4,27 +4,19 @@
   "status": "ok",
   "error": "",
   "argv": [],
-  "start": "2026-10-12T19:30:24",
-  "end": "2026-10-12T19:30:25",
+  "start": "2026-11-16T20:12:08",
+  "end": "2026-11-16T20:12:09",
   "duration_s": 1.2,
   "duration": "1 s",
   "summary": [],
   "output_dir": "Modelling/Output/rq3a_1",
   "git": {
-    "commit": "67ffb66",
-    "branch": "loose-ends",
-    "uncommitted_files_in_Modelling_Clean": [
-      "Modelling/Output/rq2_2_delta/",
-      "Modelling/Output/rq2_3/",
-      "Modelling/Output/rq2_4/",
-      "Modelling/Output/rq2_5_afrr/",
-      "Modelling/Output/rq2_5_fcr/",
-      "Modelling/Output/rq2_5_mfrr/",
-      "Modelling/Output/rq3a_1/"
-    ]
+    "commit": "5224e64",
+    "branch": "EpexSpot",
+    "uncommitted_files_in_Modelling_Clean": []
   },
   "python": "3.14.7",
-  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "platform": "macOS-27.2.1-arm64-arm-64bit-Mach-O",
   "machine": "Johans-MacBook-Air.local",
   "cpu_count": 8,
   "packages": {
@@ -37,6 +29,10 @@
     "scikit-learn": "1.9.1",
     "catboost": "1.2.10",
     "quantile-forest": "1.4.2",
+    "torch": "2.14.1",
+    "tabpfn": "9.2.0",
+    "chronos-forecasting": "2.3.2",
+    "transformers": "5.19.0",
     "matplotlib": "3.11.2"
   },
   "files_written": [

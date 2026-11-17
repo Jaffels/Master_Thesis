@@ -1,4 +1,4 @@
-[2026-10-12T19:30:30] rq3c_1_pricecap 
+[2026-11-16T20:15:54] rq3c_1_pricecap 
 RQ3c: 365,376 quarter-hours; cap date 2025-03-03
 
 === real: cap 2025-03-03, thresholds from pre12m (2024-03-03 - 2025-03-02): short q99 = 1171.9, long q01 = -1309.5 EUR/MWh
@@ -160,4 +160,4 @@ month
 2026-08                   0                      0                 0                 4                852
 
 written: /Users/johan/Master_Thesis/Modelling/Output/rq3c_1
-[2026-10-12T19:30:37] rq3c_1_pricecap: ok after 6 s
+[2026-11-16T20:16:01] rq3c_1_pricecap: ok after 7 s

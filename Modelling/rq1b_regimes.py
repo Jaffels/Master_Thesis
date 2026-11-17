@@ -21,6 +21,8 @@ Added 10 Oct (v2):
   - untestable breaks are labelled data-limited (views start ~2021; FCR / aFRR have no sample before)
 
     python Modelling/rq1b_regimes.py [--products fcr afrr mfrr] [--window 24] [--placebo 12 24]
+    --exclude-areas be nl dk1 si cz   (16 Nov 2026) thesis feature set without the FCR Cooperation members
+                                      added on 27 Oct 2026 (Path A, Section 3.84)
 Output: Modelling/Output/rq1b/regimes.csv, report_rq1b.txt
 """
 from __future__ import annotations
@@ -143,6 +145,9 @@ def main() -> None:
     ap.add_argument("--window", type=int, default=24, help="months each side")
     ap.add_argument("--placebo", type=int, nargs="*", default=[12, 24], help="placebo offsets (months before the break)")
     ap.add_argument("--out", default=str(ROOT / "Modelling" / "Output" / "rq1b"))
+    ap.add_argument("--exclude-areas", nargs="*", default=[],
+                    help="drop candidate drivers of these zones, e.g. be nl dk1 si cz = the FCR Cooperation "
+                         "members added on 27 Oct 2026 (reproduces the thesis feature set, Section 3.84)")
     a = ap.parse_args()
     out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
     RU.set_output(out)
@@ -151,7 +156,8 @@ def main() -> None:
         df = V.load(prod, kind="expost", rq="RQ1b", impute=True)
         dic = V.dictionary(prod, "expost")
         feats = [c for c in dic.index[dic["role"] == "feature"] if c in df.columns
-                 and pd.api.types.is_numeric_dtype(df[c]) and kind_of(c) == "driver"]
+                 and pd.api.types.is_numeric_dtype(df[c]) and kind_of(c) == "driver"
+                 and c.split("_")[0] not in set(a.exclude_areas)]
         for mode in ("4h", "weekly"):
             dm = df[df["duration_h"] >= 168] if mode == "weekly" else df[df["duration_h"] < 168]
             if dm.empty: continue
